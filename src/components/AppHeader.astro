@@ -197,7 +197,7 @@ import ThemeToggle from "./ThemeToggle.astro";
 
   <div
     id="mobile-menu-panel"
-    class="fixed inset-y-0 right-0 w-full max-w-md bg-white dark:bg-gray-900 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto z-[70]"
+    class="fixed inset-y-0 right-0 w-full max-w-md bg-white dark:bg-gray-900/90 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto z-[70]"
     role="dialog"
     aria-modal="true"
     aria-labelledby="mobile-menu-title"
@@ -270,30 +270,6 @@ import ThemeToggle from "./ThemeToggle.astro";
           </div>
         </div>
 
-        <!-- Login/Signup Buttons -->
-        <div id="mobile-user-unauthenticated" class="space-y-4">
-          <a
-            href="/login"
-            class="w-full btn btn-primary flex items-center justify-center space-x-2"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-              ></path>
-            </svg>
-            <span>Sign In</span>
-          </a>
-        </div>
-
         <!-- Navigation Links -->
         <nav class="space-y-2" aria-label="Mobile Navigation">
           <a
@@ -309,6 +285,7 @@ import ThemeToggle from "./ThemeToggle.astro";
               stroke="currentColor"
             >
               <path
+                class="text-gray-900 dark:text-white"
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
@@ -334,6 +311,7 @@ import ThemeToggle from "./ThemeToggle.astro";
               stroke="currentColor"
             >
               <path
+                class="text-gray-900 dark:text-white"
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
@@ -364,6 +342,7 @@ import ThemeToggle from "./ThemeToggle.astro";
               stroke="currentColor"
             >
               <path
+                class="text-gray-900 dark:text-white"
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
@@ -388,7 +367,7 @@ import ThemeToggle from "./ThemeToggle.astro";
               href="javascript:void(0)"
               data-tool-href="/job-analysis"
               class="mobile-nav-link text-gray-950 dark:text-white group flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              data-requires-auth="true"
+              data-requires-auth="false"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -410,7 +389,7 @@ import ThemeToggle from "./ThemeToggle.astro";
               href="javascript:void(0)"
               data-tool-href="/resume"
               class="mobile-nav-link text-gray-950 dark:text-white group flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              data-requires-auth="true"
+              data-requires-auth="false"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -432,7 +411,7 @@ import ThemeToggle from "./ThemeToggle.astro";
               href="javascript:void(0)"
               data-tool-href="/cover-letter"
               class="mobile-nav-link text-gray-950 dark:text-white group flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              data-requires-auth="true"
+              data-requires-auth="false"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -454,7 +433,7 @@ import ThemeToggle from "./ThemeToggle.astro";
               href="javascript:void(0)"
               data-tool-href="/job-tracker"
               class="mobile-nav-link text-gray-950 dark:text-white group flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              data-requires-auth="true"
+              data-requires-auth="false"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -476,7 +455,7 @@ import ThemeToggle from "./ThemeToggle.astro";
               href="javascript:void(0)"
               data-tool-href="/interview-prep"
               class="mobile-nav-link text-gray-950 dark:text-white group flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              data-requires-auth="true"
+              data-requires-auth="false"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -546,11 +525,36 @@ import ThemeToggle from "./ThemeToggle.astro";
           </div>
         </div>
 
+        <!-- Login/Signup Buttons -->
+        <div id="mobile-user-unauthenticated" class="space-y-6">
+          <a
+            href="/login"
+            class="mt-10 w-full btn bg-gray-900 text-white dark:bg-white/90 dark:text-gray-950 p-4 rounded-xl flex items-center justify-center space-x-2"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                class="text-white dark:text-gray-950"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+              ></path>
+            </svg>
+            <span class="text-white dark:text-gray-950">Sign In</span>
+          </a>
+        </div>
+
         <!-- Sign Out Button -->
         <div>
           <button
             id="mobile-signout-btn"
-            class="w-full btn btn-outline flex items-center justify-center space-x-2"
+            class="mt-10 w-full btn bg-gray-900 text-white dark:bg-white/90 dark:text-gray-950 p-4 rounded-xl flex items-center justify-center space-x-2 hi"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -560,13 +564,14 @@ import ThemeToggle from "./ThemeToggle.astro";
               stroke="currentColor"
             >
               <path
+                class="text-white dark:text-gray-950"
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
                 d="M17 16l4-4m0 0l-4-4m4 4H7a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2z"
               ></path>
             </svg>
-            <span class="text-gray-950 dark:text-white">Sign Out</span>
+            <span class="text-white dark:text-gray-950">Sign Out</span>
           </button>
         </div>
       </div>
@@ -647,6 +652,11 @@ import ThemeToggle from "./ThemeToggle.astro";
           "hidden",
           authenticated
         );
+      }
+
+      // Toggle mobile sign out button visibility
+      if (elements.mobileSignOutBtn) {
+        elements.mobileSignOutBtn.classList.toggle("hidden", !authenticated);
       }
 
       // Set display name
