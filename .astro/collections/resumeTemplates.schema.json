@@ -1,0 +1,76 @@
+{
+  "$ref": "#/definitions/resumeTemplates",
+  "definitions": {
+    "resumeTemplates": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "professional",
+            "creative",
+            "technical",
+            "executive"
+          ]
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "layout": {
+          "type": "string",
+          "enum": [
+            "single",
+            "double",
+            "compact",
+            "expanded"
+          ]
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "summary",
+              "experience",
+              "education",
+              "skills",
+              "projects",
+              "certifications",
+              "achievements"
+            ]
+          }
+        },
+        "previewImage": {
+          "type": "string"
+        },
+        "atsScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "category",
+        "features",
+        "layout",
+        "sections"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

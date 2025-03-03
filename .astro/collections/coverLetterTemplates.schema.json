@@ -1,0 +1,54 @@
+{
+  "$ref": "#/definitions/coverLetterTemplates",
+  "definitions": {
+    "coverLetterTemplates": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "style": {
+          "type": "string",
+          "enum": [
+            "professional",
+            "creative",
+            "modern",
+            "traditional"
+          ]
+        },
+        "tone": {
+          "type": "string",
+          "enum": [
+            "formal",
+            "semi-formal",
+            "conversational"
+          ]
+        },
+        "structure": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "previewImage": {
+          "type": "string"
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "style",
+        "tone",
+        "structure"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

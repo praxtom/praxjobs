@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Sitemap: https://praxjobs.com/sitemap.xml
+
+# Disallow specific directories or sensitive pages
+Disallow: /dashboard/
+Disallow: /login/
+Disallow: /signup/
+Disallow: /admin/

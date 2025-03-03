@@ -1,0 +1,310 @@
+---
+import { initializeCopilot } from "../lib/ai-copilot";
+
+// Client-side state management
+const copilot = initializeCopilot();
+---
+
+<!-- Initial Floating Button -->
+<button
+  id="copilot-trigger"
+  class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 p-3 sm:p-4 bg-gradient-to-r from-purple-500 to-blue-500 dark:from-blue-700 dark:to-purple-700 backdrop-blur-lg hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 dark:hover:from-blue-800 dark:hover:to-purple-800 text-gray-800 dark:text-white rounded-2xl shadow-2xl border border-gray-200/50 dark:border-gray-700/50 transition-all duration-300 ease-in-out flex items-center gap-2 sm:gap-3 animate-fade-in hidden"
+>
+  <svg
+    class="h-5 w-5 text-white"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+  >
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+    ></path>
+  </svg>
+</button>
+
+<!-- Chat Interface -->
+<div
+  id="copilot-chat"
+  class="fixed inset-y-0 right-0 z-50 w-full sm:w-[400px] lg:w-[450px] bg-white/15 dark:bg-gray-900/15 backdrop-blur-xl shadow-2xl border-l border-gray-100 dark:border-gray-800 hidden transform-gpu sm:rounded-l-3xl"
+>
+  <div class="flex flex-col h-full sm:rounded-l-3xl overflow-hidden">
+    <!-- Header -->
+    <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-800/50">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div
+            class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center"
+          >
+            <svg
+              class="h-5 w-5 text-white"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+              ></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-medium text-gray-900 dark:text-white">
+              Career Buddy
+            </h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              Powered by AI
+            </p>
+          </div>
+        </div>
+        <button
+          id="close-copilot"
+          class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-colors"
+        >
+          <svg
+            class="h-5 w-5 text-gray-500"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div id="chat-messages" class="flex-1 overflow-y-auto px-6 py-4 space-y-4">
+      <!-- Messages will be added here -->
+    </div>
+
+    <!-- Input -->
+    <div class="px-6 py-4 border-t border-gray-100 dark:border-gray-800/50">
+      <div class="flex gap-3">
+        <input
+          type="text"
+          id="user-input"
+          placeholder="Type your message..."
+          class="flex-1 px-4 py-3 bg-gray-50 dark:bg-gray-800 border-0 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+        />
+        <button
+          id="send-message"
+          class="p-3 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white rounded-xl transition-all duration-300 flex items-center justify-center group"
+        >
+          <svg
+            class="h-5 w-5 transform group-hover:translate-x-0.5 transition-transform"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Update the message styles in the script -->
+<script>
+  import { authService } from "../lib/auth";
+
+  document.addEventListener("DOMContentLoaded", async () => {
+    // Check authentication status
+    const triggerButton = document.getElementById("copilot-trigger");
+
+    // Add loading state
+    let isLoading = true;
+
+    try {
+      const user = await authService.getCurrentUser();
+      if (user) {
+        triggerButton?.classList.remove("hidden");
+      }
+    } catch (error) {
+      console.error("Error checking authentication:", error);
+    } finally {
+      isLoading = false;
+    }
+
+    const closeButton = document.getElementById("close-copilot");
+    const resetButton = document.getElementById("reset-chat");
+    const chatInterface = document.getElementById("copilot-chat");
+    const sendButton = document.getElementById("send-message");
+    const userInput = document.getElementById("user-input") as HTMLInputElement;
+    const chatMessages = document.getElementById("chat-messages");
+
+    // Toggle chat interface
+    triggerButton?.addEventListener("click", () => {
+      chatInterface?.classList.remove("hidden");
+      chatInterface?.classList.add("slide-in");
+      triggerButton.classList.add("hidden");
+
+      // Add welcome message if chat is empty
+      if (!chatMessages?.hasChildNodes()) {
+        const welcomeMessageEl = document.createElement("div");
+        welcomeMessageEl.className = "flex mb-3 animate-slide-up";
+        welcomeMessageEl.innerHTML = `
+          <div class="relative max-w-[85%] px-4 py-2.5">
+            <div class="absolute left-0 top-[50%] -translate-y-[50%] -translate-x-[6px] transform rotate-45 w-2 h-2 bg-gray-50 dark:bg-gray-800/50"></div>
+            <div class="relative bg-gray-50 dark:bg-gray-800/50 rounded-2xl rounded-tl-sm px-4 py-2.5">
+              <div class="flex items-center gap-3 mb-2">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                  <span class="text-white text-sm font-medium">AI</span>
+                </div>
+                <div>
+                  <h4 class="font-medium text-gray-900 dark:text-white">Career Buddy</h4>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Your AI Career Assistant</p>
+                </div>
+              </div>
+              <p class="text-gray-800 dark:text-gray-200 text-sm">
+                👋 Hi! I'm here to help you with your career journey. You can ask me about:
+                <ul class="mt-2 space-y-1 list-disc list-inside">
+                  <li>Resume writing tips</li>
+                  <li>Interview preparation</li>
+                  <li>Career guidance</li>
+                  <li>Job search strategies</li>
+                </ul>
+                How can I assist you today?
+              </p>
+            </div>
+          </div>
+        `;
+        chatMessages?.appendChild(welcomeMessageEl);
+      }
+    });
+
+    closeButton?.addEventListener("click", () => {
+      chatInterface?.classList.add("slide-out");
+      setTimeout(() => {
+        chatInterface?.classList.add("hidden");
+        chatInterface?.classList.remove("slide-out", "slide-in");
+        triggerButton?.classList.remove("hidden");
+      }, 300);
+    });
+
+    resetButton?.addEventListener("click", () => {
+      const chatMessagesElement = document.getElementById("chat-messages");
+      if (chatMessagesElement) {
+        chatMessagesElement.innerHTML = "";
+
+        // Reset conversation on the server
+        fetch("/api/ai-copilot/reset", {
+          method: "POST",
+        })
+          .then((response) => {
+            if (response.ok) {
+              // Add initial welcome message
+              const welcomeMessageEl = document.createElement("div");
+              welcomeMessageEl.className =
+                "bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 p-5 rounded-xl max-w-[85%] shadow-sm animate-slide-up border border-gray-200 dark:border-gray-700";
+              welcomeMessageEl.innerHTML = `
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
+                  <span class="text-white text-sm font-medium">AI</span>
+                </div>
+                <div>
+                  <h4 class="font-medium text-gray-900 dark:text-white">Career Buddy</h4>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Ready to help you</p>
+                </div>
+              </div>
+              <p class="font-medium text-gray-800 dark:text-gray-100">Chat history has been reset. How can I assist you today?</p>
+            `;
+              chatMessagesElement.appendChild(welcomeMessageEl);
+            }
+          })
+          .catch((error) => {
+            console.error("Error resetting chat:", error);
+          });
+      }
+    });
+
+    async function sendMessage() {
+      const message = userInput?.value.trim();
+      if (!message) return;
+
+      // Add user message to chat
+      const userMessageEl = document.createElement("div");
+      userMessageEl.className = "flex justify-end mb-3 animate-slide-up";
+      userMessageEl.innerHTML = `
+        <div class="relative max-w-[80%] px-4 py-2.5">
+          <div class="absolute right-0 top-[50%] -translate-y-[50%] translate-x-[6px] transform rotate-45 w-2 h-2 bg-indigo-50 dark:bg-indigo-900/30"></div>
+          <div class="relative bg-indigo-50 dark:bg-indigo-900/30 rounded-2xl rounded-tr-sm px-4 py-2.5">
+            <p class="text-indigo-900 dark:text-indigo-100 text-sm">${message}</p>
+          </div>
+        </div>
+      `;
+      chatMessages?.appendChild(userMessageEl);
+
+      // Clear input
+      if (userInput) userInput.value = "";
+
+      // Add loading indicator
+      const loadingEl = document.createElement("div");
+      loadingEl.className = "flex mb-3 animate-slide-up";
+      loadingEl.innerHTML = `
+        <div class="relative max-w-[80%] px-4 py-2.5">
+          <div class="absolute left-0 top-[50%] -translate-y-[50%] -translate-x-[6px] transform rotate-45 w-2 h-2 bg-gray-50 dark:bg-gray-800/50"></div>
+          <div class="relative bg-gray-50 dark:bg-gray-800/50 rounded-2xl rounded-tl-sm px-4 py-2.5 flex items-center gap-2">
+            <div class="flex gap-1.5">
+              <div class="w-1.5 h-1.5 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce"></div>
+              <div class="w-1.5 h-1.5 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce [animation-delay:0.2s]"></div>
+              <div class="w-1.5 h-1.5 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce [animation-delay:0.4s]"></div>
+            </div>
+          </div>
+        </div>
+      `;
+      chatMessages?.appendChild(loadingEl);
+
+      // Scroll to bottom
+      chatMessages?.scrollTo(0, chatMessages.scrollHeight);
+
+      try {
+        const response = await fetch("/api/ai-copilot", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            message,
+            mode: "careerGuidance",
+          }),
+        });
+
+        const aiResponse = await response.json();
+
+        // Remove loading indicator
+        loadingEl.remove();
+
+        // Add AI response to chat
+        const aiMessageEl = document.createElement("div");
+        aiMessageEl.className = "flex mb-3 animate-slide-up";
+        aiMessageEl.innerHTML = `
+          <div class="relative max-w-[80%] px-4 py-2.5">
+            <div class="absolute left-0 top-[50%] -translate-y-[50%] -translate-x-[6px] transform rotate-45 w-2 h-2 bg-gray-50 dark:bg-gray-800/50"></div>
+            <div class="relative bg-gray-50 dark:bg-gray-800/50 rounded-2xl rounded-tl-sm px-4 py-2.5">
+              <p class="text-gray-800 dark:text-gray-200 text-sm whitespace-pre-line">${aiResponse.data.message.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>
+            </div>
+          </div>
+        `;
+        chatMessages?.appendChild(aiMessageEl);
+
+        // Scroll to bottom
+        chatMessages?.scrollTo(0, chatMessages.scrollHeight);
+      } catch (error) {
+        console.error("AI Copilot Error:", error);
+        loadingEl.innerHTML =
+          "Sorry, I encountered an error. Please try again.";
+      }
+    }
+
+    sendButton?.addEventListener("click", sendMessage);
+    userInput?.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") sendMessage();
+    });
+  });
+</script>

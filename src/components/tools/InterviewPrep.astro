@@ -1,0 +1,1435 @@
+---
+// InterviewPrep component for interview preparation and practice
+const interviewPrepInsights = [
+    {
+        title: "Company Research",
+        description:
+            "Understand the company's culture, values, and recent news to tailor your answers.",
+        icon: "🔍",
+    },
+    {
+        title: "Role-Specific Preparation",
+        description:
+            "Focus on skills and experiences most relevant to the position you're applying for.",
+        icon: "📋",
+    },
+    {
+        title: "Behavioral Question Strategy",
+        description:
+            "Use the STAR method (Situation, Task, Action, Result) for structured responses.",
+        icon: "🌟",
+    },
+    {
+        title: "Technical Knowledge Review",
+        description:
+            "Refresh core concepts and prepare to demonstrate practical problem-solving skills.",
+        icon: "💻",
+    },
+];
+---
+
+<section class="relative py-16 sm:py-24 lg:py-32 bg-white dark:bg-gray-950">
+    <div
+        aria-hidden="true"
+        class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-0 dark:opacity-0 transition-opacity duration-300 ease-in-out"
+    >
+        <div
+            class="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700 dark:to-indigo-600 opacity-40 dark:opacity-20"
+        >
+        </div>
+        <div
+            class="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600 dark:from-emerald-500 opacity-40 dark:opacity-20"
+        >
+        </div>
+    </div>
+    <div class="relative w-full">
+        <div class="container mx-auto px-3 md:px-6 lg:px-8 max-w-6xl">
+            <div class="w-full mx-auto">
+                <form
+                    id="interviewPrepForm"
+                    class="w-full space-y-6 sm:space-y-8 bg-white dark:bg-transparent rounded-3xl p-6 sm:p-8
+                    shadow-lg border-gray-200 dark:border-gray-700/70
+                    transition-all duration-300 ease-in-out hover:shadow-xl"
+                >
+                    <div class="grid grid-cols-1 gap-3 sm:gap-6">
+                        <!-- Company Name -->
+                        <div class="space-y-1.5 sm:space-y-2">
+                            <label
+                                for="companyName"
+                                class="block text-sm sm:text-base font-medium text-gray-900 dark:text-white text-left"
+                            >
+                                Company Name <span class="text-red-600">
+                                    *</span
+                                >
+                            </label>
+                            <input
+                                type="text"
+                                id="companyName"
+                                name="companyName"
+                                placeholder="Enter the company name (e.g., Google, Amazon)"
+                                class="w-full p-2.5 sm:p-3 border-2 border-gray-300 dark:border-gray-700/70 rounded-xl
+                                bg-white/10 dark:bg-gray-800/20
+                                focus:ring-2 focus:ring-primary/30 focus:border-primary
+                                text-gray-900 dark:text-white
+                                transition-all duration-300
+                                placeholder:text-gray-400 placeholder:text-sm
+                                hover:bg-white/20 dark:hover:bg-gray-800/30
+                                text-md sm:text-base"
+                                required
+                            />
+                        </div>
+
+                        <!-- Job Role -->
+                        <div class="space-y-1.5 sm:space-y-2">
+                            <label
+                                for="jobRole"
+                                class="block text-sm sm:text-base font-medium text-gray-900 dark:text-white text-left"
+                            >
+                                Job Role <span class="text-red-600"> *</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="jobRole"
+                                name="jobRole"
+                                placeholder="Enter the job role (e.g., Software Engineer, Product Manager)"
+                                class="w-full p-2.5 sm:p-3 border-2 border-gray-300 dark:border-gray-700/70 rounded-xl
+                                bg-white/10 dark:bg-gray-800/20
+                                focus:ring-2 focus:ring-primary/30 focus:border-primary
+                                text-gray-900 dark:text-white
+                                transition-all duration-300
+                                placeholder:text-gray-400 placeholder:text-sm
+                                hover:bg-white/20 dark:hover:bg-gray-800/30
+                                text-md sm:text-base"
+                                required
+                            />
+                        </div>
+
+                        <!-- Resume -->
+                        <div class="space-y-4 sm:space-y-5">
+                            <div class="flex justify-between items-center">
+                                <label
+                                    class="text-sm sm:text-base font-medium text-gray-900 dark:text-white"
+                                >
+                                    Your Resume <span class="text-red-600">*</span>
+                                </label>
+                            </div>
+                            
+                            <!-- Hidden file input -->
+                            <input
+                                type="file"
+                                id="resumeFileInput"
+                                style="display: none;"
+                            />
+                            
+                            <!-- Resume Options Selector -->
+                            <div id="resumeOptionsSelector" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <button
+                                    type="button"
+                                    id="resumeFileUploadButton"
+                                    class="relative flex flex-col items-center justify-center p-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl bg-white/10 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-all duration-300 group"
+                                >
+                                    <div class="flex flex-col items-center justify-center space-y-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-primary group-hover:text-primary-dark transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                    <span class="font-medium text-gray-900 dark:text-white">Upload File</span>
+                                    <span class="text-xs text-gray-500 dark:text-gray-400 mt-1">PDF, DOCX, TXT</span>
+                                    </div>
+                                </button>
+                                
+                                <button
+                                    type="button"
+                                    id="importResumeButton"
+                                    class="relative flex flex-col items-center justify-center p-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl bg-white/10 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-all duration-300 group"
+                                >
+                                    <div class="flex flex-col items-center justify-center space-y-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-primary group-hover:text-primary-dark transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                                        </svg>
+                                    <span class="font-medium text-gray-900 dark:text-white">Resume Manager</span>
+                                    <span class="text-xs text-gray-500 dark:text-gray-400 mt-1">Select saved resume</span>
+                                    </div>
+                                </button>
+                                
+                                <button
+                                    type="button"
+                                    id="enterManuallyButton"
+                                    class="relative flex flex-col items-center justify-center p-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl bg-white/10 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-all duration-300 group"
+                                >
+                                    <div class="flex flex-col items-center justify-center space-y-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-primary group-hover:text-primary-dark transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 0L11.828 15H9v-2.828l8.586-8.586z" />
+                                        </svg>
+                                    <span class="font-medium text-gray-900 dark:text-white">Enter Manually</span>
+                                    <span class="text-xs text-gray-500 dark:text-gray-400 mt-1">Paste or type resume</span>
+                                    </div>
+                                </button>
+                            </div>
+                            
+                            <!-- File Added UI -->
+                            <div id="resumeFileAddedUI" class="hidden w-full  p-6 border-2 border-gray-300 dark:border-gray-700/70 rounded-xl bg-white/10 dark:bg-gray-800/20 min-h-[100px] flex flex-col items-center justify-center">
+                                <div class="flex items-center justify-center mb-3">
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                  </svg>
+                                </div>
+                                <p id="resumeFileName" class="text-center text-lg text-gray-900 dark:text-white font-medium">Resume added successfully</p>
+                                <button id="changeResumeSource" class="mt-4 px-4 py-2 bg-black text-white dark:bg-white dark:text-black rounded-full text-sm hover:bg-gray-800 dark:hover:bg-gray-200 transition-all duration-200">
+                                    Upload Another
+                                </button>
+                            </div>
+                            
+                            <!-- Manual Entry UI -->
+                            <div id="manualEntryContainer" class="hidden w-full">
+                                <textarea
+                                    id="resumeContent"
+                                    name="resumeContent"
+                                    rows="10"
+                                    placeholder="Paste or type your resume here..."
+                                    class="w-full p-2.5 sm:p-3 border-2 border-gray-300 dark:border-gray-700/70 rounded-xl
+                                    bg-white/10 dark:bg-gray-800/20
+                                    focus:ring-2 focus:ring-primary/30 focus:border-primary
+                                    text-gray-900 dark:text-white
+                                    transition-all duration-300
+                                    placeholder:text-gray-400 placeholder:text-sm
+                                    hover:bg-white/20 dark:hover:bg-gray-800/30
+                                    text-md sm:text-base
+                                    min-h-[180px] sm:min-h-[200px]"
+                                    required></textarea>
+                                <div class="flex justify-end mt-2">
+                                    <button id="cancelManualEntry" class="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+                                        Back to options
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <p
+                                class="text-xs text-gray-500 dark:text-gray-400 mt-1"
+                            >
+                                This helps us generate more relevant interview
+                                questions specific to your background.
+                            </p>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Submit Button -->
+                    <div class="flex justify-center pt-2">
+                        <button
+                            type="submit"
+                            id="generateQuestionsBtn"
+                            class="inline-flex items-center justify-center px-6 py-3 border border-transparent
+                            text-base font-medium rounded-full text-white bg-black dark:bg-white dark:text-black dark:hover:bg-white/80
+                            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-dark
+                             duration-200 shadow-sm hover:shadow-md w-full sm:w-auto"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5 mr-2"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                                ></path>
+                            </svg>
+                            Generate Interview Questions
+                        </button>
+                    </div>
+
+                    <!-- Clear Form Button -->
+                    <div class="flex justify-center">
+                        <button
+                            type="button"
+                            id="clearForm"
+                            class="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors duration-200"
+                        >
+                            Clear form
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="questionsResult" class="mt-6"></div>
+            <div id="answerSection" class="mt-6 hidden"></div>
+            <div id="tierInfo"></div>
+            
+            <!-- Insights Section (Moved outside the form) -->
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <h3 class="col-span-full text-xl font-medium text-gray-900 dark:text-white mb-4">Key Features</h3>
+                {
+                    interviewPrepInsights.map((insight) => (
+                        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4 flex items-start space-x-3">
+                            <div class="text-2xl">{insight.icon}</div>
+                            <div>
+                                <h3 class="font-medium text-gray-900 dark:text-white">
+                                    {insight.title}
+                                </h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                                    {insight.description}
+                                </p>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    textarea.border-red-500,
+    input.border-red-500,
+    button.border-red-500 {
+        border-color: rgb(239 68 68);
+    }
+    
+    #resumeOptionsSelector button.border-red-500:hover {
+        border-color: rgb(239 68 68);
+        background-color: rgba(239, 68, 68, 0.05);
+    }
+
+    .question-card {
+        border: 1px solid #e5e7eb;
+        border-radius: 1rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        background-color: white;
+        transition: all 0.3s ease;
+    }
+
+    .dark .question-card {
+        border-color: rgba(75, 85, 99, 0.4);
+        background-color: rgba(31, 41, 55, 0.4);
+    }
+
+    .question-card:hover {
+        box-shadow:
+            0 4px 6px -1px rgba(0, 0, 0, 0.1),
+            0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    .dark .question-card:hover {
+        box-shadow:
+            0 4px 6px -1px rgba(0, 0, 0, 0.2),
+            0 2px 4px -1px rgba(0, 0, 0, 0.12);
+    }
+
+    .category-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #e5e7eb;
+    }
+
+    .dark .category-title {
+        border-bottom-color: rgba(75, 85, 99, 0.4);
+    }
+
+    .feedback-card {
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-top: 1.5rem;
+        background-color: #f9fafb;
+        border: 1px solid #e5e7eb;
+    }
+
+    .dark .feedback-card {
+        background-color: rgba(31, 41, 55, 0.5);
+        border-color: rgba(75, 85, 99, 0.4);
+    }
+
+    .feedback-section {
+        margin-bottom: 1rem;
+    }
+
+    .feedback-title {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .feedback-list {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+    }
+
+    .rating-pill {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-weight: 600;
+        font-size: 0.875rem;
+    }
+</style>
+
+<script>
+    import { TierManagementService } from "../../lib/tierManagement";
+    import { authService } from "../../lib/auth";
+    import { PersistentDocumentService } from "../../lib/persistentDocumentService";
+
+    let questionsData: any = null;
+    let currentQuestionIndex: number = -1;
+    let currentCategory: string = "";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById(
+            "interviewPrepForm",
+        ) as HTMLFormElement;
+        const resultContainer = document.getElementById(
+            "questionsResult",
+        ) as HTMLDivElement;
+        const answerSection = document.getElementById(
+            "answerSection",
+        ) as HTMLDivElement;
+        const clearButton = document.getElementById(
+            "clearForm",
+        ) as HTMLButtonElement;
+        const importResumeButton = document.getElementById(
+            "importResumeButton",
+        ) as HTMLButtonElement;
+
+        // Check for stored form data
+        const storedData = localStorage.getItem("interviewPrepFormData");
+        if (storedData) {
+            try {
+                const parsedData = JSON.parse(storedData);
+                (
+                    document.getElementById("companyName") as HTMLInputElement
+                ).value = parsedData.companyName || "";
+                (document.getElementById("jobRole") as HTMLInputElement).value =
+                    parsedData.jobRole || "";
+                (
+                    document.getElementById(
+                        "resumeContent",
+                    ) as HTMLTextAreaElement
+                ).value = parsedData.resumeContent || "";
+            } catch (error) {
+                console.error("Error parsing stored form data:", error);
+            }
+        }
+
+        // Function to check user's tier access
+        async function checkInterviewPrepAccess() {
+            try {
+                const user = await authService.getCurrentUser();
+                if (!user) {
+                    // Show login modal or redirect to login
+                    const tierInfoDiv = document.getElementById("tierInfo");
+                    if (tierInfoDiv) {
+                        tierInfoDiv.innerHTML = `
+                            <div class="mt-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl border border-yellow-200 dark:border-yellow-800/30">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0">
+                                        <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3">
+                                        <h3 class="text-sm font-medium text-yellow-800 dark:text-yellow-200">Login Required</h3>
+                                        <div class="mt-2 text-sm text-yellow-700 dark:text-yellow-300">
+                                            <p>Please <a href="/login" class="font-medium underline">login</a> or <a href="/signup" class="font-medium underline">create an account</a> to use the Interview Preparation tool.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    return { canAccess: false, userId: null };
+                }
+
+                const canAccessInterviewPrep =
+                    await TierManagementService.checkFeatureAccess(
+                        user.uid,
+                        "interviewPrep",
+                    );
+
+                if (!canAccessInterviewPrep) {
+                    // Show upgrade message
+                    const tierInfoDiv = document.getElementById("tierInfo");
+                    if (tierInfoDiv) {
+                        tierInfoDiv.innerHTML = `
+                            <div class="mt-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl border border-yellow-200 dark:border-yellow-800/30">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0">
+                                        <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3">
+                                        <h3 class="text-sm font-medium text-yellow-800 dark:text-yellow-200">Premium Feature</h3>
+                                        <div class="mt-2 text-sm text-yellow-700 dark:text-yellow-300">
+                                            <p>The Interview Preparation tool is available on our premium plans. <a href="/pricing" class="font-medium underline">Upgrade your account</a> to access this feature.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    return { canAccess: false, userId: user.uid };
+                }
+
+                return { canAccess: true, userId: user.uid };
+            } catch (error) {
+                console.error("Error checking access:", error);
+                return { canAccess: false, userId: null };
+            }
+        }
+
+        // Check access on page load
+        checkInterviewPrepAccess();
+
+        // Handle form submission
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            // Check tier status before generation
+            const { canAccess, userId } = await checkInterviewPrepAccess();
+            if (!canAccess) {
+                return;
+            }
+
+            // Get form values
+            const companyName = (
+                document.getElementById("companyName") as HTMLInputElement
+            ).value;
+            const jobRole = (
+                document.getElementById("jobRole") as HTMLInputElement
+            ).value;
+            const resumeContent = (
+                document.getElementById("resumeContent") as HTMLTextAreaElement
+            ).value;
+
+            // Validate inputs
+            if (!companyName.trim()) {
+                (
+                    document.getElementById("companyName") as HTMLInputElement
+                ).classList.add("border-red-500");
+                return;
+            } else {
+                (
+                    document.getElementById("companyName") as HTMLInputElement
+                ).classList.remove("border-red-500");
+            }
+
+            if (!jobRole.trim()) {
+                (
+                    document.getElementById("jobRole") as HTMLInputElement
+                ).classList.add("border-red-500");
+                return;
+            } else {
+                (
+                    document.getElementById("jobRole") as HTMLInputElement
+                ).classList.remove("border-red-500");
+            }
+
+            // Check if resume content is empty
+            if (!resumeContent.trim()) {
+                // If the options selector is visible, show an error
+                const resumeOptionsSelector = document.getElementById("resumeOptionsSelector");
+                const resumeFileAddedUI = document.getElementById("resumeFileAddedUI");
+                
+                if (resumeOptionsSelector && !resumeOptionsSelector.classList.contains("hidden") && 
+                    resumeFileAddedUI && resumeFileAddedUI.classList.contains("hidden")) {
+                    // Show error message
+                    const errorMessage = document.createElement("div");
+                    errorMessage.id = "resumeErrorMessage";
+                    errorMessage.className = "text-red-500 text-sm mt-2";
+                    errorMessage.textContent = "Please select a resume option or enter your resume manually.";
+                    
+                    // Remove any existing error message
+                    const existingError = document.getElementById("resumeErrorMessage");
+                    if (existingError) {
+                        existingError.remove();
+                    }
+                    
+                    // Add error message after options selector
+                    resumeOptionsSelector.parentNode?.insertBefore(errorMessage, resumeOptionsSelector.nextSibling);
+                    
+                    // Add error highlighting to the options
+                    resumeOptionsSelector.querySelectorAll("button").forEach(button => {
+                        button.classList.add("border-red-500");
+                    });
+                } else {
+                    // If manual entry is visible, highlight the textarea
+                    const resumeContentTextarea = document.getElementById("resumeContent") as HTMLTextAreaElement;
+                    resumeContentTextarea.classList.add("border-red-500");
+                }
+                return;
+            } else {
+                // Remove error styling
+                const resumeContentTextarea = document.getElementById("resumeContent") as HTMLTextAreaElement;
+                resumeContentTextarea.classList.remove("border-red-500");
+                
+                // Remove error message if exists
+                const errorMessage = document.getElementById("resumeErrorMessage");
+                if (errorMessage) {
+                    errorMessage.remove();
+                }
+                
+                // Remove error highlighting from options
+                const resumeOptionsSelector = document.getElementById("resumeOptionsSelector");
+                if (resumeOptionsSelector) {
+                    resumeOptionsSelector.querySelectorAll("button").forEach(button => {
+                        button.classList.remove("border-red-500");
+                    });
+                }
+            }
+
+            // Save form data to localStorage
+            localStorage.setItem(
+                "interviewPrepFormData",
+                JSON.stringify({
+                    companyName,
+                    jobRole,
+                    resumeContent,
+                }),
+            );
+
+            // Show loading state
+            resultContainer.innerHTML = `
+                <div class="animate-pulse space-y-4 p-6 bg-white dark:bg-gray-800/30 rounded-xl border border-gray-200 dark:border-gray-700/50">
+                    <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                    <div class="space-y-2">
+                        <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
+                        <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
+                        <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-4/6"></div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
+                        <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
+                        <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/6"></div>
+                    </div>
+                </div>
+            `;
+
+            try {
+                // Track interview prep usage
+                if (userId === null) {
+                    throw new Error('User not authenticated');
+                }
+                if (userId !== null) {
+                    await TierManagementService.trackInterviewPrep(userId);
+                }
+
+                // Make API request
+                const response = await fetch(
+                    "/.netlify/functions/interview-questions",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            companyName,
+                            jobRole,
+                            resume: resumeContent,
+                        }),
+                    },
+                );
+
+                if (!response.ok) {
+                    throw new Error(
+                        `API request failed with status ${response.status}`,
+                    );
+                }
+
+                const data = await response.json();
+                questionsData = data;
+
+                // Display the results
+                displayQuestions(data);
+
+                // Scroll to results
+                resultContainer.scrollIntoView({ behavior: "smooth" });
+            } catch (error) {
+                console.error("Error generating interview questions:", error);
+                resultContainer.innerHTML = `
+                    <div class="p-4 bg-red-50 dark:bg-red-900/20 rounded-xl border border-red-200 dark:border-red-800/30">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-red-800 dark:text-red-200">Error</h3>
+                                <div class="mt-2 text-sm text-red-700 dark:text-red-300">
+                                    <p>There was an error generating your interview questions. Please try again later.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+
+        // Function to display questions
+        function displayQuestions(data: any) {
+            if (!data || !resultContainer) return;
+
+            const categories = [
+                { key: "companySpecific", title: "Company-Specific Questions" },
+                { key: "roleSpecific", title: "Role-Specific Questions" },
+                { key: "behavioral", title: "Behavioral Questions" },
+                { key: "technical", title: "Technical Questions" },
+            ];
+
+            let html = `
+                <div class="bg-white dark:bg-gray-800/30 rounded-xl border border-gray-200 dark:border-gray-700/50 p-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-left">Interview Questions</h2>
+            `;
+
+            categories.forEach((category, categoryIndex) => {
+                const questions = data[category.key];
+                if (questions && questions.length > 0) {
+                    html += `
+                        <div class="mb-6">
+                            <div class="category-header flex items-center justify-between cursor-pointer p-4 bg-gray-50 dark:bg-gray-700/30 rounded-xl mb-2" data-category="${categoryIndex}">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white text-left">${category.title}</h3>
+                                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 category-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                            <div class="category-content space-y-4 pl-4" data-category="${categoryIndex}">
+                    `;
+
+                    questions.forEach((item: any, index: number) => {
+                        html += `
+                            <div class="question-card p-4 border border-gray-100 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors mb-3">
+                                <div class="flex justify-between items-start">
+                                    <h4 class="font-medium text-lg text-gray-900 dark:text-white">${index + 1}. ${item.question}</h4>
+                                    <button 
+                                        class="practice-button ml-4 px-3 py-1 bg-black text-white dark:bg-white dark:text-black rounded-full text-sm hover:bg-primary-dark transition-colors flex-shrink-0"
+                                        data-category="${category.key}"
+                                        data-index="${index}"
+                                    >
+                                        Practice
+                                    </button>
+                                </div>
+                                ${item.context ? `<p class="mt-2 text-sm text-gray-600 dark:text-gray-300 text-left">${item.context}</p>` : ""}
+                            </div>
+                        `;
+                    });
+
+                    html += `
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            html += `</div>`;
+            resultContainer.innerHTML = html;
+
+            // Add event listeners to category headers for collapsing/expanding
+            document.querySelectorAll(".category-header").forEach((header) => {
+                header.addEventListener("click", (e) => {
+                    const categoryIndex = (
+                        e.currentTarget as HTMLElement
+                    ).getAttribute("data-category");
+                    const content = document.querySelector(
+                        `.category-content[data-category="${categoryIndex}"]`,
+                    );
+                    const chevron = (
+                        e.currentTarget as HTMLElement
+                    ).querySelector(".category-chevron");
+
+                    if (content && chevron) {
+                        content.classList.toggle("hidden");
+
+                        // Rotate chevron when expanded/collapsed
+                        if (content.classList.contains("hidden")) {
+                            chevron.innerHTML =
+                                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>';
+                        } else {
+                            chevron.innerHTML =
+                                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>';
+                        }
+                    }
+                });
+            });
+
+            // Add event listeners to practice buttons
+            document.querySelectorAll(".practice-button").forEach((button) => {
+                button.addEventListener("click", (e) => {
+                    const target = e.currentTarget as HTMLButtonElement;
+                    const category = target.getAttribute("data-category") || "";
+                    const index = parseInt(
+                        target.getAttribute("data-index") || "0",
+                        10,
+                    );
+
+                    showAnswerSection(category, index);
+                });
+            });
+        }
+
+        // Function to show answer section
+        function showAnswerSection(category: string, index: number) {
+            if (!questionsData || !answerSection) return;
+
+            currentCategory = category;
+            currentQuestionIndex = index;
+
+            const question = questionsData[category][index];
+
+            answerSection.classList.remove("hidden");
+            answerSection.innerHTML = `
+                <div class="bg-white dark:bg-gray-800/30 rounded-xl border border-gray-200 dark:border-gray-700/50 p-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 text-left">Practice Your Answer</h2>
+                    
+                    <div class="mb-6 p-4 bg-gray-50 dark:bg-gray-700/30 rounded-xl">
+                        <h3 class="font-medium text-lg text-gray-900 dark:text-white text-left">${question.question}</h3>
+                        ${question.context ? `<p class="mt-2 text-sm text-gray-600 dark:text-gray-300 text-left">${question.context}</p>` : ""}
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <label 
+                            for="answerText" 
+                            class="block text-sm sm:text-base font-medium text-gray-900 dark:text-white text-left"
+                        >
+                            Your Answer
+                        </label>
+                        <textarea
+                            id="answerText"
+                            rows="8"
+                            placeholder="Type your answer here..."
+                            class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 
+                            bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-left
+                            focus:ring-2 focus:ring-primary dark:focus:ring-primary-dark focus:border-transparent
+                            placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                        ></textarea>
+                        
+                        <div class="flex justify-end space-x-3 pt-2">
+                            <button 
+                                id="cancelAnswerBtn"
+                                class="px-4 py-2 border border-gray-300 dark:border-gray-600 
+                                text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 
+                                transition-colors duration-200"
+                            >
+                                Cancel
+                            </button>
+                            <button 
+                                id="submitAnswerBtn"
+                                class="px-4 py-2 bg-primary text-white rounded-xl hover:bg-primary-dark 
+                                transition-colors duration-200 flex items-center"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                </svg>
+                                Submit for Review
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="feedbackContainer" class="hidden"></div>
+            `;
+
+            // Scroll to answer section
+            answerSection.scrollIntoView({ behavior: "smooth" });
+
+            // Add event listeners
+            document
+                .getElementById("cancelAnswerBtn")
+                ?.addEventListener("click", () => {
+                    answerSection.classList.add("hidden");
+                    document
+                        .getElementById("feedbackContainer")
+                        ?.classList.add("hidden");
+                });
+
+            document
+                .getElementById("submitAnswerBtn")
+                ?.addEventListener("click", async () => {
+                    const answerText = (
+                        document.getElementById(
+                            "answerText",
+                        ) as HTMLTextAreaElement
+                    ).value;
+
+                    if (!answerText.trim()) {
+                        (
+                            document.getElementById(
+                                "answerText",
+                            ) as HTMLTextAreaElement
+                        ).classList.add("border-red-500");
+                        return;
+                    } else {
+                        (
+                            document.getElementById(
+                                "answerText",
+                            ) as HTMLTextAreaElement
+                        ).classList.remove("border-red-500");
+                    }
+
+                    // Show loading state
+                    const feedbackContainer =
+                        document.getElementById("feedbackContainer");
+                    if (feedbackContainer) {
+                        feedbackContainer.classList.remove("hidden");
+                        feedbackContainer.innerHTML = `
+                        <div class="animate-pulse space-y-4 p-6 bg-white dark:bg-gray-800/30 rounded-xl border border-gray-200 dark:border-gray-700/50 mt-6">
+                            <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                            <div class="space-y-2">
+                                <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
+                                <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
+                                <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-4/6"></div>
+                            </div>
+                        </div>
+                    `;
+                    }
+
+                    try {
+                        // Get the resume content
+                        const resumeContent = (
+                            document.getElementById(
+                                "resumeContent",
+                            ) as HTMLTextAreaElement
+                        ).value;
+
+                        // Make API request
+                        const response = await fetch(
+                            "/.netlify/functions/review-answer",
+                            {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({
+                                    question:
+                                        questionsData[currentCategory][
+                                            currentQuestionIndex
+                                        ].question,
+                                    answer: answerText,
+                                    resume: resumeContent,
+                                }),
+                            },
+                        );
+
+                        if (!response.ok) {
+                            throw new Error(
+                                `API request failed with status ${response.status}`,
+                            );
+                        }
+
+                        const data = await response.json();
+
+                        // Display the feedback
+                        displayFeedback(data);
+
+                        // Scroll to feedback
+                        feedbackContainer?.scrollIntoView({
+                            behavior: "smooth",
+                        });
+                    } catch (error) {
+                        console.error("Error reviewing answer:", error);
+                        if (feedbackContainer) {
+                            feedbackContainer.innerHTML = `
+                            <div class="p-4 bg-red-50 dark:bg-red-900/20 rounded-xl border border-red-200 dark:border-red-800/30 mt-6">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0">
+                                        <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3">
+                                        <h3 class="text-sm font-medium text-red-800 dark:text-red-200">Error</h3>
+                                        <div class="mt-2 text-sm text-red-700 dark:text-red-300">
+                                            <p>There was an error reviewing your answer. Please try again later.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        }
+                    }
+                });
+        }
+
+        // Function to display feedback
+        function displayFeedback(data: any) {
+            const feedbackContainer =
+                document.getElementById("feedbackContainer");
+            if (!feedbackContainer || !data) return;
+
+            // Determine rating color
+            let ratingColor = "bg-red-500";
+            if (data.overallRating >= 8) {
+                ratingColor = "bg-green-500";
+            } else if (data.overallRating >= 5) {
+                ratingColor = "bg-yellow-500";
+            }
+
+            let html = `
+                <div class="p-6 bg-white dark:bg-gray-800/30 rounded-xl border border-gray-200 dark:border-gray-700/50 mt-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white text-left">Answer Feedback</h3>
+                        <div class="flex items-center">
+                            <span class="text-sm text-gray-500 dark:text-gray-400 mr-2">Rating:</span>
+                            <span class="px-3 py-1 rounded-full ${ratingColor} text-white font-medium">${data.overallRating}/10</span>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="p-4 bg-green-50 dark:bg-green-900/10 rounded-lg border border-green-100 dark:border-green-800/20">
+                            <h4 class="text-lg font-medium text-green-700 dark:text-green-400 mb-3 text-left">Strengths</h4>
+                            <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+            `;
+
+            data.strengths.forEach((strength: string) => {
+                html += `<li class="text-left">${strength}</li>`;
+            });
+
+            html += `
+                            </ul>
+                        </div>
+                        
+                        <div class="p-4 bg-red-50 dark:bg-red-900/10 rounded-lg border border-red-100 dark:border-red-800/20">
+                            <h4 class="text-lg font-medium text-red-700 dark:text-red-400 mb-3 text-left">Areas for Improvement</h4>
+                            <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+            `;
+
+            data.weaknesses.forEach((weakness: string) => {
+                html += `<li class="text-left">${weakness}</li>`;
+            });
+
+            html += `
+                            </ul>
+                        </div>
+                        
+                        <div class="p-4 bg-blue-50 dark:bg-blue-900/10 rounded-lg border border-blue-100 dark:border-blue-800/20">
+                            <h4 class="text-lg font-medium text-blue-700 dark:text-blue-400 mb-3 text-left">Suggested Improvements</h4>
+                            <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+            `;
+
+            data.improvements.forEach((improvement: string) => {
+                html += `<li class="text-left">${improvement}</li>`;
+            });
+
+            html += `
+                            </ul>
+                        </div>
+                        
+                        <div class="p-4 bg-purple-50 dark:bg-purple-900/10 rounded-lg border border-purple-100 dark:border-purple-800/20">
+                            <h4 class="text-lg font-medium text-purple-700 dark:text-purple-400 mb-3 text-left">Alternative Approach</h4>
+                            <p class="text-gray-700 dark:text-gray-300 text-left">${data.alternativeApproach}</p>
+                        </div>
+                        
+                        <div class="p-4 bg-gray-50 dark:bg-gray-700/20 rounded-lg border border-gray-100 dark:border-gray-700/30">
+                            <h4 class="text-lg font-medium text-gray-900 dark:text-white mb-3 text-left">Key Takeaway</h4>
+                            <p class="text-gray-700 dark:text-gray-300 font-medium text-left">${data.keyTakeaway}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            feedbackContainer.innerHTML = html;
+            feedbackContainer.classList.remove("hidden");
+        }
+
+        // Handle clear form button
+        clearButton?.addEventListener("click", () => {
+            (document.getElementById("companyName") as HTMLInputElement).value =
+                "";
+            (document.getElementById("jobRole") as HTMLInputElement).value = "";
+            (
+                document.getElementById("resumeContent") as HTMLTextAreaElement
+            ).value = "";
+
+            // Remove validation styles
+            (
+                document.getElementById("companyName") as HTMLInputElement
+            ).classList.remove("border-red-500");
+            (
+                document.getElementById("jobRole") as HTMLInputElement
+            ).classList.remove("border-red-500");
+            (
+                document.getElementById("resumeContent") as HTMLTextAreaElement
+            ).classList.remove("border-red-500");
+            
+            // Reset all resume UI elements
+            const resumeFileAddedUI = document.getElementById("resumeFileAddedUI");
+            const resumeContentTextarea = document.getElementById("resumeContent");
+            const resumeOptionsSelector = document.getElementById("resumeOptionsSelector");
+            const manualEntryContainer = document.getElementById("manualEntryContainer");
+            
+            if (resumeFileAddedUI && resumeOptionsSelector) {
+                resumeFileAddedUI.classList.add("hidden");
+                manualEntryContainer?.classList.add("hidden");
+                resumeOptionsSelector.classList.remove("hidden");
+            }
+
+            // Clear localStorage
+            localStorage.removeItem("interviewPrepFormData");
+
+            // Clear results
+            if (resultContainer) resultContainer.innerHTML = "";
+            if (answerSection) {
+                answerSection.innerHTML = "";
+                answerSection.classList.add("hidden");
+            }
+        });
+
+        // Handle resume import
+        importResumeButton?.addEventListener("click", async () => {
+            try {
+                const user = await authService.getCurrentUser();
+                if (!user) {
+                    // Redirect to login or show login modal
+                    return;
+                }
+
+                // Create a modal dynamically
+                const modal = document.createElement("div");
+                modal.innerHTML = `
+                    <div class="p-4 fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+                        <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 max-w-md w-full max-h-[80vh] overflow-y-auto">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                                    Resume Manager
+                                </h2>
+                                <button id="closeImportModal" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div class="mb-4">
+                                <button 
+                                    id="addNewResumeButton"
+                                    class="w-full inline-flex items-center justify-center px-4 py-3 
+                                    bg-black text-white 
+                                    rounded-xl 
+                                    hover:bg-primary-600 
+                                    transition-all duration-300 
+                                    focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                    </svg>
+                                    Create New Resume
+                                </button>
+                            </div>
+
+                            <div class="border-t border-gray-200 dark:border-gray-700 my-4"></div>
+
+                            <div id="resumeList" class="space-y-3">
+                                <!-- Existing Resumes will be dynamically populated here -->
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                document.body.appendChild(modal);
+
+                const closeModalButton =
+                    modal.querySelector("#closeImportModal");
+                const addNewResumeButton = modal.querySelector(
+                    "#addNewResumeButton",
+                );
+                const resumeListContainer = modal.querySelector("#resumeList");
+                const resumeContentTextarea = document.getElementById(
+                    "resumeContent",
+                ) as HTMLTextAreaElement;
+
+                closeModalButton?.addEventListener("click", () => {
+                    document.body.removeChild(modal);
+                });
+
+                // Add new resume functionality
+                addNewResumeButton?.addEventListener("click", () => {
+                    // Navigate to Dashboard's Resume Manager section
+                    window.location.href = "/dashboard#addResumeBtn";
+                });
+
+                // Fetch and display resumes
+                const resumes =
+                    await PersistentDocumentService.loadAllResumes();
+
+                if (resumes.length === 0) {
+                    resumeListContainer!.innerHTML = `
+                        <div class="text-center text-gray-500 dark:text-gray-400 py-6">
+                            <p>No resumes found. Create a new resume to get started.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Populate resume list
+                resumeListContainer!.innerHTML = resumes
+                    .map(
+                        (resume, index) => `
+                    <div class="bg-gray-100 dark:bg-gray-800 rounded-xl p-4 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer transition-colors resume-item" 
+                         data-resume-index="${index}">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                    ${resume.name || `Resume ${index + 1}`}
+                                </h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    Last updated: ${new Date(resume.lastUpdated).toLocaleDateString()}
+                                </p>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+                `,
+                    )
+                    .join("");
+
+                // Add event listeners to resume items
+                document
+                    .querySelectorAll(".resume-item")
+                    .forEach((item, index) => {
+                        item.addEventListener("click", () => {
+                            const resumeIndex = parseInt(
+                                item.getAttribute("data-resume-index") || "0",
+                                10,
+                            );
+                            const selectedResume = resumes[resumeIndex];
+
+                            if (selectedResume && selectedResume.content) {
+                                resumeContentTextarea.value = selectedResume.content;
+                                document.body.removeChild(modal);
+                                
+                                // Show the file added UI and hide other elements
+                                const resumeFileAddedUI = document.getElementById('resumeFileAddedUI');
+                                const resumeOptionsSelector = document.getElementById('resumeOptionsSelector');
+                                const manualEntryContainer = document.getElementById('manualEntryContainer');
+                                
+                                if (resumeFileAddedUI && resumeOptionsSelector) {
+                                    resumeFileAddedUI.classList.remove('hidden');
+                                    resumeOptionsSelector.classList.add('hidden');
+                                    manualEntryContainer?.classList.add('hidden');
+                                    
+                                    const resumeFileName = document.getElementById('resumeFileName');
+                                    if (resumeFileName) {
+                                        resumeFileName.textContent = `Resume: ${selectedResume.name || 'Selected Resume'}`;
+                                    }
+                                }
+                            }
+                        });
+                    });
+            } catch (error) {
+                console.error("Error importing resume:", error);
+                // Show user-friendly error message
+                const errorModal = document.createElement("div");
+                errorModal.innerHTML = `
+                    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+                        <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 max-w-md w-full">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-xl font-bold text-red-600 dark:text-red-400">Error</h2>
+                                <button id="closeErrorModal" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <p class="text-gray-700 dark:text-gray-300">Failed to load resumes. Please try again later.</p>
+                            <div class="mt-6 flex justify-end">
+                                <button id="closeErrorModalBtn" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(errorModal);
+
+                const closeErrorModalButton =
+                    errorModal.querySelector("#closeErrorModal");
+                const closeErrorModalBtn = errorModal.querySelector(
+                    "#closeErrorModalBtn",
+                );
+
+                closeErrorModalButton?.addEventListener("click", () => {
+                    document.body.removeChild(errorModal);
+                });
+
+                closeErrorModalBtn?.addEventListener("click", () => {
+                    document.body.removeChild(errorModal);
+                });
+            }
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const resumeFileUploadButton = document.getElementById(
+            "resumeFileUploadButton",
+        );
+        const resumeFileInput = document.getElementById(
+            "resumeFileInput",
+        ) as HTMLInputElement;
+        const resumeContentTextarea = document.getElementById(
+            "resumeContent",
+        ) as HTMLTextAreaElement;
+        const resumeFileAddedUI = document.getElementById("resumeFileAddedUI");
+        const removeResumeFileButton = document.getElementById("removeResumeFile");
+
+        // Add file upload button event listener
+        resumeFileUploadButton?.addEventListener("click", async (e) => {
+            // Prevent any form submission
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Trigger file input click
+            resumeFileInput?.click();
+            
+            return false;
+        });
+
+        // Handle file selection
+        resumeFileInput?.addEventListener("change", async (event) => {
+            // Prevent default to avoid form submission
+            event.preventDefault();
+            
+            const file = (event.target as HTMLInputElement).files?.[0];
+
+            if (!file) {
+                console.error("No file selected");
+                return;
+            }
+
+            // Supported file types
+            const supportedTypes = [
+                "application/pdf",
+                "application/msword",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                "text/plain",
+                "text/rtf",
+                "application/rtf",
+            ];
+
+            if (!supportedTypes.includes(file.type)) {
+                alert(
+                    "Unsupported file type. Please upload a PDF, DOC, DOCX, TXT, or RTF file.",
+                );
+                return;
+            }
+
+            // Convert file to base64
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+
+            fileReader.onload = async () => {
+                const base64File = fileReader.result as string;
+                const base64Data = base64File.split(",")[1]; // Remove data URL prefix
+
+                try {
+                    // Send to server-side API
+                    const response = await fetch(
+                        "/.netlify/functions/upload-resume",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                fileBase64: base64Data,
+                                fileName: file.name,
+                                fileType: file.type,
+                            }),
+                        },
+                    );
+
+                    // Parse response
+                    const result = await response.json();
+
+                    // Check for error in response
+                    if (!response.ok) {
+                        throw new Error(result.error || "Unknown server error");
+                    }
+
+                    if (result.success) {
+                        // Populate resume content textarea
+                        const resumeContent = result.data.text;
+                        resumeContentTextarea.value = resumeContent;
+
+                        // Optional: Trigger any validation or UI updates
+                        resumeContentTextarea.dispatchEvent(new Event("input"));
+                        
+                        // Show the file added UI and hide other elements
+                        const resumeFileAddedUI = document.getElementById('resumeFileAddedUI');
+                        const resumeOptionsSelector = document.getElementById('resumeOptionsSelector');
+                        const manualEntryContainer = document.getElementById('manualEntryContainer');
+                        
+                        if (resumeFileAddedUI && resumeOptionsSelector) {
+                            resumeFileAddedUI.classList.remove('hidden');
+                            resumeOptionsSelector.classList.add('hidden');
+                            manualEntryContainer?.classList.add('hidden');
+                            
+                            const resumeFileName = document.getElementById('resumeFileName');
+                            if (resumeFileName) {
+                                resumeFileName.textContent = `${file.name}`;
+                            }
+                        }
+                    } else {
+                        // Handle error response
+                        console.error("Resume upload failed:", result);
+                        alert(
+                            `Failed to upload resume: ${result.error || "Unknown error"}`,
+                        );
+                    }
+                } catch (error) {
+                    // Network or parsing errors
+                    console.error("Resume upload error:", error);
+                    alert(
+                        `Error uploading resume: ${error instanceof Error ? error.message : "Unknown error"}`,
+                    );
+                }
+            };
+        });
+        
+        // Add event listener for changing the resume source
+        const changeResumeSourceButton = document.getElementById("changeResumeSource");
+        changeResumeSourceButton?.addEventListener("click", () => {
+            // Clear the textarea
+            resumeContentTextarea.value = "";
+            
+            // Hide the file added UI and show options
+            resumeFileAddedUI?.classList.add("hidden");
+            const resumeOptionsSelector = document.getElementById("resumeOptionsSelector");
+            resumeOptionsSelector?.classList.remove("hidden");
+            
+            // Reset the file input
+            resumeFileInput.value = "";
+        });
+        
+        // Add event listener for the Enter Manually button
+        const enterManuallyButton = document.getElementById("enterManuallyButton");
+        enterManuallyButton?.addEventListener("click", () => {
+            const resumeOptionsSelector = document.getElementById("resumeOptionsSelector");
+            const manualEntryContainer = document.getElementById("manualEntryContainer");
+            
+            if (resumeOptionsSelector && manualEntryContainer) {
+                resumeOptionsSelector.classList.add("hidden");
+                manualEntryContainer.classList.remove("hidden");
+                resumeContentTextarea.focus();
+            }
+        });
+        
+        // Add event listener for the Cancel Manual Entry button
+        const cancelManualEntryButton = document.getElementById("cancelManualEntry");
+        cancelManualEntryButton?.addEventListener("click", () => {
+            const resumeOptionsSelector = document.getElementById("resumeOptionsSelector");
+            const manualEntryContainer = document.getElementById("manualEntryContainer");
+            
+            if (resumeOptionsSelector && manualEntryContainer) {
+                manualEntryContainer.classList.add("hidden");
+                resumeOptionsSelector.classList.remove("hidden");
+            }
+        });
+    });
+</script>

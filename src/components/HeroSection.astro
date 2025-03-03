@@ -1,0 +1,51 @@
+---
+import Container from "./Container.astro"
+---
+
+<div class="relative h-[75vh] flex items-center" id="home">
+    <div aria-hidden="true" class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20">
+        <div class="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700"></div>
+        <div class="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600"></div>
+    </div>
+    <Container>
+        <div class="relative pt-36 ml-auto">
+            <div class="lg:w-2/3 text-center mx-auto">
+                <h1 class="text-gray-900 text-balance dark:text-white font-bold text-4xl md:text-5xl xl:text-7xl">Your <span class="text-purple-400 dark:text-purple-300">AI</span> Job Hunt Companion</h1>
+                <p class="mt-8 text-gray-700 dark:text-gray-300 sm:text-xl italic">Make your job hunt a cool breeze with our us.</p>
+                <div class="mt-16 flex flex-wrap justify-center gap-y-4 gap-x-6">
+                    <a
+                      href="/dashboard"
+                      class="relative flex h-11 w-full rounded-full items-center justify-center px-6 bg-black text-white dark:bg-white dark:text-black before:absolute before:inset-0 before:rounded-full before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max"
+                    >
+                      <span class="relative text-base font-semibold"
+                        >Get Started</span
+                      >
+                    </a>
+                    <a
+                      href="#features"
+                      class="relative flex h-11 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:border before:border-transparent before:bg-black/10 dark:before:bg-primary/10 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800 sm:w-max"
+                    >
+                      <span
+                        class="relative text-base font-semibold text-black dark:text-white"
+                        >Explore Features</span
+                      >
+                    </a>
+                </div>
+                <!-- <div class="hidden py-8 mt-16 border-y border-gray-100 dark:border-gray-800 sm:flex justify-between" >
+                    <div class = "text-center">
+                        <h6 class="text-lg font-semibold text-gray-900 dark:text-white">Job Analysis</h6>
+                        <p class="mt-2 text-gray-700 dark:text-gray-300">Deep insights into job requirements and market trends</p>
+                    </div>
+                    <div class = "text-center">
+                        <h6 class="text-lg font-semibold text-gray-900 dark:text-white">Resume Tailoring</h6>
+                        <p class="mt-2 text-gray-700 dark:text-gray-300">ATS-optimized resumes for higher success rates</p>
+                    </div>
+                    <div class = "text-center">
+                        <h6 class="text-lg font-semibold text-gray-900 dark:text-white">Cover Letters</h6>
+                        <p class="mt-2 text-gray-700 dark:text-gray-300">Professional templates with personalized content</p>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </Container>
+</div>

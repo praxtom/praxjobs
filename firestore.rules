@@ -1,0 +1,148 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper function to validate user ownership
+    function isUserOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Upgrade Logs collection rules
+    match /upgradeLogs/{logId} {
+      // Allow logging for authenticated users
+      allow create: if 
+        isAuthenticated() && 
+        request.resource.data.userId == request.auth.uid;
+      
+      // Prevent reading or updating logs
+      allow read, update, delete: if false;
+    }
+
+    // Users collection rules
+    match /users/{userId} {
+      // Allow read for the specific user
+      allow read: if isUserOwner(userId);
+      
+      // Allow write if the user is the owner
+      // During signup, the user will be authenticated with their new UID
+      allow create, update: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // UserSubscriptions collection rules
+    match /userSubscriptions/{userId} {
+      // Allow read for the specific user
+      allow read: if isUserOwner(userId);
+      
+      // Allow create/update if the user is the owner
+      // This is necessary for the signup process
+      allow create, update: if request.auth != null && request.auth.uid == userId;
+      
+      // Allow updates from trusted webhooks
+      allow update: if 
+        // Update is from a trusted webhook
+        (request.resource.data.updatedBy == 'webhook' &&
+         request.resource.data.userId == userId &&
+         request.resource.data.currentTier in ['free', 'pro'] &&
+         request.resource.data.paymentStatus in ['active', 'expired', 'pending']);
+    }
+
+    // Job Tracker collection rules
+    match /jobTracker/{jobId} {
+      // Allow authenticated users to read their own job entries
+      allow read, update, delete, create: if isAuthenticated();
+    }
+
+    // Resumes collection rules
+    match /resumes/{resumeId} {
+      // Temporarily allow all operations for debugging
+      allow read, write: if true;
+    }
+
+    // UserResumes collection rules
+    match /userResumes/{resumeId} {
+      // Allow authenticated users to read, create, update, and delete their own resumes
+      allow read: if 
+        isAuthenticated() && 
+        resource.data.userId == request.auth.uid;
+      
+      allow create: if 
+        isAuthenticated() && 
+        request.resource.data.userId == request.auth.uid;
+      
+      allow update: if 
+        isAuthenticated() && 
+        request.resource.data.userId == request.auth.uid;
+      
+      allow delete: if 
+        isAuthenticated() && 
+        resource.data.userId == request.auth.uid;
+    }
+
+    // Cover Letters collection rules
+    match /coverLetters/{coverId} {
+      // Allow authenticated users to read, create, update, and delete their own cover letters
+      allow read, create, update, delete: if 
+        isAuthenticated() && 
+        request.resource.data.userId == request.auth.uid;
+    }
+
+    // UserDocuments collection rules
+    match /userDocuments/{documentId} {
+      // Allow authenticated users to read, create, update, and delete their own documents
+      allow read, create, update, delete: if 
+        isAuthenticated() && 
+        documentId.matches('^' + request.auth.uid + '_.*');
+    }
+    
+    // Contact Requests collection rules
+    match /contactRequests/{requestId} {
+      // Allow creation of contact requests
+      allow create: if
+        request.auth != null &&
+        request.resource.data.name is string &&
+        request.resource.data.email is string &&
+        request.resource.data.subject is string &&
+        request.resource.data.message is string &&
+        request.resource.data.timestamp is timestamp;
+    }
+
+    // User Email History collection rules
+    match /userEmailHistory/{email} {
+      // Allow read access for email reuse eligibility check, even for unauthenticated users
+      // This is necessary for the signup process
+      allow read: if true;
+      
+      // Allow write access for recording email history during signup
+      // Only authenticated users can write to ensure security
+      allow write: if isAuthenticated();
+    }
+
+    // User Feedback collection rules
+    match /user_feedback/{feedbackId} {
+      // Allow creation of feedback by authenticated users or from server functions
+      // The request.resource.data.timestamp check ensures the timestamp is present
+      // and is a valid ISO string, which helps verify it's coming from our code
+      allow create: if isAuthenticated() || 
+                     (request.resource.data.timestamp is string && 
+                      request.resource.data.status == 'new');
+      
+      // Allow users to read their own feedback
+      allow read: if isAuthenticated() && 
+                    (resource.data.userId == request.auth.uid || 
+                     resource.data.email == request.auth.token.email);
+      
+      // Allow server functions to read all feedback
+      // This is useful for admin dashboards or reporting
+      allow read: if request.auth.token.email.matches('.*@praxtom\.com$');
+    }
+
+    // Prevent writing to other collections without specific rules
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

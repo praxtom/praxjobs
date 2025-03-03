@@ -1,0 +1,28 @@
+# build output
+dist/
+.output/
+
+# dependencies
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# macOS-specific files
+.DS_Store
+
+# Google Cloud Credentials
+*.json.key
+.vercel
+astro-ai-professional-firebase-adminsdk-fbsvc-fc715c8e4b.json
+
+# Secrets and sensitive files
+/secrets/
+*.key
+*.pem
+*.p12
+
+
+# Local Netlify folder
+.netlify

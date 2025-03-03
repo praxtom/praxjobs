@@ -1,0 +1,192 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { SUBSCRIPTION_TIERS } from "../lib/subscriptionConfig";
+
+const faqs = {
+  general: [
+    {
+      question: "What is PraxJobs?",
+      answer:
+        "PraxJobs is an AI-powered platform that helps you create professional, ATS-friendly resumes. Our platform analyzes job descriptions and suggests improvements to make your resume more relevant and impactful for your target role.",
+    },
+    {
+      question: "Is my data secure?",
+      answer:
+        "Yes, we take data security seriously. All your personal information is encrypted and stored securely and is deleted after 7 days. We never share your data with third parties.",
+    },
+    {
+      question: "What's included in the free plan?",
+      answer: `The free plan includes ${SUBSCRIPTION_TIERS.free.features.join(", ")}.`,
+    },
+  ],
+  features: [
+    {
+      question: "How does the AI optimization work?",
+      answer:
+        "Our AI analyzes your resume against job descriptions, identifying key skills and experiences that match the requirements. It then suggests improvements to your content and formatting to increase your chances of getting noticed.",
+    },
+    {
+      question: "What do I get with the Pro plan?",
+      answer: `The Pro plan includes ${SUBSCRIPTION_TIERS.pro.features.join(", ")}. Pro users get unlimited resume and cover letter generations for just ₹${SUBSCRIPTION_TIERS.pro.price / 100}/${SUBSCRIPTION_TIERS.pro.billingCycle}.`,
+    },
+    {
+      question: "Does the platform help with cover letters?",
+      answer:
+        "Yes, we provide AI-powered cover letter generation that matches your resume and the job requirements, helping you create compelling cover letters quickly.",
+    },
+  ],
+  technical: [
+    {
+      question: "What file formats can I export my resume in?",
+      answer:
+        "Pro users can export their resumes in both PDF and DOCX formats, ensuring compatibility with various Applicant Tracking Systems (ATS). Free users can export in PDF format only.",
+    },
+    {
+      question: "Can I import my existing resume?",
+      answer:
+        "Yes, you can import existing resumes in PDF or DOCX formats. Our AI will analyze and convert them into our format while preserving your content.",
+    },
+    {
+      question: "Is the platform mobile-friendly?",
+      answer:
+        "Yes, our platform is fully responsive and works on all devices, allowing you to create and edit your resume on desktop, tablet, or mobile.",
+    },
+  ],
+};
+---
+
+<Layout title="Help & Support">
+  <main class="min-h-screen">
+    <!-- Hero Section -->
+    <section
+      class="py-16 bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950"
+    >
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="text-center">
+          <h1
+            class="text-5xl font-bold text-gray-900 dark:text-white mb-4 mt-20"
+          >
+            How can we help?
+          </h1>
+          <p class="text-lg text-gray-500 dark:text-gray-300 mb-8">
+            Find answers to common questions or reach out to our support team
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Sections -->
+    <section class="py-16">
+      <div class="max-w-5xl mx-auto px-6">
+        <!-- General FAQs -->
+        <div class="mb-16">
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+            General Questions
+          </h2>
+          <div class="space-y-6">
+            {
+              faqs.general.map((faq) => (
+                <div class="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm">
+                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    {faq.question}
+                  </h3>
+                  <p class="text-gray-500 dark:text-gray-300">{faq.answer}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Feature FAQs -->
+        <div class="mb-16">
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+            Features & Usage
+          </h2>
+          <div class="space-y-6">
+            {
+              faqs.features.map((faq) => (
+                <div class="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm">
+                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    {faq.question}
+                  </h3>
+                  <p class="text-gray-500 dark:text-gray-300">{faq.answer}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Technical FAQs -->
+        <div class="mb-16">
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+            Technical Questions
+          </h2>
+          <div class="space-y-6">
+            {
+              faqs.technical.map((faq) => (
+                <div class="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm">
+                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    {faq.question}
+                  </h3>
+                  <p class="text-gray-500 dark:text-gray-300">{faq.answer}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="py-16 bg-gray-50 dark:bg-gray-950">
+      <div class="max-w-3xl mx-auto px-6">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            Still need help?
+          </h2>
+          <p class="text-lg text-gray-500 dark:text-gray-300 mb-8">
+            Send us a message and we'll get back to you as soon as possible
+          </p>
+
+          <div class="flex flex-col items-center justify-center space-y-6">
+            <p class="text-gray-600 dark:text-gray-300">
+              We value your questions and feedback! Our team is ready to assist
+              you with any inquiries you may have.
+            </p>
+
+            <a
+              href="https://docs.google.com/forms/d/1EnotbKP-ns1WTQ1UQyBWPkqrMuBGOmKx7Oh6ZpW1Afg/preview"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center px-8 py-4 border border-transparent rounded-lg shadow-md text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
+            >
+              Open Contact Form
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 ml-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                ></path>
+              </svg>
+            </a>
+
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-4">
+              Our team typically responds within 24-48 business hours.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script>
+  // No contact form script needed as we're using Google Forms
+</script>

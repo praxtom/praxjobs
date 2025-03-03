@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350" fill="none">
+  <title>AI Career Tools Illustration</title>
+  <rect width="500" height="350" fill="#F4F4F4"/>
+  
+  <!-- Person searching -->
+  <path d="M250 200c-30.928 0-56-25.072-56-56s25.072-56 56-56 56 25.072 56 56-25.072 56-56 56z" fill="#6366F1"/>
+  <path d="M250 94a50 50 0 1 1-50 50 50.057 50.057 0 0 1 50-50m0-12a62 62 0 1 0 62 62 62.07 62.07 0 0 0-62-62z" fill="#4338CA"/>
+  
+  <!-- Computer with AI elements -->
+  <rect x="150" y="250" width="200" height="120" rx="10" fill="#E5E7EB"/>
+  <rect x="170" y="270" width="160" height="80" fill="#D1D5DB"/>
+  
+  <!-- AI Brain/Network -->
+  <g fill="#10B981">
+    <circle cx="250" cy="310" r="10"/>
+    <circle cx="220" cy="290" r="6"/>
+    <circle cx="280" cy="330" r="6"/>
+    <path d="M220 290l30 20m30-20-30 20" stroke="#10B981" stroke-width="2"/>
+  </g>
+  
+  <!-- Search Icon -->
+  <path d="M300 144a28 28 0 1 1-28-28 28 28 0 0 1 28 28z" fill="#34D399"/>
+  <path d="M284 128l14 14 14-14" stroke="#FFFFFF" stroke-width="3"/>
+</svg>

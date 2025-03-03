@@ -1,0 +1,45 @@
+---
+import Layout from "../layouts/Layout.astro";
+import LoginForm from "../components/auth/LoginForm.astro";
+import { getAuthTokenFromCookies } from "../lib/authUtils";
+import { isAuthenticated } from "../lib/authStore";
+
+// Check if user is already authenticated
+const token = getAuthTokenFromCookies(Astro.cookies);
+const userAuthenticated = token ? await isAuthenticated() : false;
+
+// If authenticated, redirect to dashboard or requested page
+if (userAuthenticated) {
+    const redirectUrl = Astro.url.searchParams.get("redirect") || "/dashboard";
+    return Astro.redirect(decodeURIComponent(redirectUrl));
+}
+---
+
+<Layout title="Login">
+    <main class="relative min-h-screen bg-gray-50 dark:bg-gray-950 pt-16">
+        <section
+            class="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 transition-all duration-500"
+        >
+            <LoginForm />
+        </section>
+    </main>
+</Layout>
+
+<script>
+    import { isAuthenticated } from "../lib/authStore";
+
+    // Check authentication state on page load
+    async function checkAuthState() {
+        const authenticated = await isAuthenticated();
+
+        if (authenticated) {
+            const redirectUrl =
+                new URLSearchParams(window.location.search).get("redirect") ||
+                "/dashboard";
+            window.location.href = decodeURIComponent(redirectUrl);
+        }
+    }
+
+    // Initial auth state check
+    checkAuthState();
+</script>

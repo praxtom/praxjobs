@@ -1,0 +1,49 @@
+---
+import Container from "./Container.astro"
+
+const blogs = [
+  {
+    title: "How AI Job Search Tools Are Transforming Career Success Rates",
+    description: "Discover how AI is revolutionizing job searching with intelligent matching, time-saving automation, and enhanced success strategies.",
+    url: "https://joblogr.com/blog/how-ai-job-search-tools-are-transforming-career-success-rates-in-2024"
+  },
+  {
+    title: "5 AI Trends That Will Influence Your 2024 Job Search",
+    description: "Explore cutting-edge AI trends reshaping career development, from personalized guidance to advanced interview preparation.",
+    url: "https://medium.com/@mylearningcurve_/5-ai-trends-that-will-influence-your-2024-job-search-c39e546dfd9a"
+  },
+  {
+    title: "Top AI Tools for Job Seekers in 2024",
+    description: "A comprehensive guide to essential AI technologies transforming the job search process with efficiency and personalization.",
+    url: "https://www.linkedin.com/pulse/top-ai-tools-job-seekers-2024-essential-technologies-you-kpuxc"
+  }
+];
+---
+
+<div id="blog">
+  <Container>
+      <div class="mb-12 space-y-2 text-center">
+        <h2 class="text-3xl font-bold text-gray-800 md:text-4xl dark:text-white">Latest Articles on AI Career Tools</h2>
+        <p class="lg:mx-auto lg:w-6/12 text-gray-600 dark:text-gray-300">
+          Explore the latest insights and trends in how AI is transforming job searching, resume optimization, and career development.
+        </p>
+      </div>
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {blogs.map((blog) => (
+          <div class="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-950 bg-opacity-50 shadow-2xl shadow-gray-600/10">
+            <div class="mt-6 relative">
+              <h3 class="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
+                {blog.title}
+              </h3>
+              <p class="mt-6 mb-8 text-gray-600 dark:text-gray-300">
+                {blog.description}
+              </p>
+              <a class="inline-block" href={blog.url} target="_blank" rel="noopener noreferrer">
+                <span class="text-info text-black dark:text-blue-300">Read more</span>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+  </Container>
+</div>

@@ -1,0 +1,166 @@
+---
+interface Props {
+    className?: string;
+}
+
+const { className = '' } = Astro.props;
+
+// Career-focused quotes collection
+const quotes = [
+    {
+        text: "The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle.",
+        author: "Steve Jobs",
+        role: "Co-founder, Apple Inc."
+    },
+    {
+        text: "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+        author: "Winston Churchill",
+        role: "Former Prime Minister"
+    },
+    {
+        text: "Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work.",
+        author: "Steve Jobs",
+        role: "Co-founder, Apple Inc."
+    },
+    {
+        text: "The future depends on what you do today.",
+        author: "Mahatma Gandhi",
+        role: "Leader & Visionary"
+    },
+    {
+        text: "Don't watch the clock; do what it does. Keep going.",
+        author: "Sam Levenson",
+        role: "Author"
+    },
+    {
+        text: "The best way to predict the future is to create it.",
+        author: "Peter Drucker",
+        role: "Management Consultant"
+    },
+    {
+        text: "Choose a job you love, and you will never have to work a day in your life.",
+        author: "Confucius",
+        role: "Philosopher"
+    },
+    {
+        text: "Opportunities don't happen. You create them.",
+        author: "Chris Grosser",
+        role: "Entrepreneur"
+    }
+];
+
+// Get a random quote
+const getRandomQuote = () => quotes[Math.floor(Math.random() * quotes.length)];
+const quote = getRandomQuote();
+---
+
+<div class:list={["quote-container relative", className]}>
+    <div class="bg-gray-100 dark:bg-gray-900 rounded-2xl p-6 relative filter drop-shadow-[0px_0px_0px_rgba(0,0,0,0.01)] dark:drop-shadow-[0_0px_0px_rgba(0,0,0,0.01)]">
+        
+        <!-- Quote Content -->
+        <blockquote class="relative z-10 quote-content ">
+            <p id="quote-text" class=" text-lg md:text-xl font-medium text-gray-900 dark:text-white leading-relaxed mb-3">
+                "{quote.text}"
+            </p>
+            <footer class="flex items-center gap-2">
+                <div class="w-6 h-0.5 bg-primary/30"></div> 
+                <div>
+                    <cite id="quote-author" class="text-md font-medium text-gray-900 dark:text-white not-italic block">
+                        {quote.author}
+                    </cite>
+                    <span id="quote-role" class="text-sm text-gray-600 dark:text-gray-400">
+                        {quote.role}
+                    </span>
+                </div>
+            </footer>
+        </blockquote>
+    </div>
+</div>
+
+<script>
+    const quotes = [
+        {
+            text: "The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle.",
+            author: "Steve Jobs",
+            role: "Co-founder, Apple Inc."
+        },
+        {
+            text: "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+            author: "Winston Churchill",
+            role: "Former Prime Minister"
+        },
+        {
+            text: "Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work.",
+            author: "Steve Jobs",
+            role: "Co-founder, Apple Inc."
+        },
+        {
+            text: "The future depends on what you do today.",
+            author: "Mahatma Gandhi",
+            role: "Leader & Visionary"
+        },
+        {
+            text: "Don't watch the clock; do what it does. Keep going.",
+            author: "Sam Levenson",
+            role: "Author"
+        },
+        {
+            text: "The best way to predict the future is to create it.",
+            author: "Peter Drucker",
+            role: "Management Consultant"
+        },
+        {
+            text: "Choose a job you love, and you will never have to work a day in your life.",
+            author: "Confucius",
+            role: "Philosopher"
+        },
+        {
+            text: "Opportunities don't happen. You create them.",
+            author: "Chris Grosser",
+            role: "Entrepreneur"
+        }
+    ];
+
+    function setupQuoteRefresh() {
+        const quoteElement = document.getElementById('quote-text');
+        const authorElement = document.getElementById('quote-author');
+        const roleElement = document.getElementById('quote-role');
+
+        if (!quoteElement || !authorElement || !roleElement) return;
+
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+
+        // Use requestAnimationFrame for smoother rendering
+        requestAnimationFrame(() => {
+            quoteElement.textContent = `"${randomQuote.text}"`;
+            authorElement.textContent = randomQuote.author;
+            roleElement.textContent = randomQuote.role;
+        });
+    }
+
+    // Initial quote setup
+    setupQuoteRefresh();
+
+    // Optional: Refresh quote periodically
+    setInterval(setupQuoteRefresh, 30000);  // Every 30 seconds
+</script>
+
+<style>
+    .animate-fadeOut {
+        opacity: 0;
+        transition: opacity 0.5s ease-out;
+    }
+
+    .animate-fadeIn {
+        opacity: 1;
+        transition: opacity 0.5s ease-in;
+    }
+
+    .quote-container {
+        transition: transform 0.3s ease;
+    }
+
+    .quote-container:hover {
+        transform: translateY(-2px);
+    }
+</style>

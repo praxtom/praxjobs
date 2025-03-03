@@ -1,0 +1,361 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Container from "../components/Container.astro";
+import JobTrackerComponent from "../components/tools/JobTrackerComponent.astro";
+
+// Page metadata
+const title = "Job Application Tracker | My Career Journey";
+const description =
+  "Track and manage your job applications efficiently with our comprehensive job tracking tool.";
+---
+
+<Layout title={title}>
+  <main class="relative min-h-screen dark:bg-gray-950 pt-16">
+    <div
+      aria-hidden="true"
+      class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20"
+    >
+      <div
+        class="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700"
+      >
+      </div>
+      <div
+        class="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600"
+      >
+      </div>
+    </div>
+    <Container>
+      <div class="relative pt-24 space-y-12">
+        <div class="w-full text-center mx-auto">
+          <h1
+            class="text-gray-900 dark:text-white font-bold text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
+          >
+            <span class="text-primary dark:text-white"
+              >Track Your Job Applications</span
+            >
+          </h1>
+          <p
+            class="mt-6 text-gray-700 dark:text-gray-300 text-lg max-w-3xl mx-auto"
+          >
+            Streamline your job search with intelligent tracking and
+            comprehensive insights. Manage, analyze, and optimize your job
+            applications effortlessly.
+          </p>
+
+          <!-- Stats -->
+          <div
+            class="hidden py-6 mt-10 border-y border-gray-100 dark:border-gray-800 sm:flex justify-between"
+          >
+            <div class="text-left">
+              <h6 class="text-lg font-semibold text-gray-700 dark:text-white">
+                Smart Tracking
+              </h6>
+              <p class="mt-2 text-gray-500">
+                Intelligent Application Management
+              </p>
+            </div>
+            <div class="text-left">
+              <h6 class="text-lg font-semibold text-gray-700 dark:text-white">
+                AI-Powered
+              </h6>
+              <p class="mt-2 text-gray-500">Advanced Job Search Insights</p>
+            </div>
+            <div class="text-left">
+              <h6 class="text-lg font-semibold text-gray-700 dark:text-white">
+                Real-time Updates
+              </h6>
+              <p class="mt-2 text-gray-500">Synchronized Across Devices</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+
+    <!-- Job Tracker Component -->
+    <section id="tracker" class="relative w-full py-8 sm:py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <JobTrackerComponent />
+      </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <Container>
+      <section
+        id="benefits"
+        class="relative py-16 w-full overflow-hidden rounded-2xl px-4"
+      >
+        <div class="container relative mx-auto p-4 sm:p-6 lg:p-8">
+          <!-- Main Heading -->
+          <div class="text-center mb-16">
+            <h2
+              class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
+            >
+              Your AI-Powered Job Search Companion
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-400">
+              Transform your job application process with intelligent tracking
+              and seamless tool integration.
+            </p>
+          </div>
+
+          <!-- Feature Grid -->
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
+            role="list"
+            aria-label="Key features of the Job Tracker"
+          >
+            <!-- Centralized Hub Card -->
+            <div
+              class="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              role="listitem"
+            >
+              <div
+                class="h-12 w-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-blue-600 dark:text-blue-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+              </div>
+              <h3
+                class="text-xl font-semibold text-gray-900 dark:text-white mb-2"
+              >
+                Centralized Hub
+              </h3>
+              <p class="text-gray-600 dark:text-gray-400">
+                One-click access to Resume Generator, Cover Letter Creator, and
+                Job Analysis from each application.
+              </p>
+            </div>
+
+            <!-- Smart Integration Card -->
+            <div
+              class="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              role="listitem"
+            >
+              <div
+                class="h-12 w-12 bg-green-100 dark:bg-green-900 rounded-xl flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-green-600 dark:text-green-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+              </div>
+              <h3
+                class="text-xl font-semibold text-gray-900 dark:text-white mb-2"
+              >
+                Smart Integration
+              </h3>
+              <p class="text-gray-600 dark:text-gray-400">
+                Job details automatically sync across tools, with direct links
+                to original job postings.
+              </p>
+            </div>
+
+            <!-- Strategic Insights Card -->
+            <div
+              class="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              role="listitem"
+            >
+              <div
+                class="h-12 w-12 bg-purple-100 dark:bg-purple-900 rounded-xl flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-purple-600 dark:text-purple-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                  ></path>
+                </svg>
+              </div>
+              <h3
+                class="text-xl font-semibold text-gray-900 dark:text-white mb-2"
+              >
+                Application Insights
+              </h3>
+              <p class="text-gray-600 dark:text-gray-400">
+                Track application status, timelines, and access integrated tools
+                for each opportunity.
+              </p>
+            </div>
+          </div>
+
+          <!-- Detailed Benefits Section -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Left Column: Smart Integration -->
+            <div class="space-y-8">
+              <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
+                Seamless Tool Integration
+              </h3>
+              <div class="space-y-6">
+                <!-- Quick Access -->
+                <div class="flex items-start space-x-4">
+                  <div class="flex-shrink-0 mt-1">
+                    <div
+                      class="h-6 w-6 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center"
+                    >
+                      <svg
+                        class="w-4 h-4 text-indigo-600 dark:text-indigo-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div>
+                    <h4
+                      class="text-lg font-semibold text-gray-900 dark:text-white"
+                    >
+                      Quick Access Tools
+                    </h4>
+                    <p class="text-gray-600 dark:text-gray-400">
+                      Generate resumes, cover letters, and analyze jobs with a
+                      single click from each application.
+                    </p>
+                  </div>
+                </div>
+                <!-- Data Sync -->
+                <div class="flex items-start space-x-4">
+                  <div class="flex-shrink-0 mt-1">
+                    <div
+                      class="h-6 w-6 bg-rose-100 dark:bg-rose-900 rounded-full flex items-center justify-center"
+                    >
+                      <svg
+                        class="w-4 h-4 text-rose-600 dark:text-rose-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div>
+                    <h4
+                      class="text-lg font-semibold text-gray-900 dark:text-white"
+                    >
+                      Automatic Data Sync
+                    </h4>
+                    <p class="text-gray-600 dark:text-gray-400">
+                      Job descriptions and details automatically populate across
+                      all application tools.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column: Application Management -->
+            <div class="space-y-8">
+              <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
+                Smart Application Management
+              </h3>
+              <div class="space-y-6">
+                <!-- Job Links -->
+                <div class="flex items-start space-x-4">
+                  <div class="flex-shrink-0 mt-1">
+                    <div
+                      class="h-6 w-6 bg-amber-100 dark:bg-amber-900 rounded-full flex items-center justify-center"
+                    >
+                      <svg
+                        class="w-4 h-4 text-amber-600 dark:text-amber-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div>
+                    <h4
+                      class="text-lg font-semibold text-gray-900 dark:text-white"
+                    >
+                      Direct Job Access
+                    </h4>
+                    <p class="text-gray-600 dark:text-gray-400">
+                      Quick links to original job postings and integrated
+                      application tools.
+                    </p>
+                  </div>
+                </div>
+                <!-- Status Tracking -->
+                <div class="flex items-start space-x-4">
+                  <div class="flex-shrink-0 mt-1">
+                    <div
+                      class="h-6 w-6 bg-emerald-100 dark:bg-emerald-900 rounded-full flex items-center justify-center"
+                    >
+                      <svg
+                        class="w-4 h-4 text-emerald-600 dark:text-emerald-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div>
+                    <h4
+                      class="text-lg font-semibold text-gray-900 dark:text-white"
+                    >
+                      Status Tracking
+                    </h4>
+                    <p class="text-gray-600 dark:text-gray-400">
+                      Monitor application progress with visual status indicators
+                      and timelines.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </Container>
+  </main>
+</Layout>

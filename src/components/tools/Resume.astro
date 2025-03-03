@@ -1,0 +1,1619 @@
+---
+// Resume component for generating and managing resumes
+const resumeInsights = [
+    {
+        title: "Keyword Optimization",
+        description:
+            "Use industry-specific keywords from job descriptions to pass ATS screening.",
+        icon: "🔍",
+    },
+    {
+        title: "Achievement-Focused Formatting",
+        description:
+            "Highlight quantifiable achievements using metrics and specific outcomes.",
+        icon: "📊",
+    },
+    {
+        title: "Tailored Storytelling",
+        description:
+            "Craft a narrative that connects your experience to the specific role.",
+        icon: "📖",
+    },
+    {
+        title: "Professional Readability",
+        description:
+            "Maintain clean, consistent formatting with clear hierarchies.",
+        icon: "✨",
+    },
+];
+---
+
+<section class="relative py-16 sm:py-24 lg:py-32 bg-white dark:bg-gray-950">
+    <div
+        aria-hidden="true"
+        class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-0 dark:opacity-0 transition-opacity duration-300 ease-in-out"
+    >
+        <div
+            class="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700 dark:to-indigo-600 opacity-40 dark:opacity-20"
+        >
+        </div>
+        <div
+            class="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600 dark:from-emerald-500 opacity-40 dark:opacity-20"
+        >
+        </div>
+    </div>
+    <div class="relative w-full">
+        <div class="container mx-auto px-3 md:px-6 lg:px-8 max-w-6xl">
+            <div class="w-full mx-auto">
+                <form
+                    id="resumeForm"
+                    class="w-full space-y-6 sm:space-y-8 bg-white dark:bg-transparent rounded-3xl p-6 sm:p-8
+                    shadow-lg border-gray-200 dark:border-gray-700/70
+                    transition-all duration-300 ease-in-out hover:shadow-xl"
+                >
+                    <div class="grid grid-cols-1 gap-3 sm:gap-6">
+                        <!-- Job Description -->
+                        <div class="space-y-1.5 sm:space-y-2">
+                            <label
+                                for="jobDescription"
+                                class="block text-sm sm:text-base font-medium text-gray-900 dark:text-white text-left"
+                            >
+                                Job Description <span class="text-red-600">
+                                    *</span
+                                >
+                            </label>
+                            <textarea
+                                id="jobDescription"
+                                placeholder="Paste the complete job description here."
+                                rows="6"
+                                class="w-full p-2.5 sm:p-3 border-2 border-gray-300 dark:border-gray-700/70 rounded-xl
+                                bg-white/10 dark:bg-gray-800/20
+                                focus:ring-2 focus:ring-primary/30 focus:border-primary
+                                text-gray-900 dark:text-white
+                                transition-all duration-300
+                                placeholder:text-gray-400 placeholder:text-sm
+                                hover:bg-white/20 dark:hover:bg-gray-800/30
+                                text-md sm:text-base
+                                min-h-[150px] sm:min-h-[200px]"
+                                required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-3 sm:gap-6">
+                        <!-- Resume Content -->
+                        <div class="space-y-1.5 sm:space-y-2">
+                            <label
+                                class="block text-sm sm:text-base font-medium text-gray-900 dark:text-white text-left"
+                            >
+                                Resume <span class="text-red-600">*</span>
+                            </label>
+
+                            <input
+                                type="file"
+                                id="resumeFileInput"
+                                class="hidden"
+                            />
+
+                            <!-- Resume Options Selector -->
+                            <div
+                                id="resumeOptionsSelector"
+                                class="grid grid-cols-1 md:grid-cols-3 gap-4"
+                            >
+                                <button
+                                    type="button"
+                                    id="resumeFileUploadButton"
+                                    class="relative flex flex-col items-center justify-center p-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl bg-white/10 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-all duration-300 group"
+                                >
+                                    <div
+                                        class="flex flex-col items-center justify-center space-y-2"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="h-7 w-7 text-primary group-hover:text-primary-dark transition-colors duration-300"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                                            ></path>
+                                        </svg>
+                                        <span
+                                            class="font-medium text-gray-900 dark:text-white"
+                                            >Upload File</span
+                                        >
+                                        <span
+                                            class="text-xs text-gray-500 dark:text-gray-400 mt-1"
+                                            >PDF, DOCX, TXT</span
+                                        >
+                                    </div>
+                                </button>
+
+                                <button
+                                    type="button"
+                                    id="importResumeButton"
+                                    class="relative flex flex-col items-center justify-center p-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl bg-white/10 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-all duration-300 group"
+                                >
+                                    <div
+                                        class="flex flex-col items-center justify-center space-y-2"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="h-7 w-7 text-primary group-hover:text-primary-dark transition-colors duration-300"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
+                                            ></path>
+                                        </svg>
+                                        <span
+                                            class="font-medium text-gray-900 dark:text-white"
+                                            >Resume Manager</span
+                                        >
+                                        <span
+                                            class="text-xs text-gray-500 dark:text-gray-400 mt-1"
+                                            >Select saved resume</span
+                                        >
+                                    </div>
+                                </button>
+
+                                <button
+                                    type="button"
+                                    id="enterManuallyButton"
+                                    class="relative flex flex-col items-center justify-center p-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl bg-white/10 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-all duration-300 group"
+                                >
+                                    <div
+                                        class="flex flex-col items-center justify-center space-y-2"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="h-7 w-7 text-primary group-hover:text-primary-dark transition-colors duration-300"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 0L11.828 15H9v-2.828l8.586-8.586z"
+                                            ></path>
+                                        </svg>
+                                        <span
+                                            class="font-medium text-gray-900 dark:text-white"
+                                            >Enter Manually</span
+                                        >
+                                        <span
+                                            class="text-xs text-gray-500 dark:text-gray-400 mt-1"
+                                            >Paste or type resume</span
+                                        >
+                                    </div>
+                                </button>
+                            </div>
+
+                            <!-- File Added UI -->
+                            <div
+                                id="resumeFileAddedUI"
+                                class="hidden w-full p-6 border-2 border-gray-300 dark:border-gray-700/70 rounded-xl bg-white/10 dark:bg-gray-800/20 min-h-[100px] flex flex-col items-center justify-center"
+                            >
+                                <div
+                                    class="flex items-center justify-center mb-3"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="h-10 w-10 text-green-500"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                                        ></path>
+                                    </svg>
+                                </div>
+                                <p
+                                    id="resumeFileName"
+                                    class="text-center text-lg text-gray-900 dark:text-white font-medium"
+                                >
+                                    Resume added successfully
+                                </p>
+                                <button
+                                    id="changeResumeSource"
+                                    class="mt-4 px-4 py-2 bg-black text-white dark:bg-white dark:text-black rounded-full text-sm hover:bg-gray-800 dark:hover:bg-gray-200 transition-all duration-200"
+                                >
+                                    <!-- X Icon -->
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
+                                        class="w-6 h-6"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <!-- Manual Entry UI -->
+                            <div
+                                id="manualEntryContainer"
+                                class="hidden w-full"
+                            >
+                                <textarea
+                                    id="resumeContent"
+                                    name="resumeContent"
+                                    rows="8"
+                                    placeholder="Paste or type your resume here..."
+                                    class="w-full p-2.5 sm:p-3 border-2 border-gray-300 dark:border-gray-700/70 rounded-xl
+                                    bg-white/10 dark:bg-gray-800/20
+                                    focus:ring-2 focus:ring-primary/30 focus:border-primary
+                                    text-gray-900 dark:text-white
+                                    transition-all duration-300
+                                    placeholder:text-gray-400 placeholder:text-sm
+                                    hover:bg-white/20 dark:hover:bg-gray-800/30
+                                    text-md sm:text-base
+                                    min-h-[180px] sm:min-h-[200px]"
+                                    required></textarea>
+                                <div class="flex justify-end mt-2">
+                                    <button
+                                        id="cancelManualEntry"
+                                        class="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+                                    >
+                                        Back to options
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-3 sm:gap-6">
+                        <!-- Custom Instructions -->
+                        <div class="space-y-1.5 sm:space-y-2">
+                            <label
+                                for="customInstructions"
+                                class="block text-sm sm:text-base font-medium text-gray-900 dark:text-white text-left"
+                            >
+                                Custom Instructions <span
+                                    class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 ml-2"
+                                    >(Optional)</span
+                                >
+                            </label>
+                            <textarea
+                                id="customInstructions"
+                                placeholder="Optional instructions to help stand out."
+                                rows="3"
+                                class="w-full p-2.5 sm:p-3 border-2 border-gray-300 dark:border-gray-700 rounded-xl
+                                bg-white/10 dark:bg-gray-800/20
+                                focus:ring-2 focus:ring-primary/30 focus:border-primary
+                                text-gray-900 dark:text-white
+                                transition-all duration-300
+                                placeholder:text-gray-400 placeholder:text-sm
+                                hover:bg-white/20 dark:hover:bg-gray-800/30
+                                text-md sm:text-base
+                                min-h-[120px] sm:min-h-[150px]"
+                            ></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Generate Button -->
+                    <div
+                        class="flex flex-col sm:flex-row justify-center space-y-2.5 sm:space-y-0 sm:space-x-4 mt-2 sm:mt-4"
+                    >
+                        <button
+                            type="submit"
+                            class="w-full sm:w-auto inline-flex h-11 sm:h-12 items-center justify-center px-4 sm:px-6 py-2 sm:py-3
+                            text-sm sm:text-base font-semibold
+                            text-white bg-black
+                            dark:text-black dark:bg-white
+                            rounded-full
+                            transition-all duration-300
+                            transform hover:scale-105 active:scale-95
+                            focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2
+                            dark:focus:ring-offset-gray-900
+                            shadow-lg shadow-gray-500/30 hover:shadow-gray-500/40"
+                        >
+                            <span class="relative z-10">Generate Resume</span>
+                            <span
+                                class="absolute inset-0 rounded-full opacity-0 group-hover:opacity-10 bg-white transition-opacity duration-300"
+                            ></span>
+                        </button>
+                        <button
+                            type="button"
+                            id="clearForm"
+                            class="w-full sm:w-auto inline-flex h-11 sm:h-12 items-center justify-center px-4 sm:px-6 py-2 sm:py-3
+                            text-sm sm:text-base font-semibold
+                            text-black bg-white
+                            dark:text-gray-900 dark:bg-gray-500
+                            border border-gray-300 dark:border-gray-700
+                            rounded-full
+                            transition-all duration-300
+                            transform hover:scale-105 active:scale-95
+                            focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2
+                            dark:focus:ring-offset-gray-900
+                            shadow-lg shadow-gray-500/30 hover:shadow-gray-500/40"
+                        >
+                            <span class="relative z-10">Clear</span>
+                            <span
+                                class="absolute inset-0 rounded-full opacity-0 group-hover:opacity-10 bg-white transition-opacity duration-300"
+                            ></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="resumeResult" class="mt-6"></div>
+            <div id="tierInfo"></div>
+        </div>
+    </div>
+</section>
+
+<style>
+    textarea.border-red-500,
+    input.border-red-500,
+    button.border-red-500 {
+        border-color: rgb(239 68 68);
+    }
+
+    #resumeOptionsSelector button.border-red-500:hover {
+        border-color: rgb(239 68 68);
+        background-color: rgba(239, 68, 68, 0.05);
+    }
+
+    @keyframes pulse {
+        0%,
+        100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.5;
+        }
+    }
+
+    .animate-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    @keyframes typing {
+        from {
+            width: 0;
+        }
+        to {
+            width: 100%;
+        }
+    }
+    @keyframes blink-caret {
+        from,
+        to {
+            border-color: transparent;
+        }
+        50% {
+            border-color: theme("colors.white");
+        }
+    }
+    /* Removed typing animation */
+</style>
+
+<script>
+    import { TierManagementService } from "../../lib/tierManagement";
+    import { authService } from "../../lib/auth";
+    import { PersistentDocumentService } from "../../lib/persistentDocumentService";
+
+    // Extend the Window interface to include errorTracker
+    interface Window {
+        errorTracker?: {
+            report: (error: Error) => void;
+        };
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("resumeForm");
+        const resultContainer = document.getElementById("resumeResult");
+
+        // Check for stored job data
+        const storedJob = localStorage.getItem("currentJob");
+        if (storedJob) {
+            const jobData = JSON.parse(storedJob);
+            // Pre-fill the form with job data
+            const jobDescriptionInput = document.getElementById(
+                "jobDescription",
+            ) as HTMLTextAreaElement;
+            if (jobDescriptionInput)
+                jobDescriptionInput.value = jobData.jobDescription || "";
+            // Clear the stored data as it's no longer needed
+            localStorage.removeItem("currentJob");
+        }
+
+        if (!form || !resultContainer) {
+            console.error("Required elements not found");
+            return;
+        }
+
+        // Input validation function
+        function validateInput(
+            input: HTMLTextAreaElement,
+            minLength: number = 10,
+        ): boolean {
+            const value = input.value.trim();
+            const isValid = value.length >= minLength;
+
+            // Get or create error message element
+            let errorMessageEl = input.nextElementSibling as HTMLElement | null;
+            if (
+                !errorMessageEl ||
+                !errorMessageEl.classList.contains("validation-error")
+            ) {
+                errorMessageEl = document.createElement("div");
+                errorMessageEl.classList.add(
+                    "validation-error",
+                    "text-red-500",
+                    "text-sm",
+                    "mt-1",
+                );
+                input.parentNode?.insertBefore(
+                    errorMessageEl,
+                    input.nextSibling,
+                );
+            }
+
+            // Toggle error state and message
+            input.classList.toggle("border-red-500", !isValid);
+            input.classList.toggle("border-gray-200", isValid);
+
+            if (!isValid) {
+                // Customize error message based on input
+                let errorMessage = "";
+                if (input.id === "jobDescription") {
+                    errorMessage = `Job description must be at least ${minLength} characters long.`;
+                } else if (input.id === "resumeContent") {
+                    errorMessage = `Existing resume content must be at least ${minLength} characters long.`;
+                } else {
+                    errorMessage = `Input must be at least ${minLength} characters long.`;
+                }
+
+                errorMessageEl.textContent = errorMessage;
+                errorMessageEl.style.display = "block";
+            } else {
+                // Hide error message if valid
+                if (errorMessageEl) {
+                    errorMessageEl.textContent = "";
+                    errorMessageEl.style.display = "none";
+                }
+            }
+
+            return isValid;
+        }
+
+        // Check if user can generate a resume
+        async function checkResumeAccess() {
+            try {
+                const user = await authService.getCurrentUser();
+                if (!user) {
+                    // Show login modal or redirect to login
+                    return { canAccess: false, userId: null };
+                }
+
+                // Check feature access
+                const hasAccess =
+                    await TierManagementService.checkFeatureAccess(
+                        user.uid,
+                        "resumeGeneration",
+                    );
+
+                if (!hasAccess) {
+                    // Show upgrade modal
+                    const upgradeModal = document.createElement("div");
+                    upgradeModal.innerHTML = `
+                        <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+                            <div class="bg-white dark:bg-gray-900 rounded-2xl p-8 max-w-md w-full text-center">
+                                <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Usage Limit Reached</h2>
+                                <p class="text-gray-600 dark:text-gray-400 mb-6">
+                                    You've reached the maximum number of resume generations for your current plan.
+                                </p>
+                                <div class="flex justify-center space-x-4">
+                                    <button id="upgradeButton" class="bg-black dark:bg-white text-white dark:text-black px-6 py-2 rounded-full hover:bg-primary-600 transition">
+                                        Upgrade to Pro
+                                    </button>
+                                    <button id="closeUpgradeModal" class="bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white px-6 py-2 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(upgradeModal);
+
+                    const upgradeButton =
+                        upgradeModal.querySelector("#upgradeButton");
+                    const closeButton =
+                        upgradeModal.querySelector("#closeUpgradeModal");
+
+                    upgradeButton?.addEventListener("click", () => {
+                        // Redirect to upgrade page or open upgrade modal
+                        window.location.href = "/pricing";
+                    });
+
+                    closeButton?.addEventListener("click", () => {
+                        document.body.removeChild(upgradeModal);
+                    });
+
+                    return { canAccess: false, userId: user.uid };
+                }
+
+                return { canAccess: true, userId: user.uid };
+            } catch (error) {
+                console.error("Error checking resume access:", error);
+                return { canAccess: false, userId: null };
+            }
+        }
+
+        // Modify form submission to check tier before generation
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            // Check tier status before generation
+            const { canAccess, userId } = await checkResumeAccess();
+
+            if (!canAccess || !userId) {
+                return; // Stop generation if access is denied
+            }
+
+            const jobDescription = document.getElementById(
+                "jobDescription",
+            ) as HTMLTextAreaElement;
+            const resumeContent = document.getElementById(
+                "resumeContent",
+            ) as HTMLTextAreaElement;
+            const customInstructions = document.getElementById(
+                "customInstructions",
+            ) as HTMLTextAreaElement;
+
+            // Validate all inputs and collect validation results
+            const jobDescriptionValid = validateInput(jobDescription, 20);
+
+            // Check if resume content is empty
+            const resumeOptionsSelector = document.getElementById(
+                "resumeOptionsSelector",
+            );
+            const resumeFileAddedUI =
+                document.getElementById("resumeFileAddedUI");
+            const manualEntryContainer = document.getElementById(
+                "manualEntryContainer",
+            );
+
+            let resumeContentValid = true;
+
+            if (resumeContent.value.trim().length < 50) {
+                // If the options selector is visible, show an error
+                if (
+                    resumeOptionsSelector &&
+                    !resumeOptionsSelector.classList.contains("hidden") &&
+                    resumeFileAddedUI &&
+                    resumeFileAddedUI.classList.contains("hidden")
+                ) {
+                    // Show error message
+                    const errorMessage = document.createElement("div");
+                    errorMessage.id = "resumeErrorMessage";
+                    errorMessage.className = "text-red-500 text-sm mt-2";
+                    errorMessage.textContent =
+                        "Please select a resume option or enter your resume manually.";
+
+                    // Remove any existing error message
+                    const existingError =
+                        document.getElementById("resumeErrorMessage");
+                    if (existingError) {
+                        existingError.remove();
+                    }
+
+                    // Add error message after options selector
+                    resumeOptionsSelector.parentNode?.insertBefore(
+                        errorMessage,
+                        resumeOptionsSelector.nextSibling,
+                    );
+
+                    // Add error highlighting to the options
+                    resumeOptionsSelector
+                        .querySelectorAll("button")
+                        .forEach((button) => {
+                            button.classList.add("border-red-500");
+                        });
+
+                    resumeContentValid = false;
+                } else if (
+                    manualEntryContainer &&
+                    !manualEntryContainer.classList.contains("hidden")
+                ) {
+                    // If manual entry is visible, validate the textarea
+                    resumeContentValid = validateInput(resumeContent, 50);
+                } else if (
+                    resumeFileAddedUI &&
+                    !resumeFileAddedUI.classList.contains("hidden")
+                ) {
+                    // If file is added, content should be valid
+                    resumeContentValid = true;
+                }
+            }
+
+            // Check if all validations pass
+            if (!jobDescriptionValid || !resumeContentValid) {
+                // Optional: Scroll to the first invalid input
+                if (!jobDescriptionValid) {
+                    jobDescription.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center",
+                    });
+                } else {
+                    const targetElement =
+                        manualEntryContainer &&
+                        !manualEntryContainer.classList.contains("hidden")
+                            ? resumeContent
+                            : resumeOptionsSelector;
+                    targetElement?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center",
+                    });
+                }
+                return;
+            }
+
+            // Proceed with resume generation if all validations pass
+            // Create modal dynamically
+            const modal = document.createElement("div");
+            modal.innerHTML = `
+                <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 mb-4">
+                    <div class="relative w-[95%] md:w-[90%] lg:w-[80%] xl:w-[70%] max-w-4xl max-h-[75vh] sm:max-h-[80vh] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl flex flex-col">
+                        <div class="flex-1 overflow-y-auto p-4">
+                            <div class="relative text-center mb-4">
+                                <button id="closeModal" class="absolute right-0 top-0 group p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Resume Generation</h2>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Your personalized resume is being generated</p>
+                            </div>
+
+                            <div id="streamingContent" class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4 min-h-[300px] relative text-base font-sans text-gray-900 dark:text-white leading-relaxed tracking-normal">
+                                <div class="animate-pulse text-center text-gray-500 dark:text-gray-400 space-y-4">
+                                    <div class="flex justify-center items-center space-x-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary animate-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                        </svg>
+                                        <h3 class="text-lg font-semibold">AI Resume Optimization in Progress</h3>
+                                    </div>
+                                    <p class="text-sm">
+                                        Our AI is carefully analyzing your job description and existing resume to:
+                                    </p>
+                                    <ul class="text-xs space-y-2 max-w-md mx-auto text-left">
+                                        <li class="flex items-center space-x-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            <span>Extract key skills and achievements</span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            <span>Optimize for Applicant Tracking Systems (ATS)</span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            <span>Align resume with job description keywords</span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            <span>Highlight your most impactful experiences</span>
+                                        </li>
+                                    </ul>
+                                    <p class="text-xs text-gray-400 italic">
+                                        Powered by advanced AI language models to boost your job application
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div 
+                                id="resumeActionButtons" 
+                                class="flex flex-col sm:flex-row justify-between items-center mt-4 space-y-3 sm:space-y-0 sm:space-x-3 opacity-0 transition-all duration-500 ease-in-out transform translate-y-4"
+                            >
+                                <div class="flex space-x-3 w-full sm:w-auto">
+                                    <button 
+                                        id="downloadButton" 
+                                        class="inline-flex items-center justify-center px-4 py-2 
+                                        text-sm font-semibold bg-gray-200 dark:bg-gray-700 
+                                        text-gray-900 dark:text-white hover:bg-gray-300 
+                                        dark:hover:bg-gray-600 rounded-full transition-colors duration-300"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                        </svg>
+                                        Download
+                                    </button>
+                                    
+                                    <button 
+                                        id="copyButton" 
+                                        class="inline-flex items-center justify-center px-4 py-2 
+                                        text-sm font-semibold bg-gray-200 dark:bg-gray-700 
+                                        text-gray-900 dark:text-white hover:bg-gray-300 
+                                        dark:hover:bg-gray-600 rounded-full transition-colors duration-300"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+                                        </svg>
+                                        Copy
+                                    </button>
+
+                                    <button 
+                                        id="saveResumeButton" 
+                                        class="inline-flex items-center justify-center px-4 py-2 
+                                        text-sm font-semibold bg-gray-200 dark:bg-gray-700 
+                                        text-gray-900 dark:text-white hover:bg-gray-300 
+                                        dark:hover:bg-gray-600 rounded-full transition-colors duration-300"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+                                        </svg>
+                                        Save to Resume Manager
+                                    </button>
+
+                                    <button 
+                                        id="coverLetterButton" 
+                                        class="inline-flex items-center justify-center px-4 py-2 
+                                        text-sm font-semibold text-white bg-black dark:bg-white 
+                                        dark:text-black hover:bg-primary-600 
+                                        rounded-full transition-colors duration-300"
+                                    >
+                                        Create Cover Letter
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+
+            const closeModal = document.getElementById("closeModal");
+            const streamingContent =
+                document.getElementById("streamingContent");
+            const downloadButton = document.getElementById("downloadButton");
+            const saveResumeButton =
+                document.getElementById("saveResumeButton");
+            const copyButton = document.getElementById("copyButton");
+            const coverLetterButton =
+                document.getElementById("coverLetterButton");
+            const resumeActionButtons = document.getElementById(
+                "resumeActionButtons",
+            );
+
+            if (
+                !closeModal ||
+                !streamingContent ||
+                !downloadButton ||
+                !saveResumeButton ||
+                !copyButton ||
+                !coverLetterButton ||
+                !resumeActionButtons
+            ) {
+                console.error("Modal elements not found");
+                return;
+            }
+
+            closeModal.addEventListener("click", () => {
+                modal.remove();
+            });
+
+            // Close modal when clicking outside
+            modal.addEventListener("click", (event) => {
+                // Check if the click was on the modal background
+                const modalContent = modal.querySelector(
+                    '.relative[class*="w-[95%"]',
+                );
+                if (
+                    event.target === modal ||
+                    (modalContent &&
+                        !modalContent.contains(event.target as Node))
+                ) {
+                    document.body.removeChild(modal);
+                }
+            });
+
+            // Prepare messages for DeepSeek API
+            const messages = [
+                {
+                    role: "system",
+                    content: `Generate a professional, ATS-optimized resume based on the following job description and existing resume content. Follow these guidelines:
+1. Format:
+   - Use only plain text without any markup or special formatting
+   - No bold, italics, or other text decorations
+   - Use standard sections: Contact Information, Professional Summary, Work Experience, Education, Skills
+   - Avoid any special characters or symbols beyond standard punctuation
+   - Maintain consistent, clean formatting
+2. Content:
+   - Tailor the resume precisely to the job description
+   - Highlight most relevant skills and experiences
+   - Use keywords from the job description
+   - Focus on quantifiable achievements and results
+   - Demonstrate clear value proposition for the role
+   - Do not lie at all. 
+   - Dont remove any sections of the resume. Your task is to only optimize the resume to meet the job description.
+
+3. Style:
+   - Use professional, clear language
+   - Use action verbs
+   - Be specific and results-oriented
+   - Focus on achievements over responsibilities
+   - Keep sections concise and impactful
+4. Optimization:
+   - Ensure resume is ATS-friendly
+   - Use standard, readable formatting
+   - Avoid graphics, images, or complex layouts
+   - Prioritize readability and content clarity
+
+5. Special Instructions:
+   - Do NOT use any markdown formatting
+   - Do NOT use any special text decorations
+   - Ensure text is completely plain and readable
+   - Maintain professional appearance through content, not formatting
+   - Do NOT include any explanatory text or summary at the end of the resume
+   - Return ONLY the resume text without any additional commentary
+
+6. Additional Custom Instructions:
+   ${(() => {
+       const customInstructions = document.getElementById(
+           "customInstructions",
+       ) as HTMLTextAreaElement;
+       return (
+           customInstructions?.value?.trim() ||
+           "None provided. Follow standard professional resume guidelines."
+       );
+   })()}
+   `,
+                },
+                {
+                    role: "user",
+                    content: `Job Description:\n${jobDescription.value}\n\nExisting Resume:\n${resumeContent.value}`,
+                },
+            ];
+
+            // Make request to DeepSeek API
+            // const response = await fetch('https://api.deepseek.com/chat/completions', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'Authorization': `Bearer ${import.meta.env.PUBLIC_DEEPSEEK_API_KEY}`
+            //     },
+            //     body: JSON.stringify({
+            //         model: 'deepseek-chat',
+            //         messages: messages,
+            //         stream: true,
+            //         max_tokens: 3000,
+            //         temperature: 0.3,
+            //         top_p: 1,
+            //     })
+            // });
+
+            const response = await fetch(
+                "https://api.openai.com/v1/chat/completions",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${import.meta.env.PUBLIC_OPENAI_API_KEY}`,
+                    },
+                    body: JSON.stringify({
+                        model: "gpt-4o-mini",
+                        messages: messages,
+                        stream: true,
+                        max_tokens: 3000,
+                        temperature: 0.5,
+                        top_p: 1,
+                    }),
+                },
+            );
+
+            // Check if the response is ok
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(
+                    `API request failed: ${response.status} ${response.statusText}. ${errorText}`,
+                );
+            }
+
+            // Simulate resume generation with streaming content
+            let streamingText = "";
+            const startTime = Date.now();
+
+            function updateProgress(content: string) {
+                if (!streamingContent) return;
+
+                streamingText += content;
+                streamingContent.innerHTML = `
+                    <div class="whitespace-pre-wrap font-mono text-sm">${streamingText}</div>
+                    <div class="mt-4 h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+                        <div class="h-full bg-primary rounded-full transition-all duration-300" style="width: ${calculateProgress(streamingText.length)}%"></div>
+                    </div>
+                `;
+            }
+
+            function calculateProgress(currentLength: number): number {
+                const generationTime = 20000; // 20 seconds total
+                const elapsedTime = Date.now() - startTime;
+                return Math.min(100, (elapsedTime / generationTime) * 100);
+            }
+
+            // Handle streaming response
+            const reader = response.body?.getReader();
+            const decoder = new TextDecoder();
+
+            while (true) {
+                const { done, value } = await reader!.read();
+                if (done) {
+                    // Final update with full text
+                    if (streamingContent) {
+                        streamingContent.innerHTML = `
+                            <div class="text-sm text-gray-900 dark:text-white whitespace-pre-wrap text-left p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                                ${streamingText}
+                            </div>
+                        `;
+
+                        // Retrieve current user and track usage AFTER streaming is done
+                        const currentUser = await authService.getCurrentUser();
+                        if (currentUser) {
+                            // Track successful resume generation
+                            await TierManagementService.trackResumeGeneration(
+                                currentUser.uid,
+                            );
+                        }
+                    }
+                    break;
+                }
+
+                const chunk = decoder.decode(value);
+                const lines = chunk
+                    .split("\n")
+                    .filter((line) => line.trim() !== "");
+
+                for (const line of lines) {
+                    if (line.startsWith("data: ")) {
+                        try {
+                            const jsonData = JSON.parse(line.slice(6));
+                            if (
+                                jsonData.choices &&
+                                jsonData.choices[0].delta.content
+                            ) {
+                                const content =
+                                    jsonData.choices[0].delta.content;
+                                streamingText += content;
+
+                                // Update streaming content during generation
+                                if (streamingContent) {
+                                    streamingContent.innerHTML = `
+                                        <div class="text-sm text-gray-900 dark:text-white whitespace-pre-wrap text-left p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                                            ${streamingText}
+                                        </div>
+                                    `;
+                                }
+                            }
+                        } catch (parseError) {
+                            console.warn(
+                                "Error parsing stream data:",
+                                parseError,
+                                "Line:",
+                                line,
+                            );
+                        }
+                    }
+                }
+            }
+
+            // Show action buttons with animation
+            const showActionButtons = () => {
+                resumeActionButtons.classList.remove(
+                    "opacity-0",
+                    "translate-y-4",
+                );
+                resumeActionButtons.classList.add(
+                    "opacity-100",
+                    "translate-y-0",
+                );
+            };
+
+            // After streaming is complete, show buttons with animation
+            showActionButtons();
+
+            // Add click sound effect (optional)
+            const clickSound = new Audio(
+                "data:audio/wav;base64,UklGRhQCAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhgAEAAA==",
+            );
+            clickSound.volume = 0.2;
+
+            // Function to play click sound and add visual feedback
+            function handleButtonClick(button: HTMLButtonElement) {
+                // Play sound
+                try {
+                    clickSound.currentTime = 0;
+                    clickSound.play();
+                } catch (error) {
+                    console.warn("Could not play click sound", error);
+                }
+
+                // Temporary visual feedback
+                button.classList.add("ring-2", "ring-primary", "ring-offset-2");
+                setTimeout(() => {
+                    button.classList.remove(
+                        "ring-2",
+                        "ring-primary",
+                        "ring-offset-2",
+                    );
+                }, 300);
+            }
+
+            downloadButton.addEventListener("click", () => {
+                handleButtonClick(downloadButton as HTMLButtonElement);
+                const blob = new Blob([streamingText], { type: "text/plain" });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "generated-resume.txt";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+
+            saveResumeButton.addEventListener("click", async () => {
+                try {
+                    const user = await authService.getCurrentUser();
+                    if (!user) {
+                        // Show login modal or redirect to login
+                        return;
+                    }
+
+                    // Prompt for resume name
+                    const resumeName = prompt(
+                        "Enter a name for this resume:",
+                        `Resume1`,
+                    );
+                    if (!resumeName) return; // User cancelled
+
+                    // Save resume using PersistentDocumentService
+                    await PersistentDocumentService.createResume({
+                        name: resumeName,
+                        content: streamingText,
+                        lastUpdated: Date.now(),
+                        createdAt: Date.now(),
+                        userId: user.uid,
+                    });
+
+                    // Show success toast or modal
+                    const successModal = document.createElement("div");
+                    successModal.innerHTML = `
+                        <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+                            <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 max-w-md w-full text-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-green-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                                    Resume Saved
+                                </h2>
+                                <p class="text-gray-600 dark:text-gray-400 mb-6">
+                                    Your resume has been successfully saved to the Resume Manager.
+                                </p>
+                                <button id="closeSuccessModal" class="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-full">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(successModal);
+
+                    const closeSuccessModalButton =
+                        successModal.querySelector("#closeSuccessModal");
+                    closeSuccessModalButton?.addEventListener("click", () => {
+                        document.body.removeChild(successModal);
+                    });
+                } catch (error) {
+                    console.error("Error saving resume:", error);
+
+                    // Show error modal
+                    const errorModal = document.createElement("div");
+                    errorModal.innerHTML = `
+                        <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+                            <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 max-w-md w-full text-center">
+                                <h2 class="text-2xl font-bold text-red-600 mb-4">
+                                    Save Error
+                                </h2>
+                                <p class="text-gray-600 dark:text-gray-400 mb-6">
+                                    Unable to save resume. Please try again later.
+                                </p>
+                                <button id="closeErrorModal" class="bg-primary text-white px-4 py-2 rounded-full">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(errorModal);
+
+                    const closeErrorModalButton =
+                        errorModal.querySelector("#closeErrorModal");
+                    closeErrorModalButton?.addEventListener("click", () => {
+                        document.body.removeChild(errorModal);
+                    });
+                }
+            });
+
+            copyButton.addEventListener("click", () => {
+                handleButtonClick(copyButton as HTMLButtonElement);
+                navigator.clipboard.writeText(streamingText);
+
+                // Change button color to indicate copied
+                copyButton.classList.remove("bg-gray-700", "dark:bg-gray-300");
+                copyButton.classList.add("bg-green-500", "dark:bg-green-500");
+                copyButton.textContent = "Copied!";
+
+                // Revert back after 2 seconds
+                setTimeout(() => {
+                    copyButton.classList.remove(
+                        "bg-green-500",
+                        "dark:bg-green-500",
+                    );
+                    copyButton.classList.add("bg-gray-700", "dark:bg-gray-300");
+                    copyButton.textContent = "Copy";
+                }, 2000);
+            });
+
+            coverLetterButton.addEventListener("click", () => {
+                handleButtonClick(coverLetterButton as HTMLButtonElement);
+                // Navigate to the cover letter page
+                window.location.href = "/cover-letter";
+            });
+        });
+    });
+</script>
+
+<script>
+    import { PersistentDocumentService } from "../../lib/persistentDocumentService";
+    import { authService } from "../../lib/auth";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const openResumeImportModalButton =
+            document.getElementById("importResumeButton");
+        const resumeContentTextarea = document.getElementById(
+            "resumeContent",
+        ) as HTMLTextAreaElement;
+
+        if (!openResumeImportModalButton || !resumeContentTextarea) {
+            console.error("Required elements for resume import not found");
+            return;
+        }
+
+        openResumeImportModalButton.addEventListener("click", async () => {
+            try {
+                const user = await authService.getCurrentUser();
+                if (!user) {
+                    // Redirect to login or show login modal
+                    return;
+                }
+
+                // Create a modal dynamically
+                const modal = document.createElement("div");
+                modal.innerHTML = `
+                    <div class="p-4 fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+                        <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 max-w-md w-full max-h-[80vh] overflow-y-auto">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                                    Resume Manager
+                                </h2>
+                                <button id="closeImportModal" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div class="mb-4">
+                                <button 
+                                    id="addNewResumeButton"
+                                    class="w-full inline-flex items-center justify-center px-4 py-3 
+                                    bg-black text-white 
+                                    rounded-xl 
+                                    hover:bg-primary-600 
+                                    transition-all duration-300 
+                                    focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                    </svg>
+                                    Create New Resume
+                                </button>
+                            </div>
+
+                            <div class="border-t border-gray-200 dark:border-gray-700 my-4"></div>
+
+                            <div id="resumeList" class="space-y-3">
+                                <!-- Existing Resumes will be dynamically populated here -->
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                document.body.appendChild(modal);
+
+                const closeModalButton =
+                    modal.querySelector("#closeImportModal");
+                const addNewResumeButton = modal.querySelector(
+                    "#addNewResumeButton",
+                );
+                const resumeListContainer = modal.querySelector("#resumeList");
+
+                closeModalButton?.addEventListener("click", () => {
+                    document.body.removeChild(modal);
+                });
+
+                // Add new resume functionality
+                addNewResumeButton?.addEventListener("click", () => {
+                    // Navigate to Dashboard's Resume Manager section
+                    window.location.href = "/dashboard#addResumeBtn";
+                });
+
+                // Fetch and display resumes
+                const resumes =
+                    await PersistentDocumentService.loadAllResumes();
+
+                if (resumes.length === 0) {
+                    resumeListContainer!.innerHTML = `
+                        <div class="text-center text-gray-500 dark:text-gray-400 py-6">
+                            <p>No resumes found. Create a new resume to get started.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Populate resume list
+                resumeListContainer!.innerHTML = resumes
+                    .map(
+                        (resume, index) => `
+                    <div class="bg-gray-100 dark:bg-gray-800 rounded-xl p-4 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer transition-colors resume-item" 
+                         data-resume-index="${index}">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                    ${resume.name || `Resume ${index + 1}`}
+                                </h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    Last updated: ${new Date(resume.lastUpdated).toLocaleDateString()}
+                                </p>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                `,
+                    )
+                    .join("");
+
+                // Add click event to resume items
+                const resumeItems = modal.querySelectorAll(".resume-item");
+                resumeItems.forEach((item) => {
+                    item.addEventListener("click", () => {
+                        const index = item.getAttribute("data-resume-index");
+                        const selectedResume = resumes[Number(index)];
+
+                        // Populate resume content textarea
+                        resumeContentTextarea.value =
+                            selectedResume.content || "";
+
+                        // Close modal
+                        document.body.removeChild(modal);
+                    });
+                });
+            } catch (error) {
+                console.error("Error importing resume:", error);
+                // Show user-friendly error message
+                const errorModal = document.createElement("div");
+                errorModal.innerHTML = `
+                    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+                        <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 max-w-md w-full text-center">
+                            <h2 class="text-2xl font-bold text-red-600 mb-4">
+                                Import Error
+                            </h2>
+                            <p class="text-gray-600 dark:text-gray-400 mb-6">
+                                Unable to import resumes. Please try again later.
+                            </p>
+                            <button id="closeErrorModal" class="bg-primary text-white px-4 py-2 rounded-full">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(errorModal);
+
+                const closeErrorModalButton =
+                    errorModal.querySelector("#closeErrorModal");
+                closeErrorModalButton?.addEventListener("click", () => {
+                    document.body.removeChild(errorModal);
+                });
+            }
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const resumeFileUploadButton = document.getElementById(
+            "resumeFileUploadButton",
+        );
+        const resumeFileInput = document.getElementById(
+            "resumeFileInput",
+        ) as HTMLInputElement;
+        const resumeContentTextarea = document.getElementById(
+            "resumeContent",
+        ) as HTMLTextAreaElement;
+
+        // Add file upload button event listener
+        resumeFileUploadButton?.addEventListener("click", async (e) => {
+            // Prevent any form submission
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Trigger file input click
+            resumeFileInput?.click();
+
+            return false;
+        });
+
+        // Handle file selection
+        resumeFileInput?.addEventListener("change", async (event) => {
+            // Prevent default to avoid form submission
+            event.preventDefault();
+
+            const file = (event.target as HTMLInputElement).files?.[0];
+
+            if (!file) {
+                console.error("No file selected");
+                return;
+            }
+
+            // Supported file types
+            const supportedTypes = [
+                "application/pdf",
+                "application/msword",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                "text/plain",
+                "text/rtf",
+                "application/rtf",
+            ];
+
+            if (!supportedTypes.includes(file.type)) {
+                alert(
+                    "Unsupported file type. Please upload a PDF, DOC, DOCX, TXT, or RTF file.",
+                );
+                return;
+            }
+
+            // Convert file to base64
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+
+            fileReader.onload = async () => {
+                const base64File = fileReader.result as string;
+                const base64Data = base64File.split(",")[1]; // Remove data URL prefix
+
+                try {
+                    // Send to server-side API
+                    const response = await fetch(
+                        "/.netlify/functions/upload-resume",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                fileBase64: base64Data,
+                                fileName: file.name,
+                                fileType: file.type,
+                            }),
+                        },
+                    );
+
+                    // Parse response
+                    const result = await response.json();
+
+                    // Check for error in response
+                    if (!response.ok) {
+                        throw new Error(result.error || "Unknown server error");
+                    }
+
+                    if (result.success) {
+                        // Populate resume content textarea
+                        const resumeContent = result.data.text;
+                        resumeContentTextarea.value = resumeContent;
+
+                        // Optional: Trigger any validation or UI updates
+                        resumeContentTextarea.dispatchEvent(new Event("input"));
+
+                        // Show the file added UI and hide other elements
+                        const resumeFileAddedUI =
+                            document.getElementById("resumeFileAddedUI");
+                        const resumeOptionsSelector = document.getElementById(
+                            "resumeOptionsSelector",
+                        );
+                        const manualEntryContainer = document.getElementById(
+                            "manualEntryContainer",
+                        );
+
+                        if (resumeFileAddedUI && resumeOptionsSelector) {
+                            resumeFileAddedUI.classList.remove("hidden");
+                            resumeOptionsSelector.classList.add("hidden");
+                            manualEntryContainer?.classList.add("hidden");
+
+                            const resumeFileName =
+                                document.getElementById("resumeFileName");
+                            if (resumeFileName) {
+                                resumeFileName.textContent = `${file.name}`;
+                            }
+                        }
+                    } else {
+                        // Handle error response
+                        console.error("Resume upload failed:", result);
+                        alert(
+                            `Failed to upload resume: ${result.error || "Unknown error"}`,
+                        );
+                    }
+                } catch (error) {
+                    // Network or parsing errors
+                    console.error("Resume upload error:", error);
+                    alert(
+                        `Error uploading resume: ${error instanceof Error ? error.message : "Unknown error"}`,
+                    );
+                }
+            };
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const clearButton = document.getElementById("clearForm");
+        const jobDescription = document.getElementById(
+            "jobDescription",
+        ) as HTMLTextAreaElement | null;
+        const resumeContent = document.getElementById(
+            "resumeContent",
+        ) as HTMLTextAreaElement | null;
+        const customInstructions = document.getElementById(
+            "customInstructions",
+        ) as HTMLTextAreaElement | null;
+
+        // New UI elements handlers
+        const enterManuallyButton = document.getElementById(
+            "enterManuallyButton",
+        );
+        const cancelManualEntry = document.getElementById("cancelManualEntry");
+        const changeResumeSource =
+            document.getElementById("changeResumeSource");
+        const resumeOptionsSelector = document.getElementById(
+            "resumeOptionsSelector",
+        );
+        const manualEntryContainer = document.getElementById(
+            "manualEntryContainer",
+        );
+        const resumeFileAddedUI = document.getElementById("resumeFileAddedUI");
+
+        // Enter manually button handler
+        enterManuallyButton?.addEventListener("click", () => {
+            if (resumeOptionsSelector && manualEntryContainer) {
+                resumeOptionsSelector.classList.add("hidden");
+                manualEntryContainer.classList.remove("hidden");
+                resumeFileAddedUI?.classList.add("hidden");
+            }
+        });
+
+        // Cancel manual entry button handler
+        cancelManualEntry?.addEventListener("click", () => {
+            if (resumeOptionsSelector && manualEntryContainer) {
+                resumeOptionsSelector.classList.remove("hidden");
+                manualEntryContainer.classList.add("hidden");
+            }
+        });
+
+        // Change resume source button handler
+        changeResumeSource?.addEventListener("click", () => {
+            if (resumeOptionsSelector && resumeFileAddedUI) {
+                resumeOptionsSelector.classList.remove("hidden");
+                resumeFileAddedUI.classList.add("hidden");
+                manualEntryContainer?.classList.add("hidden");
+            }
+        });
+
+        if (clearButton && jobDescription && resumeContent) {
+            clearButton.addEventListener("click", (e) => {
+                e.preventDefault(); // Prevent form submission
+
+                // Clear all text areas
+                jobDescription.value = "";
+                resumeContent.value = "";
+
+                // Clear custom instructions if it exists
+                if (customInstructions) {
+                    customInstructions.value = "";
+                }
+
+                // Reset any template selections if needed
+                const selectedTemplate = document.querySelector(
+                    'input[name="template"]:checked',
+                ) as HTMLInputElement | null;
+                if (selectedTemplate) {
+                    selectedTemplate.checked = false;
+                }
+            });
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const textareas = document.querySelectorAll(".typing-animation");
+
+        textareas.forEach((textarea) => {
+            textarea.addEventListener("focus", (e) => {
+                const target = e.target as HTMLTextAreaElement | null;
+                if (!target) return;
+
+                const placeholder = target.getAttribute("data-placeholder");
+                if (!target.value) {
+                    target.setAttribute("placeholder", placeholder || "");
+
+                    let index = 0;
+                    const typeText = () => {
+                        if (placeholder && index < placeholder.length) {
+                            target.setAttribute(
+                                "placeholder",
+                                placeholder.slice(0, index + 1) + "|",
+                            );
+                            index++;
+                            setTimeout(typeText, 50);
+                        } else {
+                            target.setAttribute(
+                                "placeholder",
+                                placeholder || "",
+                            );
+                        }
+                    };
+
+                    typeText();
+                }
+            });
+
+            textarea.addEventListener("blur", (e) => {
+                const target = e.target as HTMLTextAreaElement | null;
+                if (!target) return;
+
+                if (!target.value) {
+                    target.setAttribute("placeholder", "");
+                }
+            });
+        });
+    });
+</script>

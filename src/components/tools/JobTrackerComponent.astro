@@ -1,0 +1,1072 @@
+---
+---
+
+<div class="relative py-8 w-full bg-gray-50 dark:bg-gray-950 rounded-2xl">
+  <!-- Job Cards Container -->
+  <div class=" mx-auto">
+    <div class="space-y-4" id="jobCardsContainer"></div>
+    
+    <!-- Add New Job Button - Moved to bottom -->
+    <div class="flex space-x-2 mt-8">
+      <button 
+        id="addJobBtn"
+        class="px-5 py-2 bg-black text-white dark:bg-white dark:text-black rounded-full transition-colors flex items-center gap-2"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+        </svg>
+        Add New Job
+      </button>
+    </div>
+  </div>
+
+  <!-- Add Job Form (Hidden by default) -->
+  <div 
+    id="addJobForm" 
+    class="fixed inset-0 z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300 ease-in-out bg-black/50 dark:bg-black/50"
+  >
+    <div 
+      id="addJobFormContent"
+      class="w-full max-w-4xl mx-4 transform scale-95 opacity-0 transition-all duration-300 ease-in-out rounded-3xl"
+    >
+      <div class="max-h-[85vh] overflow-y-auto bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 rounded-3xl p-6 sm:p-8 shadow-lg transition-all duration-300 hover:shadow-xl relative">
+        <button 
+          type="button" 
+          data-close-modal 
+          class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <div class="text-center mb-10">
+          <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-4 tracking-tight">
+            Add New Job Application
+          </h2>
+        </div>
+
+        <form id="jobForm" class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label for="company" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Company <span class="text-red-500">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="company" 
+                name="company" 
+                required 
+                class="w-full p-3 border-2 border-gray-300/50 dark:border-gray-700/50 rounded-xl 
+                bg-white/20 dark:bg-gray-800/20 
+                focus:ring-2 focus:ring-primary/30 focus:border-primary 
+                text-gray-900 dark:text-white 
+                transition-all duration-300
+                placeholder:text-gray-400 placeholder:text-sm
+                hover:bg-white/30 dark:hover:bg-gray-800/30"
+                placeholder="e.g., Google, Amazon"
+              >
+            </div>
+            <div class="space-y-2">
+              <label for="position" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Job Position <span class="text-red-500">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="position" 
+                name="position" 
+                required 
+                class="w-full p-3 border-2 border-gray-300/50 dark:border-gray-700/50 rounded-xl 
+                bg-white/20 dark:bg-gray-800/20 
+                focus:ring-2 focus:ring-primary/30 focus:border-primary 
+                text-gray-900 dark:text-white 
+                transition-all duration-300
+                placeholder:text-gray-400 placeholder:text-sm
+                hover:bg-white/30 dark:hover:bg-gray-800/30"
+                placeholder="e.g., Software Engineer"
+              >
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Application Status
+              </label>
+              <select 
+                id="status" 
+                name="status" 
+                required 
+                class="w-full p-3 border-2 border-gray-300/50 dark:border-gray-700/50 rounded-xl 
+                bg-white/20 dark:bg-gray-800/20 
+                focus:ring-2 focus:ring-primary/30 focus:border-primary 
+                text-gray-900 dark:text-white 
+                transition-all duration-300
+                placeholder:text-gray-400 placeholder:text-sm
+                hover:bg-white/30 dark:hover:bg-gray-800/30"
+              >
+                <option value="Applied">Applied</option>
+                <option value="Interview">Interview</option>
+                <option value="Offer">Offer</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+            </div>
+            <div class="space-y-2">
+              <label for="dateApplied" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Date Applied <span class="text-red-500">*</span>
+              </label>
+              <input 
+                type="date" 
+                id="dateApplied" 
+                name="dateApplied" 
+                required 
+                class="w-full p-3 border-2 border-gray-300/50 dark:border-gray-700/50 rounded-xl 
+                bg-white/20 dark:bg-gray-800/20 
+                focus:ring-2 focus:ring-primary/30 focus:border-primary 
+                text-gray-900 dark:text-white 
+                transition-all duration-300
+                placeholder:text-gray-400 placeholder:text-sm
+                hover:bg-white/30 dark:hover:bg-gray-800/30"
+              >
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <label for="url" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Job Posting URL <span class="text-red-500">*</span></label>
+              <div class="group relative">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block w-64 px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm rounded-lg shadow-lg">
+                  Fill this to quickly access the job posting directly from your job tracker.
+                  <div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2 h-2 bg-gray-900 dark:bg-white rotate-45"></div>
+                </div>
+              </div>
+            </div>
+            <input 
+              type="url" 
+              id="url" 
+              name="url" 
+              required 
+              class="w-full p-3 border-2 border-gray-300/50 dark:border-gray-700/50 rounded-xl 
+              bg-white/20 dark:bg-gray-800/20 
+              focus:ring-2 focus:ring-primary/30 focus:border-primary 
+              text-gray-900 dark:text-white 
+              transition-all duration-300
+              placeholder:text-gray-400 placeholder:text-sm
+              hover:bg-white/30 dark:hover:bg-gray-800/30"
+              placeholder="Enter the job posting URL"
+            >
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <label for="jobDescription" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Job Description <span class="text-red-500">*</span></label>
+              <div class="group relative">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block w-64 px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm rounded-lg shadow-lg">
+                  This field is mandatory as it allows the job description to be used with other tools for your convenience.
+                  <div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2 h-2 bg-gray-900 dark:bg-white rotate-45"></div>
+                </div>
+              </div>
+            </div>
+            <textarea 
+              id="jobDescription" 
+              name="jobDescription" 
+              required 
+              rows="4"
+              class="w-full p-3 border-2 border-gray-300/50 dark:border-gray-700/50 rounded-xl 
+              bg-white/20 dark:bg-gray-800/20 
+              focus:ring-2 focus:ring-primary/30 focus:border-primary 
+              text-gray-900 dark:text-white 
+              transition-all duration-300
+              placeholder:text-gray-400 placeholder:text-sm
+              hover:bg-white/30 dark:hover:bg-gray-800/30"
+              placeholder="Paste the full job description"
+            ></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <label for="notes" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Additional Notes
+            </label>
+            <textarea 
+              id="notes" 
+              name="notes" 
+              rows="3"
+              class="w-full p-3 border-2 border-gray-300/50 dark:border-gray-700/50 rounded-xl 
+              bg-white/20 dark:bg-gray-800/20 
+              focus:ring-2 focus:ring-primary/30 focus:border-primary 
+              text-gray-900 dark:text-white 
+              transition-all duration-300
+              placeholder:text-gray-400 placeholder:text-sm
+              hover:bg-white/30 dark:hover:bg-gray-800/30
+              min-h-[120px] sm:min-h-[150px]"
+              placeholder="Write any additional context or follow-up notes"
+            ></textarea>
+          </div>
+
+          <div class="flex justify-end">
+            <button 
+              type="submit" 
+              class="text-white dark:text-black bg-black dark:bg-white px-6 py-3 bg-gradient-to-br from-primary to-purple-600 text-white rounded-full 
+              hover:from-primary-600 hover:to-purple-700 
+              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Add Job Application
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="hidden fixed inset-0 bg-gray-600 dark:bg-gray-900 bg-opacity-50 dark:bg-opacity-50 overflow-y-auto h-full w-full z-50">
+  <div class="relative top-20 mx-auto p-5 border w-96 shadow-2xl rounded-2xl bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700/70">
+    <div class="mt-3 text-center">
+      <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100 mb-4">Delete Job Application</h3>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Are you sure you want to delete this job application? This action cannot be undone.</p>
+      <input type="hidden" id="deleteJobId">
+      <div class="flex justify-center gap-4">
+        <button
+          id="confirmDeleteBtn"
+          class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors"
+        >
+          Delete
+        </button>
+        <button
+          id="cancelDeleteBtn"
+          class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div id="editModal" class="hidden fixed inset-0 bg-gray-600 dark:bg-gray-900 bg-opacity-50 dark:bg-opacity-50 overflow-y-auto h-full w-full z-50">
+  <div class="relative top-20 mx-auto p-5 border w-96 shadow-2xl rounded-2xl bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700/70">
+    <button 
+      id="closeEditModalBtn" 
+      class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <div class="mt-3">
+      <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Edit Job Application</h3>
+      <form id="editForm" class="space-y-4">
+        <input type="hidden" id="editJobId" name="editJobId">
+        <div>
+          <label for="editCompany" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Company</label>
+          <input type="text" id="editCompany" name="editCompany" required
+            class="w-full p-2.5 sm:p-3 border-2 border-gray-300 dark:border-gray-700/70 rounded-xl 
+            bg-white/10 dark:bg-gray-800/20 
+            focus:ring-2 focus:ring-primary/30 focus:border-primary 
+            text-gray-900 dark:text-white 
+            transition-all duration-300
+            placeholder:text-gray-400 placeholder:text-sm
+            hover:bg-white/20 dark:hover:bg-gray-800/30
+            text-sm sm:text-base"
+            placeholder="Company name">
+        </div>
+        <div>
+          <label for="editPosition" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Position</label>
+          <input type="text" id="editPosition" name="editPosition" required
+            class="w-full p-2.5 sm:p-3 border-2 border-gray-300 dark:border-gray-700/70 rounded-xl 
+            bg-white/10 dark:bg-gray-800/20 
+            focus:ring-2 focus:ring-primary/30 focus:border-primary 
+            text-gray-900 dark:text-white 
+            transition-all duration-300
+            placeholder:text-gray-400 placeholder:text-sm
+            hover:bg-white/20 dark:hover:bg-gray-800/30
+            text-sm sm:text-base"
+            placeholder="Job position">
+        </div>
+        <div>
+          <label for="editStatus" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Status</label>
+          <select id="editStatus" name="editStatus" required
+            class="w-full p-2.5 sm:p-3 border-2 border-gray-300 dark:border-gray-700/70 rounded-xl 
+            bg-white/10 dark:bg-gray-800/20 
+            focus:ring-2 focus:ring-primary/30 focus:border-primary 
+            text-gray-900 dark:text-white 
+            transition-all duration-300
+            placeholder:text-gray-400 placeholder:text-sm
+            hover:bg-white/20 dark:hover:bg-gray-800/30
+            text-sm sm:text-base">
+            <option value="Applied">Applied</option>
+            <option value="Interview">Interview</option>
+            <option value="Offer">Offer</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+        </div>
+        <div>
+          <label for="editDateApplied" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Date Applied</label>
+          <input type="date" id="editDateApplied" name="editDateApplied" required
+            class="w-full p-2.5 sm:p-3 border-2 border-gray-300 dark:border-gray-700/70 rounded-xl 
+            bg-white/10 dark:bg-gray-800/20 
+            focus:ring-2 focus:ring-primary/30 focus:border-primary 
+            text-gray-900 dark:text-white 
+            transition-all duration-300
+            placeholder:text-gray-400 placeholder:text-sm
+            hover:bg-white/20 dark:hover:bg-gray-800/30
+            text-sm sm:text-base">
+        </div>
+        <div>
+          <label for="editUrl" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Job Posting URL *</label>
+          <input type="url" id="editUrl" name="editUrl" required
+            class="w-full p-2.5 sm:p-3 border-2 border-gray-300 dark:border-gray-700/70 rounded-xl 
+            bg-white/10 dark:bg-gray-800/20 
+            focus:ring-2 focus:ring-primary/30 focus:border-primary 
+            text-gray-900 dark:text-white 
+            transition-all duration-300
+            placeholder:text-gray-400 placeholder:text-sm
+            hover:bg-white/20 dark:hover:bg-gray-800/30
+            text-sm sm:text-base"
+            placeholder="Enter the job posting URL">
+        </div>
+        <div>
+          <label for="editJobDescription" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Job Description *</label>
+          <textarea id="editJobDescription" name="editJobDescription" required rows="4"
+            class="w-full p-2.5 sm:p-3 border-2 border-gray-300 dark:border-gray-700/70 rounded-xl 
+            bg-white/10 dark:bg-gray-800/20 
+            focus:ring-2 focus:ring-primary/30 focus:border-primary 
+            text-gray-900 dark:text-white 
+            transition-all duration-300
+            placeholder:text-gray-400 placeholder:text-sm
+            hover:bg-white/20 dark:hover:bg-gray-800/30
+            text-sm sm:text-base
+            min-h-[120px] sm:min-h-[150px]"
+            placeholder="Paste the full job description here">
+          </textarea>
+        </div>
+        <div>
+          <div class="flex items-center justify-between">
+            <label for="editNotes" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Notes</label>
+          </div>
+          <textarea 
+            id="editNotes" 
+            name="editNotes" 
+            rows="3"
+            class="w-full p-2.5 sm:p-3 border-2 border-gray-300 dark:border-gray-700/70 rounded-xl 
+            bg-white/10 dark:bg-gray-800/20 
+            focus:ring-2 focus:ring-primary/30 focus:border-primary 
+            text-gray-900 dark:text-white 
+            transition-all duration-300
+            placeholder:text-gray-400 placeholder:text-sm
+            hover:bg-white/20 dark:hover:bg-gray-800/30
+            text-sm sm:text-base
+            min-h-[120px] sm:min-h-[150px]"
+            placeholder="Additional notes about the job application"></textarea>
+        </div>
+        <div class="flex justify-end space-x-3">
+          <button type="submit"
+            class="px-4 py-2 border border-transparent rounded-full shadow-sm text-sm font-medium text-white dark:text-black bg-black dark:bg-white hover:bg-black/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+    import { getAuth } from 'firebase/auth';
+import { TierManagementService } from '../../lib/tierManagement';
+  import { db } from '../../lib/firebase';
+  import {
+    collection,
+    addDoc,
+    getDoc,
+    query,
+    orderBy,
+    onSnapshot,
+    deleteDoc,
+    doc,
+    updateDoc,
+    Timestamp,
+    setDoc
+  } from 'firebase/firestore';
+
+  // Redeclare the Job interface to ensure type safety in the script
+  interface Job {
+    id: string;
+    company: string;
+    position: string;
+    status: string;
+    dateApplied: { toDate: () => Date };
+    url?: string;
+    jobDescription?: string;
+    notes?: string;
+    createdAt: { toDate: () => Date };
+  }
+
+  // Function to handle actual deletion
+  const handleDeleteConfirmation = async () => {
+    const deleteJobId = document.getElementById('deleteJobId') as HTMLInputElement;
+    const id = deleteJobId.value;
+    
+    try {
+      // Get the job document to retrieve the user ID
+      const jobDoc = await getDoc(doc(db, 'jobTracker', id));
+      
+      if (jobDoc.exists()) {
+        const jobData = jobDoc.data();
+        const userId = jobData.userId;
+        
+        // Delete the job document
+        await deleteDoc(doc(db, 'jobTracker', id));
+        
+        // Decrement the job tracker usage count
+        if (userId) {
+          try {
+            await TierManagementService.decrementJobTrackerUsage(userId);
+          } catch (error) {
+            console.error('Error decrementing job tracker usage:', error);
+            // Continue with deletion even if decrementing fails
+          }
+        }
+      } else {
+        // If job doesn't exist, just close the modal
+        console.warn('Job not found for deletion');
+      }
+      
+      closeDeleteModal();
+    } catch (error) {
+      console.error('Error deleting job:', error);
+      const errorMessage = document.createElement('p');
+      errorMessage.className = 'text-red-500 dark:text-red-400 text-sm mt-2';
+      errorMessage.textContent = 'Error deleting job application. Please try again.';
+      document.querySelector('#deleteModal .text-center')?.appendChild(errorMessage);
+      setTimeout(() => errorMessage.remove(), 3000);
+    }
+  };
+
+  // Function to close delete modal
+  const closeDeleteModal = () => {
+    const deleteModal = document.getElementById('deleteModal');
+    if (deleteModal) {
+      deleteModal.classList.add('hidden');
+    }
+  };
+
+  // Initialize job collection reference
+  const jobsCollection = collection(db, 'jobTracker');
+  const jobCardsContainer = document.getElementById('jobCardsContainer');
+  const statusFilter = document.querySelector('select');
+
+  // Initialize delete modal elements
+  const deleteModal = document.getElementById('deleteModal');
+  const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+  const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+  
+  // Add event listeners for delete modal
+  confirmDeleteBtn?.addEventListener('click', handleDeleteConfirmation);
+  cancelDeleteBtn?.addEventListener('click', closeDeleteModal);
+  
+  // Add event listener for clicking outside the delete modal
+  window.addEventListener('click', (e) => {
+    if (e.target === deleteModal) {
+      closeDeleteModal();
+    }
+  });
+  const addJobBtn = document.getElementById('addJobBtn');
+  const addJobFormContainer = document.getElementById('addJobForm');
+
+  // Modal Interaction
+  const addJobForm = document.getElementById('addJobForm');
+  const addJobFormContent = document.getElementById('addJobFormContent');
+  const closeModalBtn = document.querySelector('[data-close-modal]');
+
+  function openModal() {
+    if (addJobForm && addJobFormContent) {
+      addJobForm.classList.remove('invisible', 'opacity-0');
+      
+      // Use requestAnimationFrame to ensure visibility before animating
+      requestAnimationFrame(() => {
+        addJobFormContent.classList.remove('scale-95', 'opacity-0');
+        addJobFormContent.classList.add('scale-100', 'opacity-100');
+      });
+    }
+  }
+
+  function closeModal() {
+    if (addJobForm && addJobFormContent) {
+      addJobFormContent.classList.add('scale-95', 'opacity-0');
+      addJobFormContent.classList.remove('scale-100', 'opacity-100');
+      
+      setTimeout(() => {
+        addJobForm.classList.add('invisible', 'opacity-0');
+      }, 300);
+    }
+  }
+
+  // Event Listeners
+  addJobBtn?.addEventListener('click', openModal);
+  closeModalBtn?.addEventListener('click', closeModal);
+
+  // Close on background click or Escape key
+  addJobForm?.addEventListener('click', (e) => {
+    if (e.target === addJobForm) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && addJobForm && !addJobForm.classList.contains('invisible')) {
+      closeModal();
+    }
+  });
+
+  // Handle Job Analysis
+  document.addEventListener('click', async (e) => {
+    const target = e.target as Element;
+    const analyzeBtn = target.closest('.analyze-job');
+    if (analyzeBtn) {
+      const jobId = analyzeBtn.getAttribute('data-id');
+      if (jobId) {
+        try {
+          const jobDoc = await getDoc(doc(db, 'jobTracker', jobId));
+          if (jobDoc.exists()) {
+            const jobData = jobDoc.data();
+            // Store job data in localStorage
+            localStorage.setItem('currentJob', JSON.stringify({
+              company: jobData.company,
+              position: jobData.position,
+              jobDescription: jobData.jobDescription || ''
+            }));
+            // Redirect to job analysis page
+            window.location.href = '/job-analysis';
+          }
+        } catch (error) {
+          console.error('Error fetching job data:', error);
+        }
+      }
+    }
+  });
+
+  // Handle Resume Generation
+  document.addEventListener('click', async (e) => {
+    const target = e.target as Element;
+    const resumeBtn = target.closest('.generate-resume');
+    if (resumeBtn) {
+      const jobId = resumeBtn.getAttribute('data-id');
+      if (jobId) {
+        try {
+          const jobDoc = await getDoc(doc(db, 'jobTracker', jobId));
+          if (jobDoc.exists()) {
+            const jobData = jobDoc.data();
+            // Store job data in localStorage
+            localStorage.setItem('currentJob', JSON.stringify({
+              company: jobData.company,
+              position: jobData.position,
+              jobDescription: jobData.jobDescription || ''
+            }));
+            // Redirect to resume page
+            window.location.href = '/resume';
+          }
+        } catch (error) {
+          console.error('Error fetching job data:', error);
+        }
+      }
+    }
+  });
+
+  // Handle Cover Letter Generation
+  document.addEventListener('click', async (e) => {
+    const target = e.target as Element;
+    const coverLetterBtn = target.closest('.generate-cover-letter');
+    if (coverLetterBtn) {
+      const jobId = coverLetterBtn.getAttribute('data-id');
+      if (jobId) {
+        try {
+          const jobDoc = await getDoc(doc(db, 'jobTracker', jobId));
+          if (jobDoc.exists()) {
+            const jobData = jobDoc.data();
+            // Store job data in localStorage
+            localStorage.setItem('currentJob', JSON.stringify({
+              company: jobData.company,
+              position: jobData.position,
+              jobDescription: jobData.jobDescription || ''
+            }));
+            // Redirect to cover letter page
+            window.location.href = '/cover-letter';
+          }
+        } catch (error) {
+          console.error('Error fetching job data:', error);
+        }
+      }
+    }
+  });
+
+  // Handle Interview Prep
+  document.addEventListener('click', async (e) => {
+    const target = e.target as Element;
+    const interviewPrepBtn = target.closest('.interview-prep');
+    if (interviewPrepBtn) {
+      const jobId = interviewPrepBtn.getAttribute('data-id');
+      if (jobId) {
+        try {
+          const jobDoc = await getDoc(doc(db, 'jobTracker', jobId));
+          if (jobDoc.exists()) {
+            const jobData = jobDoc.data();
+            // Store job data in localStorage
+            localStorage.setItem('currentJob', JSON.stringify({
+              company: jobData.company,
+              position: jobData.position,
+              jobDescription: jobData.jobDescription || ''
+            }));
+            // Redirect to interview prep page
+            window.location.href = '/interview-prep';
+          }
+        } catch (error) {
+          console.error('Error fetching job data:', error);
+        }
+      }
+    }
+  });
+
+  // Helper function to create a job card
+  function createJobCard(job: Job) {
+    const timeAgo = getTimeAgo(job.dateApplied.toDate());
+    const companyInitial = job.company.charAt(0).toUpperCase();
+    
+    const card = document.createElement('div');
+    card.className = 'bg-white/70 dark:bg-gray-800/50 backdrop-blur-xl border border-gray-200 dark:border-gray-700 rounded-xl p-6 transition-all duration-300 hover:shadow-lg';
+    card.innerHTML = `
+      <div class="flex items-start justify-between">
+        <div class="flex items-center space-x-4">
+          <div class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
+            <span class="text-xl font-semibold text-gray-600 dark:text-gray-300">${companyInitial}</span>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">${job.company}</h3>
+            <div class="flex items-center gap-2">
+              <p class="text-gray-600 dark:text-gray-300">${job.position}</p>
+              ${job.url ? `
+                <a href="${job.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              ` : ''}
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="px-3 py-1 text-sm rounded-full ${getStatusStyle(job.status)}">
+            ${job.status}
+          </span>
+        </div>
+      </div>
+      <div class="mt-4 space-y-3">
+        <div class="flex items-center justify-between text-sm">
+          <div class="text-gray-500 dark:text-gray-400">
+            ${timeAgo}
+          </div>
+          <div class="flex space-x-2">
+            <button class="px-3 py-1 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors edit-job" data-id="${job.id}">
+              Edit
+            </button>
+            <button class="px-3 py-1 text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 transition-colors delete-job" data-id="${job.id}">
+              Delete
+            </button>
+          </div>
+        </div>
+        <div class="flex items-start pt-3 border-t border-gray-200 dark:border-gray-700">
+          <div class="flex items-center space-x-2">
+            <button class="text-sm px-3 py-1.5 bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors analyze-job" data-id="${job.id}">
+              <span class="flex items-center gap-1">
+                Job Analysis
+              </span>
+            </button>
+            <button class="text-sm px-3 py-1.5 bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300 rounded-full hover:bg-green-200 dark:hover:bg-green-800 transition-colors generate-resume" data-id="${job.id}">
+              Resume
+            </button>
+            <button class="text-sm px-3 py-1.5 bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300 rounded-full hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors generate-cover-letter" data-id="${job.id}">
+              Cover Letter
+            </button>
+            <button class="text-sm px-3 py-1.5 bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300 rounded-full hover:bg-amber-200 dark:hover:bg-amber-800 transition-colors interview-prep" data-id="${job.id}">
+              Interview Prep
+            </button>
+          </div>
+        </div>
+
+      </div>
+    `;
+
+    // Add event listeners
+    const deleteBtn = card.querySelector('.delete-job');
+    deleteBtn?.addEventListener('click', () => deleteJob(job.id));
+
+    const editBtn = card.querySelector('.edit-job');
+    editBtn?.addEventListener('click', () => editJob(job.id));
+
+    return card;
+  }
+
+  // Helper function to get status style
+  function getStatusStyle(status: string) {
+    const styles = {
+      'Applied': 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
+      'Interview': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
+      'Offer': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
+      'Rejected': 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+    };
+    return styles[status] || styles['Applied'];
+  }
+
+  // Helper function to format time ago
+  function getTimeAgo(date: Date): string {
+    const now: number = Date.now();
+    const appliedTime: number = date.getTime();
+    const diffTime: number = Math.abs(now - appliedTime);
+    const diffDays: number = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    
+    if (diffDays === 0) return 'Applied today';
+    if (diffDays === 1) return 'Applied yesterday';
+    if (diffDays < 7) return `Applied ${diffDays} days ago`;
+    return `Applied on ${date.toLocaleDateString()}`;
+  }
+
+  // Real-time updates
+  const q = query(jobsCollection, orderBy('createdAt', 'desc'));
+  onSnapshot(q, (snapshot) => {
+    if (jobCardsContainer) {
+      jobCardsContainer.innerHTML = '';
+      const jobs: Job[] = snapshot.docs.map(doc => {
+        const data = doc.data() as Omit<Job, 'id'>;
+        return { 
+          id: doc.id, 
+          ...data 
+        };
+      });
+      
+      // Create and append job cards
+      jobs.forEach(job => {
+        const card = createJobCard(job);
+        jobCardsContainer.appendChild(card);
+      });
+    }
+  });
+
+  // Real-time job list updates
+  const jobsQuery = query(jobsCollection, orderBy('dateApplied', 'desc'));
+  const unsubscribe = onSnapshot(jobsQuery, (snapshot) => {
+    const jobCardsContainer = document.getElementById('jobCardsContainer');
+    if (!jobCardsContainer) return;
+
+    jobCardsContainer.innerHTML = '';
+    const jobs: Job[] = snapshot.docs.map(doc => {
+      const data = doc.data() as Omit<Job, 'id'>;
+      return { 
+        id: doc.id, 
+        ...data 
+      };
+    });
+    
+    // Filter jobs based on status
+    const selectedStatus = statusFilter?.value;
+
+    const filteredJobs = jobs.filter(job => {
+      const matchesStatus = 
+        selectedStatus === 'all' || job.status === selectedStatus;
+      return matchesStatus;
+    });
+
+    // Create and append job cards
+    filteredJobs.forEach(job => {
+      const card = createJobCard(job);
+      jobCardsContainer.appendChild(card);
+    });
+  });
+
+  // Function to generate a more readable job ID
+  function generateJobId(company: string, position: string): string {
+    // Remove special characters and convert to lowercase
+    const cleanCompany = company.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+    const cleanPosition = position.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+    
+    // Truncate to ensure reasonable length
+    const companySlug = cleanCompany.slice(0, 10);
+    const positionSlug = cleanPosition.slice(0, 10);
+    
+    // Add timestamp for uniqueness
+    const timestamp = new Date().getTime().toString(36);
+    
+    return `${companySlug}-${positionSlug}-${timestamp}`;
+  }
+
+  // Add URL validation and prefix function
+  function normalizeUrl(url: string): string {
+    // Trim whitespace
+    url = url.trim();
+
+    // If URL is empty, return empty string
+    if (!url) return '';
+
+    // If URL doesn't start with http:// or https://, prepend https://
+    if (!/^https?:\/\//i.test(url)) {
+      url = `https://${url}`;
+    }
+
+    // Basic URL validation
+    try {
+      new URL(url);
+      return url;
+    } catch {
+      return '';
+    }
+  }
+
+  // Form submission handler
+  const jobForm = document.getElementById('jobForm');
+  jobForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    
+    // Normalize URL
+    const rawUrl = formData.get('url') as string;
+    const normalizedUrl = normalizeUrl(rawUrl);
+
+    // If URL is invalid, show error
+    if (rawUrl && !normalizedUrl) {
+      alert('Please enter a valid URL (e.g., facebook.com or https://example.com)');
+      return;
+    }
+
+    try {
+      // Get current user ID from auth
+      const auth = getAuth();
+      const user = auth.currentUser;
+      
+      if (!user) {
+        alert('Please log in to add a job application.');
+        return;
+      }
+
+      // Track job tracker usage
+      await TierManagementService.trackJobTracker(user.uid);
+
+      // Add job to Firestore
+      const jobData = {
+        userId: user.uid,
+        company: formData.get('company'),
+        position: formData.get('position'),
+        status: formData.get('status'),
+        dateApplied: Timestamp.fromDate(new Date(formData.get('dateApplied') as string)),
+        url: normalizedUrl || undefined,
+        jobDescription: formData.get('jobDescription'),
+        notes: formData.get('notes') || '',
+        createdAt: Timestamp.now()
+      };
+
+      await addDoc(collection(db, 'jobTracker'), jobData);
+
+      // Reset form and hide it
+      (e.target as HTMLFormElement).reset();
+      addJobFormContainer?.classList.add('hidden');
+      if (addJobBtn) {
+        addJobBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" /></svg> Add New Job';
+      }
+    } catch (error) {
+      console.error('Error adding job application:', error);
+      alert(error instanceof Error ? error.message : 'Error adding job application. Please try again.');
+    }
+  });
+
+  // Type declarations for window functions
+  declare global {
+    interface Window {
+      deleteJob: (id: string) => Promise<void>;
+      editJob: (id: string) => Promise<void>;
+      closeEditModal: () => void;
+    }
+  }
+
+  // Delete job function
+  const deleteJob = async (id: string) => {
+    const deleteModal = document.getElementById('deleteModal');
+    const deleteJobId = document.getElementById('deleteJobId') as HTMLInputElement;
+    if (deleteModal && deleteJobId) {
+      deleteJobId.value = id;
+      deleteModal.classList.remove('hidden');
+    }
+  };
+
+  // Edit job function
+  const editJob = async (id: string) => {
+    try {
+      const docRef = doc(db, 'jobTracker', id);
+      const docSnap = await getDoc(docRef);
+      
+      if (docSnap.exists()) {
+        const job = docSnap.data() as Omit<Job, 'id'>;
+        const editModal = document.getElementById('editModal');
+        const editForm = document.getElementById('editForm') as HTMLFormElement;
+        const editJobId = document.getElementById('editJobId') as HTMLInputElement;
+
+        if (editModal && editForm && editJobId) {
+          // Populate edit form
+          (document.getElementById('editCompany') as HTMLInputElement).value = job.company;
+          (document.getElementById('editPosition') as HTMLInputElement).value = job.position;
+          (document.getElementById('editStatus') as HTMLSelectElement).value = job.status;
+          (document.getElementById('editUrl') as HTMLInputElement).value = job.url || '';
+          (document.getElementById('editJobDescription') as HTMLTextAreaElement).value = job.jobDescription || '';
+          (document.getElementById('editNotes') as HTMLTextAreaElement).value = job.notes || '';
+          (document.getElementById('editDateApplied') as HTMLInputElement).value = 
+            job.dateApplied.toDate().toISOString().split('T')[0];
+
+          // Set the job ID in a hidden input
+          editJobId.value = id;
+
+          // Show the edit modal
+          editModal?.classList.remove('hidden');
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching job details:', error);
+      alert('Error retrieving job application. Please try again.');
+    }
+  };
+
+  // Function to close the edit modal
+  function closeEditModal() {
+    const editModal = document.getElementById('editModal');
+    if (editModal) {
+      editModal.classList.add('hidden');
+      
+      // Reset the form
+      const editForm = document.getElementById('editForm') as HTMLFormElement;
+      if (editForm) {
+        editForm.reset();
+      }
+    }
+  }
+
+  // Add event listener to ensure closeEditModal works
+  document.addEventListener('DOMContentLoaded', () => {
+    const cancelButton = document.querySelector('button[onclick="closeEditModal()"]');
+    if (cancelButton) {
+      cancelButton.addEventListener('click', closeEditModal);
+    }
+  });
+
+  // Add event listener to close edit modal button
+  const closeEditModalBtn = document.getElementById('closeEditModalBtn');
+  closeEditModalBtn?.addEventListener('click', closeEditModal);
+
+  // Add event listener for clicking outside the modal
+  document.addEventListener('click', (event) => {
+    const editModal = document.getElementById('editModal');
+    const editModalContent = document.querySelector('#editModal > div');
+    
+    if (
+      editModal && 
+      !editModal.classList.contains('hidden') && 
+      editModalContent && 
+      event.target === editModal
+    ) {
+      closeEditModal();
+    }
+  });
+
+  // Handle edit form submission
+  const editForm = document.getElementById('editForm');
+  editForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const jobId = formData.get('editJobId') as string;
+
+    // Normalize URL
+    const rawUrl = formData.get('editUrl') as string;
+    const normalizedUrl = normalizeUrl(rawUrl);
+
+    // If URL is invalid, show error
+    if (rawUrl && !normalizedUrl) {
+      alert('Please enter a valid URL (e.g., facebook.com or https://example.com)');
+      return;
+    }
+
+    try {
+      const docRef = doc(db, 'jobTracker', jobId);
+      await updateDoc(docRef, {
+        company: formData.get('editCompany'),
+        position: formData.get('editPosition'),
+        status: formData.get('editStatus'),
+        dateApplied: Timestamp.fromDate(new Date(formData.get('editDateApplied') as string)),
+        url: normalizedUrl || undefined,
+        jobDescription: formData.get('editJobDescription'),
+        notes: formData.get('editNotes') || '',
+        updatedAt: Timestamp.now()
+      });
+
+      closeEditModal();
+    } catch (error) {
+      console.error('Error updating job:', error);
+      alert('Error updating job application. Please try again.');
+    }
+  });
+
+  // Attach functions to window object only in browser environment
+  if (typeof window !== 'undefined') {
+    window.deleteJob = deleteJob;
+    window.editJob = editJob;
+    window.closeEditModal = closeEditModal;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const addJobBtn = document.getElementById('addJobBtn');
+    const addJobForm = document.getElementById('addJobForm');
+    const addJobFormContent = document.getElementById('addJobFormContent');
+    const closeModalElements = document.querySelectorAll('[data-close-modal]');
+
+    function toggleModal(show: boolean = true) {
+      if (!addJobForm || !addJobFormContent) return;
+
+      if (show) {
+        addJobForm.classList.remove('invisible', 'opacity-0');
+        addJobFormContent.classList.remove('scale-95', 'opacity-0');
+        addJobFormContent.classList.add('scale-100', 'opacity-100');
+      } else {
+        addJobFormContent.classList.add('scale-95', 'opacity-0');
+        addJobFormContent.classList.remove('scale-100', 'opacity-100');
+        
+        setTimeout(() => {
+          addJobForm.classList.add('invisible', 'opacity-0');
+        }, 300);
+      }
+    }
+
+    function handleModalClose(e: Event) {
+      const target = e.target as Element;
+      const isCloseButton = target.hasAttribute('data-close-modal') || 
+                             target.closest('[data-close-modal]') !== null;
+      const isModalBackground = target === addJobForm;
+
+      if (isCloseButton || isModalBackground || 
+          (e instanceof KeyboardEvent && e.key === 'Escape')) {
+        toggleModal(false);
+      }
+    }
+
+    // Open modal
+    addJobBtn?.addEventListener('click', () => toggleModal(true));
+
+    // Close modal
+    addJobForm?.addEventListener('click', handleModalClose);
+    document.addEventListener('keydown', handleModalClose);
+
+    // Add close buttons inside the modal
+    closeModalElements.forEach(el => {
+      el.addEventListener('click', handleModalClose);
+    });
+  });
+</script>

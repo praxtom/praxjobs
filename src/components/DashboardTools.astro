@@ -1,0 +1,390 @@
+---
+import Container from "./Container.astro";
+---
+
+<style is:global>
+  /* Remove focus outline for all elements */
+  *:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Ensure no blue border on click */
+  *:active {
+    outline: none !important;
+    border: none !important;
+  }
+</style>
+
+<style>
+  @keyframes subtle-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  .group:hover {
+    animation: subtle-float 2s ease-in-out infinite;
+  }
+</style>
+
+<section class="py-16">
+  <Container>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      <!-- Job Profile Analysis -->
+      <a
+        href="/job-analysis"
+        class="block transform hover:scale-105 transition-transform duration-300 rounded-2xl"
+      >
+        <div
+          class="bg-rose-100 dark:bg-rose-900 backdrop-blur-xl rounded-2xl p-8 lg:p-10 shadow-lg dark:shadow-gray-800/20 h-full relative"
+        >
+          <div class="absolute top-4 right-4">
+            <span
+              class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400"
+            >
+              New
+            </span>
+          </div>
+          <div class="flex flex-col h-full">
+            <div class="flex-grow space-y-4">
+              <div class="flex items-center justify-between">
+                <h3
+                  class="text-xl lg:text-2xl font-bold text-gray-900 dark:text-white"
+                >
+                  Job Profile Analysis
+                </h3>
+              </div>
+              <p class="text-sm lg:text-base text-gray-600 dark:text-gray-300">
+                Get AI-powered insights into job descriptions
+              </p>
+              <div
+                class="flex items-center space-x-2 text-sm text-gray-500 dark:text-white"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"
+                  ></path>
+                </svg>
+                <span>400+ profiles analyzed</span>
+              </div>
+            </div>
+            <div class="mt-6 flex items-center justify-between">
+              <span
+                class="inline-flex items-center text-black dark:text-white hover:text-primary/80 transition-colors"
+              >
+                Explore <span class="ml-2">→</span>
+              </span>
+              <span
+                id="jobAnalysisCounter"
+                class="text-xs text-black dark:text-black p-1.5 bg-rose-200 rounded-xl"
+              >
+              </span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Resume Builder -->
+      <a
+        href="/resume"
+        class="block transform hover:scale-105 transition-transform duration-300 rounded-2xl"
+      >
+        <div
+          class="bg-indigo-100 dark:bg-indigo-900 backdrop-blur-xl rounded-2xl p-8 lg:p-10 shadow-lg dark:shadow-gray-800/20 h-full relative"
+        >
+          <div class="absolute top-4 right-4">
+            <span
+              class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400"
+            >
+              Popular
+            </span>
+          </div>
+          <div class="flex flex-col h-full">
+            <div class="flex-grow space-y-4">
+              <div class="flex items-center justify-between">
+                <h3
+                  class="text-xl lg:text-2xl font-bold text-gray-900 dark:text-white"
+                >
+                  Tailor Resumes
+                </h3>
+              </div>
+              <p class="text-sm lg:text-base text-gray-600 dark:text-gray-300">
+                Create resumes that make you standout in the job market.
+              </p>
+              <div
+                class="flex items-center space-x-2 text-sm text-gray-500 dark:text-white"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                  <path
+                    fill-rule="evenodd"
+                    d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span>600+ resumes generated</span>
+              </div>
+            </div>
+            <div class="mt-6 flex items-center justify-between">
+              <span
+                class="inline-flex items-center text-black dark:text-white hover:text-primary/80 transition-colors"
+              >
+                Explore <span class="ml-2">→</span>
+              </span>
+              <span
+                id="resumeGenerationCounter"
+                class="text-xs text-black dark:text-black p-1.5 bg-indigo-200 rounded-xl"
+              >
+              </span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Cover Letter Generator -->
+      <a
+        href="/cover-letter"
+        class="block transform hover:scale-105 transition-transform duration-300 rounded-2xl"
+      >
+        <div
+          class="bg-emerald-100 dark:bg-emerald-900 backdrop-blur-xl rounded-2xl p-8 lg:p-10 shadow-lg dark:shadow-gray-800/20 h-full relative"
+        >
+          <div class="absolute top-4 right-4">
+            <span
+              class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400"
+            >
+              Popular
+            </span>
+          </div>
+          <div class="flex flex-col h-full">
+            <div class="flex-grow space-y-4">
+              <div class="flex items-center justify-between">
+                <h3
+                  class="text-xl lg:text-2xl font-bold text-gray-900 dark:text-white"
+                >
+                  Craft Cover Letters
+                </h3>
+              </div>
+              <p class="text-sm lg:text-base text-gray-600 dark:text-gray-300">
+                Generate cover letters which make you stand out.
+              </p>
+              <div
+                class="flex items-center space-x-2 text-sm text-gray-500 dark:text-white"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span>150+ cover letters generated</span>
+              </div>
+            </div>
+            <div class="mt-6 flex items-center justify-between">
+              <span
+                class="inline-flex items-center text-black dark:text-white hover:text-primary/80 transition-colors"
+              >
+                Explore <span class="ml-2">→</span>
+              </span>
+              <span
+                id="coverLetterCounter"
+                class="text-xs text-black dark:text-black p-1.5 bg-emerald-200 rounded-xl"
+              >
+              </span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Track Job Applications -->
+      <a
+        href="/job-tracker"
+        class="block transform hover:scale-105 transition-transform duration-300 rounded-2xl"
+      >
+        <div
+          class="bg-sky-100 dark:bg-sky-900 backdrop-blur-xl rounded-2xl p-8 lg:p-10 shadow-lg dark:shadow-gray-800/20 h-full relative"
+        >
+          <div class="flex flex-col h-full">
+            <div class="flex-grow space-y-4">
+              <div class="flex items-center justify-between">
+                <h3
+                  class="text-xl lg:text-2xl font-bold text-gray-900 dark:text-white"
+                >
+                  Track Job Applications
+                </h3>
+              </div>
+              <p class="text-sm lg:text-base text-gray-600 dark:text-gray-300">
+                Track and manage your job applications efficiently
+              </p>
+              <div
+                class="flex items-center space-x-2 text-sm text-gray-500 dark:text-white"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span>100+ job applications tracked</span>
+              </div>
+            </div>
+            <div class="mt-6 flex items-center justify-between">
+              <span
+                class="inline-flex items-center text-black dark:text-white hover:text-primary/80 transition-colors"
+              >
+                Explore <span class="ml-2">→</span>
+              </span>
+              <span
+                id="jobTrackerCounter"
+                class="text-xs text-black dark:text-black p-1.5 bg-sky-200 rounded-xl"
+              >
+              </span>
+            </div>
+          </div>
+        </div>
+      </a>
+      <a
+        href="/interview-prep"
+        class="block transform hover:scale-105 transition-transform duration-300 rounded-2xl"
+      >
+        <div
+          class="bg-amber-100 dark:bg-amber-900 backdrop-blur-xl rounded-2xl p-8 lg:p-10 shadow-lg dark:shadow-gray-800/20 h-full relative"
+        >
+          <div class="flex flex-col h-full">
+            <div class="flex-grow space-y-4">
+              <div class="flex items-center justify-between">
+                <h3
+                  class="text-xl lg:text-2xl font-bold text-gray-900 dark:text-white"
+                >
+                  Interview Prep
+                </h3>
+              </div>
+              <p class="text-sm lg:text-base text-gray-600 dark:text-white">
+                Prepare for your next interview with our easy-to-use tool
+              </p>
+              <div
+                class="flex items-center space-x-2 text-sm text-gray-500 dark:text-white"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span>50+ interviews prepared</span>
+              </div>
+            </div>
+            <div class="mt-6 flex items-center justify-between">
+              <span
+                class="inline-flex items-center text-black dark:text-white hover:text-primary/80 transition-colors"
+              >
+                Explore <span class="ml-2">→</span>
+              </span>
+              <span
+                id="interviewPrepCounter"
+                class="text-xs text-black dark:text-black p-1.5 bg-amber-200 dark:bg-white/90 rounded-xl"
+              >
+              </span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </Container>
+</section>
+
+<script>
+  import { authService } from "../lib/auth";
+  import { TierManagementService } from "../lib/tierManagement";
+  document.addEventListener("DOMContentLoaded", async () => {
+    try {
+      const user = await authService.getCurrentUser();
+      if (user) {
+        const userTierProfile = await TierManagementService.getUserTierProfile(
+          user.uid
+        );
+
+        // Hide counters for pro users
+        if (userTierProfile.currentTier === "pro") {
+          const counters = [
+            "jobAnalysisCounter",
+            "resumeGenerationCounter",
+            "coverLetterCounter",
+            "interviewPrepCounter",
+          ];
+
+          counters.forEach((counterId) => {
+            const counterElement = document.getElementById(counterId);
+            if (counterElement) {
+              counterElement.style.display = "none";
+            }
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Error checking user tier:", error);
+    }
+  });
+</script>
+
+<script>
+  import { getAuth, onAuthStateChanged } from "firebase/auth";
+  import { TierManagementService } from "../lib/tierManagement";
+  import type { UserSubscription } from "../lib/tierManagement";
+
+  const featureCounters = {
+    jobAnalysis: "jobAnalysis",
+    resumeGeneration: "resumeGeneration",
+    coverLetter: "coverLetterGeneration",
+    jobTracker: "jobTrackers",
+    interviewPrep: "interviewPrep",
+  } as const;
+
+  // Function to update all counters with usage data
+  async function updateAllCounters(userId: string) {
+    try {
+      // Get all feature usage in a single call
+      const allUsage = await TierManagementService.getAllFeatureUsage(userId);
+
+      // Update all counters with the retrieved data
+      for (const [elementId, featureKey] of Object.entries(featureCounters)) {
+        const counter = allUsage[featureKey] || 0;
+        const counterElement = document.getElementById(`${elementId}Counter`);
+        if (counterElement) {
+          counterElement.textContent = `${counter}/5`;
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching all feature usage counts:", error);
+    }
+  }
+
+  // Update counters when user auth state changes
+  onAuthStateChanged(getAuth(), async (user) => {
+    if (user) {
+      await updateAllCounters(user.uid);
+    }
+  });
+
+  // Also update counters when the page loads or becomes visible
+  document.addEventListener("DOMContentLoaded", async () => {
+    const user = getAuth().currentUser;
+    if (user) {
+      await updateAllCounters(user.uid);
+    }
+  });
+
+  // Optional: Update when the page becomes visible again (e.g., after switching tabs)
+  document.addEventListener("visibilitychange", async () => {
+    if (document.visibilityState === "visible") {
+      const user = getAuth().currentUser;
+      if (user) {
+        await updateAllCounters(user.uid);
+      }
+    }
+  });
+</script>

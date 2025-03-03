@@ -1,0 +1,29 @@
+We're using Astro for the UI.
+We're using Vite for the build.
+We're using Tailwind for the styling.
+We're using TypeScript for the development.
+We're using firebase for the authentication.
+We're using firebase for the database.
+We're using firebase for the storage.
+Use consistent naming conventions for files and folders.
+Use consistent naming conventions for variables and functions.
+Use consistent naming conventions for HTML elements.
+Use consistent naming conventions for CSS classes.
+Use consistent naming conventions for CSS variables.
+Use consistent naming conventions for CSS animations.
+Use consistent naming conventions for CSS transitions.
+Use consistent naming conventions for CSS keyframes.
+Use consistent naming conventions for CSS media queries.
+Use consistent naming conventions for CSS pseudo-classes.
+Use consistent naming conventions for CSS pseudo-elements.
+Use consistent naming conventions for CSS selectors.
+Use consistent naming conventions for CSS properties.
+Use consistent naming conventions for CSS values.
+Use consistent naming conventions for CSS units.
+Use consistent naming conventions for CSS functions.
+Use modern designs from astro website if you can. 
+Keep context for the whole project while coding.
+Keep context for the whole project while debugging.
+Keep context for the whole project while testing.
+Keep context for the whole project while deploying.
+Keep context for the whole project while using.

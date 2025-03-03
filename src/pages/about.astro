@@ -1,0 +1,539 @@
+---
+// src/pages/about.astro
+import Layout from "../layouts/Layout.astro";
+import CallToAction from "../components/CallToAction.astro";
+
+interface ImpactStat {
+  number: string;
+  label: string;
+  description: string;
+}
+
+interface Testimonial {
+  quote: string;
+  author: string;
+  impact: string;
+}
+
+const impactStats: ImpactStat[] = [
+  {
+    number: "50,000+",
+    label: "Resumes Created",
+    description: "Professionals who've crafted their perfect resume",
+  },
+  {
+    number: "85%",
+    label: "Success Rate",
+    description: "Users who reported interview calls within 30 days",
+  },
+  {
+    number: "15+",
+    label: "Industries Served",
+    description: "From tech to healthcare, we've got you covered",
+  },
+];
+
+const testimonials: Testimonial[] = [
+  {
+    quote:
+      "The AI suggestions helped me highlight achievements I hadn't even thought to include.",
+    author: "Marketing Professional",
+    impact: "Landed dream role at Fortune 500",
+  },
+  {
+    quote:
+      "Finally, a resume builder that understands my career transitions and helps tell my story.",
+    author: "Career Changer",
+    impact: "Successfully switched industries",
+  },
+  {
+    quote:
+      "The ATS optimization feature gave me confidence my resume would actually be seen.",
+    author: "Tech Professional",
+    impact: "Multiple interviews within a week",
+  },
+];
+
+const features = [
+  {
+    title: "Smart Resume Creation",
+    description:
+      "Create ATS-optimized resumes that highlight your true potential",
+    details: [
+      "AI-powered content suggestions",
+      "Real-time ATS optimization",
+      "Professional templates",
+      "Achievement-focused formatting",
+    ],
+  },
+  {
+    title: "Intelligent Cover Letters",
+    description:
+      "Generate tailored cover letters that complement your resume perfectly",
+    details: [
+      "Context-aware content generation",
+      "Company-specific customization",
+      "Professional tone adaptation",
+      "Key qualification highlighting",
+    ],
+  },
+  {
+    title: "Job Analysis",
+    description:
+      "Understand job requirements and align your applications effectively",
+    details: [
+      "Key requirement extraction",
+      "Skill match analysis",
+      "Role responsibility breakdown",
+      "Application optimization tips",
+    ],
+  },
+  {
+    title: "Application Tracking",
+    description:
+      "Stay organized and focused throughout your job search journey",
+    details: [
+      "Application status tracking",
+      "Progress visualization",
+      "Timeline management",
+      "Application history",
+    ],
+  },
+];
+
+const coreValues = [
+  {
+    title: "Innovation",
+    description:
+      "Continuously evolving our AI to provide cutting-edge resume solutions",
+  },
+  {
+    title: "Empowerment",
+    description:
+      "Giving every professional the tools to showcase their true potential",
+  },
+  {
+    title: "Excellence",
+    description:
+      "Committed to delivering the highest quality resume building experience",
+  },
+  {
+    title: "Accessibility",
+    description: "Making professional resume creation available to everyone",
+  },
+];
+---
+
+<Layout title="About Us">
+  <!-- Hero Section -->
+  <section
+    class="py-32 bg-gradient-to-b from-blue-50 to-white dark:from-gray-900/80 dark:to-gray-950 relative overflow-hidden"
+  >
+    <div
+      class="absolute inset-0 bg-grid-pattern opacity-[0.02] dark:opacity-[0.05]"
+    >
+    </div>
+    <div
+      class="absolute -top-24 -left-24 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 dark:opacity-5 animate-blob"
+    >
+    </div>
+    <div
+      class="absolute -bottom-24 -right-24 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 dark:opacity-5 animate-blob animation-delay-2000"
+    >
+    </div>
+
+    <div class="mx-auto max-w-3xl px-6 text-center mb-16">
+      <div
+        class="bg-white dark:bg-gray-800/80 backdrop-blur-sm rounded-full p-2 inline-flex items-center shadow-lg mb-8"
+      >
+        <span class="text-gray-700 dark:text-gray-300 text-lg px-4"
+          >Transforming</span
+        >
+        <span
+          class="bg-gray-900 dark:bg-gray-700 text-white px-6 py-2 rounded-full"
+          >Career Success</span
+        >
+      </div>
+
+      <div class="mx-auto max-w-5xl px-6 text-center">
+        <h2
+          class="text-4xl font-bold text-gray-900 dark:text-white md:text-5xl mb-6"
+        >
+          Our Mission
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          We're revolutionizing the way professionals approach their career
+          journey. Our AI-powered platform eliminates the complexity of job
+          hunting, giving you more time to focus on what truly matters - your
+          professional growth.
+        </p>
+        <div
+          class="mt-16 grid md:grid-cols-2 gap-8 max-w-5xl mx-auto text-left"
+        >
+          {
+            features.map((feature, index) => (
+              <div
+                class="group p-8 bg-white/80 dark:bg-gray-900 backdrop-blur-sm rounded-xl shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-200/50 dark:border-gray-700/50 relative overflow-hidden"
+                role="article"
+              >
+                <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4 relative z-10">
+                  {feature.title}
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-6 relative z-10">
+                  {feature.description}
+                </p>
+
+                <ul class="space-y-3 relative z-10">
+                  {feature.details.map((detail) => (
+                    <li class="flex items-center text-sm text-gray-600 dark:text-gray-300">
+                      <span class="w-1.5 h-1.5 rounded-full bg-blue-500 dark:bg-blue-400 mr-2" />
+                      {detail}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- How We're Making a Difference -->
+    <section class="py-24 dark:bg-gray-950 text-center">
+      <div class="mx-auto max-w-5xl px-6">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+          How We're Making a Difference
+        </h2>
+        <p class="text-gray-600 dark:text-gray-300 mb-12">
+          In order to fulfill our mission, we are guided by these principles
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <div
+            class="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+          >
+            <div
+              class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-4 mx-auto"
+            >
+              <svg
+                class="w-6 h-6 text-blue-600 dark:text-blue-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-gray-900 dark:text-white mb-3"
+            >
+              AI-Powered Resume Optimization
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              Our AI analyzes job descriptions and your experience to craft
+              tailored resumes that stand out. It ensures your resume is
+              optimized for ATS systems and highlights your achievements
+              effectively.
+            </p>
+          </div>
+
+          <div
+            class="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+          >
+            <div
+              class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4 mx-auto"
+            >
+              <svg
+                class="w-6 h-6 text-purple-600 dark:text-purple-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                ></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-gray-900 dark:text-white mb-3"
+            >
+              Dynamic Cover Letter Creation
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              Generate professional, creative, or startup-style cover letters
+              that align with your target role. Our templates adapt to your
+              needs, ensuring your application makes a lasting impression.
+            </p>
+          </div>
+          <div
+            class="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+          >
+            <div
+              class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4 mx-auto"
+            >
+              <svg
+                class="w-6 h-6 text-purple-600 dark:text-purple-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                ></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-gray-900 dark:text-white mb-3"
+            >
+              Comprehensive Job Analysis
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              Get detailed insights into job postings, including required
+              skills, compensation ranges, and company culture. This helps you
+              make informed decisions and tailor your applications effectively.
+            </p>
+          </div>
+
+          <div
+            class="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+          >
+            <div
+              class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4 mx-auto"
+            >
+              <svg
+                class="w-6 h-6 text-purple-600 dark:text-purple-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                ></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-gray-900 dark:text-white mb-3"
+            >
+              Centralized Resume Management
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              Store, organize, and manage all your resumes in one secure place.
+              Easily update, download, or share your resumes as needed, ensuring
+              you're always prepared for new opportunities.
+            </p>
+          </div>
+
+          <div
+            class="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+          >
+            <div
+              class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4 mx-auto"
+            >
+              <svg
+                class="w-6 h-6 text-purple-600 dark:text-purple-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                ></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-gray-900 dark:text-white mb-3"
+            >
+              Job Application Tracking
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              Track your job applications, monitor their progress, and stay
+              organized throughout your job search. Our tracker helps you stay
+              on top of deadlines and follow-ups.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Values -->
+    <section class="py-24 dark:bg-gray-950">
+      <div class="mx-auto max-w-5xl px-6">
+        <h2
+          class="text-3xl font-bold text-center text-gray-900 dark:text-white mb-4"
+        >
+          Our Values
+        </h2>
+        <p class="text-center text-gray-600 dark:text-gray-300 mb-12">
+          These core values guide the way our platform works
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <div
+            class="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+          >
+            <h3
+              class="text-xl font-semibold text-gray-900 dark:text-white mb-4"
+            >
+              User Success First
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              Your success is our top priority. We continuously evolve our AI
+              technology to ensure you have the best tools for career growth.
+            </p>
+          </div>
+
+          <div
+            class="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+          >
+            <h3
+              class="text-xl font-semibold text-gray-900 dark:text-white mb-4"
+            >
+              Deep User Empathy
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              We understand that finding a job can be challenging. Our AI
+              assistant is designed to make this process smooth and intuitive
+              with the smart AI tools we provide.
+            </p>
+          </div>
+
+          <div
+            class="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+          >
+            <h3
+              class="text-xl font-semibold text-gray-900 dark:text-white mb-4"
+            >
+              Continuous Learning
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              Our AI assistant evolves with every interaction, learning from
+              your experiences to deliver smarter, more personalized career
+              guidance. We stay ahead of the job market trends to ensure you
+              always have the edge.
+            </p>
+          </div>
+
+          <div
+            class="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+          >
+            <h3
+              class="text-xl font-semibold text-gray-900 dark:text-white mb-4"
+            >
+              Empowering Growth
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              We equip you with cutting-edge tools and actionable insights to
+              navigate your career path confidently. Our platform is your
+              partner in unlocking opportunities and achieving your aspirations.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Story -->
+    <section class="py-24 dark:bg-gray-950">
+      <div class="mx-auto max-w-5xl px-6">
+        <div class="space-y-16">
+          <div class="space-y-6">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white">
+              Why we started PraxJobs
+            </h2>
+            <p class="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed">
+              In recent years, we encountered numerous talented individuals
+              struggling to find meaningful employment despite their skills and
+              qualifications. Many of these individuals lacked access to the
+              tools and guidance needed to effectively showcase their potential
+              to employers. This experience highlighted a critical gap: talent
+              is universal, but opportunity is not. The job market has only
+              become more competitive, with increasing demands for specialized
+              skills and the rise of AI-driven hiring processes making it even
+              harder for candidates to stand out.
+            </p>
+            <p class="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed">
+              Recognizing this disparity, we envisioned a platform that could
+              bridge the gap between talent and opportunity. We leveraged
+              cutting-edge AI technology to create tools that empower
+              individuals to take control of their career paths. The goal was to
+              democratize access to career resources, ensuring that everyone,
+              regardless of their location or background, could present their
+              best self to potential employers.
+            </p>
+            <p class="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed">
+              PraxJobs was born out of this vision—a mission to use AI to level
+              the playing field for job seekers everywhere. Our platform
+              provides personalized, accessible, and effective tools that help
+              you navigate the complexities of the modern job market. PraxJobs
+              is more than just a tool; it’s your partner in unlocking your full
+              potential and achieving your career goals.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Impact Section -->
+      <section class="py-24 dark:bg-gray-90">
+        <div class="mx-auto max-w-5xl px-6">
+          <div class="mt-20">
+            <h3
+              class="text-4xl font-bold text-center text-gray-950 dark:text-white mb-12"
+            >
+              Voices of Success
+            </h3>
+            <div class="grid md:grid-cols-3 gap-6">
+              {
+                testimonials.map((item) => (
+                  <div
+                    class="bg-white/90 dark:bg-gray-900 backdrop-blur-sm p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50"
+                    role="article"
+                    aria-label={`Testimonial from ${item.author}`}
+                  >
+                    <div class="text-3xl text-blue-600 dark:text-blue-400 mb-4">
+                      ❝
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 italic mb-6">
+                      {item.quote}
+                    </p>
+                    <div class="border-t border-gray-200 dark:border-gray-700 pt-4">
+                      <div class="font-medium text-gray-900 dark:text-white">
+                        {item.author}
+                      </div>
+                      <div class="text-sm text-blue-600 dark:text-blue-400 mt-1">
+                        {item.impact}
+                      </div>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="py-16 dark:bg-gray-950">
+        <div class="mx-auto max-w-5xl px-6">
+          <CallToAction />
+        </div>
+      </section>
+    </section>
+  </section></Layout
+>

@@ -1,0 +1,1036 @@
+---
+import type { JobAnalysisData } from '../../types/JobAnalysis';
+
+// Initialize empty analysis data
+const analysis: JobAnalysisData = {
+    jobRoleSummary: {
+        title: '',
+        seniorityLevel: '',
+        keyResponsibilities: [],
+        mainExpectations: [],
+        reportingStructure: '',
+        teamSize: '',
+        workMode: ''
+    },
+    skillsAndQualifications: {
+        hardSkills: [],
+        softSkills: [],
+        requiredCertifications: [],
+        educationLevel: "",
+        experienceRequired: "",
+        preferredSkills: []
+    },
+    compensationDetails: {
+        baseSalaryRange: '',
+        totalCompensationRange: '',
+        equityDetails: {
+            type: '',
+            vestingSchedule: '',
+            approximateValue: ''
+        },
+        benefits: {
+            healthcare: [],
+            retirement: [],
+            additionalPerks: []
+        },
+        bonusStructure: {
+            type: '',
+            frequency: '',
+            amount: ''
+        },
+        industryComparison: ''
+    },
+    companyInsights: {
+        name: '',
+        size: '',
+        industry: '',
+        fundingDetails: {
+            stage: '',
+            totalRaised: '',
+            lastRound: '',
+            keyInvestors: []
+        },
+        growth: {
+            metrics: [],
+            revenueRange: '',
+            userGrowth: ''
+        },
+        culture: {
+            values: [],
+            workLifeBalance: '',
+            learningOpportunities: '',
+            diversityInitiatives: []
+        },
+        employeeStats: {
+            ratings: {
+                overall: 0,
+                workLifeBalance: 0,
+                careerGrowth: 0,
+                compensation: 0,
+                culture: 0
+            },
+            averageTenure: '',
+            turnoverRate: '',
+            promotionRate: ''
+        },
+        competitors: []
+    },
+    careerGrowth: {
+        promotionPath: [],
+        learningBudget: '',
+        mentorshipPrograms: [],
+        skillDevelopmentOpportunities: []
+    },
+    jobMarketTrends: {
+        currentDemand: '',
+        growthProjection: '',
+        industryTrends: [],
+        salaryTrends: '',
+        skillsInDemand: [],
+        competitorSalaries: []
+    },
+    workCulture: {
+        workSchedule: '',
+        remotePolicy: '',
+        workEnvironment: [],
+        teamDynamics: '',
+        managementStyle: '',
+        redFlags: [],
+        positiveIndicators: []
+    },
+    applicationTips: {
+        resumeAdvice: [],
+        coverLetterTips: [],
+        interviewPrep: {
+            commonQuestions: [],
+            technicalAssessment: '',
+            processSteps: []
+        },
+        negotiationTips: []
+    }
+};
+---
+
+<div class="relative py-16 w-full">
+    <div aria-hidden="true" class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20">
+        <div class="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700 dark:to-indigo-600"></div>
+        <div class="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600 dark:from-emerald-500"></div>
+    </div>
+    <div class="relative w-full">
+        <div class="container mx-auto md:px-6 lg:px-8">
+            <div class="w-full mx-auto">
+                <form 
+                    id="jobAnalysisForm" 
+                    class="w-full space-y-6 sm:space-y-8 bg-white dark:bg-transparent rounded-3xl p-4 sm:p-8 
+                    shadow-lg  border-gray-200 dark:border-gray-700 
+                    transition-all duration-300 ease-in-out hover:shadow-xl job-analysis-form"
+                >
+                    <div class="form-content">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Company Name Input -->
+                            <div class="space-y-2">
+                                <label 
+                                    for="companyName" 
+                                    class="block text-left text-sm font-medium text-gray-700 dark:text-gray-300"
+                                >
+                                    Company Name<span class="text-red-600"> *</span>
+                                </label>
+                                <div class="relative">
+                                    <input
+                                        id="companyName"
+                                        type="text"
+                                        placeholder="e.g., Newton School, Google, Startup X"
+                                        required
+                                        class="w-full px-4 py-3 border-2 rounded-xl 
+                                        dark:border-gray-700/70 dark:bg-gray-800/5 dark:text-gray-100 
+                                        focus:border-primary dark:focus:border-primary 
+                                        outline-none text-md transition-colors duration-200"
+                                    />
+                                </div>
+                            </div>
+
+                            <!-- Job Position Input -->
+                            <div class="space-y-2">
+                                <label 
+                                    for="jobPosition" 
+                                    class="block text-left text-sm font-medium text-gray-700 dark:text-gray-300"
+                                >
+                                    Job Position
+                                </label>
+                                <div class="relative">
+                                    <input
+                                        id="jobPosition"
+                                        type="text"
+                                        placeholder="e.g., Product Manager, Software Engineer"
+                                        required
+                                        class="w-full px-4 py-3 border-2 rounded-xl 
+                                        dark:border-gray-700/70 dark:bg-gray-800/5 dark:text-gray-100 
+                                        focus:border-primary dark:focus:border-primary 
+                                        outline-none text-md transition-colors duration-200"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Job Description Input -->
+                        <div class="space-y-2 mt-4">
+                            <label 
+                                for="jobDescription" 
+                                class="block text-left text-sm font-medium text-gray-700 dark:text-gray-300"
+                            >
+                                Job Description
+                            </label>
+                            <textarea 
+                                id="jobDescription" 
+                                rows="6" 
+                                placeholder="Paste the complete job description here. The more detailed, the more accurate the analysis."
+                                required
+                                class="w-full px-4 py-3 border-2 rounded-xl 
+                                dark:border-gray-700/70 dark:bg-gray-800/5 dark:text-gray-100 
+                                focus:border-primary dark:focus:border-primary 
+                                outline-none text-md transition-colors duration-200 resize-y"
+                            ></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="flex flex-col sm:flex-row justify-center space-y-2.5 sm:space-y-0 sm:space-x-4 mt-2 sm:mt-4">
+                            <button 
+                                type="submit" 
+                                class="w-full sm:w-auto inline-flex h-11 sm:h-12 items-center justify-center px-4 sm:px-6 py-2 sm:py-3 
+                                text-sm sm:text-base font-semibold 
+                                text-white bg-black 
+                                dark:text-black dark:bg-white
+                                rounded-full 
+                                transition-all duration-300 
+                                transform hover:scale-105 active:scale-95 
+                                focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 
+                                dark:focus:ring-offset-gray-900
+                                shadow-lg shadow-gray-500/30 hover:shadow-gray-500/40"
+                            >
+                                Analyze Job Description
+                            </button>
+                            <button 
+                                type="button"
+                                id="clearForm"
+                                class="w-full sm:w-auto inline-flex h-11 sm:h-12 items-center justify-center px-4 sm:px-6 py-2 sm:py-3 
+                                text-sm sm:text-base font-semibold 
+                                text-black bg-white 
+                                dark:text-gray-900 dark:bg-gray-500
+                                border border-gray-300 dark:border-gray-700
+                                rounded-full 
+                                transition-all duration-300 
+                                transform hover:scale-105 active:scale-95 
+                                focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 
+                                dark:focus:ring-offset-gray-900
+                                shadow-lg shadow-gray-500/30 hover:shadow-gray-500/40"
+                            >
+                                <span class="relative z-10">Clear</span>
+                                <span class="absolute inset-0 rounded-full opacity-0 group-hover:opacity-10 bg-white transition-opacity duration-300"></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading State -->
+<div id="loadingState" class="hidden mt-8 text-left">
+    <div class="flex flex-col items-center justify-center space-y-4">
+        <!-- Improved loading spinner -->
+        <div class="relative w-16 h-16">
+            <div class="absolute inset-0 rounded-full border-4 border-gray-200 dark:border-gray-700"></div>
+            <div class="absolute inset-0 rounded-full border-4 border-t-purple-500 dark:border-t-purple-400 animate-spin"></div>
+        </div>
+        <!-- Loading text -->
+        <div class="text-center">
+            <p class="text-lg font-medium text-gray-900 dark:text-white">Analyzing</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">This typically takes about 5-10 seconds.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Results Container -->
+<div id="analysisResultContainer" class="hidden mt-8 w-full px-4 sm:px-6 lg:px-8 text-left">
+    <div class="grid grid-cols-1 gap-6 max-w-7xl mx-auto w-full">
+        <!-- Key Metrics Summary (Always Visible) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm p-6 rounded-2xl shadow-sm transform transition-all duration-300 hover:scale-105 text-left">
+                <dt class="text-xl font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 pb-4">Total Compensation</dt>
+                <dd class="mt-2 text-2xl font-bold text-purple-600 dark:text-purple-400 text-left">
+                    ${analysis.compensationDetails.totalCompensationRange}
+                </dd>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 text-left">${analysis.compensationDetails.industryComparison}</p>
+            </div>
+            <div class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm p-6 rounded-2xl shadow-sm transform transition-all duration-300 hover:scale-105 text-left">
+                <dt class="text-xl font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 pb-4">Company Stage</dt>
+                <dd class="mt-2 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-500 to-teal-600 text-left">
+                    ${analysis.companyInsights.fundingDetails.stage}
+                </dd>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 text-left">
+                    Last round: ${analysis.companyInsights.fundingDetails.lastRound}
+                </p>
+            </div>
+            <div class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm p-6 rounded-2xl shadow-sm transform transition-all duration-300 hover:scale-105 text-left">
+                <dt class="text-xl font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 pb-4">Growth Metrics</dt>
+                <dd class="mt-2 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-600 text-left">
+                    ${analysis.companyInsights.growth.userGrowth}
+                </dd>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 text-left">Revenue: ${analysis.companyInsights.growth.revenueRange}</p>
+            </div>
+        </div>
+
+        <!-- Tabbed/Accordion Interface -->
+        <div class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm rounded-2xl shadow-sm overflow-hidden">
+            <!-- Tab Navigation (Desktop) -->
+            <nav class="hidden md:flex border-b border-gray-200 dark:border-gray-800" role="tablist">
+                <button 
+                    class="tab-button flex-1 px-6 py-4 text-sm font-medium border-b-2 border-primary text-gray-900 dark:text-white" 
+                    role="tab"
+                    aria-selected="true"
+                    aria-controls="compensation-panel"
+                    data-tab="compensation"
+                >
+                    Compensation & Benefits
+                </button>
+                <button 
+                    class="tab-button flex-1 px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 border-b-2 border-transparent" 
+                    role="tab"
+                    aria-selected="false"
+                    aria-controls="company-panel"
+                    data-tab="company"
+                >
+                    Company & Culture
+                </button>
+                <button 
+                    class="tab-button flex-1 px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 border-b-2 border-transparent" 
+                    role="tab"
+                    aria-selected="false"
+                    aria-controls="market-panel"
+                    data-tab="market"
+                >
+                    Market Position
+                </button>
+                <button 
+                    class="tab-button flex-1 px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 border-b-2 border-transparent" 
+                    role="tab"
+                    aria-selected="false"
+                    aria-controls="interview-panel"
+                    data-tab="interview"
+                >
+                    Interview Process
+                </button>
+            </nav>
+
+            <!-- Accordion Headers (Mobile) -->
+            <div class="md:hidden divide-y divide-gray-200 dark:divide-gray-800">
+                <button 
+                    class="accordion-header w-full px-6 py-4 flex items-center justify-between text-left group" 
+                    aria-expanded="true"
+                    data-section="compensation"
+                >
+                    <span class="text-sm font-medium text-gray-900 dark:text-white group-hover:text-primary">Compensation & Benefits</span>
+                    <svg class="w-5 h-5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+                <button 
+                    class="accordion-header w-full px-6 py-4 flex items-center justify-between text-left group" 
+                    aria-expanded="false"
+                    data-section="company"
+                >
+                    <span class="text-sm font-medium text-gray-900 dark:text-white group-hover:text-primary">Company & Culture</span>
+                    <svg class="w-5 h-5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+                <button 
+                    class="accordion-header w-full px-6 py-4 flex items-center justify-between text-left group" 
+                    aria-expanded="false"
+                    data-section="market"
+                >
+                    <span class="text-sm font-medium text-gray-900 dark:text-white group-hover:text-primary">Market Position</span>
+                    <svg class="w-5 h-5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+                <button 
+                    class="accordion-header w-full px-6 py-4 flex items-center justify-between text-left group" 
+                    aria-expanded="false"
+                    data-section="interview"
+                >
+                    <span class="text-sm font-medium text-gray-900 dark:text-white group-hover:text-primary">Interview Process</span>
+                    <svg class="w-5 h-5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Content Panels -->
+            <div class="tab-panels">
+                <div id="compensation-panel" role="tabpanel" class="tab-content p-6" aria-labelledby="compensation-tab">
+                    <!-- Content will be populated here -->
+                </div>
+                <div id="company-panel" role="tabpanel" class="tab-content p-6 hidden" aria-labelledby="company-tab">
+                    <!-- Content will be populated here -->
+                </div>
+                <div id="market-panel" role="tabpanel" class="tab-content p-6 hidden" aria-labelledby="market-tab">
+                    <!-- Content will be populated here -->
+                </div>
+                <div id="interview-panel" role="tabpanel" class="tab-content p-6 hidden" aria-labelledby="interview-tab">
+                    <!-- Content will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Existing form and other components follow -->
+
+<style>
+    .animate-spin-slow {
+        animation: spin 2s linear infinite;
+        @apply border-blue-500 dark:border-blue-400;
+        opacity: 0.8;
+    }
+    .animate-spin-slower {
+        animation: spin 3s linear infinite;
+        @apply border-blue-500/50 dark:border-blue-400/50;
+        opacity: 0.6;
+    }
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    .typing-animation {
+        animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes fadeIn {
+        0% { 
+            opacity: 0; 
+            transform: translateY(8px);
+            @apply backdrop-blur-none;
+        }
+        100% { 
+            opacity: 1; 
+            transform: translateY(0);
+            @apply backdrop-blur-sm;
+        }
+    }
+</style>
+
+<script>
+    import { authService } from '../../lib/auth';
+    import type { JobAnalysisData } from '../../types/JobAnalysis';
+    import { TierManagementService } from '../../lib/tierManagement';
+    
+    document.addEventListener("DOMContentLoaded", () => {
+        const form = document.querySelector("#jobAnalysisForm") as HTMLFormElement | null;
+        const loadingState = document.querySelector("#loadingState") as HTMLDivElement | null;
+        const analysisResultContainer = document.querySelector("#analysisResultContainer") as HTMLDivElement | null;
+        const progressBar = document.querySelector("#progressBar") as HTMLDivElement | null;
+        const progressText = document.querySelector("#progressText") as HTMLSpanElement | null;
+        let currentAnalysis: JobAnalysisData;
+        let progressInterval: ReturnType<typeof setInterval>;
+
+        // Check for stored job data
+        const storedJob = localStorage.getItem('currentJob');
+        if (storedJob) {
+            const jobData = JSON.parse(storedJob);
+            // Pre-fill the form with job data
+            const companyInput = document.getElementById('companyName') as HTMLInputElement;
+            const positionInput = document.getElementById('jobPosition') as HTMLInputElement;
+            const descriptionInput = document.getElementById('jobDescription') as HTMLTextAreaElement;
+            
+            if (companyInput) companyInput.value = jobData.company || '';
+            if (positionInput) positionInput.value = jobData.position || '';
+            if (descriptionInput) descriptionInput.value = jobData.jobDescription || '';
+            
+            // Clear the stored data as it's no longer needed
+            localStorage.removeItem('currentJob');
+        }
+
+        async function checkJobAnalysisAccess() {
+            try {
+                const user = await authService.getCurrentUser();
+                if (!user) {
+                    // Show login modal or redirect to login
+                    return { canAccess: false, userId: null };
+                }
+
+                // Check feature access
+                const hasAccess = await TierManagementService.checkFeatureAccess(user.uid, 'jobAnalysis');
+                
+                if (!hasAccess) {
+                    // Show upgrade modal
+                    const upgradeModal = document.createElement('div');
+                    upgradeModal.innerHTML = `
+                        <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+                            <div class="bg-white dark:bg-gray-900 rounded-2xl p-8 max-w-md w-full text-center">
+                                <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Usage Limit Reached</h2>
+                                <p class="text-gray-600 dark:text-gray-400 mb-6">
+                                    You've reached the maximum number of job analysis generations for your current plan.
+                                </p>
+                                <div class="flex justify-center space-x-4">
+                                    <button id="upgradeButton" class="bg-black dark:bg-white text-white dark:text-black px-6 py-2 rounded-full hover:bg-primary-600 transition">
+                                        Upgrade to Pro
+                                    </button>
+                                    <button id="closeUpgradeModal" class="bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white px-6 py-2 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(upgradeModal);
+
+                    const upgradeButton = upgradeModal.querySelector('#upgradeButton');
+                    const closeButton = upgradeModal.querySelector('#closeUpgradeModal');
+
+                    upgradeButton?.addEventListener('click', () => {
+                        // Redirect to upgrade page or open upgrade modal
+                        window.location.href = '/pricing';
+                    });
+
+                    closeButton?.addEventListener('click', () => {
+                        document.body.removeChild(upgradeModal);
+                    });
+
+                    return { canAccess: false, userId: user.uid };
+                }
+
+                return { canAccess: true, userId: user.uid };
+            } catch (error) {
+                console.error('Error checking job analysis access:', error);
+                return { canAccess: false, userId: null };
+            }
+        }
+
+        form?.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            // Get current user and check tier status before generation
+            const user = await authService.getCurrentUser();
+            if (!user) {
+                if (analysisResultContainer) {
+                    analysisResultContainer.innerHTML = `
+                        <div class="bg-red-50/50 dark:bg-red-900/20 backdrop-blur-sm p-6 rounded-2xl shadow-sm text-center">
+                            <h2 class="text-xl font-medium mb-4 text-red-700 dark:text-red-400">
+                                Authentication Required
+                            </h2>
+                            <p class="text-red-600/90 dark:text-red-300/90">
+                                Please log in to analyze job descriptions.
+                            </p>
+                        </div>
+                    `;
+                    analysisResultContainer.classList.remove('hidden');
+                }
+                return;
+            }
+
+            // Check feature access
+            const hasAccess = await TierManagementService.checkFeatureAccess(user.uid, 'jobAnalysis');
+            if (!hasAccess) {
+                if (analysisResultContainer) {
+                    analysisResultContainer.innerHTML = `
+                        <div class="bg-red-50/50 dark:bg-red-900/20 backdrop-blur-sm p-6 rounded-2xl shadow-sm text-center">
+                            <h2 class="text-xl font-medium mb-4 text-red-700 dark:text-red-400">
+                                Usage Limit Reached
+                            </h2>
+                            <p class="text-red-600/90 dark:text-red-300/90">
+                                You have reached the maximum number of job analysis requests. Please upgrade to continue.
+                            </p>
+                        </div>
+                    `;
+                    analysisResultContainer.classList.remove('hidden');
+                }
+                return;
+            }
+
+            const companyName = document.querySelector("#companyName") as HTMLInputElement | null;
+            const jobPosition = document.querySelector("#jobPosition") as HTMLInputElement | null;
+            const jobDescription = document.querySelector("#jobDescription") as HTMLTextAreaElement | null;
+
+            if (!companyName?.value || !jobPosition?.value || !jobDescription?.value) {
+                alert("Please fill in all fields: Company Name, Job Position, and Job Description");
+                return;
+            }
+
+            // Show loading state and start progress
+            loadingState?.classList.remove('hidden');
+            analysisResultContainer?.classList.add('hidden');
+            
+            // Reset and start progress animation
+            let progress = 0;
+            if (progressBar) progressBar.style.width = "0%";
+            if (progressText) progressText.textContent = "0%";
+            
+            // Simulate progress over 45 seconds (typical response time)
+            progressInterval = setInterval(() => {
+                if (progress < 99) {  // Only go up to 99% until we get actual completion
+                    progress += 1;
+                    if (progressBar) progressBar.style.width = `${progress}%`;
+                    if (progressText) progressText.textContent = `${progress}%`;
+                }
+            }, 500);  // Update every 500ms
+
+            try {
+                console.log('Starting job analysis request...');
+                const requestBody = { 
+                    companyName: companyName.value,
+                    jobPosition: jobPosition.value,
+                    jobDescription: jobDescription.value 
+                };
+                
+                const response = await fetch('/.netlify/functions/jobAnalysis', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to analyze job description');
+                }
+
+                // Track successful job analysis
+                await TierManagementService.trackJobAnalysisRequests(user.uid);
+
+                // Clear progress interval
+                clearInterval(progressInterval);
+                
+                // Show 100% completion
+                if (progressBar) progressBar.style.width = "100%";
+                if (progressText) progressText.textContent = "100%";
+
+                console.log('Response details:', {
+                    status: response.status,
+                    statusText: response.statusText,
+                    headers: Object.fromEntries(response.headers.entries())
+                });
+
+                const responseText = await response.text();
+                console.log('Raw response text:', responseText);
+
+                if (!response.ok) {
+                    let errorMessage = 'Failed to analyze job description';
+                    try {
+                        const errorData = JSON.parse(responseText);
+                        console.error('Parsed error response:', errorData);
+                        errorMessage = errorData.error || errorMessage;
+                    } catch (parseError) {
+                        console.error('Failed to parse error response:', parseError);
+                        console.error('Raw error response:', responseText);
+                    }
+                    throw new Error(errorMessage);
+                }
+
+                try {
+                    console.log('Attempting to parse response as JSON...');
+                    currentAnalysis = JSON.parse(responseText);
+                    console.log('Successfully parsed analysis:', currentAnalysis);
+                } catch (parseError) {
+                    console.error('JSON Parse Error:', {
+                        error: parseError,
+                        responseText: responseText
+                    });
+                    throw new Error('Failed to parse analysis results. Please try again.');
+                }
+
+                if (!currentAnalysis || typeof currentAnalysis !== 'object') {
+                    console.error('Invalid analysis format:', currentAnalysis);
+                    throw new Error('Received invalid analysis format');
+                }
+
+                if (analysisResultContainer) {
+                    analysisResultContainer.innerHTML = generateAnalysisHTML(currentAnalysis);
+                    loadingState?.classList.add('hidden');
+                    analysisResultContainer.classList.remove('hidden');
+                }
+
+                // The form remains fully visible after analysis
+                // No minimization needed
+            } catch (error) {
+                console.error("Job Analysis error:", error);
+                if (analysisResultContainer) {
+                    analysisResultContainer.innerHTML = `
+                        <div class="bg-red-50/50 dark:bg-red-900/20 backdrop-blur-sm p-6 rounded-2xl shadow-sm text-center">
+                            <h2 class="text-xl font-medium mb-4 text-red-700 dark:text-red-400">
+                                Unable to Generate Analysis
+                            </h2>
+                            <p class="text-red-600/90 dark:text-red-300/90 mb-4">
+                                We encountered an issue analyzing the job description. 
+                                Please try again or check your input.
+                            </p>
+                            <details class="text-left text-sm text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+                                <summary class="cursor-pointer hover:text-gray-900 dark:hover:text-gray-200">View Technical Details</summary>
+                                <pre class="mt-2 p-4 bg-gray-50 dark:bg-gray-900 rounded-xl overflow-x-auto text-xs">
+                                    ${error instanceof Error ? error.message : 'Unknown error occurred'}
+                                </pre>
+                            </details>
+                        </div>
+                    `;
+                    loadingState?.classList.add('hidden');
+                    analysisResultContainer.classList.remove('hidden');
+                }
+            }
+        });
+
+        function generateAnalysisHTML(analysis: JobAnalysisData) {
+            return `
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+                    <!-- Key Metrics Summary -->
+                    <div class="col-span-full grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm p-6 rounded-2xl shadow-sm transform transition-all duration-300 hover:translate-y-[-2px] text-left">
+                            <dt class="text-xl font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 pb-4">Total Compensation</dt>
+                            <dd class="mt-3 text-2xl font-medium text-gray-900 dark:text-white">
+                                ${analysis.compensationDetails.totalCompensationRange}
+                            </dd>
+                            <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">${analysis.compensationDetails.industryComparison}</p>
+                        </div>
+                        <div class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm p-6 rounded-2xl shadow-sm transform transition-all duration-300 hover:scale-105 text-left">
+                            <dt class="text-xl font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 pb-4">Company Stage</dt>
+                            <dd class="mt-2 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-500 to-teal-600">
+                                ${analysis.companyInsights.fundingDetails.stage}
+                            </dd>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 text-left">
+                                Last round: ${analysis.companyInsights.fundingDetails.lastRound}
+                            </p>
+                        </div>
+                        <div class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm p-6 rounded-2xl shadow-sm transform transition-all duration-300 hover:scale-105 text-left">
+                            <dt class="text-xl font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 pb-4">Growth Metrics</dt>
+                            <dd class="mt-2 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-600">
+                                ${analysis.companyInsights.growth.userGrowth}
+                            </dd>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 text-left">Revenue: ${analysis.companyInsights.growth.revenueRange}</p>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Analysis Cards -->
+                    <div class="bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm p-6 rounded-2xl shadow-sm transform transition-all duration-300 hover:translate-y-[-2px] text-left">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 pb-4">
+                            Role Overview
+                        </h3>
+                            <div class="mt-6 space-y-6">
+                                <div>
+                                    <h4 class="text-sm uppercase tracking-wider font-medium text-gray-700 dark:text-gray-300">Key Responsibilities</h4>
+                                    <ul class="mt-2 space-y-2">
+                                        ${analysis.jobRoleSummary.keyResponsibilities.map(responsibility => `
+                                            <li class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl text-gray-600 dark:text-gray-400"> ${responsibility}</li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm uppercase tracking-wider font-medium text-gray-700 dark:text-gray-300">Required Skills</h4>
+                                    <div class="flex flex-wrap gap-2 mt-2">
+                                        ${analysis.skillsAndQualifications.hardSkills.map(skill => `
+                                            <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 text-sm rounded-lg">
+                                                ${skill}
+                                            </span>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Compensation Details -->
+                        <div class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm p-8 rounded-2xl shadow-sm text-left">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 pb-4">
+                                Compensation & Benefits
+                            </h3>
+                            <div class="mt-6 space-y-6">
+                                <div>
+                                    <h4 class="text-sm uppercase tracking-wider font-medium text-gray-700 dark:text-gray-300">Salary Structure</h4>
+                                    <p class="mt-2 p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl text-gray-600 dark:text-gray-400">Base: ${analysis.compensationDetails.baseSalaryRange}</p>
+                                    <p class="mt-2 p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl text-gray-600 dark:text-gray-400">Total: ${analysis.compensationDetails.totalCompensationRange}</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm uppercase tracking-wider font-medium text-gray-700 dark:text-gray-300">Benefits</h4>
+                                    <ul class="mt-2 space-y-2">
+                                        ${analysis.compensationDetails.benefits.healthcare.map(benefit => `
+                                            <li class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl text-gray-600 dark:text-gray-400"> ${benefit}</li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Company Culture -->
+                        <div class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm p-8 rounded-2xl shadow-sm text-left">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 pb-4">
+                                Company Culture
+                            </h3>
+                            <div class="mt-6 space-y-6">
+                                <div class="grid gap-4">
+                                    <div class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                                        <p class="text-sm font-medium text-gray-900 dark:text-white">Work Schedule</p>
+                                        <p class="mt-1 text-gray-600 dark:text-gray-400">${analysis.workCulture.workSchedule}</p>
+                                    </div>
+                                    <div class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                                        <p class="text-sm font-medium text-gray-900 dark:text-white">Remote Policy</p>
+                                        <p class="mt-1 text-gray-600 dark:text-gray-400">${analysis.workCulture.remotePolicy}</p>
+                                    </div>
+                                    <div class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                                        <p class="text-sm font-medium text-gray-900 dark:text-white">Team Dynamics</p>
+                                        <p class="mt-1 text-gray-600 dark:text-gray-400">${analysis.workCulture.teamDynamics}</p>
+                                    </div>
+                                    <div class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                                        <p class="text-sm font-medium text-gray-900 dark:text-white">Management Style</p>
+                                        <p class="mt-1 text-gray-600 dark:text-gray-400">${analysis.workCulture.managementStyle}</p> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Employee Stats & Ratings -->
+                        <div class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm p-8 rounded-2xl shadow-sm text-left">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 pb-4">
+                                Employee Statistics
+                            </h3>
+                            <div class="mt-6 space-y-6">
+                                <!-- Ratings -->
+                                <div>
+                                    <h4 class="text-sm uppercase tracking-wider font-medium text-gray-700 dark:text-gray-300">Company Ratings</h4>
+                                    <div class="mt-4 grid grid-cols-2 gap-4">
+                                        <div class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">Overall</p>
+                                            <p class="text-2xl font-bold text-primary">${analysis.companyInsights.employeeStats.ratings.overall}/5</p>
+                                        </div>
+                                        <div class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">Work-Life Balance</p>
+                                            <p class="font-medium text-gray-900 dark:text-white">${analysis.companyInsights.employeeStats.ratings.workLifeBalance}/5</p>
+                                        </div>
+                                        <div class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">Career Growth</p>
+                                            <p class="font-medium text-gray-900 dark:text-white">${analysis.companyInsights.employeeStats.ratings.careerGrowth}/5</p>
+                                        </div>
+                                        <div class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">Culture</p>
+                                            <p class="font-medium text-gray-900 dark:text-white">${analysis.companyInsights.employeeStats.ratings.culture}/5</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Employment Stats -->
+                                <div>
+                                    <h4 class="text-sm uppercase tracking-wider font-medium text-gray-700 dark:text-gray-300">Key Metrics</h4>
+                                    <div class="mt-4 space-y-3">
+                                        <div class="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                                            <span class="text-gray-600 dark:text-gray-400">Average Tenure</span>
+                                            <span class="font-medium text-gray-900 dark:text-white">${analysis.companyInsights.employeeStats.averageTenure}</span>
+                                        </div>
+                                        <div class="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                                            <span class="text-gray-600 dark:text-gray-400">Turnover Rate</span>
+                                            <span class="font-medium text-gray-900 dark:text-white">${analysis.companyInsights.employeeStats.turnoverRate}</span>
+                                        </div>
+                                        <div class="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                                            <span class="text-gray-600 dark:text-gray-400">Promotion Rate</span>
+                                            <span class="font-medium text-gray-900 dark:text-white">${analysis.companyInsights.employeeStats.promotionRate}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Red Flags -->
+                                <div>
+                                    <h4 class="text-sm uppercase tracking-wider font-medium text-red-600 dark:text-red-400">Red Flags</h4>
+                                    <ul class="mt-4 space-y-3">
+                                        ${analysis.workCulture.redFlags.map((flag) => (`
+                                            <li class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl text-red-800 dark:text-red-400">${flag}</li>
+                                        `)).join('')}
+                                    </ul>
+                                </div>
+
+                                <!-- Green Flags -->
+                                <div>
+                                    <h4 class="text-sm uppercase tracking-wider font-medium text-green-600 dark:text-green-400">Green Flags</h4>
+                                    <div class="mt-4 space-y-3">
+                                        ${analysis.workCulture.positiveIndicators.map((indicator) => (`
+                                            <p class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl text-green-800 dark:text-green-400">${indicator}</p>
+                                        `)).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Market Trends -->
+                        <div class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm p-8 rounded-2xl shadow-sm text-left">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 pb-4">
+                                Market Trends & Insights
+                            </h3>
+                            <div class="mt-6 space-y-6">
+                                <!-- Market Demand & Growth -->
+                                <div>
+                                    <h4 class="text-sm uppercase tracking-wider font-medium text-gray-700 dark:text-gray-300">Market Status</h4>
+                                    <div class="mt-4 space-y-3">
+                                        <div class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                                            <p class="text-sm font-medium text-gray-900 dark:text-white">Current Demand</p>
+                                            <p class="font-medium text-gray-900 dark:text-white">${analysis.jobMarketTrends.currentDemand}</p>
+                                        </div>
+                                        <div class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                                            <p class="text-sm font-medium text-gray-900 dark:text-white">Growth Projection</p>
+                                            <p class="font-medium text-gray-900 dark:text-white">${analysis.jobMarketTrends.growthProjection}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Industry Trends -->
+                                <div>
+                                    <h4 class="text-sm uppercase tracking-wider font-medium text-gray-700 dark:text-gray-300">Industry Trends</h4>
+                                    <ul class="mt-4 space-y-3">
+                                        ${analysis.jobMarketTrends.industryTrends.map((trend) => (`
+                                            <li class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl text-gray-600 dark:text-gray-400">${trend}</li>
+                                        `)).join('')}
+                                    </ul>
+                                </div>
+                                <!-- Salary Insights -->
+                                <div>
+                                    <h4 class="text-sm uppercase tracking-wider font-medium text-gray-700 dark:text-gray-300">Salary Insights</h4>
+                                    <p class="mt-2 p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl text-gray-600 dark:text-gray-400">${analysis.jobMarketTrends.salaryTrends}</p>
+                                    <ul class="mt-4 space-y-3">
+                                        ${analysis.jobMarketTrends?.competitorSalaries && Array.isArray(analysis.jobMarketTrends.competitorSalaries) 
+                                            ? analysis.jobMarketTrends.competitorSalaries.map((salary) => (`
+                                                <li class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl text-gray-600 dark:text-gray-400">${salary}</li>
+                                            `)).join('') 
+                                            : '<li class="text-gray-500 dark:text-gray-400">No competitor salary data available</li>'
+                                        }
+                                    </ul>
+                                </div>
+                                <!-- In-Demand Skills -->
+                                <div>
+                                    <h4 class="text-sm uppercase tracking-wider font-medium text-gray-700 dark:text-gray-300">In-Demand Skills</h4>
+                                    <div class="flex flex-wrap gap-2 mt-2">
+                                        ${analysis.jobMarketTrends.skillsInDemand.map(skill => `
+                                            <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 text-sm rounded-lg">
+                                                ${skill}
+                                            </span>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Application Tips -->
+                        <div class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm p-8 rounded-2xl shadow-sm text-left">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 pb-4">
+                                Application Tips
+                            </h3>
+                            <div class="mt-6 space-y-6">
+                                  <div>
+                                    <h4 class="text-sm uppercase tracking-wider font-medium text-gray-700 dark:text-gray-300">Resume Tips</h4>
+                                    <ul class="mt-4 space-y-3">
+                                        ${analysis.applicationTips.resumeAdvice.map((tip) => (`
+                                            <li class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl text-gray-600 dark:text-gray-400">${tip}</li>
+                                        `)).join('')}
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-sm uppercase tracking-wider font-medium text-gray-700 dark:text-gray-300">Cover Letter Tips</h4>
+                                    <ul class="mt-4 space-y-3">
+                                        ${analysis.applicationTips.coverLetterTips.map((tip) => (`
+                                            <li class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl text-gray-600 dark:text-gray-400">${tip}</li>
+                                        `)).join('')}
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-sm uppercase tracking-wider font-medium text-gray-700 dark:text-gray-300">Interview Questions</h4>
+                                    <ul class="mt-4 space-y-3">
+                                        ${analysis.applicationTips.interviewPrep.commonQuestions.map((question) => (`
+                                            <li class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl text-gray-600 dark:text-gray-400">${question}</li>
+                                        `)).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Career Growth Path -->
+                        <div class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm p-8 rounded-2xl shadow-sm text-left">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 pb-4">
+                                Career Growth Path
+                            </h3>
+                            <div class="mt-6 space-y-6">
+                                <!-- Career Progression -->
+                                <div>
+                                    <h4 class="text-sm uppercase tracking-wider font-medium text-gray-700 dark:text-gray-300">Career Progression</h4>
+                                    <ul class="mt-4 space-y-3">
+                                        ${analysis.careerGrowth.promotionPath.map((path) => `
+                                            <li class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl text-gray-600 dark:text-gray-400">${path}</li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm uppercase tracking-wider font-medium text-gray-700 dark:text-gray-300">Learning & Development</h4>
+                                    <div class="mt-4 space-y-4">
+                                        <div class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                                            <p class="text-sm font-medium text-gray-900 dark:text-white">Learning Budget</p>
+                                            <p class="mt-1 text-gray-600 dark:text-gray-400">${analysis.careerGrowth.learningBudget}</p>
+                                        </div>
+                                        
+                                        <div class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                                            <p class="text-sm font-medium text-gray-900 dark:text-white">Mentorship Programs</p>
+                                            <ul class="mt-2 space-y-2">
+                                                ${analysis.careerGrowth.mentorshipPrograms.map((program) => `
+                                                    <li class="text-gray-600 dark:text-gray-400"> ${program}</li>
+                                                `).join('')}
+                                            </ul>
+                                        </div>
+
+                                        <div class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                                            <p class="text-sm font-medium text-gray-900 dark:text-white">Skill Development</p>
+                                            <ul class="mt-2 space-y-2">
+                                                ${analysis.careerGrowth.skillDevelopmentOpportunities.map((skill) => `
+                                                    <li class="text-gray-600 dark:text-gray-400"> ${skill}</li>
+                                                `).join('')}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Market Position -->
+                        <div class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm p-8 rounded-2xl shadow-sm text-left">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 pb-4">
+                                Market Position & Competitors
+                            </h3>
+                            <div class="mt-6 space-y-6">
+                                <div>
+                                    <h4 class="text-sm uppercase tracking-wider font-medium text-gray-700 dark:text-gray-300">Competitors</h4>
+                                    <ul class="mt-4 space-y-3">
+                                        ${analysis.companyInsights.competitors.map((competitor) => (`
+                                            <li class="p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl text-gray-600 dark:text-gray-400">${competitor}</li>
+                                        `)).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 mt-4">
+                    <p class="text-sm text-gray-700 dark:text-gray-300">
+                        This data is for reference only. Please do your own research.
+                    </p>
+                </div>
+            `;
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const clearButton = document.getElementById('clearForm');
+        const jobDescriptionTextarea = document.getElementById('jobDescription') as HTMLTextAreaElement;
+        const analysisResultContainer = document.getElementById('analysisResultContainer');
+
+        if (clearButton && jobDescriptionTextarea && analysisResultContainer) {
+            clearButton.addEventListener('click', () => {
+                jobDescriptionTextarea.value = '';
+                analysisResultContainer.classList.add('hidden');
+            });
+        }
+    });
+</script>
