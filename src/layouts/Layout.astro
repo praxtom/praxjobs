@@ -1,5 +1,5 @@
 ---
-import { AstroFont } from 'astro-font';
+import { AstroFont } from "astro-font";
 import AppFooter from "../components/AppFooter.astro";
 import AppHeader from "../components/AppHeader.astro";
 import AICopilot from "../components/AICopilot.astro";
@@ -8,162 +8,189 @@ import "../tailus.css";
 
 // Add Firebase config
 const firebaseConfig = {
-    apiKey: import.meta.env.PUBLIC_FIREBASE_API_KEY,
-    authDomain: import.meta.env.PUBLIC_FIREBASE_AUTH_DOMAIN,
-    projectId: import.meta.env.PUBLIC_FIREBASE_PROJECT_ID,
-    storageBucket: import.meta.env.PUBLIC_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: import.meta.env.PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-    appId: import.meta.env.PUBLIC_FIREBASE_APP_ID,
-    measurementId: import.meta.env.PUBLIC_FIREBASE_MEASUREMENT_ID
+  apiKey: import.meta.env.PUBLIC_FIREBASE_API_KEY,
+  authDomain: import.meta.env.PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.PUBLIC_FIREBASE_APP_ID,
+  measurementId: import.meta.env.PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 const { title = "PraxJobs" } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="scroll-smooth">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="generator" content={Astro.generator} />
-        <meta name="description" content="Template built with tailwindcss using Tailus blocks v2" />
-        <title>{title}</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta
+      name="description"
+      content="Seamlessly navigate your job search with powerful AI tools that make you more efficient and holistic."
+    />
+    <title>{title}</title>
 
-        <AstroFont
-            config={[
-                {
-                    src: [],
-                    name: "Urbanist",
-                    preload: true,
-                    display: "swap",
-                    selector: "html",
-                    fallback: "sans-serif",
-                    googleFontsURL: 'https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap',
-                },
-            ]}
-        />
-        <link rel="preload" as="script" href="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js" />
-        <link rel="preload" as="script" href="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js" />
-        <script is:inline>
-            // @ts-nocheck
-            (function() {
-                // Get saved theme with a default of 'light' if not set
-                const savedTheme = localStorage.getItem('color-theme');
-                const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                
-                const applyTheme = (isDark) => {
-                    document.documentElement.classList.toggle('dark', isDark);
-                    localStorage.setItem('color-theme', isDark ? 'dark' : 'light');
-                };
-                
-                // Remove any existing transitions to prevent initial flicker
-                document.documentElement.classList.add('no-transition');
-                
-                // Apply initial theme - always explicitly set the theme value
-                if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-                    applyTheme(true);
-                } else {
-                    // If not dark, explicitly ensure we set light theme
-                    applyTheme(false);
-                }
-                
-                // Make sure the theme is persisted
-                if (!localStorage.getItem('color-theme')) {
-                    localStorage.setItem('color-theme', systemPrefersDark ? 'dark' : 'light');
-                }
-                
-                // Trigger reflow to enable transitions after initial load
-                setTimeout(() => {
-                    document.documentElement.classList.remove('no-transition');
-                }, 100);
-                
-                // Listen for system theme changes if no user preference is set
-                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-                    // Only update theme based on system preference if user hasn't set a preference
-                    if (!localStorage.getItem('color-theme')) {
-                        applyTheme(e.matches);
-                    }
-                });
-            })();
-        </script>
-        <style is:global>
-            html {
-                /* Optimize transitions */
-                transition: 
-                    background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-                    color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-            
-            html.no-transition,
-            html.no-transition * {
-                transition: none !important;
-            }
-            
-            /* Optimize background pattern transitions */
-            .animate-float {
-                transition: 
-                    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-            
-            html.dark {
-                color-scheme: dark;
-            }
-            html:not(.dark) {
-                color-scheme: light;
-            }
-        </style>
-    </head>
-    <body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300 ease-in-out overflow-x-hidden">
-        <!-- Mobile Menu Container (Outside Main Content) -->
-        <slot name="mobile-menu" />
-        <div class="relative min-h-screen flex flex-col z-10">
-            <AppHeader />
-            <main class="flex-grow">
-                <slot />
-            </main>
-            <AppFooter />
-        </div>
-        <AICopilot />
-        <script is:inline src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-        <script is:inline src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <AstroFont
+      config={[
+        {
+          src: [],
+          name: "Urbanist",
+          preload: true,
+          display: "swap",
+          selector: "html",
+          fallback: "sans-serif",
+          googleFontsURL:
+            "https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap",
+        },
+      ]}
+    />
+    <link
+      rel="preload"
+      as="script"
+      href="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"
+    />
+    <link
+      rel="preload"
+      as="script"
+      href="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"
+    />
+    <script is:inline>
+      // @ts-nocheck
+      (function () {
+        // Get saved theme with a default of 'light' if not set
+        const savedTheme = localStorage.getItem("color-theme");
+        const systemPrefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
 
-        <script define:vars={{ firebaseConfig }}>
-            function initializeFirebase() {
-                if (typeof firebase !== 'undefined') {
-                    if (!firebase.apps.length) {
-                        try {
-                            firebase.initializeApp(firebaseConfig);
-                            console.log('🚀 Firebase initialized successfully');
-                        } catch (error) {
-                            console.error('Firebase initialization error:', error);
-                        }
-                    } else {
-                        console.log('✅ Firebase app already initialized');
-                    }
-                } else {
-                    console.warn('⚠️ Firebase SDK not loaded yet');
-                    setTimeout(initializeFirebase, 100);
-                }
-            }
+        const applyTheme = (isDark) => {
+          document.documentElement.classList.toggle("dark", isDark);
+          localStorage.setItem("color-theme", isDark ? "dark" : "light");
+        };
 
-            // Start initialization when the document is ready
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', initializeFirebase);
-            } else {
-                initializeFirebase();
-            }
-        </script>
+        // Remove any existing transitions to prevent initial flicker
+        document.documentElement.classList.add("no-transition");
 
-        <style is:global>
-            html {
-                /* Optimize transitions */
-                scroll-behavior: smooth;
-                -webkit-font-smoothing: antialiased;
-                text-rendering: optimizeLegibility;
-                -moz-osx-font-smoothing: grayscale;
+        // Apply initial theme - always explicitly set the theme value
+        if (savedTheme === "dark" || (!savedTheme && systemPrefersDark)) {
+          applyTheme(true);
+        } else {
+          // If not dark, explicitly ensure we set light theme
+          applyTheme(false);
+        }
+
+        // Make sure the theme is persisted
+        if (!localStorage.getItem("color-theme")) {
+          localStorage.setItem(
+            "color-theme",
+            systemPrefersDark ? "dark" : "light"
+          );
+        }
+
+        // Trigger reflow to enable transitions after initial load
+        setTimeout(() => {
+          document.documentElement.classList.remove("no-transition");
+        }, 100);
+
+        // Listen for system theme changes if no user preference is set
+        window
+          .matchMedia("(prefers-color-scheme: dark)")
+          .addEventListener("change", (e) => {
+            // Only update theme based on system preference if user hasn't set a preference
+            if (!localStorage.getItem("color-theme")) {
+              applyTheme(e.matches);
             }
-        </style>
-    </body>
+          });
+      })();
+    </script>
+    <style is:global>
+      html {
+        /* Optimize transitions */
+        transition:
+          background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+          color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      html.no-transition,
+      html.no-transition * {
+        transition: none !important;
+      }
+
+      /* Optimize background pattern transitions */
+      .animate-float {
+        transition:
+          opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+          transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      html.dark {
+        color-scheme: dark;
+      }
+      html:not(.dark) {
+        color-scheme: light;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300 ease-in-out overflow-x-hidden"
+  >
+    <!-- Mobile Menu Container (Outside Main Content) -->
+    <slot name="mobile-menu" />
+    <div class="relative min-h-screen flex flex-col z-10">
+      <AppHeader />
+      <main class="flex-grow">
+        <slot />
+      </main>
+      <AppFooter />
+    </div>
+    <AICopilot />
+    <script
+      is:inline
+      src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"
+    ></script>
+    <script
+      is:inline
+      src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"
+    ></script>
+
+    <script define:vars={{ firebaseConfig }}>
+      function initializeFirebase() {
+        if (typeof firebase !== "undefined") {
+          if (!firebase.apps.length) {
+            try {
+              firebase.initializeApp(firebaseConfig);
+              console.log("🚀 Firebase initialized successfully");
+            } catch (error) {
+              console.error("Firebase initialization error:", error);
+            }
+          } else {
+            console.log("✅ Firebase app already initialized");
+          }
+        } else {
+          console.warn("⚠️ Firebase SDK not loaded yet");
+          setTimeout(initializeFirebase, 100);
+        }
+      }
+
+      // Start initialization when the document is ready
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initializeFirebase);
+      } else {
+        initializeFirebase();
+      }
+    </script>
+
+    <style is:global>
+      html {
+        /* Optimize transitions */
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>
+  </body>
 </html>

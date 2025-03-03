@@ -2,12 +2,12 @@
 import { authService } from "../lib/auth";
 import { TierManagementService } from "../lib/tierManagement";
 import {
-    authStore,
-    getCurrentUser as getStoreCurrentUser,
+  authStore,
+  getCurrentUser as getStoreCurrentUser,
 } from "../lib/authStore";
 import type {
-    UserSubscription,
-    FeatureUsageEntry,
+  UserSubscription,
+  FeatureUsageEntry,
 } from "../lib/tierManagement";
 import { Timestamp } from "firebase/firestore";
 import Layout from "../layouts/Layout.astro";
@@ -19,283 +19,270 @@ import FeedbackForm from "../components/FeedbackForm.astro";
 
 // Server-side authentication and data fetching
 export async function getStaticProps() {
-    try {
-        // Multiple strategies to get user
-        const user =
-            (await authService.getCurrentUser()) ||
-            (await getStoreCurrentUser()) ||
-            (await authStore.get()).user;
+  try {
+    // Multiple strategies to get user
+    const user =
+      (await authService.getCurrentUser()) ||
+      (await getStoreCurrentUser()) ||
+      (await authStore.get()).user;
 
-        if (!user) {
-            return {
-                redirect: {
-                    destination: "/login",
-                    permanent: false,
-                },
-            };
-        }
-
-        // Comprehensive name generation strategy
-        const displayName =
-            user.displayName ||
-            (user.email ? user.email.split("@")[0] : "User");
-
-        const userData = {
-            uid: user.uid,
-            displayName,
-            email: user.email,
-        };
-
-        const tierProfile = await TierManagementService.getUserTierProfile(
-            user.uid,
-        );
-
-        return {
-            props: {
-                userData,
-                tierProfile,
-            },
-        };
-    } catch (error) {
-        console.error("Dashboard server-side error");
-
-        return {
-            props: {
-                userData: {
-                    uid: "",
-                    displayName: "User",
-                    email: null,
-                },
-                tierProfile: {
-                    userId: "",
-                    currentTier: "free",
-                    featureUsage: {
-                        resumeGeneration: {
-                            usageCount: 0,
-                            maxAllowedUsage: 1,
-                        },
-                        coverLetterGeneration: {
-                            usageCount: 0,
-                            maxAllowedUsage: 1,
-                        },
-                    },
-                    subscriptionStartDate: Timestamp.now(),
-                    paymentStatus: "pending",
-                },
-            },
-        };
+    if (!user) {
+      return {
+        redirect: {
+          destination: "/login",
+          permanent: false,
+        },
+      };
     }
+
+    // Comprehensive name generation strategy
+    const displayName =
+      user.displayName || (user.email ? user.email.split("@")[0] : "User");
+
+    const userData = {
+      uid: user.uid,
+      displayName,
+      email: user.email,
+    };
+
+    const tierProfile = await TierManagementService.getUserTierProfile(
+      user.uid
+    );
+
+    return {
+      props: {
+        userData,
+        tierProfile,
+      },
+    };
+  } catch (error) {
+    console.error("Dashboard server-side error");
+
+    return {
+      props: {
+        userData: {
+          uid: "",
+          displayName: "User",
+          email: null,
+        },
+        tierProfile: {
+          userId: "",
+          currentTier: "free",
+          featureUsage: {
+            resumeGeneration: {
+              usageCount: 0,
+              maxAllowedUsage: 1,
+            },
+            coverLetterGeneration: {
+              usageCount: 0,
+              maxAllowedUsage: 1,
+            },
+          },
+          subscriptionStartDate: Timestamp.now(),
+          paymentStatus: "pending",
+        },
+      },
+    };
+  }
 }
 
 // Fetch user data and tier information
 const {
-    userData = {
-        uid: "",
-        displayName: "User",
-        email: null,
+  userData = {
+    uid: "",
+    displayName: "User",
+    email: null,
+  },
+  tierProfile = {
+    userId: "",
+    currentTier: "free",
+    featureUsage: {
+      resumeGeneration: {
+        usageCount: 0,
+        maxAllowedUsage: 1,
+      },
+      coverLetterGeneration: {
+        usageCount: 0,
+        maxAllowedUsage: 1,
+      },
     },
-    tierProfile = {
-        userId: "",
-        currentTier: "free",
-        featureUsage: {
-            resumeGeneration: {
-                usageCount: 0,
-                maxAllowedUsage: 1,
-            },
-            coverLetterGeneration: {
-                usageCount: 0,
-                maxAllowedUsage: 1,
-            },
-        },
-        subscriptionStartDate: Timestamp.now(),
-        paymentStatus: "pending",
-    },
+    subscriptionStartDate: Timestamp.now(),
+    paymentStatus: "pending",
+  },
 } = Astro.props ?? {};
 
 // Comprehensive display name generation
 const displayName =
-    userData.displayName ||
-    (userData.email ? userData.email.split("@")[0] : "User");
+  userData.displayName ||
+  (userData.email ? userData.email.split("@")[0] : "User");
 
 // Calculate total feature usage
 const calculateFeatureUsage = (
-    tierProfile: UserSubscription | undefined,
-    featureFilter: (feature: string) => boolean,
+  tierProfile: UserSubscription | undefined,
+  featureFilter: (feature: string) => boolean
 ): number => {
-    if (!tierProfile || !tierProfile.featureUsage) return 0;
+  if (!tierProfile || !tierProfile.featureUsage) return 0;
 
-    return Object.entries(tierProfile.featureUsage)
-        .filter(([feature]) => featureFilter(feature))
-        .reduce(
-            (sum, [, featureData]: [string, FeatureUsageEntry]) =>
-                sum + featureData.usageCount,
-            0,
-        );
+  return Object.entries(tierProfile.featureUsage)
+    .filter(([feature]) => featureFilter(feature))
+    .reduce(
+      (sum, [, featureData]: [string, FeatureUsageEntry]) =>
+        sum + featureData.usageCount,
+      0
+    );
 };
 
 const totalApplications = calculateFeatureUsage(tierProfile, (feature) =>
-    feature.toLowerCase().includes("resume"),
+  feature.toLowerCase().includes("resume")
 );
 
 const totalInterviews = calculateFeatureUsage(tierProfile, (feature) =>
-    feature.toLowerCase().includes("interview"),
+  feature.toLowerCase().includes("interview")
 );
 
 const totalSavedJobs = calculateFeatureUsage(tierProfile, (feature) =>
-    feature.toLowerCase().includes("job"),
+  feature.toLowerCase().includes("job")
 );
 ---
 
 <Layout title="Your Dashboard">
-    <main class="relative min-h-screen dark:bg-gray-950 pt-16">
-        <div class="relative">
-            <section class="relative pt-20 pb-20">
-                <Container>
-                    <div class="relative max-w-full">
-                        <div
-                            class="flex flex-col md:flex-row items-center justify-between gap-8"
-                        >
-                            <div class="md:w-1/2 space-y-6">
-                                <h1
-                                    class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
-                                >
-                                    <span
-                                        class="block text-gray-900 text-3xl dark:text-white font-extrabold"
-                                        >Welcome,</span
-                                    >
-                                    <span
-                                        id="userName"
-                                        class="relative mt-2 block text-gray-900 dark:text-white font-black tracking-tight"
-                                        data-initial-name={displayName}
-                                        data-user-email={userData.email || ""}
-                                        data-user-uid={userData.uid}
-                                    >
-                                        {displayName}
-                                    </span>
-                                </h1>
-                                <p
-                                    class="text-lg text-gray-600 dark:text-gray-300"
-                                >
-                                    Your central hub for career growth and
-                                    professional development. Access powerful
-                                    tools and track your progress all in one
-                                    place.
-                                </p>
-                            </div>
-                            <div class="md:w-1/2 relative">
-                                <QuoteDisplay />
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        aria-hidden="true"
-                        class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20"
-                    >
-                        <div
-                            class="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700"
-                        >
-                        </div>
-                        <div
-                            class="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600"
-                        >
-                        </div>
-                    </div>
-                </Container>
-            </section>
+  <main class="relative min-h-screen dark:bg-gray-950 pt-16">
+    <div class="relative">
+      <section class="relative pt-20 pb-20">
+        <Container>
+          <div class="relative max-w-full">
+            <div
+              class="flex flex-col md:flex-row items-center justify-between gap-8"
+            >
+              <div class="md:w-1/2 space-y-6">
+                <h1
+                  class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
+                >
+                  <span
+                    class="block text-gray-900 text-3xl dark:text-white font-extrabold"
+                    >Welcome,</span
+                  >
+                  <span
+                    id="userName"
+                    class="relative mt-2 block text-gray-900 dark:text-white font-black tracking-tight"
+                    data-initial-name={displayName}
+                    data-user-email={userData.email || ""}
+                    data-user-uid={userData.uid}
+                  >
+                    {displayName}
+                  </span>
+                </h1>
+                <p class="text-lg text-gray-600 dark:text-gray-300">
+                  Your all-in-one platform for career growth. Leverage
+                  AI-powered tools, track your progress, and take control of
+                  your professional journey.
+                </p>
+              </div>
+              <div class="md:w-1/2 relative">
+                <QuoteDisplay />
+              </div>
+            </div>
+          </div>
+          <div
+            aria-hidden="true"
+            class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20"
+          >
+            <div
+              class="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700"
+            >
+            </div>
+            <div
+              class="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600"
+            >
+            </div>
+          </div>
+        </Container>
+      </section>
 
-            <!-- Tools Section -->
-            <section class="py-12">
-                <DashboardTools />
-            </section>
+      <!-- Tools Section -->
+      <section class="py-12">
+        <DashboardTools />
+      </section>
 
-            <!-- Resume Management Section -->
-            <section class="py-12">
-                <ResumeManager />
-            </section>
+      <!-- Resume Management Section -->
+      <section class="py-12">
+        <ResumeManager />
+      </section>
 
-            <!-- Feedback Section -->
-            <section class="py-12">
-                <Container>
-                    <div class="max-w-3xl mx-auto">
-                        <h2
-                            class="text-2xl font-bold text-gray-900 dark:text-white mb-6"
-                        >
-                            Help Us Improve
-                        </h2>
-                        <FeedbackForm
-                            userId={userData.uid}
-                            userEmail={userData.email}
-                        />
-                    </div>
-                </Container>
-            </section>
-        </div>
-    </main>
+      <!-- Feedback Section -->
+      <section class="py-12">
+        <Container>
+          <div class="max-w-3xl mx-auto">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+              Help Us Improve
+            </h2>
+            <FeedbackForm userId={userData.uid} userEmail={userData.email} />
+          </div>
+        </Container>
+      </section>
+    </div>
+  </main>
 </Layout>
 
 <script
-    define:vars={{
-        initialDisplayName: displayName,
-        initialUserData: userData,
-    }}
-    is:inline
+  define:vars={{
+    initialDisplayName: displayName,
+    initialUserData: userData,
+  }}
+  is:inline
 >
-    // Inline script to avoid module loading issues
-    (function () {
-        // Minimal debug logging
-        function debugLogAvailableData() {
-            if (window.initialDisplayName !== "User") {
-                console.log("User display name set");
-            }
+  // Inline script to avoid module loading issues
+  (function () {
+    // Minimal debug logging
+    function debugLogAvailableData() {
+      if (window.initialDisplayName !== "User") {
+        console.log("User display name set");
+      }
+    }
+
+    function updateUserDisplayName() {
+      const userNameElement = document.getElementById("userName");
+      const storedUserData = localStorage.getItem("astro_resume_user_data");
+
+      if (storedUserData) {
+        try {
+          const userData = JSON.parse(storedUserData);
+          const displayName =
+            userData.displayName ||
+            (userData.email ? userData.email.split("@")[0] : "User");
+
+          if (userNameElement && displayName !== "User") {
+            userNameElement.textContent = displayName;
+          }
+        } catch (error) {
+          console.error("Failed to parse user data");
         }
+      }
+    }
 
-        function updateUserDisplayName() {
-            const userNameElement = document.getElementById("userName");
-            const storedUserData = localStorage.getItem(
-                "astro_resume_user_data",
-            );
-
-            if (storedUserData) {
-                try {
-                    const userData = JSON.parse(storedUserData);
-                    const displayName =
-                        userData.displayName ||
-                        (userData.email
-                            ? userData.email.split("@")[0]
-                            : "User");
-
-                    if (userNameElement && displayName !== "User") {
-                        userNameElement.textContent = displayName;
-                    }
-                } catch (error) {
-                    console.error("Failed to parse user data");
-                }
-            }
-        }
-
-        // Initialize debug and name update
-        debugLogAvailableData();
-        updateUserDisplayName();
-    })();
+    // Initialize debug and name update
+    debugLogAvailableData();
+    updateUserDisplayName();
+  })();
 </script>
 
 <style>
-    .animate-float {
-        animation: float 20s ease-in-out infinite;
+  .animate-float {
+    animation: float 20s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0) translateX(0);
     }
-    @keyframes float {
-        0%,
-        100% {
-            transform: translateY(0) translateX(0);
-        }
-        25% {
-            transform: translateY(-10px) translateX(10px);
-        }
-        50% {
-            transform: translateY(10px) translateX(-10px);
-        }
-        75% {
-            transform: translateY(10px) translateX(10px);
-        }
+    25% {
+      transform: translateY(-10px) translateX(10px);
     }
+    50% {
+      transform: translateY(10px) translateX(-10px);
+    }
+    75% {
+      transform: translateY(10px) translateX(10px);
+    }
+  }
 </style>
