@@ -1,0 +1,77 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  image?: string;
+  type?: string;
+  publishDate?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
+}
+
+const defaultTitle = "PraxJobs - AI-Powered Career Assistant";
+const defaultDescription = "Seamlessly navigate your job search with powerful AI tools that make you more efficient and holistic. Create tailored resumes, analyze job profiles, and prepare for interviews.";
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || "https://praxjobs.com";
+const defaultImage = "/og-image.jpg";
+const defaultType = "website";
+
+const {
+  title = defaultTitle,
+  description = defaultDescription,
+  canonical = Astro.url.pathname,
+  image = defaultImage,
+  type = defaultType,
+  publishDate,
+  ogTitle = title,
+  ogDescription = description,
+  twitterTitle = title,
+  twitterDescription = description,
+} = Astro.props;
+
+const canonicalURL = new URL(canonical, siteUrl).href;
+const ogImageURL = new URL(image, siteUrl).href;
+---
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={ogTitle} />
+<meta property="og:description" content={ogDescription} />
+<meta property="og:image" content={ogImageURL} />
+<meta property="og:site_name" content="PraxJobs" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalURL} />
+<meta property="twitter:title" content={twitterTitle} />
+<meta property="twitter:description" content={twitterDescription} />
+<meta property="twitter:image" content={ogImageURL} />
+
+<!-- Additional SEO Tags -->
+{publishDate && <meta property="article:published_time" content={publishDate} />}
+
+<!-- Structured Data for Organization -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "PraxJobs",
+    "url": "{siteUrl}",
+    "logo": "{siteUrl}/logo.svg",
+    "description": "AI-powered career tools to streamline your job search process",
+    "sameAs": [
+      "https://twitter.com/praxjobs",
+      "https://www.linkedin.com/company/praxjobs",
+      "https://www.facebook.com/praxjobs"
+    ]
+  }
+</script>

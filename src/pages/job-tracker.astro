@@ -4,12 +4,24 @@ import Container from "../components/Container.astro";
 import JobTrackerComponent from "../components/tools/JobTrackerComponent.astro";
 
 // Page metadata
-const title = "Job Application Tracker | My Career Journey";
-const description =
-  "Track and manage your job applications efficiently with our comprehensive job tracking tool.";
+const title = "Job Application Tracker | Organize Your Job Search";
+const description = "Track and manage your job applications efficiently with our comprehensive job tracking tool. Stay organized and never miss a follow-up opportunity.";
+const image = "/images/job-tracker-og-image.jpg";
+const type = "website";
+const canonical = "/job-tracker";
+const ogTitle = "Job Application Tracker | Streamline Your Job Search | PraxJobs";
+const ogDescription = "Keep track of all your job applications in one place. Monitor status, deadlines, and follow-ups to maximize your chances of landing interviews.";
 ---
 
-<Layout title={title}>
+<Layout 
+  title={title}
+  description={description}
+  image={image}
+  type="website"
+  canonical="/job-tracker"
+  ogTitle={ogTitle}
+  ogDescription={ogDescription}
+>
   <main class="relative min-h-screen dark:bg-gray-950 pt-16">
     <div
       aria-hidden="true"

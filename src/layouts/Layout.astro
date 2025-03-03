@@ -3,6 +3,7 @@ import { AstroFont } from "astro-font";
 import AppFooter from "../components/AppFooter.astro";
 import AppHeader from "../components/AppHeader.astro";
 import AICopilot from "../components/AICopilot.astro";
+import SEO from "../components/SEO.astro";
 import "../styles/global.css";
 import "../tailus.css";
 
@@ -17,7 +18,18 @@ const firebaseConfig = {
   measurementId: import.meta.env.PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-const { title = "PraxJobs" } = Astro.props;
+const { 
+  title = "PraxJobs",
+  description,
+  canonical,
+  image,
+  type,
+  publishDate,
+  ogTitle,
+  ogDescription,
+  twitterTitle,
+  twitterDescription
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -27,11 +39,19 @@ const { title = "PraxJobs" } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <meta
-      name="description"
-      content="Seamlessly navigate your job search with powerful AI tools that make you more efficient and holistic."
+    
+    <SEO
+      title={title}
+      description={description}
+      canonical={canonical}
+      image={image}
+      type={type}
+      publishDate={publishDate}
+      ogTitle={ogTitle}
+      ogDescription={ogDescription}
+      twitterTitle={twitterTitle}
+      twitterDescription={twitterDescription}
     />
-    <title>{title}</title>
 
     <AstroFont
       config={[
