@@ -1,53 +1,51 @@
-import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
-import react from '@astrojs/react';
-import netlify from '@astrojs/netlify';
-import sitemap from '@astrojs/sitemap';
-import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import { defineConfig } from "astro/config";
+import tailwind from "@astrojs/tailwind";
+import react from "@astrojs/react";
+import netlify from "@astrojs/netlify";
+import sitemap from "@astrojs/sitemap";
+import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 export default defineConfig({
-  integrations: [
-    tailwind(),
-    react(),
-    sitemap()
-  ],
-  output: 'server',
+  integrations: [tailwind(), react(), sitemap()],
+  output: "server",
   adapter: netlify({
     dist: {
-      client: 'dist/client',
-      server: 'dist/server'
-    }
+      client: "dist/client",
+      server: "dist/server",
+    },
   }),
-  site: 'https://praxjobs.netlify.app',
-  base: '/',
-  trailingSlash: 'ignore',
+  site: "https://praxjobs.com",
+  base: "/",
+  trailingSlash: "ignore",
   build: {
-    format: 'directory'
+    format: "directory",
   },
   prefetch: {
     prefetchAll: true,
-    defaultStrategy: 'hover'
+    defaultStrategy: "hover",
   },
   vite: {
     build: {
-      target: 'esnext',
+      target: "esnext",
       modulePreload: {
-        polyfill: false
-      }
+        polyfill: false,
+      },
     },
     define: {
-      'process.env.PUBLIC_OPENAI_API_KEY': JSON.stringify(process.env.PUBLIC_OPENAI_API_KEY)
+      "process.env.PUBLIC_OPENAI_API_KEY": JSON.stringify(
+        process.env.PUBLIC_OPENAI_API_KEY
+      ),
     },
     ssr: {
-      noExternal: ['firebase', 'firebase-admin']
+      noExternal: ["firebase", "firebase-admin"],
     },
     optimizeDeps: {
-      exclude: ['crypto']
+      exclude: ["crypto"],
     },
     plugins: [
       nodePolyfills({
-        include: ['crypto']
-      })
-    ]
-  }
+        include: ["crypto"],
+      }),
+    ],
+  },
 });
