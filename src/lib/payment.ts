@@ -18,7 +18,7 @@ export async function generateProSubscriptionPaymentLink (
 ): Promise<string> {
   try {
     // Prepare request to server-side API
-    const response = await fetch('/.netlify/functions/create-payment-link', {
+    const response = await fetch('/.netlify/functions/createPaymentLink', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
