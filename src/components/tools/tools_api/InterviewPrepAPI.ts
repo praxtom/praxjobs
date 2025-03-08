@@ -1,9 +1,14 @@
+import { Groq } from 'groq-sdk'
+
+interface ChatMessage {
+  role: 'system' | 'user'
+  content: string
+}
+
 export const fetchInterviewQuestions = async ({
-  request,
-  apiKey
+  request
 }: {
   request: Request
-  apiKey?: string
 }) => {
   try {
     let requestData
@@ -27,107 +32,90 @@ export const fetchInterviewQuestions = async ({
       throw new Error('Job role is required and must be a string')
     }
 
-    const apiEndpoint = 'https://api.openai.com/v1/chat/completions'
+    const groq = new Groq({
+      apiKey: process.env.PUBLIC_GROQ_API_KEY
+    })
 
-    try {
-      const requestPayload = {
-        model: 'gpt-4o-mini',
-        messages: [
-          {
-            role: 'system',
-            content:
-              `You are an expert interview coach with deep knowledge of industry-specific interview questions.
-                        CRITICAL INSTRUCTIONS:
-                        1. Output ONLY a valid JSON object
-                        2. NO explanatory text or reasoning
-                        3. NO markdown
-                        4. Keep analysis concise
-                        5. Use web search to find accurate, up-to-date information about the company, industry standards, and typical interview questions
-                        6. Focus on providing specific, actionable interview questions
-                        7. Provide 10 questions for each category
-                        8. Match this structure exactly:` +
-              JSON.stringify({
-                companySpecific: [
-                  {
-                    question: '',
-                    context: ''
-                  }
-                ],
-                roleSpecific: [
-                  {
-                    question: '',
-                    context: ''
-                  }
-                ],
-                behavioral: [
-                  {
-                    question: '',
-                    context: ''
-                  }
-                ],
-                technical: [
-                  {
-                    question: '',
-                    context: ''
-                  }
-                ]
-              })
-          },
-          {
-            role: 'user',
-            content: `I have an upcoming interview at ${companyName} for the role of ${jobRole}. 
-                        Please research and provide me with likely interview questions in the four categories: 
-                        company-specific, role-specific, behavioral, and technical.
-                        
-                        Here is my resume for context:
-                        ${resume}`
-          }
-        ],
-        temperature: 0.5,
-        max_tokens: 4000,
-        stream: false
-      }
-
-      // Use the provided API key or fallback to environment variables
-      const openaiApiKey = process.env.PUBLIC_OPENAI_API_KEY
-      if (!openaiApiKey) {
-        throw new Error('API key is not configured')
-      }
-
-      const response = await fetch(apiEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${openaiApiKey}`
+    const requestPayload = {
+      messages: [
+        {
+          role: 'system' as const,
+          content:
+            `You are an expert interview coach with deep knowledge of industry-specific interview questions.
+            CRITICAL INSTRUCTIONS:
+            1. Output ONLY a valid JSON object
+            2. NO explanatory text or reasoning
+            3. NO markdown
+            4. Keep analysis concise
+            5. Use web search to find accurate, up-to-date information about the company, industry standards, and typical interview questions
+            6. Focus on providing specific, actionable interview questions
+            7. Provide 10 questions for each category
+            8. Match this structure exactly:` +
+            JSON.stringify({
+              companySpecific: [
+                {
+                  question: '',
+                  context: ''
+                }
+              ],
+              roleSpecific: [
+                {
+                  question: '',
+                  context: ''
+                }
+              ],
+              behavioral: [
+                {
+                  question: '',
+                  context: ''
+                }
+              ],
+              technical: [
+                {
+                  question: '',
+                  context: ''
+                }
+              ]
+            })
         },
-        body: JSON.stringify(requestPayload)
-      })
+        {
+          role: 'user' as const,
+          content: `I have an upcoming interview at ${companyName} for the role of ${jobRole}. 
+            Please research and provide me with likely interview questions in the four categories: 
+            company-specific, role-specific, behavioral, and technical.
+            
+            Here is my resume for context:
+            ${resume}`
+        }
+      ],
+      temperature: 0.5,
+      max_tokens: 4000,
+      model: 'llama-3.1-8b-instant'
+    }
 
-      if (!response.ok) {
-        const errorData = await response.json()
-        console.error('API Error:', errorData)
-        throw new Error(`API request failed with status ${response.status}`)
-      }
+    const response = await groq.chat.completions.create(requestPayload)
 
-      const data = await response.json()
-      const content = data.choices[0].message.content
+    if (!response) {
+      throw new Error('API request failed')
+    }
 
-      // Parse the JSON response
-      let parsedContent
-      try {
-        parsedContent = JSON.parse(content)
-      } catch (parseError) {
-        console.error('Error parsing API response:', parseError)
-        throw new Error('Failed to parse API response')
-      }
+    const content = response.choices[0].message.content
+    if (!content) {
+      throw new Error('API response content is empty')
+    }
 
-      return {
-        statusCode: 200,
-        body: JSON.stringify(parsedContent)
-      }
-    } catch (apiError: any) {
-      console.error('API Error:', apiError)
-      throw new Error(`API request failed: ${apiError.message}`)
+    // Parse the JSON response
+    let parsedContent
+    try {
+      parsedContent = JSON.parse(content)
+    } catch (parseError) {
+      console.error('Error parsing API response:', parseError)
+      throw new Error('Failed to parse API response')
+    }
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify(parsedContent)
     }
   } catch (error: any) {
     console.error('Error in fetchInterviewQuestions:', error)
@@ -165,90 +153,73 @@ export const reviewAnswer = async ({
       throw new Error('Answer is required and must be a string')
     }
 
-    const apiEndpoint = 'https://api.openai.com/v1/chat/completions'
+    const groq = new Groq({
+      apiKey: process.env.PUBLIC_GROQ_API_KEY
+    })
 
-    try {
-      const requestPayload = {
-        model: 'gpt-4o-mini',
-        messages: [
-          {
-            role: 'system',
-            content:
-              `You are an expert interview coach with deep knowledge of effective interview techniques.
-                        Your task is to review the candidate's answer to an interview question and provide constructive feedback.
-                        CRITICAL INSTRUCTIONS:
-                        1. Output ONLY a valid JSON object
-                        2. NO explanatory text or reasoning
-                        3. NO markdown
-                        4. Keep analysis concise
-                        5. Focus on providing specific, actionable feedback
-                        6. Match this structure exactly:` +
-              JSON.stringify({
-                strengths: [],
-                weaknesses: [],
-                improvements: [],
-                alternativeApproach: '',
-                overallRating: 0, // 1-10 scale
-                keyTakeaway: ''
-              })
-          },
-          {
-            role: 'user',
-            content: `I was asked this interview question: "${question}"
-                        
-                        My answer was: "${answer}"
-                        
-                        Here is my resume for context:
-                        ${resume}
-                        
-                        Please review my answer and provide feedback on how I can improve it.`
-          }
-        ],
-        temperature: 0.5,
-        max_tokens: 4000,
-        stream: false
-      }
-
-      // Use the provided API key or fallback to environment variables
-      const openaiApiKey = process.env.PUBLIC_OPENAI_API_KEY
-      if (!openaiApiKey) {
-        throw new Error('API key is not configured')
-      }
-
-      const response = await fetch(apiEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${openaiApiKey}`
+    const requestPayload = {
+      messages: [
+        {
+          role: 'system' as const,
+          content:
+            `You are an expert interview coach with deep knowledge of effective interview techniques.
+            Your task is to review the candidate's answer to an interview question and provide constructive feedback.
+            CRITICAL INSTRUCTIONS:
+            1. Output ONLY a valid JSON object
+            2. NO explanatory text or reasoning
+            3. NO markdown
+            4. Keep analysis concise
+            5. Focus on providing specific, actionable feedback
+            6. Match this structure exactly:` +
+            JSON.stringify({
+              strengths: [],
+              weaknesses: [],
+              improvements: [],
+              alternativeApproach: '',
+              overallRating: 0, // 1-10 scale
+              keyTakeaway: ''
+            })
         },
-        body: JSON.stringify(requestPayload)
-      })
+        {
+          role: 'user' as const,
+          content: `I was asked this interview question: "${question}"
+        
+        My answer was: "${answer}"
+        
+        Here is my resume for context:
+        ${resume}
+        
+        Please provide feedback on my answer.`
+        }
+      ],
+      temperature: 0.5,
+      max_tokens: 4000,
+      model: 'llama-3.3-70b-versatile'
+    }
 
-      if (!response.ok) {
-        const errorData = await response.json()
-        console.error('API Error:', errorData)
-        throw new Error(`API request failed with status ${response.status}`)
-      }
+    const response = await groq.chat.completions.create(requestPayload)
 
-      const data = await response.json()
-      const content = data.choices[0].message.content
+    if (!response) {
+      throw new Error('API request failed')
+    }
 
-      // Parse the JSON response
-      let parsedContent
-      try {
-        parsedContent = JSON.parse(content)
-      } catch (parseError) {
-        console.error('Error parsing API response:', parseError)
-        throw new Error('Failed to parse API response')
-      }
+    const content = response.choices[0].message.content
+    if (!content) {
+      throw new Error('API response content is empty')
+    }
 
-      return {
-        statusCode: 200,
-        body: JSON.stringify(parsedContent)
-      }
-    } catch (apiError: any) {
-      console.error('API Error:', apiError)
-      throw new Error(`API request failed: ${apiError.message}`)
+    // Parse the JSON response
+    let parsedContent
+    try {
+      parsedContent = JSON.parse(content)
+    } catch (parseError) {
+      console.error('Error parsing API response:', parseError)
+      throw new Error('Failed to parse API response')
+    }
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify(parsedContent)
     }
   } catch (error: any) {
     console.error('Error in reviewAnswer:', error)
