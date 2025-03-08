@@ -164,20 +164,22 @@ export const reviewAnswer = async ({
           role: 'system' as const,
           content:
             `You are an expert interview coach with deep knowledge of effective interview techniques.
-            Your task is to review the candidate's answer to an interview question and provide constructive feedback.
+            Your task is to review the candidate's answer to an interview question and provide constructive feedback and the approach to answer the question.
             CRITICAL INSTRUCTIONS:
             1. Output ONLY a valid JSON object
             2. NO explanatory text or reasoning
             3. NO markdown
-            4. Keep analysis concise
-            5. Focus on providing specific, actionable feedback
-            6. Match this structure exactly:` +
+            4. Keep analysis concise.
+            5. Use sentence case. Start each sentence with a capital letter.
+            6. Focus on providing specific, actionable feedback
+            7. Match this structure exactly:` +
             JSON.stringify({
               strengths: [],
               weaknesses: [],
               improvements: [],
               alternativeApproach: '',
               overallRating: 0, // 1-10 scale
+              suggestedAnswer: '',
               keyTakeaway: ''
             })
         },
