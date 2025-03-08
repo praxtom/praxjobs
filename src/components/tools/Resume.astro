@@ -48,7 +48,7 @@ const resumeInsights = [
         <form
           id="resumeForm"
           class="w-full space-y-6 sm:space-y-8 bg-white dark:bg-transparent rounded-3xl p-6 sm:p-8
-                    shadow-lg border-gray-200 dark:border-gray-700/70
+                    shadow-lg border-gray-100 border dark:border-gray-700/70
                     transition-all duration-300 ease-in-out hover:shadow-xl"
         >
           <div class="grid grid-cols-1 gap-3 sm:gap-6">
@@ -64,7 +64,7 @@ const resumeInsights = [
                 id="jobDescription"
                 placeholder="Paste the complete job description here."
                 rows="6"
-                class="w-full p-2.5 sm:p-3 border-2 border-gray-300 dark:border-gray-700/70 rounded-xl
+                class="w-full p-2.5 sm:p-3 border-2 border-gray-300 dark:border-gray-700 rounded-xl
                                 bg-white/10 dark:bg-gray-800/20
                                 focus:ring-2 focus:ring-primary/30 focus:border-primary
                                 text-gray-900 dark:text-white
@@ -91,12 +91,14 @@ const resumeInsights = [
               <!-- Resume Options Selector -->
               <div
                 id="resumeOptionsSelector"
-                class="grid grid-cols-1 md:grid-cols-3 gap-4"
+                class="flex flex-col sm:flex-row gap-3 mt-2"
               >
                 <button
                   type="button"
                   id="resumeFileUploadButton"
-                  class="relative flex flex-col items-center justify-center p-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl bg-white/10 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-all duration-300 group"
+                  class="flex-1 py-4 px-4 border-2 border-gray-300 dark:border-gray-700 rounded-xl
+                      bg-white/10 dark:bg-gray-800/20 hover:bg-white/20 dark:hover:bg-gray-800/30
+                      transition-all duration-300 text-center group"
                 >
                   <div
                     class="flex flex-col items-center justify-center space-y-2"
@@ -115,10 +117,11 @@ const resumeInsights = [
                         d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                       ></path>
                     </svg>
-                    <span class="font-medium text-gray-900 dark:text-white"
+                    <span
+                      class="block font-medium text-gray-900 dark:text-white"
                       >Upload File</span
                     >
-                    <span class="text-xs text-gray-500 dark:text-gray-400 mt-1"
+                    <span class="text-xs text-gray-500 dark:text-gray-400"
                       >PDF, DOCX, TXT</span
                     >
                   </div>
@@ -127,7 +130,9 @@ const resumeInsights = [
                 <button
                   type="button"
                   id="importResumeButton"
-                  class="relative flex flex-col items-center justify-center p-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl bg-white/10 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-all duration-300 group"
+                  class="flex-1 py-4 px-4 border-2 border-gray-300 dark:border-gray-700 rounded-xl
+                      bg-white/10 dark:bg-gray-800/20 hover:bg-white/20 dark:hover:bg-gray-800/30
+                      transition-all duration-300 text-center group"
                 >
                   <div
                     class="flex flex-col items-center justify-center space-y-2"
@@ -146,11 +151,12 @@ const resumeInsights = [
                         d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
                       ></path>
                     </svg>
-                    <span class="font-medium text-gray-900 dark:text-white"
+                    <span
+                      class="block font-medium text-gray-900 dark:text-white"
                       >Resume Manager</span
                     >
-                    <span class="text-xs text-gray-500 dark:text-gray-400 mt-1"
-                      >Select saved resume</span
+                    <span class="text-xs text-gray-500 dark:text-gray-400"
+                      >Select from saved resumes</span
                     >
                   </div>
                 </button>
@@ -158,7 +164,9 @@ const resumeInsights = [
                 <button
                   type="button"
                   id="enterManuallyButton"
-                  class="relative flex flex-col items-center justify-center p-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl bg-white/10 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-all duration-300 group"
+                  class="flex-1 py-4 px-4 border-2 border-gray-300 dark:border-gray-700 rounded-xl
+                      bg-white/10 dark:bg-gray-800/20 hover:bg-white/20 dark:hover:bg-gray-800/30
+                      transition-all duration-300 text-center group"
                 >
                   <div
                     class="flex flex-col items-center justify-center space-y-2"
@@ -177,61 +185,82 @@ const resumeInsights = [
                         d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 0L11.828 15H9v-2.828l8.586-8.586z"
                       ></path>
                     </svg>
-                    <span class="font-medium text-gray-900 dark:text-white"
+                    <span
+                      class="block font-medium text-gray-900 dark:text-white"
                       >Enter Manually</span
                     >
-                    <span class="text-xs text-gray-500 dark:text-gray-400 mt-1"
+                    <span class="text-xs text-gray-500 dark:text-gray-400"
                       >Paste or type resume</span
                     >
                   </div>
                 </button>
               </div>
 
+              <!-- Loader UI -->
+              <div
+                id="uploadLoader"
+                class="hidden fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50"
+              >
+                <div
+                  class="loader animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-gray-300 shadow-lg"
+                  style="border-top-color: #007aff;"
+                >
+                </div>
+              </div>
+              <style>
+                .loader {
+                  border-radius: 50%;
+                  animation: spin 1s linear infinite;
+                }
+                @keyframes spin {
+                  0% {
+                    transform: rotate(0deg);
+                  }
+                  100% {
+                    transform: rotate(360deg);
+                  }
+                }
+              </style>
+
               <!-- File Added UI -->
               <div
                 id="resumeFileAddedUI"
-                class="hidden w-full p-6 border-2 border-gray-300 dark:border-gray-700/70 rounded-xl bg-white/10 dark:bg-gray-800/20 min-h-[100px] flex flex-col items-center justify-center"
+                class="hidden w-full p-6 border-2 border-gray-300 dark:border-gray-700 rounded-xl bg-white/10 dark:bg-gray-800/20 transition-all duration-300"
               >
-                <div class="flex items-center justify-center mb-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-10 w-10 text-green-500"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center space-x-3">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-6 w-6 text-green-500"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      ></path>
+                    </svg>
+                    <div>
+                      <div
+                        class="text-sm font-medium text-gray-900 dark:text-white"
+                      >
+                        Resume Added
+                      </div>
+                      <div id="resumeFileName" class="text-xs text-gray-500">
+                        Document.pdf
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    id="changeResumeSource"
+                    class="text-xs bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-full px-3 py-1 transition-colors duration-200"
+                    >Change</button
                   >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
                 </div>
-                <p
-                  id="resumeFileName"
-                  class="text-center text-lg text-gray-900 dark:text-white font-medium"
-                >
-                  Resume added successfully
-                </p>
-                <button
-                  id="changeResumeSource"
-                  class="mt-4 px-4 py-2 bg-black text-white dark:bg-white dark:text-black rounded-full text-sm hover:bg-gray-800 dark:hover:bg-gray-200 transition-all duration-200"
-                >
-                  <!-- X Icon -->
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="w-6 h-6"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M6 18L18 6M6 6l12 12"></path>
-                  </svg>
-                </button>
               </div>
 
               <!-- Manual Entry UI -->
@@ -241,7 +270,7 @@ const resumeInsights = [
                   name="resumeContent"
                   rows="8"
                   placeholder="Paste or type your resume here..."
-                  class="w-full p-2.5 sm:p-3 border-2 border-gray-300 dark:border-gray-700/70 rounded-xl
+                  class="w-full p-2.5 sm:p-3 border-2 border-gray-300 dark:border-gray-700 rounded-xl
                                     bg-white/10 dark:bg-gray-800/20
                                     focus:ring-2 focus:ring-primary/30 focus:border-primary
                                     text-gray-900 dark:text-white
@@ -1307,6 +1336,7 @@ const resumeInsights = [
     const resumeFileUploadButton = document.getElementById(
       "resumeFileUploadButton"
     );
+    const uploadLoader = document.getElementById("uploadLoader");
     const resumeFileInput = document.getElementById(
       "resumeFileInput"
     ) as HTMLInputElement;
@@ -1319,6 +1349,9 @@ const resumeInsights = [
       // Prevent any form submission
       e.preventDefault();
       e.stopPropagation();
+
+      // Show loader
+      uploadLoader?.classList.remove("hidden");
 
       // Trigger file input click
       resumeFileInput?.click();
@@ -1393,6 +1426,9 @@ const resumeInsights = [
             // Optional: Trigger any validation or UI updates
             resumeContentTextarea.dispatchEvent(new Event("input"));
 
+            // Hide loader
+            uploadLoader?.classList.add("hidden");
+
             // Show the file added UI and hide other elements
             const resumeFileAddedUI =
               document.getElementById("resumeFileAddedUI");
@@ -1419,6 +1455,9 @@ const resumeInsights = [
             alert(
               `Failed to upload resume: ${result.error || "Unknown error"}`
             );
+
+            // Hide loader
+            uploadLoader?.classList.add("hidden");
           }
         } catch (error) {
           // Network or parsing errors
@@ -1426,6 +1465,9 @@ const resumeInsights = [
           alert(
             `Error uploading resume: ${error instanceof Error ? error.message : "Unknown error"}`
           );
+
+          // Hide loader
+          uploadLoader?.classList.add("hidden");
         }
       };
     });

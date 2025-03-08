@@ -68,7 +68,7 @@ const templateData = JSON.stringify(coverLetterTemplates);
         <form
           id="coverLetterForm"
           class="w-full space-y-6 sm:space-y-8 bg-white dark:bg-transparent rounded-2xl p-6 sm:p-8
-                    shadow-lg border-gray-200 dark:border-gray-700/70
+                    shadow-lg border-gray-100 border dark:border-gray-700/70
                     transition-all duration-300 ease-in-out hover:shadow-xl"
         >
           <!-- Job Description -->
@@ -246,6 +246,18 @@ const templateData = JSON.stringify(coverLetterTemplates);
                                     min-h-[120px] sm:min-h-[150px]"
                 ></textarea>
                 <div class="validation-error text-red-500 text-sm mt-1"></div>
+              </div>
+
+              <!-- Loader UI -->
+              <div
+                id="uploadLoader"
+                class="hidden fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50"
+              >
+                <div
+                  class="loader animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-gray-300 shadow-lg"
+                  style="border-top-color: #007aff;"
+                >
+                </div>
               </div>
 
               <!-- File Added UI -->
@@ -1670,7 +1682,6 @@ Additional Context:
         const placeholder = target.getAttribute("data-placeholder");
         if (!target.value) {
           target.setAttribute("placeholder", placeholder || "");
-
           let index = 0;
           const typeText = () => {
             if (placeholder && index < placeholder.length) {
@@ -1750,3 +1761,22 @@ Additional Context:
     opacity: 1;
   }
 </style>
+
+<script>
+  const coverLetterFileUploadButton = document.getElementById(
+    "resumeFileUploadButton"
+  );
+  const uploadLoader = document.getElementById("uploadLoader");
+  const coverLetterFileAddedUI = document.getElementById(
+    "coverLetterFileAddedUI"
+  );
+
+  coverLetterFileUploadButton?.addEventListener("click", async () => {
+    uploadLoader?.classList.remove("hidden"); // Show loader
+    // Simulate file upload process
+    await new Promise((resolve) => setTimeout(resolve, 3000)); // Replace with actual upload logic
+    uploadLoader?.classList.add("hidden"); // Hide loader
+    // Show success UI after loader is hidden
+    coverLetterFileAddedUI?.classList.remove("hidden");
+  });
+</script>

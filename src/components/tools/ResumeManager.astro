@@ -42,7 +42,8 @@ import Container from "../Container.astro";
             <button
               id="addResumeBtn"
               class="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-gray-800 text-white dark:bg-white dark:text-black rounded-xl
-                                   hover:bg-gray-700 dark:hover:bg-gray-200 transition-all duration-300
+                                   hover:bg-gray-700 dark:hover:bg-gray-200
+                                   transition-all duration-300
                                    focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
             >
               <svg
@@ -72,20 +73,12 @@ import Container from "../Container.astro";
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  ></path>
-                </svg>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                ></path>
               </svg>
               <span>Import</span>
             </button>
@@ -155,6 +148,11 @@ import Container from "../Container.astro";
       </div>
     </div>
   </Container>
+
+  <!-- Loader UI -->
+  <div id="uploadLoader" class="hidden fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+    <div class="loader animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-gray-300 shadow-lg" style="border-top-color: #007aff;"></div>
+  </div>
 
   <!-- Resume Modal -->
   <div
@@ -1102,6 +1100,19 @@ import Container from "../Container.astro";
               }
             }
           }
+        });
+      }
+
+      const uploadLoader = document.getElementById("uploadLoader");
+      const resumeUploadButton = document.getElementById("resumeUploadButton");
+
+      if (resumeUploadButton) {
+        resumeUploadButton.addEventListener("click", async () => {
+          if (uploadLoader) uploadLoader.classList.remove("hidden");
+          // Simulate file upload process
+          await new Promise((resolve) => setTimeout(resolve, 3000)); // Replace with actual upload logic
+          if (uploadLoader) uploadLoader.classList.add("hidden");
+          // Show success message or perform further actions here
         });
       }
     });
