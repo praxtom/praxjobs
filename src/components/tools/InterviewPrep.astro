@@ -697,9 +697,6 @@ const interviewPrepInsights = [
         if (userId === null) {
           throw new Error("User not authenticated");
         }
-        if (userId !== null) {
-          await TierManagementService.trackInterviewPrep(userId);
-        }
 
         // Make API request
         const response = await fetch(
@@ -722,7 +719,9 @@ const interviewPrepInsights = [
         }
 
         const data = await response.json();
-        questionsData = data;
+
+        // Update usage count only after successful response
+        await TierManagementService.trackInterviewPrep(userId);
 
         // Display the results
         displayQuestions(data);
@@ -755,55 +754,56 @@ const interviewPrepInsights = [
     function displayQuestions(data: any) {
       if (!data || !resultContainer) return;
 
-      const categories = [
-        { key: "companySpecific", title: "Company-Specific Questions" },
-        { key: "roleSpecific", title: "Role-Specific Questions" },
-        { key: "behavioral", title: "Behavioral Questions" },
-        { key: "technical", title: "Technical Questions" },
-      ];
+      const categoryTitles = {
+        companySpecific: "Company Specific",
+        roleSpecific: "Role Specific",
+        behavioral: "Behavioral",
+        technical: "Technical",
+      };
 
       let html = `
                 <div class="bg-white dark:bg-gray-800/30 rounded-xl border border-gray-200 dark:border-gray-700/50 p-6">
                     <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-left">Interview Questions</h2>
             `;
 
-      categories.forEach((category, categoryIndex) => {
-        const questions = data[category.key];
-        if (questions && questions.length > 0) {
-          html += `
-                        <div class="mb-6">
-                            <div class="category-header flex items-center justify-between cursor-pointer p-4 bg-gray-50 dark:bg-gray-700/30 rounded-xl mb-2" data-category="${categoryIndex}">
-                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white text-left">${category.title}</h3>
-                                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 category-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </div>
-                            <div class="category-content space-y-4 pl-4" data-category="${categoryIndex}">
-                    `;
+      Object.keys(data).forEach((category, categoryIndex) => {
+        const categoryTitle = categoryTitles[category] || category;
+        html += `
+          <div class="category mb-6">
+            <div 
+              class="category-header flex justify-between items-center cursor-pointer p-4 bg-gray-50 dark:bg-gray-800/30 rounded-xl"
+              data-category="${categoryIndex}"
+            >
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">${categoryTitle}</h3>
+              <svg class="category-chevron h-6 w-6 text-gray-500 dark:text-gray-400 transform transition-transform" viewBox="0 0 20 20" fill="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+            <div class="category-content ${categoryIndex === 0 ? "" : "hidden"} p-4" data-category="${categoryIndex}">
+        `;
 
-          questions.forEach((item: any, index: number) => {
-            html += `
-                            <div class="question-card p-4 border border-gray-100 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors mb-3">
-                                <div class="flex justify-between items-start">
-                                    <h4 class="font-medium text-lg text-gray-900 dark:text-white">${index + 1}. ${item.question}</h4>
-                                    <button 
-                                        class="practice-button ml-4 px-3 py-1 bg-black text-white dark:bg-white dark:text-black rounded-full text-sm hover:bg-primary-dark transition-colors flex-shrink-0"
-                                        data-category="${category.key}"
-                                        data-index="${index}"
-                                    >
-                                        Practice
-                                    </button>
-                                </div>
-                                ${item.context ? `<p class="mt-2 text-sm text-gray-600 dark:text-gray-300 text-left">${item.context}</p>` : ""}
-                            </div>
-                        `;
-          });
-
+        data[category].forEach((item, index) => {
           html += `
-                            </div>
-                        </div>
-                    `;
-        }
+            <div class="question-card p-4 border border-gray-100 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors mb-3">
+              <div class="flex justify-between items-start">
+                <h4 class="font-medium text-lg text-gray-900 dark:text-white text-left">${index + 1}. ${item.question}</h4>
+                <button 
+                  class="practice-button ml-4 px-3 py-1 bg-black text-white dark:bg-white dark:text-black rounded-full text-sm hover:bg-primary-dark transition-colors flex-shrink-0"
+                  data-category="${category}"
+                  data-index="${index}"
+                >
+                  Practice
+                </button>
+              </div>
+              ${item.context ? `<p class="mt-2 text-sm text-gray-600 dark:text-gray-300 text-left">${item.context}</p>` : ""}
+            </div>
+          `;
+        });
+
+        html += `
+            </div>
+          </div>
+        `;
       });
 
       html += `</div>`;
@@ -863,7 +863,7 @@ const interviewPrepInsights = [
                 <div class="bg-white dark:bg-gray-800/30 rounded-xl border border-gray-200 dark:border-gray-700/50 p-6">
                     <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 text-left">Practice Your Answer</h2>
                     
-                    <div class="mb-6 p-4 bg-gray-50 dark:bg-gray-700/30 rounded-xl">
+                    <div class="mb-6 p-4 bg-gray-50 dark:bg-gray-800/30 rounded-xl">
                         <h3 class="font-medium text-lg text-gray-900 dark:text-white text-left">${question.question}</h3>
                         ${question.context ? `<p class="mt-2 text-sm text-gray-600 dark:text-gray-300 text-left">${question.context}</p>` : ""}
                     </div>
@@ -896,7 +896,7 @@ const interviewPrepInsights = [
                             </button>
                             <button 
                                 id="submitAnswerBtn"
-                                class="px-4 py-2 bg-primary text-white rounded-xl hover:bg-primary-dark 
+                                class="px-4 py-2 bg-black text-white dark:bg-white dark:text-black rounded-xl hover:bg-primary-dark 
                                 transition-colors duration-200 flex items-center"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
