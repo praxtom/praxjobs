@@ -110,6 +110,7 @@ export const fetchInterviewQuestions = async ({
       parsedContent = JSON.parse(content)
     } catch (parseError) {
       console.error('Error parsing API response:', parseError)
+      console.debug('API response content:', content)
       throw new Error('Failed to parse API response')
     }
 
@@ -214,6 +215,7 @@ export const reviewAnswer = async ({
       parsedContent = JSON.parse(content)
     } catch (parseError) {
       console.error('Error parsing API response:', parseError)
+      console.debug('API response content:', content)
       throw new Error('Failed to parse API response')
     }
 
