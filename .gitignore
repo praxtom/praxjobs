@@ -22,6 +22,7 @@ astro-ai-professional-firebase-adminsdk-fbsvc-fc715c8e4b.json
 *.key
 *.pem
 *.p12
+*.env
 
 
 # Local Netlify folder
