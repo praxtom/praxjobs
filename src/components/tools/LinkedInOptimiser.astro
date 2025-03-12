@@ -1,0 +1,1419 @@
+<section class="relative py-16 sm:py-24 lg:py-32 bg-white dark:bg-gray-950">
+  <div
+    aria-hidden="true"
+    class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-0 dark:opacity-0 transition-opacity duration-300 ease-in-out"
+  >
+    <div
+      class="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700 dark:to-indigo-600 opacity-40 dark:opacity-20"
+    >
+    </div>
+    <div
+      class="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600 dark:from-emerald-500 opacity-40 dark:opacity-20"
+    >
+    </div>
+  </div>
+  <div class="relative w-full">
+    <div class="container mx-auto px-3 md:px-6 lg:px-8 max-w-6xl">
+      <div class="w-full mx-auto">
+        <form
+          id="linkedinOptimiserForm"
+          class="w-full space-y-6 sm:space-y-8 bg-white dark:bg-transparent rounded-3xl p-6 sm:p-8
+                    shadow-lg border-gray-100 border dark:border-gray-700/70
+                    transition-all duration-300 ease-in-out hover:shadow-xl"
+        >
+          <div class="space-y-4 sm:space-y-5">
+            <!-- Success State -->
+            <div
+              id="linkedinFileAddedUI"
+              class="hidden w-full p-6 border-2 border-gray-300 dark:border-gray-700/70 rounded-xl bg-white/10 dark:bg-gray-800/20 min-h-[100px] flex flex-col items-center justify-center"
+            >
+              <div class="flex items-center justify-center mb-3">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-10 w-10 text-green-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <p
+                id="linkedinFileName"
+                class="text-center text-lg text-gray-900 dark:text-white font-medium"
+              >
+                LinkedIn PDF added successfully
+              </p>
+              <button
+                id="changeLinkedinSource"
+                class="mt-4 px-4 py-2 bg-black text-white dark:bg-white dark:text-black rounded-full text-sm hover:bg-gray-800 dark:hover:bg-gray-200 transition-all duration-200"
+              >
+                Upload Another
+              </button>
+            </div>
+
+            <div id="linkedinOptionsSelector">
+              <label
+                for="linkedin-upload"
+                class="block mb-2 text-sm sm:text-base font-medium text-gray-900 dark:text-white text-left"
+              >
+                LinkedIn Profile PDF: <span class="text-red-600">*</span>
+                <span class="text-xs text-gray-500"
+                  >(You can download your LinkedIn profile as a PDF by going to
+                  your profile, clicking on 'Resources', and selecting 'Save to
+                  PDF.')</span
+                >
+              </label>
+              <button
+                type="button"
+                id="linkedinFileUploadButton"
+                class="relative flex flex-col items-center justify-center p-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl bg-white/10 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-all duration-300 group w-full"
+              >
+                <div
+                  class="flex flex-col items-center justify-center space-y-2"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-7 w-7 text-primary group-hover:text-primary-dark transition-colors duration-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    ></path>
+                  </svg>
+                  <span class="font-medium text-gray-900 dark:text-white"
+                    >Upload File</span
+                  >
+                  <span class="text-xs text-gray-500 dark:text-gray-400 mt-1"
+                    >PDF only</span
+                  >
+                </div>
+              </button>
+              <input
+                type="file"
+                accept="application/pdf"
+                id="linkedin-upload"
+                required
+                style="display: none;"
+              />
+            </div>
+          </div>
+
+          <div class="">
+            <div class="mb-2 flex justify-between items-center">
+              <label
+                class="text-sm sm:text-base font-medium text-gray-900 dark:text-white"
+              >
+                Resume <span class="text-red-600">*</span>
+              </label>
+            </div>
+
+            <input type="file" id="resumeFileInput" style="display: none;" />
+
+            <div
+              id="resumeOptionsSelector"
+              class="grid grid-cols-3 md:grid-cols-3 xs:gap-2 sm:gap-4 md:gap-4 lg:gap-4 gap-2"
+            >
+              <button
+                type="button"
+                id="resumeFileUploadButton"
+                class="relative flex flex-col items-center justify-center p-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl bg-white/10 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-all duration-300 group"
+              >
+                <div
+                  class="flex flex-col items-center justify-center space-y-2"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-7 w-7 text-primary group-hover:text-primary-dark transition-colors duration-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    ></path>
+                  </svg>
+                  <span class="font-medium text-gray-900 dark:text-white"
+                    >Upload File</span
+                  >
+                  <span class="text-xs text-gray-500 dark:text-gray-400 mt-1"
+                    >PDF, DOCX, TXT</span
+                  >
+                </div>
+              </button>
+
+              <button
+                type="button"
+                id="importResumeButton"
+                class="relative flex flex-col items-center justify-center p-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl bg-white/10 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-all duration-300 group"
+              >
+                <div
+                  class="flex flex-col items-center justify-center space-y-2"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-7 w-7 text-primary group-hover:text-primary-dark transition-colors duration-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
+                    ></path>
+                  </svg>
+                  <span class="font-medium text-gray-900 dark:text-white"
+                    >Resume Manager</span
+                  >
+                  <span class="text-xs text-gray-500 dark:text-gray-400 mt-1"
+                    >Select saved resume</span
+                  >
+                </div>
+              </button>
+
+              <button
+                type="button"
+                id="enterManuallyButton"
+                class="relative flex flex-col items-center justify-center p-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl bg-white/10 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-all duration-300 group"
+              >
+                <div
+                  class="flex flex-col items-center justify-center space-y-2"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-7 w-7 text-primary group-hover:text-primary-dark transition-colors duration-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                    ></path>
+                  </svg>
+                  <span class="font-medium text-gray-900 dark:text-white"
+                    >Enter Manually</span
+                  >
+                  <span class="text-xs text-gray-500 dark:text-gray-400 mt-1"
+                    >Paste or type resume</span
+                  >
+                </div>
+              </button>
+            </div>
+
+            <!-- File Added UI -->
+            <div
+              id="resumeFileAddedUI"
+              class="hidden w-full p-6 border-2 border-gray-300 dark:border-gray-700/70 rounded-xl bg-white/10 dark:bg-gray-800/20 min-h-[100px] flex flex-col items-center justify-center"
+            >
+              <div class="flex items-center justify-center mb-3">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-10 w-10 text-green-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <p
+                id="resumeFileName"
+                class="text-center text-lg text-gray-900 dark:text-white font-medium"
+              >
+                Resume added successfully
+              </p>
+              <button
+                id="changeResumeSource"
+                class="mt-4 px-4 py-2 bg-black text-white dark:bg-white dark:text-black rounded-full text-sm hover:bg-gray-800 dark:hover:bg-gray-200 transition-all duration-200"
+              >
+                Upload Another
+              </button>
+            </div>
+
+            <!-- Manual Entry UI -->
+            <div id="manualEntryContainer" class="hidden w-full">
+              <textarea
+                id="resumeContent"
+                name="resumeContent"
+                rows="10"
+                placeholder="Paste or type your resume here..."
+                class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-left focus:ring-2 focus:ring-primary dark:focus:ring-primary-dark focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-gray-500"
+              ></textarea>
+              <div class="flex justify-end mt-2">
+                <button
+                  id="cancelManualEntry"
+                  class="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+                >
+                  Back to options
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="flex flex-col sm:flex-row justify-center space-y-2.5 sm:space-y-0 sm:space-x-4 mt-2 sm:mt-4"
+          >
+            <button
+              type="submit"
+              id="optimizeProfileBtn"
+              class="w-full sm:w-auto inline-flex h-11 sm:h-12 items-center justify-center px-4 sm:px-6 py-2 sm:py-3
+                            text-sm sm:text-base font-semibold
+                            text-white bg-black
+                            dark:text-black dark:bg-white
+                            rounded-full
+                            transition-all duration-300
+                            transform hover:scale-105 active:scale-95
+                            focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2
+                            dark:focus:ring-offset-gray-900
+                            shadow-lg shadow-gray-500/30 hover:shadow-gray-500/40"
+            >
+              <span class="relative z-10">Optimize Profile</span>
+              <span
+                class="absolute inset-0 rounded-full opacity-0 group-hover:opacity-10 bg-white transition-opacity duration-300"
+              ></span>
+            </button>
+            <button
+              type="button"
+              id="clearForm"
+              class="w-full sm:w-auto inline-flex h-11 sm:h-12 items-center justify-center px-4 sm:px-6 py-2 sm:py-3
+                            text-sm sm:text-base font-semibold
+                            text-black bg-white
+                            dark:text-gray-900 dark:bg-gray-500
+                            border border-gray-300 dark:border-gray-700
+                            rounded-full
+                            transition-all duration-300
+                            transform hover:scale-105 active:scale-95
+                            focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2
+                            dark:focus:ring-offset-gray-900
+                            shadow-lg shadow-gray-500/30 hover:shadow-gray-500/40"
+            >
+              <span class="relative z-10">Clear</span>
+              <span
+                class="absolute inset-0 rounded-full opacity-0 group-hover:opacity-10 bg-white transition-opacity duration-300"
+              ></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Results Container -->
+<div id="linkedinResults" class="hidden mt-12 space-y-10 max-w-5xl mx-auto">
+  <!-- Overall Score -->
+  <div
+    class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700 transform transition-all duration-300 hover:shadow-2xl"
+  >
+    <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+      Overall LinkedIn Profile Score
+    </h3>
+    <div
+      class="flex flex-col md:flex-row items-center md:space-x-8 space-y-6 md:space-y-0"
+    >
+      <div
+        class="w-32 h-32 rounded-full flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg transform transition-transform hover:scale-105"
+      >
+        <span id="overallScore" class="text-4xl font-bold text-white">0</span>
+      </div>
+      <div class="flex-1">
+        <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+          This score represents how well your LinkedIn profile is optimized for
+          recruiters and hiring managers based on industry best practices.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section-by-Section Scoring -->
+  <div
+    class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700 transform transition-all duration-300 hover:shadow-2xl"
+  >
+    <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+      Section-by-Section Analysis
+    </h3>
+    <div id="sectionScores" class="space-y-8">
+      <!-- Will be populated by JavaScript -->
+    </div>
+  </div>
+
+  <!-- Profile Completeness -->
+  <div
+    class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700 transform transition-all duration-300 hover:shadow-2xl"
+  >
+    <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+      Profile Completeness
+    </h3>
+    <div
+      class="flex flex-col md:flex-row items-center md:space-x-8 space-y-6 md:space-y-0"
+    >
+      <div
+        class="w-28 h-28 rounded-full flex items-center justify-center bg-gradient-to-r from-green-400 to-cyan-500 shadow-lg transform transition-transform hover:scale-105"
+      >
+        <span id="completenessScore" class="text-3xl font-bold text-white"
+          >0%</span
+        >
+      </div>
+      <div class="flex-1">
+        <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
+          Missing Sections
+        </h4>
+        <ul
+          id="missingSections"
+          class="text-base text-gray-600 dark:text-gray-300 list-disc list-inside mb-4"
+        >
+        </ul>
+        <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
+          Incomplete Sections
+        </h4>
+        <ul
+          id="incompleteSections"
+          class="text-base text-gray-600 dark:text-gray-300 list-disc list-inside"
+        >
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ATS Optimization -->
+  <div
+    class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700 transform transition-all duration-300 hover:shadow-2xl"
+  >
+    <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+      ATS Optimization
+    </h3>
+    <div
+      class="flex flex-col md:flex-row items-center md:space-x-8 space-y-6 md:space-y-0 mb-6"
+    >
+      <div
+        class="w-24 h-24 rounded-full flex items-center justify-center bg-gradient-to-r from-amber-400 to-amber-600 shadow-lg transform transition-transform hover:scale-105"
+      >
+        <span id="atsScore" class="text-2xl font-bold text-white">0</span>
+      </div>
+      <div class="flex-1">
+        <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+          How well your profile performs in Applicant Tracking Systems
+        </p>
+      </div>
+    </div>
+    <div class="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6">
+      <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
+        Recommendations
+      </h4>
+      <ul
+        id="atsRecommendations"
+        class="text-base text-gray-600 dark:text-gray-300 list-disc list-inside space-y-2"
+      >
+      </ul>
+    </div>
+  </div>
+
+  <!-- Keyword Optimization -->
+  <div
+    class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700 transform transition-all duration-300 hover:shadow-2xl"
+  >
+    <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+      Keyword Optimization
+    </h3>
+    <div class="mb-6 bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6">
+      <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
+        Missing Keywords
+      </h4>
+      <div id="missingKeywords" class="flex flex-wrap gap-3"></div>
+    </div>
+    <div class="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6">
+      <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
+        Keyword Placement Suggestions
+      </h4>
+      <div id="keywordSuggestions" class="space-y-4"></div>
+    </div>
+  </div>
+
+  <!-- Optimized Summary -->
+  <div
+    class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700 transform transition-all duration-300 hover:shadow-2xl"
+  >
+    <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+      Optimized Summary
+    </h3>
+    <div class="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6">
+      <p
+        id="optimizedSummary"
+        class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed"
+      >
+      </p>
+    </div>
+  </div>
+
+  <!-- Headline Suggestions -->
+  <div
+    class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700 transform transition-all duration-300 hover:shadow-2xl"
+  >
+    <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+      Headline Suggestions
+    </h3>
+    <div class="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6">
+      <div id="headlineSuggestions" class="space-y-5"></div>
+    </div>
+  </div>
+
+  <!-- Experience Enhancements -->
+  <div
+    class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700 transform transition-all duration-300 hover:shadow-2xl"
+  >
+    <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+      Experience Enhancements
+    </h3>
+    <div class="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6">
+      <div id="experienceEnhancements" class="space-y-6"></div>
+    </div>
+  </div>
+
+  <!-- Skills Prioritization -->
+  <div
+    class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700 transform transition-all duration-300 hover:shadow-2xl"
+  >
+    <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+      Skills Prioritization
+    </h3>
+    <div class="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6">
+      <div id="skillEndorsements" class="space-y-5"></div>
+    </div>
+  </div>
+
+  <!-- Content Strategy -->
+  <div
+    class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700 transform transition-all duration-300 hover:shadow-2xl"
+  >
+    <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+      Content & Engagement Strategy
+    </h3>
+    <div class="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6">
+      <div id="contentStrategy" class="space-y-5"></div>
+    </div>
+  </div>
+
+  <!-- Networking Recommendations -->
+  <div
+    class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700 transform transition-all duration-300 hover:shadow-2xl"
+  >
+    <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+      Networking Recommendations
+    </h3>
+    <div class="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6">
+      <ul
+        id="networkingRecommendations"
+        class="text-gray-700 dark:text-gray-300 list-disc list-inside space-y-3 text-lg"
+      >
+      </ul>
+    </div>
+  </div>
+
+  <!-- Competitive Analysis -->
+  <div
+    class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700 transform transition-all duration-300 hover:shadow-2xl"
+  >
+    <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+      Competitive Analysis
+    </h3>
+    <div class="space-y-6">
+      <div class="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6">
+        <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
+          Industry Standards
+        </h4>
+        <p
+          id="industryStandards"
+          class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed"
+        >
+        </p>
+      </div>
+      <div class="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6">
+        <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
+          Your Differentiators
+        </h4>
+        <ul
+          id="differentiators"
+          class="text-gray-700 dark:text-gray-300 list-disc list-inside space-y-2 text-lg"
+        >
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { authService } from "../../lib/auth";
+  import { PersistentDocumentService } from "../../lib/persistentDocumentService";
+  let linkedinContent; // Declare at a higher scope
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // ** START: Form Clear and Manual Entry Handlers **
+    const clearButton = document.getElementById("clearForm");
+    const resumeOptionsSelector = document.getElementById(
+      "resumeOptionsSelector"
+    );
+    const manualEntryContainer = document.getElementById(
+      "manualEntryContainer"
+    );
+    const enterManuallyButton = document.getElementById("enterManuallyButton");
+    const cancelManualEntry = document.getElementById("cancelManualEntry");
+    const changeResumeSource = document.getElementById("changeResumeSource");
+    const resumeFileAddedUI = document.getElementById("resumeFileAddedUI");
+    const resumeContent = document.getElementById(
+      "resumeContent"
+    ) as HTMLTextAreaElement | null;
+
+    // Clear button handler
+    clearButton?.addEventListener("click", (e) => {
+      e.preventDefault(); // Prevent form submission
+      window.location.reload();
+    });
+
+    // Enter manually button handler
+    enterManuallyButton?.addEventListener("click", () => {
+      if (resumeOptionsSelector && manualEntryContainer) {
+        resumeOptionsSelector.classList.add("hidden");
+        manualEntryContainer.classList.remove("hidden");
+        resumeFileAddedUI?.classList.add("hidden");
+      }
+    });
+
+    // Cancel manual entry button handler
+    cancelManualEntry?.addEventListener("click", () => {
+      if (resumeOptionsSelector && manualEntryContainer) {
+        resumeOptionsSelector.classList.remove("hidden");
+        manualEntryContainer.classList.add("hidden");
+      }
+    });
+
+    // Change resume source button handler
+    changeResumeSource?.addEventListener("click", () => {
+      if (resumeOptionsSelector && resumeFileAddedUI) {
+        resumeOptionsSelector.classList.remove("hidden");
+        resumeFileAddedUI.classList.add("hidden");
+        manualEntryContainer?.classList.add("hidden");
+      }
+    });
+
+    if (clearButton && resumeContent) {
+      clearButton.addEventListener("click", (e) => {
+        e.preventDefault(); // Prevent form submission
+
+        // Clear all text areas
+        resumeContent.value = "";
+
+        // Reset any template selections if needed
+        const selectedTemplate = document.querySelector(
+          'input[name="template"]:checked'
+        ) as HTMLInputElement | null;
+        if (selectedTemplate) {
+          selectedTemplate.checked = false;
+        }
+      });
+    }
+
+    // Clear resumeContent on page load (within the same DOMContentLoaded)
+    if (resumeContent) {
+      resumeContent.value = ""; // Clear the field on page load
+    }
+    // ** END: Form Clear and Manual Entry Handlers **
+
+    // ** START: Resume File Upload Handlers **
+    const resumeFileUploadButton = document.getElementById(
+      "resumeFileUploadButton"
+    );
+    const resumeFileInput = document.getElementById(
+      "resumeFileInput"
+    ) as HTMLInputElement;
+    const resumeContentTextarea = document.getElementById(
+      "resumeContent"
+    ) as HTMLTextAreaElement;
+
+    // Add file upload button event listener
+    resumeFileUploadButton?.addEventListener("click", async (e) => {
+      // Prevent any form submission
+      e.preventDefault();
+      e.stopPropagation();
+
+      // Trigger file input click
+      resumeFileInput?.click();
+
+      return false;
+    });
+
+    // Handle file selection
+    resumeFileInput?.addEventListener("change", async (event) => {
+      // Prevent default form submission
+      event.preventDefault();
+
+      const file = (event.target as HTMLInputElement).files?.[0];
+
+      if (!file) {
+        console.error("No file selected");
+        return;
+      }
+
+      // Supported file types
+      const supportedTypes = [
+        "application/pdf",
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "text/plain",
+        "text/rtf",
+        "application/rtf",
+      ];
+
+      if (!supportedTypes.includes(file.type)) {
+        alert(
+          "Unsupported file type. Please upload a PDF, DOC, DOCX, TXT, or RTF file."
+        );
+        return;
+      }
+
+      // Convert file to base64
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = async () => {
+        const base64File = fileReader.result as string;
+        const base64Data = base64File.split(",")[1]; // Remove data URL prefix
+
+        try {
+          // Send to server-side API
+          const response = await fetch("/.netlify/functions/upload-resume", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              fileBase64: base64Data,
+              fileName: file.name,
+              fileType: file.type,
+            }),
+          });
+
+          // Parse response
+          const result = await response.json();
+
+          // Check for error in response
+          if (!response.ok) {
+            throw new Error(result.error || "Unknown server error");
+          }
+
+          if (result.success) {
+            // Populate resume content textarea
+            const resumeContent = result.data.text;
+            resumeContentTextarea.value = resumeContent;
+
+            // Optional: Trigger any validation or UI updates
+            resumeContentTextarea.dispatchEvent(new Event("input"));
+
+            // Show the file added UI and hide other elements
+            const resumeFileAddedUI =
+              document.getElementById("resumeFileAddedUI");
+            const resumeOptionsSelector = document.getElementById(
+              "resumeOptionsSelector"
+            );
+            const manualEntryContainer = document.getElementById(
+              "manualEntryContainer"
+            );
+
+            if (resumeFileAddedUI && resumeOptionsSelector) {
+              resumeFileAddedUI.classList.remove("hidden");
+              resumeOptionsSelector.classList.add("hidden");
+              manualEntryContainer?.classList.add("hidden");
+
+              const resumeFileName = document.getElementById("resumeFileName");
+              if (resumeFileName) {
+                resumeFileName.textContent = `${file.name}`;
+              }
+            }
+          } else {
+            // Handle error response
+            console.error("Resume upload failed:", result);
+            alert(
+              `Failed to upload resume: ${result.error || "Unknown error"}`
+            );
+          }
+        } catch (error) {
+          // Network or parsing errors
+          console.error("Resume upload error:", error);
+          alert(
+            `Error uploading resume: ${error instanceof Error ? error.message : "Unknown error"}`
+          );
+        }
+      };
+    });
+    // ** END: Resume File Upload Handlers **
+
+    // ** START: Resume Import Modal Handlers **
+    const importResumeButton = document.getElementById("importResumeButton");
+
+    if (!importResumeButton || !resumeContentTextarea) {
+      console.error("Required elements for resume import not found");
+      return;
+    }
+
+    importResumeButton.addEventListener("click", async () => {
+      try {
+        const user = await authService.getCurrentUser();
+        if (!user) {
+          // Redirect to login or show login modal
+          return;
+        }
+
+        // Create a modal dynamically
+        const modal = document.createElement("div");
+        modal.innerHTML = `
+                    <div class="p-4 fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+                        <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 max-w-md w-full max-h-[80vh] overflow-y-auto">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                                    Resume Manager
+                                </h2>
+                                <button id="closeImportModal" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div class="mb-4">
+                                <button
+                                    id="addNewResumeButton"
+                                    class="w-full inline-flex items-center justify-center px-4 py-3
+                                    bg-black text-white
+                                    rounded-xl
+                                    hover:bg-primary-600
+                                    transition-all duration-300
+                                    focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                    </svg>
+                                    Create New Resume
+                                </button>
+                            </div>
+
+                            <div class="border-t border-gray-200 dark:border-gray-700 my-4"></div>
+
+                            <div id="resumeList" class="space-y-3">
+                                </div>
+                        </div>
+                    </div>
+                `;
+
+        document.body.appendChild(modal);
+
+        const closeModalButton = modal.querySelector("#closeImportModal");
+        const addNewResumeButton = modal.querySelector("#addNewResumeButton");
+        const resumeListContainer = modal.querySelector("#resumeList");
+
+        closeModalButton?.addEventListener("click", () => {
+          document.body.removeChild(modal);
+        });
+
+        // Add new resume functionality
+        addNewResumeButton?.addEventListener("click", () => {
+          // Navigate to Dashboard's Resume Manager section
+          window.location.href = "/dashboard#addResumeBtn";
+        });
+
+        // Fetch and display resumes
+        const resumes = await PersistentDocumentService.loadAllResumes();
+
+        if (resumes.length === 0) {
+          resumeListContainer!.innerHTML = `
+                        <div class="text-center text-gray-500 dark:text-gray-400 py-6">
+                            <p>No resumes found. Create a new resume to get started.</p>
+                        </div>
+                    `;
+          return;
+        }
+
+        // Populate resume list
+        resumeListContainer!.innerHTML = resumes
+          .map(
+            (resume, index) => `
+                    <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer transition-colors resume-item"
+                         data-resume-index="${index}">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                    ${resume.name || `Resume ${index + 1}`}
+                                </h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    Last updated: ${new Date(resume.lastUpdated).toLocaleDateString()}
+                                </p>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                `
+          )
+          .join("");
+
+        // Add click event to resume items
+        const resumeItems = modal.querySelectorAll(".resume-item");
+        resumeItems.forEach((item) => {
+          item.addEventListener("click", () => {
+            const index = item.getAttribute("data-resume-index");
+            const selectedResume = resumes[Number(index)];
+
+            // Populate resume content textarea
+            resumeContentTextarea.value = selectedResume.content || ""; // Using the original variable name here
+
+            // Close modal
+            document.body.removeChild(modal);
+          });
+        });
+      } catch (error) {
+        console.error("Error importing resume:", error);
+        // Show user-friendly error message
+        const errorModal = document.createElement("div");
+        errorModal.innerHTML = `
+                    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+                        <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 max-w-md w-full text-center">
+                            <h2 class="text-2xl font-bold text-red-600 mb-4">
+                                Import Error
+                            </h2>
+                            <p class="text-gray-600 dark:text-gray-400 mb-6">
+                                Unable to import resumes. Please try again later.
+                            </p>
+                            <button id="closeErrorModal" class="bg-primary text-white px-4 py-2 rounded-full">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                `;
+        document.body.appendChild(errorModal);
+
+        const closeErrorModalButton =
+          errorModal.querySelector("#closeErrorModal");
+        closeErrorModalButton?.addEventListener("click", () => {
+          document.body.removeChild(errorModal);
+        });
+      }
+    });
+    // ** END: Resume Import Modal Handlers **
+
+    // ** START: LinkedIn File Upload Handlers **
+    const linkedinFileUploadButton = document.getElementById(
+      "linkedinFileUploadButton"
+    );
+    const linkedinFileInput = document.getElementById(
+      "linkedin-upload"
+    ) as HTMLInputElement;
+
+    // Add file upload button event listener
+    linkedinFileUploadButton?.addEventListener("click", async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      linkedinFileInput?.click();
+      return false;
+    });
+
+    // Handle file selection
+    linkedinFileInput?.addEventListener("change", async (event) => {
+      event.preventDefault();
+      const file = (event.target as HTMLInputElement).files?.[0];
+
+      if (file) {
+        // Update UI for LinkedIn success state
+        document
+          .getElementById("linkedinFileAddedUI")
+          ?.classList.remove("hidden");
+        document
+          .getElementById("linkedinOptionsSelector")
+          ?.classList.add("hidden");
+      }
+
+      if (!file) {
+        console.error("No file selected");
+        return;
+      }
+
+      // Supported file types
+      const supportedTypes = ["application/pdf"];
+      if (!supportedTypes.includes(file.type)) {
+        alert("Unsupported file type. Please upload a PDF file.");
+        return;
+      }
+
+      // Convert file to base64
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = async () => {
+        const base64File = fileReader.result as string;
+        const base64Data = base64File.split(",")[1]; // Remove data URL prefix
+
+        try {
+          // Send to server-side API (same as resume upload)
+          const response = await fetch("/.netlify/functions/upload-resume", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              fileBase64: base64Data,
+              fileName: file.name,
+              fileType: file.type,
+            }),
+          });
+
+          // Parse response
+          const result = await response.json();
+
+          if (!response.ok) {
+            throw new Error(result.error || "Unknown server error");
+          }
+
+          if (result.success) {
+            // Store the text content in a local variable
+            linkedinContent = result.data.text;
+
+            // Update UI for success state
+            const linkedinFileAddedUI = document.getElementById(
+              "linkedinFileAddedUI"
+            );
+            const linkedinOptionsSelector = document.getElementById(
+              "linkedinOptionsSelector"
+            );
+
+            if (linkedinFileAddedUI && linkedinOptionsSelector) {
+              linkedinFileAddedUI.classList.remove("hidden");
+              linkedinOptionsSelector.classList.add("hidden");
+
+              const linkedinFileName =
+                document.getElementById("linkedinFileName");
+              if (linkedinFileName) {
+                linkedinFileName.textContent = `${file.name}`;
+              }
+            }
+          } else {
+            console.error("LinkedIn PDF upload failed:", result);
+            alert(
+              `Failed to upload LinkedIn PDF: ${result.error || "Unknown error"}`
+            );
+          }
+        } catch (error) {
+          console.error("LinkedIn PDF upload error:", error);
+          alert(
+            `Error uploading LinkedIn PDF: ${error instanceof Error ? error.message : "Unknown error"}`
+          );
+        }
+      };
+    });
+    // ** END: LinkedIn File Upload Handlers **
+
+    // ** START: LinkedIn Optimizer Form Submission Handlers **
+    const linkedinOptimiserForm = document.getElementById(
+      "optimizeProfileBtn"
+    ) as HTMLButtonElement;
+
+    linkedinOptimiserForm?.addEventListener("click", async (event) => {
+      event.preventDefault();
+
+      const loader = document.getElementById("linkedinSubmitLoader");
+      const submitButton = document.querySelector(
+        "#optimizeProfileBtn"
+      ) as HTMLButtonElement;
+
+      try {
+        loader?.classList.remove("hidden");
+        (submitButton as HTMLButtonElement) &&
+          ((submitButton as HTMLButtonElement).disabled = true);
+
+        const response = await fetch("/.netlify/functions/linkedin-optimize", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            linkedinContent: linkedinContent,
+            resumeContent: resumeContent?.value,
+          }),
+        });
+
+        const result = await response.json();
+
+        console.log("API Response:", result); // Log the API response
+
+        if (!response.ok)
+          throw new Error(result.error || "Failed to optimize profile");
+
+        updateResults(result); // Call to update UI with results
+
+        // Show success UI
+        const successUI = document.getElementById("optimizationSuccess");
+        const formContainer = document.getElementById("linkedinFormContainer");
+        successUI?.classList.remove("hidden");
+        formContainer?.classList.add("hidden");
+      } catch (error) {
+        console.error("Optimization error:", error);
+        alert(
+          `Optimization failed: ${error instanceof Error ? error.message : "Unknown error"}`
+        );
+      } finally {
+        loader?.classList.add("hidden");
+        submitButton && ((submitButton as HTMLButtonElement).disabled = false);
+      }
+
+      // Optionally, you can proceed with the form submission logic here
+      // For example, you can call the API to optimize the profile
+    });
+    // ** END: LinkedIn Optimizer Form Submission Handlers **
+  });
+
+  const changeLinkedinSource = document.getElementById("changeLinkedinSource");
+  const linkedinOptionsSelector = document.getElementById(
+    "linkedinOptionsSelector"
+  );
+  const linkedinFileAddedUI = document.getElementById("linkedinFileAddedUI");
+  const linkedinFileInput = document.getElementById(
+    "linkedin-upload"
+  ) as HTMLInputElement;
+
+  changeLinkedinSource?.addEventListener("click", () => {
+    if (linkedinOptionsSelector && linkedinFileAddedUI) {
+      linkedinOptionsSelector.classList.remove("hidden");
+      linkedinFileAddedUI.classList.add("hidden");
+      linkedinFileInput.value = "";
+    }
+  });
+
+  // Function to update results with API data
+  const updateResults = (data) => {
+    console.log("Updating results with data:", data);
+
+    // Overall Score
+    const overallScoreElement = document.getElementById("overallScore");
+    if (overallScoreElement) {
+      overallScoreElement.textContent = data.overallScore || "0";
+    }
+
+    // Section Scores
+    const sectionScoresContainer = document.getElementById("sectionScores");
+    if (
+      sectionScoresContainer &&
+      data.sectionScores &&
+      Array.isArray(data.sectionScores)
+    ) {
+      sectionScoresContainer.innerHTML = data.sectionScores
+        .map((section) => {
+          // Calculate color based on score
+          const colorClass = getScoreColorClass(section.score);
+
+          return `
+          <div class="border-b border-gray-200 dark:border-gray-700 pb-4 last:border-0 last:pb-0">
+            <div class="flex justify-between items-center mb-2">
+              <h4 class="font-semibold text-gray-900 dark:text-white">${section.section}</h4>
+              <div class="flex items-center">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center ${colorClass}">
+                  <span class="text-sm font-bold text-white">${section.score}</span>
+                </div>
+              </div>
+            </div>
+            <ul class="text-sm text-gray-600 dark:text-gray-300 list-disc list-inside space-y-1">
+              ${Array.isArray(section.recommendations) ? section.recommendations.map((rec) => `<li>${rec}</li>`).join("") : ""}
+            </ul>
+          </div>`;
+        })
+        .join("");
+    }
+
+    // Profile Completeness
+    const completenessScore = document.getElementById("completenessScore");
+    const missingSectionsList = document.getElementById("missingSections");
+    const incompleteSectionsList =
+      document.getElementById("incompleteSections");
+
+    if (completenessScore && data.profileCompleteness) {
+      completenessScore.textContent = `${data.profileCompleteness.score}%`;
+    }
+
+    if (
+      missingSectionsList &&
+      data.profileCompleteness &&
+      Array.isArray(data.profileCompleteness.missingSections)
+    ) {
+      missingSectionsList.innerHTML = data.profileCompleteness.missingSections
+        .map((section) => `<li>${section}</li>`)
+        .join("");
+    }
+
+    if (
+      incompleteSectionsList &&
+      data.profileCompleteness &&
+      Array.isArray(data.profileCompleteness.incompleteSection)
+    ) {
+      incompleteSectionsList.innerHTML =
+        data.profileCompleteness.incompleteSection
+          .map((section) => `<li>${section}</li>`)
+          .join("");
+    }
+
+    // ATS Optimization
+    const atsScore = document.getElementById("atsScore");
+    const atsRecommendations = document.getElementById("atsRecommendations");
+
+    if (atsScore && data.atsOptimization) {
+      atsScore.textContent = data.atsOptimization.score || "0";
+    }
+
+    if (
+      atsRecommendations &&
+      data.atsOptimization &&
+      Array.isArray(data.atsOptimization.recommendations)
+    ) {
+      atsRecommendations.innerHTML = data.atsOptimization.recommendations
+        .map((rec) => `<li>${rec}</li>`)
+        .join("");
+    }
+
+    // Keyword Optimization
+    const missingKeywordsContainer = document.getElementById("missingKeywords");
+    const keywordSuggestionsContainer =
+      document.getElementById("keywordSuggestions");
+
+    if (
+      missingKeywordsContainer &&
+      data.keywordOptimization &&
+      Array.isArray(data.keywordOptimization.missingKeywords)
+    ) {
+      missingKeywordsContainer.innerHTML =
+        data.keywordOptimization.missingKeywords
+          .map(
+            (keyword) =>
+              `<span class="px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700 text-sm">${keyword}</span>`
+          )
+          .join("");
+    }
+
+    if (
+      keywordSuggestionsContainer &&
+      data.keywordOptimization &&
+      Array.isArray(data.keywordOptimization.keywordSuggestions)
+    ) {
+      keywordSuggestionsContainer.innerHTML =
+        data.keywordOptimization.keywordSuggestions
+          .map(
+            (suggestion) => `
+          <div class="p-3 rounded-lg bg-gray-50 dark:bg-gray-700">
+            <p class="font-medium text-gray-800 dark:text-white">${suggestion.keyword}</p>
+            <p class="text-sm text-gray-600 dark:text-gray-300">${suggestion.placement}</p>
+          </div>
+        `
+          )
+          .join("");
+    }
+
+    // Optimized Summary
+    const optimizedSummary = document.getElementById("optimizedSummary");
+    if (optimizedSummary) {
+      optimizedSummary.textContent =
+        data.optimizedSummary || "No optimized summary generated";
+    }
+
+    // Headline Suggestions
+    const headlineContainer = document.getElementById("headlineSuggestions");
+    if (
+      headlineContainer &&
+      data.headlineSuggestions &&
+      Array.isArray(data.headlineSuggestions)
+    ) {
+      headlineContainer.innerHTML = data.headlineSuggestions
+        .map(
+          (headline) => `
+          <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-700">
+            <p class="font-medium text-gray-800 dark:text-white mb-2">${headline.headline}</p>
+            <p class="text-sm text-gray-600 dark:text-gray-300">${headline.explanation}</p>
+          </div>`
+        )
+        .join("");
+    }
+
+    // Experience Enhancements
+    const experienceContainer = document.getElementById(
+      "experienceEnhancements"
+    );
+    if (
+      experienceContainer &&
+      data.experienceEnhancements &&
+      Array.isArray(data.experienceEnhancements)
+    ) {
+      experienceContainer.innerHTML = data.experienceEnhancements
+        .map(
+          (exp) => `
+          <div class="border-b border-gray-200 dark:border-gray-700 pb-4 last:border-0 last:pb-0">
+            <h4 class="font-medium text-gray-900 dark:text-white mb-2">${exp.company}</h4>
+            <ul class="text-sm text-gray-600 dark:text-gray-300 list-disc list-inside space-y-1">
+              ${Array.isArray(exp.recommendations) ? exp.recommendations.map((rec) => `<li>${rec}</li>`).join("") : ""}
+            </ul>
+          </div>`
+        )
+        .join("");
+    }
+
+    // Skills Prioritization
+    const skillsContainer = document.getElementById("skillEndorsements");
+    if (
+      skillsContainer &&
+      data.skillEndorsements &&
+      Array.isArray(data.skillEndorsements)
+    ) {
+      skillsContainer.innerHTML = data.skillEndorsements
+        .map(
+          (category) => `
+          <div>
+            <h4 class="font-medium text-gray-900 dark:text-white mb-2">${category.category}</h4>
+            <div class="flex flex-wrap gap-2">
+              ${
+                Array.isArray(category.skills)
+                  ? category.skills
+                      .map(
+                        (skill) =>
+                          `<span class="px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700 text-sm">${skill}</span>`
+                      )
+                      .join("")
+                  : ""
+              }
+            </div>
+          </div>`
+        )
+        .join("");
+    }
+
+    // Content Strategy
+    const strategyContainer = document.getElementById("contentStrategy");
+    if (
+      strategyContainer &&
+      data.contentStrategy &&
+      Array.isArray(data.contentStrategy)
+    ) {
+      strategyContainer.innerHTML = data.contentStrategy
+        .map(
+          (strategy) => `
+          <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-700">
+            <h4 class="font-medium text-gray-900 dark:text-white mb-1">${strategy.contentType}</h4>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">${strategy.description}</p>
+            <div class="text-xs italic text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-600 p-2 rounded">
+              ${strategy.example || ""}
+            </div>
+          </div>`
+        )
+        .join("");
+    }
+
+    // Networking Recommendations
+    const networkingContainer = document.getElementById(
+      "networkingRecommendations"
+    );
+    if (
+      networkingContainer &&
+      data.networkingRecommendations &&
+      Array.isArray(data.networkingRecommendations)
+    ) {
+      networkingContainer.innerHTML = data.networkingRecommendations
+        .map((rec) => `<li>${rec}</li>`)
+        .join("");
+    }
+
+    // Competitive Analysis
+    const industryStandards = document.getElementById("industryStandards");
+    const differentiators = document.getElementById("differentiators");
+
+    if (industryStandards && data.competitiveAnalysis) {
+      industryStandards.textContent =
+        data.competitiveAnalysis.industryStandards || "";
+    }
+
+    if (
+      differentiators &&
+      data.competitiveAnalysis &&
+      Array.isArray(data.competitiveAnalysis.differentiators)
+    ) {
+      differentiators.innerHTML = data.competitiveAnalysis.differentiators
+        .map((diff) => `<li>${diff}</li>`)
+        .join("");
+    }
+
+    // Show results container
+    const resultsContainer = document.getElementById("linkedinResults");
+    if (resultsContainer) {
+      resultsContainer.classList.remove("hidden");
+    }
+  };
+
+  // Helper function to get color class based on score
+  const getScoreColorClass = (score) => {
+    if (score >= 90) return "bg-green-500";
+    if (score >= 70) return "bg-blue-500";
+    if (score >= 50) return "bg-amber-500";
+    return "bg-red-500";
+  };
+
+  // ** START: LinkedIn Optimizer Form Submission Handlers **
+  // Update form submit handler
+  const linkedinOptimiserForm = document.getElementById(
+    "linkedinOptimiserForm"
+  ) as HTMLFormElement;
+  linkedinOptimiserForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const loader = document.getElementById("linkedinSubmitLoader");
+    const submitButton = document.querySelector(
+      '#linkedinOptimiserForm button[type="submit"]'
+    );
+
+    try {
+      // Show loader and disable button
+      loader?.classList.remove("hidden");
+      submitButton?.setAttribute("disabled", "true");
+
+      // Get form data and make API call
+      const formData = new FormData(linkedinOptimiserForm);
+      const response = await fetch("/.netlify/functions/linkedin-optimize", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) throw new Error("API request failed");
+
+      const data = await response.json();
+      console.log("API Response:", data); // Log the API response
+      updateResults(data);
+    } catch (error) {
+      console.error("Error:", error);
+      // Show error message to user
+    } finally {
+      // Hide loader and enable button
+      loader?.classList.add("hidden");
+      submitButton?.removeAttribute("disabled");
+    }
+  });
+</script>
