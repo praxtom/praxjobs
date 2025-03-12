@@ -276,58 +276,58 @@ import Container from "./Container.astro";
               </span>
             </div>
           </div>
+        </a>
 
-          <a
-            href="javascript:void(0)"
-            data-tool-href="/dashboard"
-            class="border m-2 border-gray-100 dark:border-gray-800 gap-4 group relative rounded-2xl bg-white dark:bg-gray-950 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10"
-          >
-            <div class="relative space-y-8 py-12 p-8">
-              <div
-                class="w-12 h-12 flex gap-4 rounded-full bg-yellow-100 dark:bg-yellow-900/20"
+        <a
+          href="javascript:void(0)"
+          data-tool-href="/dashboard"
+          class="border m-2 border-gray-100 dark:border-gray-800 gap-4 group relative rounded-2xl bg-white dark:bg-gray-950 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10"
+        >
+          <div class="relative space-y-8 py-12 p-8">
+            <div
+              class="w-12 h-12 flex gap-4 rounded-full bg-yellow-100 dark:bg-yellow-900/20"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="w-6 h-6 m-auto text-yellow-600 dark:text-yellow-400"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  class="w-6 h-6 m-auto text-yellow-600 dark:text-yellow-400"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
-                    clip-rule="evenodd"></path>
-                </svg>
-              </div>
-              <div class="space-y-2">
-                <h3
-                  class="text-xl font-semibold text-gray-700 dark:text-white transition group-hover:text-secondary"
-                >
-                  Career Buddy AI
-                </h3>
-                <p class="text-gray-600 dark:text-gray-300">
-                  Receive tailored insights and expert advice from our advanced
-                  AI career assistant, designed to support you in navigating
-                  your professional journey effectively.
-                </p>
-              </div>
-              <span
-                class="flex items-center dark:text-gray-200 justify-between group-hover:text-secondary"
-              >
-                <span class="text-sm">Get Started</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  class="w-5 h-5 -translate-x-4 text-2xl opacity-0 transition duration-300 group-hover:translate-x-0 group-hover:opacity-100"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M12.97 3.97a.75.75 0 011.06 0l7.5 7.5a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 11-1.06-1.06l6.22-6.22H3a.75.75 0 010-1.5h16.19l-6.22-6.22a.75.75 0 010-1.06z"
-                    clip-rule="evenodd"></path>
-                </svg>
-              </span>
+                <path
+                  fill-rule="evenodd"
+                  d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
+                  clip-rule="evenodd"></path>
+              </svg>
             </div>
-          </a>
+            <div class="space-y-2">
+              <h3
+                class="text-xl font-semibold text-gray-700 dark:text-white transition group-hover:text-secondary"
+              >
+                Career Buddy AI
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300">
+                Receive tailored insights and expert advice from our advanced AI
+                career assistant, designed to support you in navigating your
+                professional journey effectively.
+              </p>
+            </div>
+            <span
+              class="flex items-center dark:text-gray-200 justify-between group-hover:text-secondary"
+            >
+              <span class="text-sm">Get Started</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="w-5 h-5 -translate-x-4 text-2xl opacity-0 transition duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12.97 3.97a.75.75 0 011.06 0l7.5 7.5a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 11-1.06-1.06l6.22-6.22H3a.75.75 0 010-1.5h16.19l-6.22-6.22a.75.75 0 010-1.06z"
+                  clip-rule="evenodd"></path>
+              </svg>
+            </span>
+          </div>
         </a>
       </a>
     </div>
@@ -366,3 +366,650 @@ import Container from "./Container.astro";
     </script>
   </Container>
 </div>
+
+<Container>
+  <!-- Job Analysis -->
+  <section class="overflow-hidden pt-16">
+    <div
+      class="mx-auto space-y-16 bg-gray-100 dark:bg-gray-950 p-8 border dark:border-gray-900 rounded-3xl"
+    >
+      <h2
+        class="text-title relative z-10 max-w-xl text-4xl font-medium lg:text-5xl"
+      >
+        Job Research made simple.
+      </h2>
+      <div class="grid gap-6 sm:grid-cols-2 md:gap-12 lg:gap-24">
+        <!-- Gemini ecosystem -->
+        <div class="relative z-10 space-y-4">
+          <p class="text-body">
+            Gemini is evolving to be more than just the models. <span
+              class="text-title font-medium"
+              >It supports an entire ecosystem</span
+            > — from products innovate.
+          </p>
+          <p>
+            It supports an entire ecosystem — from products to the APIs and
+            platforms helping developers and businesses innovate
+          </p>
+
+          <div class="grid grid-cols-2 gap-3 pt-6 sm:gap-4">
+            <div class="space-y-3">
+              <div class="flex items-center gap-2">
+                <svg
+                  class="size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <h3 class="text-title text-sm font-medium">Faaast</h3>
+              </div>
+              <p class="text-body text-sm">
+                It supports an entire helping developers and innovate.
+              </p>
+            </div>
+            <div class="space-y-2">
+              <div class="flex items-center gap-2">
+                <svg
+                  class="size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M16.5 7.5h-9v9h9v-9Z"></path>
+                  <path
+                    fill-rule="evenodd"
+                    d="M8.25 2.25A.75.75 0 0 1 9 3v.75h2.25V3a.75.75 0 0 1 1.5 0v.75H15V3a.75.75 0 0 1 1.5 0v.75h.75a3 3 0 0 1 3 3v.75H21A.75.75 0 0 1 21 9h-.75v2.25H21a.75.75 0 0 1 0 1.5h-.75V15H21a.75.75 0 0 1 0 1.5h-.75v.75a3 3 0 0 1-3 3h-.75V21a.75.75 0 0 1-1.5 0v-.75h-2.25V21a.75.75 0 0 1-1.5 0v-.75H9V21a.75.75 0 0 1-1.5 0v-.75h-.75a3 3 0 0 1-3-3v-.75H3A.75.75 0 0 1 3 15h.75v-2.25H3a.75.75 0 0 1 0-1.5h.75V9H3a.75.75 0 0 1 0-1.5h.75v-.75a3 3 0 0 1 3-3h.75V3a.75.75 0 0 1 .75-.75ZM6 6.75A.75.75 0 0 1 6.75 6h10.5a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V6.75Z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <h3 class="text-title text-sm font-medium">Powerful</h3>
+              </div>
+              <p class="text-body text-sm">
+                It supports an entire helping developers and businesses.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="relative mt-6 sm:mt-0">
+          <div
+            class="absolute -inset-20 bg-[linear-gradient(to_right,var(--ui-border-color)_1px,transparent_1px),linear-gradient(to_bottom,var(--ui-border-color)_1px,transparent_1px)] bg-[size:24px_24px] sm:-inset-40"
+          >
+          </div>
+          <div class="absolute -inset-20 bg-gradient-to-b sm:-inset-40"></div>
+          <div class="absolute -inset-20 bg-gradient-to-r sm:-inset-40"></div>
+          <div
+            class="tls-shadow-md rounded-card relative overflow-hidden shadow-gray-950/[0.03]"
+          >
+            <img
+              class="relative dark:hidden rounded-3xl"
+              src="/public/images/tools/job-analysis.png"
+              alt=""
+            />
+            <img
+              class="relative hidden dark:block rounded-3xl filter invert"
+              src="/public/images/tools/job-analysis.png"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resume Tailoring -->
+  <section class="overflow-hidden">
+    <div
+      class="mx-auto space-y-16 mt-16 bg-gray-100 dark:bg-gray-950 p-8 border dark:border-gray-900 rounded-3xl"
+    >
+      <h2
+        class="text-title relative z-10 max-w-xl text-4xl font-medium lg:text-5xl"
+      >
+        Make resume that make you shine.
+      </h2>
+      <div class="grid gap-6 sm:grid-cols-2 md:gap-12 lg:gap-24">
+        <div class="relative mt-6 sm:mt-0">
+          <div
+            class="absolute -inset-20 bg-[linear-gradient(to_right,var(--ui-border-color)_1px,transparent_1px),linear-gradient(to_bottom,var(--ui-border-color)_1px,transparent_1px)] bg-[size:24px_24px] sm:-inset-40"
+          >
+          </div>
+          <div class="absolute -inset-20 bg-gradient-to-b sm:-inset-40"></div>
+          <div class="absolute -inset-20 bg-gradient-to-r sm:-inset-40"></div>
+          <div
+            class="tls-shadow-md rounded-card relative overflow-hidden shadow-gray-950/[0.03]"
+          >
+            <img
+              class="relative dark:hidden rounded-3xl"
+              src="/public/images/tools/resume.png"
+              alt=""
+            />
+            <img
+              class="relative hidden dark:block rounded-3xl filter invert"
+              src="/public/images/tools/resume.png"
+              alt=""
+            />
+          </div>
+        </div>
+
+        <!-- Gemini ecosystem -->
+        <div class="relative z-10 space-y-4">
+          <p class="text-body">
+            Gemini is evolving to be more than just the models. <span
+              class="text-title font-medium"
+              >It supports an entire ecosystem</span
+            > — from products innovate.
+          </p>
+          <p>
+            It supports an entire ecosystem — from products to the APIs and
+            platforms helping developers and businesses innovate
+          </p>
+
+          <div class="grid grid-cols-2 gap-3 pt-6 sm:gap-4">
+            <div class="space-y-3">
+              <div class="flex items-center gap-2">
+                <svg
+                  class="size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <h3 class="text-title text-sm font-medium">Faaast</h3>
+              </div>
+              <p class="text-body text-sm">
+                It supports an entire helping developers and innovate.
+              </p>
+            </div>
+            <div class="space-y-2">
+              <div class="flex items-center gap-2">
+                <svg
+                  class="size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M16.5 7.5h-9v9h9v-9Z"></path>
+                  <path
+                    fill-rule="evenodd"
+                    d="M8.25 2.25A.75.75 0 0 1 9 3v.75h2.25V3a.75.75 0 0 1 1.5 0v.75H15V3a.75.75 0 0 1 1.5 0v.75h.75a3 3 0 0 1 3 3v.75H21A.75.75 0 0 1 21 9h-.75v2.25H21a.75.75 0 0 1 0 1.5h-.75V15H21a.75.75 0 0 1 0 1.5h-.75v.75a3 3 0 0 1-3 3h-.75V21a.75.75 0 0 1-1.5 0v-.75h-2.25V21a.75.75 0 0 1-1.5 0v-.75H9V21a.75.75 0 0 1-1.5 0v-.75h-.75a3 3 0 0 1-3-3v-.75H3A.75.75 0 0 1 3 15h.75v-2.25H3a.75.75 0 0 1 0-1.5h.75V9H3a.75.75 0 0 1 0-1.5h.75v-.75a3 3 0 0 1 3-3h.75V3a.75.75 0 0 1 .75-.75ZM6 6.75A.75.75 0 0 1 6.75 6h10.5a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V6.75Z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <h3 class="text-title text-sm font-medium">Powerful</h3>
+              </div>
+              <p class="text-body text-sm">
+                It supports an entire helping developers and businesses.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cover Letter -->
+  <section
+    class="mx-auto w-full space-y-16 mt-16 bg-gray-100 dark:bg-gray-950 p-8 border dark:border-gray-900 rounded-3xl overflow-hidden"
+  >
+    <div class="space-y-16">
+      <h2
+        class="text-title relative z-10 max-w-xl text-4xl font-medium lg:text-5xl"
+      >
+        Writing cover letters doesn't have to be hard.
+      </h2>
+      <div class="grid gap-6 sm:grid-cols-2 md:gap-12 lg:gap-24">
+        <div class="relative z-10 space-y-4">
+          <p class="text-body">
+            Gemini is evolving to be more than just the models. <span
+              class="text-title font-medium"
+              >It supports an entire ecosystem</span
+            > — from products innovate.
+          </p>
+          <p>
+            It supports an entire ecosystem — from products to the APIs and
+            platforms helping developers and businesses innovate
+          </p>
+
+          <div class="grid grid-cols-2 gap-3 pt-6 sm:gap-4">
+            <div class="space-y-3">
+              <div class="flex items-center gap-2">
+                <svg
+                  class="size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <h3 class="text-title text-sm font-medium">Faaast</h3>
+              </div>
+              <p class="text-body text-sm">
+                It supports an entire helping developers and innovate.
+              </p>
+            </div>
+            <div class="space-y-2">
+              <div class="flex items-center gap-2">
+                <svg
+                  class="size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M16.5 7.5h-9v9h9v-9Z"></path>
+                  <path
+                    fill-rule="evenodd"
+                    d="M8.25 2.25A.75.75 0 0 1 9 3v.75h2.25V3a.75.75 0 0 1 1.5 0v.75H15V3a.75.75 0 0 1 1.5 0v.75h.75a3 3 0 0 1 3 3v.75H21A.75.75 0 0 1 21 9h-.75v2.25H21a.75.75 0 0 1 0 1.5h-.75V15H21a.75.75 0 0 1 0 1.5h-.75v.75a3 3 0 0 1-3 3h-.75V21a.75.75 0 0 1-1.5 0v-.75h-2.25V21a.75.75 0 0 1-1.5 0v-.75H9V21a.75.75 0 0 1-1.5 0v-.75h-.75a3 3 0 0 1-3-3v-.75H3A.75.75 0 0 1 3 15h.75v-2.25H3a.75.75 0 0 1 0-1.5h.75V9H3a.75.75 0 0 1 0-1.5h.75v-.75a3 3 0 0 1 3-3h.75V3a.75.75 0 0 1 .75-.75ZM6 6.75A.75.75 0 0 1 6.75 6h10.5a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V6.75Z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <h3 class="text-title text-sm font-medium">Powerful</h3>
+              </div>
+              <p class="text-body text-sm">
+                It supports an entire helping developers and businesses.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="relative mt-6 sm:mt-0">
+          <div
+            class="absolute -inset-20 bg-[linear-gradient(to_right,var(--ui-border-color)_1px,transparent_1px),linear-gradient(to_bottom,var(--ui-border-color)_1px,transparent_1px)] bg-[size:24px_24px] sm:-inset-40"
+          >
+          </div>
+          <div class="absolute -inset-20 bg-gradient-to-b sm:-inset-40"></div>
+          <div class="absolute -inset-20 bg-gradient-to-r sm:-inset-40"></div>
+          <div
+            class="tls-shadow-md rounded-card relative overflow-hidden shadow-gray-950/[0.03]"
+          >
+            <img
+              class="relative dark:hidden rounded-3xl"
+              src="/public/images/tools/cover-letter.png"
+              alt=""
+            />
+            <img
+              class="relative hidden dark:block rounded-3xl filter invert"
+              src="/public/images/tools/cover-letter.png"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Job Tracker -->
+  <section class="overflow-hidden">
+    <div
+      class="mx-auto space-y-16 mt-16 bg-gray-100 dark:bg-gray-950 p-8 border dark:border-gray-900 rounded-3xl"
+    >
+      <h2
+        class="text-title relative z-10 max-w-xl text-4xl font-medium lg:text-5xl"
+      >
+        Tracking mutiple applications, made easier.
+      </h2>
+      <div class="grid gap-6 sm:grid-cols-2 md:gap-12 lg:gap-24">
+        <div class="relative mt-6 sm:mt-0">
+          <div
+            class="absolute -inset-20 bg-[linear-gradient(to_right,var(--ui-border-color)_1px,transparent_1px),linear-gradient(to_bottom,var(--ui-border-color)_1px,transparent_1px)] bg-[size:24px_24px] sm:-inset-40"
+          >
+          </div>
+          <div class="absolute -inset-20 bg-gradient-to-b sm:-inset-40"></div>
+          <div class="absolute -inset-20 bg-gradient-to-r sm:-inset-40"></div>
+          <div
+            class="tls-shadow-md rounded-card relative overflow-hidden shadow-gray-950/[0.03]"
+          >
+            <img
+              class="relative dark:hidden rounded-3xl"
+              src="/public/images/tools/job-tracker.png"
+              alt=""
+            />
+            <img
+              class="relative hidden dark:block rounded-3xl filter invert"
+              src="/public/images/tools/job-tracker.png"
+              alt=""
+            />
+          </div>
+        </div>
+
+        <!-- Gemini ecosystem -->
+        <div class="relative z-10 space-y-4">
+          <p class="text-body">
+            Gemini is evolving to be more than just the models. <span
+              class="text-title font-medium"
+              >It supports an entire ecosystem</span
+            > — from products innovate.
+          </p>
+          <p>
+            It supports an entire ecosystem — from products to the APIs and
+            platforms helping developers and businesses innovate
+          </p>
+
+          <div class="grid grid-cols-2 gap-3 pt-6 sm:gap-4">
+            <div class="space-y-3">
+              <div class="flex items-center gap-2">
+                <svg
+                  class="size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <h3 class="text-title text-sm font-medium">Faaast</h3>
+              </div>
+              <p class="text-body text-sm">
+                It supports an entire helping developers and innovate.
+              </p>
+            </div>
+            <div class="space-y-2">
+              <div class="flex items-center gap-2">
+                <svg
+                  class="size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M16.5 7.5h-9v9h9v-9Z"></path>
+                  <path
+                    fill-rule="evenodd"
+                    d="M8.25 2.25A.75.75 0 0 1 9 3v.75h2.25V3a.75.75 0 0 1 1.5 0v.75H15V3a.75.75 0 0 1 1.5 0v.75h.75a3 3 0 0 1 3 3v.75H21A.75.75 0 0 1 21 9h-.75v2.25H21a.75.75 0 0 1 0 1.5h-.75V15H21a.75.75 0 0 1 0 1.5h-.75v.75a3 3 0 0 1-3 3h-.75V21a.75.75 0 0 1-1.5 0v-.75h-2.25V21a.75.75 0 0 1-1.5 0v-.75H9V21a.75.75 0 0 1-1.5 0v-.75h-.75a3 3 0 0 1-3-3v-.75H3A.75.75 0 0 1 3 15h.75v-2.25H3a.75.75 0 0 1 0-1.5h.75V9H3a.75.75 0 0 1 0-1.5h.75v-.75a3 3 0 0 1 3-3h.75V3a.75.75 0 0 1 .75-.75ZM6 6.75A.75.75 0 0 1 6.75 6h10.5a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V6.75Z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <h3 class="text-title text-sm font-medium">Powerful</h3>
+              </div>
+              <p class="text-body text-sm">
+                It supports an entire helping developers and businesses.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interview Prep -->
+  <section class="overflow-hidden">
+    <div
+      class="mx-auto space-y-16 mt-16 bg-gray-100 dark:bg-gray-950 p-8 border dark:border-gray-900 rounded-3xl"
+    >
+      <h2
+        class="text-title relative z-10 max-w-xl text-4xl font-medium lg:text-5xl"
+      >
+        Prepare like a pro with personalized feedback.
+      </h2>
+      <div class="grid gap-6 sm:grid-cols-2 md:gap-12 lg:gap-24">
+        <!-- Gemini ecosystem -->
+        <div class="relative z-10 space-y-4">
+          <p class="text-body">
+            <span class="text-title font-medium"
+              >It supports an entire ecosystem</span
+            > — from products to the APIs and platforms helping developers and businesses
+            innovate.
+          </p>
+          <p>
+            It supports an entire ecosystem — from products to the APIs and
+            platforms helping developers and businesses innovate
+          </p>
+
+          <div class="grid grid-cols-2 gap-3 pt-6 sm:gap-4">
+            <div class="space-y-3">
+              <div class="flex items-center gap-2">
+                <svg
+                  class="size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <h3 class="text-title text-sm font-medium">Faaast</h3>
+              </div>
+              <p class="text-body text-sm">
+                It supports an entire helping developers and innovate.
+              </p>
+            </div>
+            <div class="space-y-2">
+              <div class="flex items-center gap-2">
+                <svg
+                  class="size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M16.5 7.5h-9v9h9v-9Z"></path>
+                  <path
+                    fill-rule="evenodd"
+                    d="M8.25 2.25A.75.75 0 0 1 9 3v.75h2.25V3a.75.75 0 0 1 1.5 0v.75H15V3a.75.75 0 0 1 1.5 0v.75h.75a3 3 0 0 1 3 3v.75H21A.75.75 0 0 1 21 9h-.75v2.25H21a.75.75 0 0 1 0 1.5h-.75V15H21a.75.75 0 0 1 0 1.5h-.75v.75a3 3 0 0 1-3 3h-.75V21a.75.75 0 0 1-1.5 0v-.75h-2.25V21a.75.75 0 0 1-1.5 0v-.75H9V21a.75.75 0 0 1-1.5 0v-.75h-.75a3 3 0 0 1-3-3v-.75H3A.75.75 0 0 1 3 15h.75v-2.25H3a.75.75 0 0 1 0-1.5h.75V9H3a.75.75 0 0 1 0-1.5h.75v-.75a3 3 0 0 1 3-3h.75V3a.75.75 0 0 1 .75-.75ZM6 6.75A.75.75 0 0 1 6.75 6h10.5a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V6.75Z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <h3 class="text-title text-sm font-medium">Powerful</h3>
+              </div>
+              <p class="text-body text-sm">
+                It supports an entire helping developers and businesses.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="relative mt-6 sm:mt-0">
+          <div
+            class="absolute -inset-20 bg-[linear-gradient(to_right,var(--ui-border-color)_1px,transparent_1px),linear-gradient(to_bottom,var(--ui-border-color)_1px,transparent_1px)] bg-[size:24px_24px] sm:-inset-40"
+          >
+          </div>
+          <div class="absolute -inset-20 bg-gradient-to-b sm:-inset-40"></div>
+          <div class="absolute -inset-20 bg-gradient-to-r sm:-inset-40"></div>
+          <div
+            class="tls-shadow-md rounded-card relative overflow-hidden shadow-gray-950/[0.03]"
+          >
+            <img
+              class="relative dark:hidden rounded-3xl"
+              src="/public/images/tools/interview-prep.png"
+              alt=""
+            />
+            <img
+              class="relative hidden dark:block rounded-3xl filter invert"
+              src="/public/images/tools/interview-prep.png"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LinkedIn Optimiser -->
+  <section
+    class="mx-auto w-full space-y-16 mt-16 bg-gray-100 dark:bg-gray-950 p-8 border dark:border-gray-900 rounded-3xl overflow-hidden"
+  >
+    <div class="space-y-16">
+      <h2
+        class="text-title relative z-10 max-w-xl text-4xl font-medium lg:text-5xl"
+      >
+        Optimise LinkedIn profile with expert tips.
+      </h2>
+      <div class="grid gap-6 sm:grid-cols-2 md:gap-12 lg:gap-24">
+        <div class="relative mt-6 sm:mt-0">
+          <div
+            class="absolute -inset-20 bg-[linear-gradient(to_right,var(--ui-border-color)_1px,transparent_1px),linear-gradient(to_bottom,var(--ui-border-color)_1px,transparent_1px)] bg-[size:24px_24px] sm:-inset-40"
+          >
+          </div>
+          <div class="absolute -inset-20 bg-gradient-to-b sm:-inset-40"></div>
+          <div class="absolute -inset-20 bg-gradient-to-r sm:-inset-40"></div>
+          <div
+            class="tls-shadow-md rounded-card rounded-3xl relative overflow-hidden shadow-gray-950/[0.03]"
+          >
+            <img
+              class="relative dark:hidden rounded-3xl"
+              src="/public/images/tools/linkedin-optimiser.png"
+              alt=""
+            />
+            <img
+              class="relative hidden dark:block rounded-3xl filter invert"
+              src="/public/images/tools/linkedin-optimiser.png"
+              alt=""
+            />
+          </div>
+        </div>
+        <div class="relative z-10 space-y-4">
+          <p class="text-body">
+            Gemini is evolving to be more than just the models. <span
+              class="text-title font-medium"
+              >It supports an entire ecosystem</span
+            > — from products innovate.
+          </p>
+          <p>
+            It supports an entire ecosystem — from products to the APIs and
+            platforms helping developers and businesses innovate
+          </p>
+
+          <div class="grid grid-cols-2 gap-3 pt-6 sm:gap-4">
+            <div class="space-y-3">
+              <div class="flex items-center gap-2">
+                <svg
+                  class="size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <h3 class="text-title text-sm font-medium">Faaast</h3>
+              </div>
+              <p class="text-body text-sm">
+                It supports an entire helping developers and innovate.
+              </p>
+            </div>
+            <div class="space-y-2">
+              <div class="flex items-center gap-2">
+                <svg
+                  class="size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M16.5 7.5h-9v9h9v-9Z"></path>
+                  <path
+                    fill-rule="evenodd"
+                    d="M8.25 2.25A.75.75 0 0 1 9 3v.75h2.25V3a.75.75 0 0 1 1.5 0v.75H15V3a.75.75 0 0 1 1.5 0v.75h.75a3 3 0 0 1 3 3v.75H21A.75.75 0 0 1 21 9h-.75v2.25H21a.75.75 0 0 1 0 1.5h-.75V15H21a.75.75 0 0 1 0 1.5h-.75v.75a3 3 0 0 1-3 3h-.75V21a.75.75 0 0 1-1.5 0v-.75h-2.25V21a.75.75 0 0 1-1.5 0v-.75H9V21a.75.75 0 0 1-1.5 0v-.75h-.75a3 3 0 0 1-3-3v-.75H3A.75.75 0 0 1 3 15h.75v-2.25H3a.75.75 0 0 1 0-1.5h.75V9H3a.75.75 0 0 1 0-1.5h.75v-.75a3 3 0 0 1 3-3h.75V3a.75.75 0 0 1 .75-.75ZM6 6.75A.75.75 0 0 1 6.75 6h10.5a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V6.75Z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <h3 class="text-title text-sm font-medium">Powerful</h3>
+              </div>
+              <p class="text-body text-sm">
+                It supports an entire helping developers and businesses.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Chat -->
+  <section class="overflow-hidden">
+    <div
+      class="mx-auto space-y-16 mt-16 bg-gray-100 dark:bg-gray-950 p-8 border dark:border-gray-900 rounded-3xl"
+    >
+      <h2
+        class="text-title relative z-10 max-w-xl text-4xl font-medium lg:text-5xl"
+      >
+        Getting personalised advice has never been easier.
+      </h2>
+      <div class="grid gap-6 sm:grid-cols-2 md:gap-12 lg:gap-24">
+        <div class="relative mt-6 sm:mt-0">
+          <div
+            class="absolute -inset-20 bg-[linear-gradient(to_right,var(--ui-border-color)_1px,transparent_1px),linear-gradient(to_bottom,var(--ui-border-color)_1px,transparent_1px)] bg-[size:24px_24px] sm:-inset-40"
+          >
+          </div>
+          <div class="absolute -inset-20 bg-gradient-to-b sm:-inset-40"></div>
+          <div class="absolute -inset-20 bg-gradient-to-r sm:-inset-40"></div>
+          <div
+            class="tls-shadow-md rounded-card rounded-3xl relative overflow-hidden shadow-gray-950/[0.03]"
+          >
+            <img
+              class="relative dark:hidden rounded-3xl"
+              src="/public/images/tools/ai-chat.png"
+              alt=""
+            />
+            <img
+              class="relative hidden dark:block rounded-3xl filter invert"
+              src="/public/images/tools/ai-chat.png"
+              alt=""
+            />
+          </div>
+        </div>
+
+        <!-- Gemini ecosystem -->
+        <div class="relative z-10 space-y-4">
+          <p class="text-body">
+            Gemini is evolving to be more than just the models. <span
+              class="text-title font-medium"
+              >It supports an entire ecosystem</span
+            > — from products innovate.
+          </p>
+          <p>
+            It supports an entire ecosystem — from products to the APIs and
+            platforms helping developers and businesses innovate
+          </p>
+
+          <div class="grid grid-cols-2 gap-3 pt-6 sm:gap-4">
+            <div class="space-y-3">
+              <div class="flex items-center gap-2">
+                <svg
+                  class="size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <h3 class="text-title text-sm font-medium">Faaast</h3>
+              </div>
+              <p class="text-body text-sm">
+                It supports an entire helping developers and innovate.
+              </p>
+            </div>
+            <div class="space-y-2">
+              <div class="flex items-center gap-2">
+                <svg
+                  class="size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M16.5 7.5h-9v9h9v-9Z"></path>
+                  <path
+                    fill-rule="evenodd"
+                    d="M8.25 2.25A.75.75 0 0 1 9 3v.75h2.25V3a.75.75 0 0 1 1.5 0v.75H15V3a.75.75 0 0 1 1.5 0v.75h.75a3 3 0 0 1 3 3v.75H21A.75.75 0 0 1 21 9h-.75v2.25H21a.75.75 0 0 1 0 1.5h-.75V15H21a.75.75 0 0 1 0 1.5h-.75v.75a3 3 0 0 1-3 3h-.75V21a.75.75 0 0 1-1.5 0v-.75h-2.25V21a.75.75 0 0 1-1.5 0v-.75H9V21a.75.75 0 0 1-1.5 0v-.75h-.75a3 3 0 0 1-3-3v-.75H3A.75.75 0 0 1 3 15h.75v-2.25H3a.75.75 0 0 1 0-1.5h.75V9H3a.75.75 0 0 1 0-1.5h.75v-.75a3 3 0 0 1 3-3h.75V3a.75.75 0 0 1 .75-.75ZM6 6.75A.75.75 0 0 1 6.75 6h10.5a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V6.75Z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <h3 class="text-title text-sm font-medium">Powerful</h3>
+              </div>
+              <p class="text-body text-sm">
+                It supports an entire helping developers and businesses.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Container>

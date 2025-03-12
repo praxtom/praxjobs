@@ -3,6 +3,27 @@
 ---
 
 <div class="relative mt-16 w-full rounded-2xl">
+  <!-- Status Filter -->
+  <div class="mb-6 flex justify-between items-center">
+    <div class="flex items-center space-x-2">
+      <label
+        for="statusFilterSelect"
+        class="text-sm font-medium text-gray-700 dark:text-gray-300"
+        >Filter by status:</label
+      >
+      <select
+        id="statusFilterSelect"
+        class="p-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+      >
+        <option value="all">All Statuses</option>
+        <option value="Applied">Applied</option>
+        <option value="Interview">Interview</option>
+        <option value="Offer">Offer</option>
+        <option value="Rejected">Rejected</option>
+      </select>
+    </div>
+  </div>
+
   <!-- Job Cards Container -->
   <div class="mx-auto">
     <div class="space-y-4" id="jobCardsContainer"></div>
@@ -633,7 +654,7 @@
   // Initialize job collection reference
   const jobsCollection = collection(db, "jobTracker");
   const jobCardsContainer = document.getElementById("jobCardsContainer");
-  const statusFilter = document.querySelector("select");
+  const statusFilter = document.getElementById("statusFilterSelect");
 
   // Initialize delete modal elements
   const deleteModal = document.getElementById("deleteModal");
@@ -956,31 +977,34 @@
   // Real-time job list updates
   const jobsQuery = query(jobsCollection, orderBy("dateApplied", "desc"));
   const unsubscribe = onSnapshot(jobsQuery, (snapshot) => {
-    const jobCardsContainer = document.getElementById("jobCardsContainer");
-    if (!jobCardsContainer) return;
-
-    jobCardsContainer.innerHTML = "";
-    const jobs: Job[] = snapshot.docs.map((doc) => {
-      const data = doc.data() as Omit<Job, "id">;
-      return {
-        id: doc.id,
-        ...data,
-      };
-    });
-
-    // Filter jobs based on status
-    const selectedStatus = statusFilter?.value;
-
-    const filteredJobs = jobs.filter((job) => {
-      const matchesStatus =
-        selectedStatus === "all" || job.status === selectedStatus;
-      return matchesStatus;
-    });
-
-    // Create and append job cards
-    filteredJobs.forEach((job) => {
-      const card = createJobCard(job);
-      jobCardsContainer.appendChild(card);
+    // Add event listener for status filter
+    const statusFilter = document.getElementById("statusFilterSelect");
+    statusFilter?.addEventListener("change", () => {
+      const jobCardsContainer = document.getElementById("jobCardsContainer");
+      if (!jobCardsContainer) return;
+    
+      const selectedStatus = (statusFilter as HTMLSelectElement).value;
+      // Get the current snapshot from the onSnapshot listener
+      const currentSnapshot = snapshot;
+    
+      jobCardsContainer.innerHTML = "";
+      const jobs = currentSnapshot.docs.map((doc) => {
+        const data = doc.data() as Omit<Job, "id">;
+        return {
+          id: doc.id,
+          ...data,
+        };
+      });
+    
+      const filteredJobs = jobs.filter((job) => {
+        const matchesStatus = selectedStatus === "all" || job.status === selectedStatus;
+        return matchesStatus;
+      });
+    
+      filteredJobs.forEach((job) => {
+        const card = createJobCard(job);
+        jobCardsContainer.appendChild(card);
+      });
     });
   });
 
@@ -1070,9 +1094,24 @@
 
       await addDoc(collection(db, "jobTracker"), jobData);
 
-      // Reset form and hide it
+      // Reset form and close modal properly
       (e.target as HTMLFormElement).reset();
-      addJobFormContainer?.classList.add("hidden");
+      const addJobForm = document.getElementById("addJobForm");
+      const addJobFormContent = document.getElementById("addJobFormContent");
+      
+      if (addJobFormContent && addJobForm) {
+        // Start closing animation
+        addJobFormContent.classList.add("scale-95", "opacity-0");
+        addJobFormContent.classList.remove("scale-100", "opacity-100");
+
+        // Wait for animation to complete before hiding modal
+        setTimeout(() => {
+          addJobForm.classList.add("invisible", "opacity-0");
+          // Re-initialize modal handlers
+          initializeModal();
+        }, 300);
+      }
+
       if (addJobBtn) {
         addJobBtn.innerHTML =
           '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" /></svg> Add New Job';
@@ -1245,55 +1284,42 @@
     window.closeEditModal = closeEditModal;
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
+  // Initialize modal functionality
+  function initializeModal() {
     const addJobBtn = document.getElementById("addJobBtn");
     const addJobForm = document.getElementById("addJobForm");
     const addJobFormContent = document.getElementById("addJobFormContent");
-    const closeModalElements = document.querySelectorAll("[data-close-modal]");
+    const closeModalButtons = document.querySelectorAll("[data-close-modal]");
 
-    function toggleModal(show: boolean = true) {
-      if (!addJobForm || !addJobFormContent) return;
-
-      if (show) {
+    // Show modal
+    addJobBtn?.addEventListener("click", () => {
+      if (addJobForm && addJobFormContent) {
         addJobForm.classList.remove("invisible", "opacity-0");
-        addJobFormContent.classList.remove("scale-95", "opacity-0");
-        addJobFormContent.classList.add("scale-100", "opacity-100");
-      } else {
-        addJobFormContent.classList.add("scale-95", "opacity-0");
-        addJobFormContent.classList.remove("scale-100", "opacity-100");
-
+        // Allow display to take effect before adding animations
         setTimeout(() => {
-          addJobForm.classList.add("invisible", "opacity-0");
-        }, 300);
+          addJobFormContent.classList.remove("scale-95", "opacity-0");
+          addJobFormContent.classList.add("scale-100", "opacity-100");
+        }, 10);
       }
-    }
-
-    function handleModalClose(e: Event) {
-      const target = e.target as Element;
-      const isCloseButton =
-        target.hasAttribute("data-close-modal") ||
-        target.closest("[data-close-modal]") !== null;
-      const isModalBackground = target === addJobForm;
-
-      if (
-        isCloseButton ||
-        isModalBackground ||
-        (e instanceof KeyboardEvent && e.key === "Escape")
-      ) {
-        toggleModal(false);
-      }
-    }
-
-    // Open modal
-    addJobBtn?.addEventListener("click", () => toggleModal(true));
+    });
 
     // Close modal
-    addJobForm?.addEventListener("click", handleModalClose);
-    document.addEventListener("keydown", handleModalClose);
+    closeModalButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        if (addJobFormContent && addJobForm) {
+          // Start closing animation
+          addJobFormContent.classList.add("scale-95", "opacity-0");
+          addJobFormContent.classList.remove("scale-100", "opacity-100");
 
-    // Add close buttons inside the modal
-    closeModalElements.forEach((el) => {
-      el.addEventListener("click", handleModalClose);
+          // Wait for animation to complete before hiding modal
+          setTimeout(() => {
+            addJobForm.classList.add("invisible", "opacity-0");
+          }, 300);
+        }
+      });
     });
-  });
+  }
+
+  // Initialize modal when document is ready
+  document.addEventListener("DOMContentLoaded", initializeModal);
 </script>
