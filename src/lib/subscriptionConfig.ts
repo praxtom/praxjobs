@@ -1,25 +1,26 @@
-export type FeatureUsageLimit = number;
+export type FeatureUsageLimit = number
 
-export type Feature = 
-  | 'resumeGeneration' 
+export type Feature =
+  | 'resumeGeneration'
   | 'coverLetterGeneration'
   | 'jobAnalysis'
   | 'jobTrackers'
   | 'jobApplications'
-  | 'interviewPrep';
+  | 'interviewPrep'
+  | 'linkedinOptimization'
 
 export type FeatureUsageLimits = {
-  [key in Feature]: FeatureUsageLimit;
-};
+  [key in Feature]: FeatureUsageLimit
+}
 
 export type SubscriptionTierConfig = {
-  name: string;
-  maxFeatureUses: number;
-  price: number;
-  billingCycle: string;
-  features: string[];
-  featureUsageLimits: FeatureUsageLimits;
-};
+  name: string
+  maxFeatureUses: number
+  price: number
+  billingCycle: string
+  features: string[]
+  featureUsageLimits: FeatureUsageLimits
+}
 
 export const SUBSCRIPTION_TIERS = {
   free: {
@@ -31,15 +32,17 @@ export const SUBSCRIPTION_TIERS = {
       '5 Cover Letter Generation',
       '5 Job Analysis Requests',
       'Unlimited Job Application Tracking',
-      '5 Interview Prep Sessions'
-    ],  
+      '5 Interview Prep Sessions',
+      '5 LinkedIn Optimizations'
+    ],
     featureUsageLimits: {
       resumeGeneration: 5,
       coverLetterGeneration: 5,
       jobAnalysis: 5,
       jobTrackers: 5,
       jobApplications: 5,
-      interviewPrep: 5
+      interviewPrep: 5,
+      linkedinOptimization: 5
     }
   },
   pro: {
@@ -54,14 +57,15 @@ export const SUBSCRIPTION_TIERS = {
       'Unlimited Interview Prep Sessions'
     ],
     featureUsageLimits: {
-      resumeGeneration: 1000000,  // Effectively unlimited
+      resumeGeneration: 1000000, // Effectively unlimited
       coverLetterGeneration: 1000000,
       jobAnalysis: 1000000,
       jobTrackers: 1000000,
       jobApplications: 1000000,
-      interviewPrep: 1000000
+      interviewPrep: 1000000,
+      linkedinOptimization: 1000000
     }
   }
-} as const;
+} as const
 
-export type SubscriptionTier = keyof typeof SUBSCRIPTION_TIERS;
+export type SubscriptionTier = keyof typeof SUBSCRIPTION_TIERS

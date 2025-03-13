@@ -564,6 +564,7 @@
 
 <script>
   import { authService } from "../../lib/auth";
+  import { TierManagementService } from "../../lib/tierManagement";
   import { PersistentDocumentService } from "../../lib/persistentDocumentService";
   let linkedinContent; // Declare at a higher scope
 
@@ -936,19 +937,51 @@
       return false;
     });
 
+    // Track LinkedIn optimization usage
+    async function trackLinkedInOptimization() {
+      try {
+        const currentUser = await authService.getCurrentUser();
+        if (!currentUser?.uid) throw new Error("User not authenticated");
+        await TierManagementService.trackFeatureUsage(
+          currentUser.uid,
+          "linkedinOptimization"
+        );
+        return true;
+      } catch (error) {
+        console.error("Error tracking LinkedIn optimization:", error);
+        throw error;
+      }
+    }
+
     // Handle file selection
     linkedinFileInput?.addEventListener("change", async (event) => {
       event.preventDefault();
       const file = (event.target as HTMLInputElement).files?.[0];
 
-      if (file) {
+      if (!file) return;
+
+      try {
+
         // Update UI for LinkedIn success state
-        document
-          .getElementById("linkedinFileAddedUI")
-          ?.classList.remove("hidden");
-        document
-          .getElementById("linkedinOptionsSelector")
-          ?.classList.add("hidden");
+        const linkedinFileAddedUI = document.getElementById(
+          "linkedinFileAddedUI"
+        );
+        const linkedinOptionsSelector = document.getElementById(
+          "linkedinOptionsSelector"
+        );
+
+        if (linkedinFileAddedUI && linkedinOptionsSelector) {
+          linkedinFileAddedUI.classList.remove("hidden");
+          linkedinOptionsSelector.classList.add("hidden");
+
+          const linkedinFileName = document.getElementById("linkedinFileName");
+          if (linkedinFileName) {
+            linkedinFileName.textContent = `${file.name}`;
+          }
+        }
+      } catch (error) {
+        console.error("LinkedIn PDF upload error:", error);
+        return;
       }
 
       if (!file) {
@@ -1066,7 +1099,12 @@
         if (!response.ok)
           throw new Error(result.error || "Failed to optimize profile");
 
-        updateResults(result); // Call to update UI with results
+        // Update UI with results
+        updateResults(result);
+
+        // Track LinkedIn optimization usage
+        await trackLinkedInOptimization();
+
 
         // Show success UI
         const successUI = document.getElementById("optimizationSuccess");

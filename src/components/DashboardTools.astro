@@ -290,7 +290,7 @@ import Container from "./Container.astro";
               </span>
               <span
                 id="interviewPrepCounter"
-                class="text-xs text-black dark:text-black p-1.5 bg-amber-200 dark:bg-white/90 rounded-xl"
+                class="text-xs text-black dark:text-black p-1.5 bg-amber-200 rounded-xl"
               >
               </span>
             </div>
@@ -306,6 +306,13 @@ import Container from "./Container.astro";
         >
           <div class="flex flex-col h-full">
             <div class="flex-grow space-y-4">
+              <div class="absolute top-4 right-4">
+                <span
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400"
+                >
+                  Beta
+                </span>
+              </div>
               <div class="flex items-center justify-between">
                 <h3
                   class="text-xl lg:text-2xl font-bold text-gray-900 dark:text-white"
@@ -337,7 +344,7 @@ import Container from "./Container.astro";
               </span>
               <span
                 id="linkedinOptimisationCounter"
-                class="text-xs text-black dark:text-black p-1.5 bg-purple-200 dark:bg-white/90 rounded-xl"
+                class="text-xs text-black dark:text-black p-1.5 bg-purple-200 rounded-xl"
               >
               </span>
             </div>
@@ -366,6 +373,8 @@ import Container from "./Container.astro";
             "resumeGenerationCounter",
             "coverLetterCounter",
             "interviewPrepCounter",
+            "linkedinOptimisationCounter",
+            "jobTrackerCounter"
           ];
 
           counters.forEach((counterId) => {
@@ -393,6 +402,7 @@ import Container from "./Container.astro";
     coverLetter: "coverLetterGeneration",
     jobTracker: "jobTrackers",
     interviewPrep: "interviewPrep",
+    linkedinOptimisation: "linkedinOptimization"
   } as const;
 
   // Function to update all counters with usage data
