@@ -160,9 +160,9 @@ Please format your response as JSON with the following structure:
 }
 `
 
-    // Call the Groq API with the llama-3.3-70b-versatile model
+    // Call the Groq API with the llama-3.1-8b-instant model
     const completion = await groq.chat.completions.create({
-      model: 'llama-3.3-70b-versatile',
+      model: 'llama-3.3-70b-specdec',
       messages: [
         {
           role: 'user',

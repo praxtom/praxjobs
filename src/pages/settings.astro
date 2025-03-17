@@ -3,669 +3,611 @@ import Layout from "../layouts/Layout.astro";
 import Container from "../components/Container.astro";
 ---
 
-<Layout 
-    title="Account Settings | Manage Your PraxJobs Profile"
-    description="Manage your PraxJobs account settings, update your profile information, and customize your preferences for a personalized experience."
-    image="/images/settings-og-image.jpg"
-    type="website"
-    canonical="/settings"
+<Layout
+  title="Account Settings | Manage Your PraxJobs Profile"
+  description="Manage your PraxJobs account settings, update your profile information, and customize your preferences for a personalized experience."
+  image="/images/settings-og-image.jpg"
+  type="website"
+  canonical="/settings"
 >
-    <main class="relative min-h-screen dark:bg-gray-950 pt-16">
-        <section class="relative pt-24 pb-12">
-            <Container>
-                <div class="relative max-w-full">
-                    <div
-                        class="flex flex-col md:flex-row items-center justify-between gap-8"
-                    >
-                        <div class="md:w-1/2 space-y-6">
-                            <h1
-                                class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
-                            >
-                                <span
-                                    class="block text-gray-900 dark:text-white font-extrabold"
-                                    >My Account</span
-                                >
-                            </h1>
-                            <p class="text-lg text-gray-600 dark:text-gray-300">
-                                Manage your profile, subscription, and account
-                                preferences with ease.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </Container>
-        </section>
-
-        <section class="py-8">
-            <Container>
-                <!-- Mobile Tab Selector (Custom Dropdown) -->
-                <div class="md:hidden mb-6">
-                    <div class="relative" id="custom-dropdown-container">
-                        <button
-                            id="dropdown-button"
-                            class="flex items-center justify-between w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg py-3 px-4 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        >
-                            <span id="dropdown-selected-text">Profile</span>
-                            <svg
-                                class="h-5 w-5 ml-2 transition-transform duration-200"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
-                        <div
-                            id="dropdown-menu"
-                            class="absolute z-10 hidden mt-1 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg overflow-hidden"
-                        >
-                            <div
-                                class="dropdown-item py-3 px-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
-                                data-value="profile"
-                            >
-                                Profile
-                            </div>
-                            <div
-                                class="dropdown-item py-3 px-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
-                                data-value="subscription"
-                            >
-                                Subscription
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sidebar and Content Container -->
-                <div
-                    class="flex flex-col md:flex-row bg-white dark:bg-gray-900 shadow-2xl rounded-3xl overflow-hidden"
+  <main class="relative min-h-screen dark:bg-gray-950 pt-16">
+    <section class="relative pt-24 pb-12">
+      <Container>
+        <div class="relative max-w-full">
+          <div
+            class="flex flex-col md:flex-row items-center justify-between gap-8"
+          >
+            <div class="md:w-1/2 space-y-6">
+              <h1
+                class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
+              >
+                <span class="block text-gray-900 dark:text-white font-extrabold"
+                  >My Account</span
                 >
-                    <!-- Sidebar Navigation (Hidden on Mobile) -->
-                    <div
-                        class="hidden md:block md:w-64 bg-gray-50 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700"
-                    >
-                        <nav class="p-4 space-y-1">
-                            <button
-                                id="tab-profile"
-                                class="tab-button w-full flex items-center px-4 py-3 text-left rounded-lg bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-300 font-medium"
-                            >
-                                <svg
-                                    class="mr-3 h-5 w-5"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                                    ></path>
-                                </svg>
-                                Profile
-                            </button>
-                            <button
-                                id="tab-subscription"
-                                class="tab-button w-full flex items-center px-4 py-3 text-left rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium"
-                            >
-                                <svg
-                                    class="mr-3 h-5 w-5"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-                                    ></path>
-                                </svg>
-                                Subscription
-                            </button>
-                        </nav>
-                    </div>
+              </h1>
+              <p class="text-lg text-gray-600 dark:text-gray-300">
+                Manage your profile, subscription, and account preferences with
+                ease.
+              </p>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
 
-                    <!-- Tab Content -->
-                    <div class="flex-1 p-6 md:p-8">
-                        <!-- Profile Tab Content -->
-                        <div id="content-profile" class="tab-content space-y-8">
-                            <div class="flex items-center justify-between mb-4">
-                                <h2
-                                    class="text-2xl font-bold text-gray-900 dark:text-white"
-                                >
-                                    Profile Information
-                                </h2>
-                                <div class="flex space-x-4">
-                                    <button
-                                        id="changePasswordButton"
-                                        class="bg-black text-white dark:bg-white dark:text-black px-4 py-2 rounded-full transition-colors"
-                                    >
-                                        Change Password
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="space-y-4">
-                                <div>
-                                    <label
-                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                                        >Name</label
-                                    >
-                                    <p
-                                        id="user-name"
-                                        class="text-lg text-gray-900 dark:text-white text-gray-400 animate-pulse"
-                                    >
-                                        Loading...
-                                    </p>
-                                </div>
-                                <div>
-                                    <label
-                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                                        >Email</label
-                                    >
-                                    <p
-                                        id="user-email"
-                                        class="text-lg text-gray-900 dark:text-white text-gray-400 animate-pulse"
-                                    >
-                                        Loading...
-                                    </p>
-                                </div>
-                            </div>
+    <section class="py-8">
+      <Container>
+        <!-- Mobile Tab Selector (Custom Dropdown) -->
+        <div class="md:hidden mb-6">
+          <div class="relative" id="custom-dropdown-container">
+            <button
+              id="dropdown-button"
+              class="flex items-center justify-between w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg py-3 px-4 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            >
+              <span id="dropdown-selected-text">Profile</span>
+              <svg
+                class="h-5 w-5 ml-2 transition-transform duration-200"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div
+              id="dropdown-menu"
+              class="absolute z-10 hidden mt-1 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg overflow-hidden"
+            >
+              <div
+                class="dropdown-item py-3 px-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
+                data-value="profile"
+              >
+                Profile
+              </div>
+              <div
+                class="dropdown-item py-3 px-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
+                data-value="subscription"
+              >
+                Subscription
+              </div>
+            </div>
+          </div>
+        </div>
 
-                            <!-- Delete Account Section (Moved from Account tab) -->
-                            <div
-                                class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700"
-                            >
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <h2
-                                            class="text-xl font-bold text-red-600 dark:text-red-400"
-                                        >
-                                            Delete Account
-                                        </h2>
-                                        <p
-                                            class="text-sm text-gray-500 dark:text-gray-400 mt-2"
-                                        >
-                                            Permanently remove your account and
-                                            all associated data
-                                        </p>
-                                    </div>
-                                    <button
-                                        id="delete-account-btn"
-                                        class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
-                                    >
-                                        Delete Account
-                                    </button>
-                                </div>
-                                <div
-                                    class="bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700 rounded-lg p-4 mt-4"
-                                >
-                                    <p
-                                        class="text-xs text-red-700 dark:text-red-200"
-                                    >
-                                        Warning: Deleting your account is
-                                        permanent and cannot be undone. All your
-                                        data, including resumes, job
-                                        applications, and settings, will be
-                                        permanently erased.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+        <!-- Sidebar and Content Container -->
+        <div
+          class="flex flex-col md:flex-row bg-white dark:bg-gray-900 shadow-2xl rounded-3xl overflow-hidden"
+        >
+          <!-- Sidebar Navigation (Hidden on Mobile) -->
+          <div
+            class="hidden md:block md:w-64 bg-gray-50 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700"
+          >
+            <nav class="p-4 space-y-1">
+              <button
+                id="tab-profile"
+                class="tab-button w-full flex items-center px-4 py-3 text-left rounded-lg bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-300 font-medium"
+              >
+                <svg
+                  class="mr-3 h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  ></path>
+                </svg>
+                Profile
+              </button>
+              <button
+                id="tab-subscription"
+                class="tab-button w-full flex items-center px-4 py-3 text-left rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium"
+              >
+                <svg
+                  class="mr-3 h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                  ></path>
+                </svg>
+                Subscription
+              </button>
+            </nav>
+          </div>
 
-                        <!-- Subscription Tab Content (Now includes Usage Limits) -->
-                        <div
-                            id="content-subscription"
-                            class="tab-content hidden space-y-8"
-                        >
-                            <div class="flex items-center justify-between mb-4">
-                                <h2
-                                    class="text-2xl font-bold text-gray-900 dark:text-white"
-                                >
-                                    Subscription & Usage
-                                </h2>
-                                <button
-                                    id="upgrade-button"
-                                    class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors"
-                                >
-                                    Upgrade Plan
-                                </button>
-                            </div>
-
-                            <!-- Subscription Details Section -->
-                            <div
-                                class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl"
-                            >
-                                <h3
-                                    class="text-lg font-semibold text-gray-900 dark:text-white mb-4"
-                                >
-                                    Subscription Details
-                                </h3>
-                                <div class="space-y-4">
-                                    <div>
-                                        <p
-                                            id="current-tier"
-                                            class="text-lg text-gray-900 dark:text-white font-semibold text-gray-400 animate-pulse"
-                                        >
-                                            Loading...
-                                        </p>
-                                    </div>
-                                    <div
-                                        id="expiration-container"
-                                        class="hidden"
-                                    >
-                                        <label
-                                            class="block text-base font-medium text-gray-700 dark:text-gray-300"
-                                            >Expiration</label
-                                        >
-                                        <p
-                                            id="subscription-expiration"
-                                            class="text-lg text-gray-900 dark:text-white text-gray-400 animate-pulse"
-                                        >
-                                            Loading...
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Usage Limits Section -->
-                            <div
-                                class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl"
-                            >
-                                <h3
-                                    class="text-lg font-semibold text-gray-900 dark:text-white mb-4"
-                                >
-                                    Usage Limits
-                                </h3>
-                                <div class="space-y-4">
-                                    <div id="feature-limits" class="space-y-3">
-                                        <!-- Feature limits will be dynamically populated here -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+          <!-- Tab Content -->
+          <div class="flex-1 p-6 md:p-8">
+            <!-- Profile Tab Content -->
+            <div id="content-profile" class="tab-content space-y-8">
+              <div class="flex items-center justify-between mb-4">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                  Profile Information
+                </h2>
+                <div class="flex space-x-4">
+                  <button
+                    id="changePasswordButton"
+                    class="bg-black text-white dark:bg-white dark:text-black px-4 py-2 rounded-full transition-colors"
+                  >
+                    Change Password
+                  </button>
                 </div>
-            </Container>
-        </section>
-    </main>
+              </div>
+              <div class="space-y-4">
+                <div>
+                  <label
+                    class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                    >Name</label
+                  >
+                  <p
+                    id="user-name"
+                    class="text-lg text-gray-900 dark:text-white text-gray-400 animate-pulse"
+                  >
+                    Loading...
+                  </p>
+                </div>
+                <div>
+                  <label
+                    class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                    >Email</label
+                  >
+                  <p
+                    id="user-email"
+                    class="text-lg text-gray-900 dark:text-white text-gray-400 animate-pulse"
+                  >
+                    Loading...
+                  </p>
+                </div>
+              </div>
 
-    <script>
-        import { authService } from "../lib/auth";
-        import { getFirestore, doc, getDoc } from "firebase/firestore";
-        import { SUBSCRIPTION_TIERS } from "../lib/subscriptionConfig";
+              <!-- Delete Account Section (Moved from Account tab) -->
+              <div
+                class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700"
+              >
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h2
+                      class="text-xl font-bold text-red-600 dark:text-red-400"
+                    >
+                      Delete Account
+                    </h2>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
+                      Permanently remove your account and all associated data
+                    </p>
+                  </div>
+                  <button
+                    id="delete-account-btn"
+                    class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+                  >
+                    Delete Account
+                  </button>
+                </div>
+                <div
+                  class="bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700 rounded-lg p-4 mt-4"
+                >
+                  <p class="text-xs text-red-700 dark:text-red-200">
+                    Warning: Deleting your account is permanent and cannot be
+                    undone. All your data, including resumes, job applications,
+                    and settings, will be permanently erased.
+                  </p>
+                </div>
+              </div>
+            </div>
 
-        // Custom dropdown functionality
-        function setupCustomDropdown() {
-            const dropdownButton = document.getElementById("dropdown-button");
-            const dropdownMenu = document.getElementById("dropdown-menu");
-            const dropdownItems = document.querySelectorAll(".dropdown-item");
-            const dropdownSelectedText = document.getElementById(
-                "dropdown-selected-text",
-            );
-            const dropdownArrow = dropdownButton?.querySelector("svg");
+            <!-- Subscription Tab Content (Now includes Usage Limits) -->
+            <div id="content-subscription" class="tab-content hidden space-y-8">
+              <div class="flex items-center justify-between mb-4">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                  Subscription & Usage
+                </h2>
+                <button
+                  id="upgrade-button"
+                  class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors"
+                >
+                  Upgrade Plan
+                </button>
+              </div>
 
-            // Toggle dropdown menu
-            dropdownButton?.addEventListener("click", () => {
-                const isHidden = dropdownMenu?.classList.contains("hidden");
+              <!-- Subscription Details Section -->
+              <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl">
+                <h3
+                  class="text-lg font-semibold text-gray-900 dark:text-white mb-4"
+                >
+                  Subscription Details
+                </h3>
+                <div class="space-y-4">
+                  <div>
+                    <p
+                      id="current-tier"
+                      class="text-lg text-gray-900 dark:text-white font-semibold text-gray-400 animate-pulse"
+                    >
+                      Loading...
+                    </p>
+                  </div>
+                  <div id="expiration-container" class="hidden">
+                    <label
+                      class="block text-base font-medium text-gray-700 dark:text-gray-300"
+                      >Expiration</label
+                    >
+                    <p
+                      id="subscription-expiration"
+                      class="text-lg text-gray-900 dark:text-white text-gray-400 animate-pulse"
+                    >
+                      Loading...
+                    </p>
+                  </div>
+                </div>
+              </div>
 
-                if (isHidden) {
-                    dropdownMenu?.classList.remove("hidden");
-                    dropdownArrow?.classList.add("rotate-180");
-                } else {
-                    dropdownMenu?.classList.add("hidden");
-                    dropdownArrow?.classList.remove("rotate-180");
-                }
-            });
+              <!-- Usage Limits Section -->
+              <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl">
+                <h3
+                  class="text-lg font-semibold text-gray-900 dark:text-white mb-4"
+                >
+                  Usage Limits
+                </h3>
+                <div class="space-y-4">
+                  <div id="feature-limits" class="space-y-3">
+                    <!-- Feature limits will be dynamically populated here -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+  </main>
 
-            // Close dropdown when clicking outside
-            document.addEventListener("click", (event) => {
-                const container = document.getElementById(
-                    "custom-dropdown-container",
-                );
-                if (container && !container.contains(event.target as Node)) {
-                    dropdownMenu?.classList.add("hidden");
-                    dropdownArrow?.classList.remove("rotate-180");
-                }
-            });
+  <script>
+    import { authService } from "../lib/auth";
+    import { getFirestore, doc, getDoc } from "firebase/firestore";
+    import { SUBSCRIPTION_TIERS } from "../lib/subscriptionConfig";
+
+    // Custom dropdown functionality
+    function setupCustomDropdown() {
+      const dropdownButton = document.getElementById("dropdown-button");
+      const dropdownMenu = document.getElementById("dropdown-menu");
+      const dropdownItems = document.querySelectorAll(".dropdown-item");
+      const dropdownSelectedText = document.getElementById(
+        "dropdown-selected-text"
+      );
+      const dropdownArrow = dropdownButton?.querySelector("svg");
+
+      // Toggle dropdown menu
+      dropdownButton?.addEventListener("click", () => {
+        const isHidden = dropdownMenu?.classList.contains("hidden");
+
+        if (isHidden) {
+          dropdownMenu?.classList.remove("hidden");
+          dropdownArrow?.classList.add("rotate-180");
+        } else {
+          dropdownMenu?.classList.add("hidden");
+          dropdownArrow?.classList.remove("rotate-180");
         }
+      });
 
-        // Tab functionality
-        function setupTabs() {
-            const tabButtons = document.querySelectorAll(".tab-button");
-            const tabContents = document.querySelectorAll(".tab-content");
+      // Close dropdown when clicking outside
+      document.addEventListener("click", (event) => {
+        const container = document.getElementById("custom-dropdown-container");
+        if (container && !container.contains(event.target as Node)) {
+          dropdownMenu?.classList.add("hidden");
+          dropdownArrow?.classList.remove("rotate-180");
+        }
+      });
+    }
 
-            // Function to switch tabs
-            function switchTab(tabId) {
-                // Hide all tab contents
-                tabContents.forEach((content) => {
-                    content.classList.add("hidden");
-                });
+    // Tab functionality
+    function setupTabs() {
+      const tabButtons = document.querySelectorAll(".tab-button");
+      const tabContents = document.querySelectorAll(".tab-content");
 
-                // Show the selected tab content
-                document
-                    .getElementById(`content-${tabId}`)
-                    ?.classList.remove("hidden");
+      // Function to switch tabs
+      function switchTab(tabId) {
+        // Hide all tab contents
+        tabContents.forEach((content) => {
+          content.classList.add("hidden");
+        });
 
-                // Update active tab styling for desktop
-                tabButtons.forEach((btn) => {
-                    const btnTabId = btn.id.replace("tab-", "");
+        // Show the selected tab content
+        document.getElementById(`content-${tabId}`)?.classList.remove("hidden");
 
-                    if (btnTabId === tabId) {
-                        btn.classList.add(
-                            "bg-blue-50",
-                            "dark:bg-blue-900",
-                            "text-blue-700",
-                            "dark:text-blue-300",
-                        );
-                        btn.classList.remove(
-                            "text-gray-700",
-                            "dark:text-gray-300",
-                            "hover:bg-gray-100",
-                            "dark:hover:bg-gray-700",
-                        );
-                    } else {
-                        btn.classList.remove(
-                            "bg-blue-50",
-                            "dark:bg-blue-900",
-                            "text-blue-700",
-                            "dark:text-blue-300",
-                        );
-                        btn.classList.add(
-                            "text-gray-700",
-                            "dark:text-gray-300",
-                            "hover:bg-gray-100",
-                            "dark:hover:bg-gray-700",
-                        );
-                    }
-                });
+        // Update active tab styling for desktop
+        tabButtons.forEach((btn) => {
+          const btnTabId = btn.id.replace("tab-", "");
 
-                // Update dropdown text if on mobile
-                const dropdownSelectedText = document.getElementById(
-                    "dropdown-selected-text",
-                );
-                if (dropdownSelectedText) {
-                    const selectedItem = document.querySelector(
-                        `.dropdown-item[data-value="${tabId}"]`,
-                    );
-                    if (selectedItem) {
-                        dropdownSelectedText.textContent =
-                            selectedItem.textContent?.trim() || "";
-                    }
-                }
+          if (btnTabId === tabId) {
+            btn.classList.add(
+              "bg-blue-50",
+              "dark:bg-blue-900",
+              "text-blue-700",
+              "dark:text-blue-300"
+            );
+            btn.classList.remove(
+              "text-gray-700",
+              "dark:text-gray-300",
+              "hover:bg-gray-100",
+              "dark:hover:bg-gray-700"
+            );
+          } else {
+            btn.classList.remove(
+              "bg-blue-50",
+              "dark:bg-blue-900",
+              "text-blue-700",
+              "dark:text-blue-300"
+            );
+            btn.classList.add(
+              "text-gray-700",
+              "dark:text-gray-300",
+              "hover:bg-gray-100",
+              "dark:hover:bg-gray-700"
+            );
+          }
+        });
+
+        // Update dropdown text if on mobile
+        const dropdownSelectedText = document.getElementById(
+          "dropdown-selected-text"
+        );
+        if (dropdownSelectedText) {
+          const selectedItem = document.querySelector(
+            `.dropdown-item[data-value="${tabId}"]`
+          );
+          if (selectedItem) {
+            dropdownSelectedText.textContent =
+              selectedItem.textContent?.trim() || "";
+          }
+        }
+      }
+
+      // Desktop tab buttons
+      tabButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const tabId = button.id.replace("tab-", "");
+          switchTab(tabId);
+        });
+      });
+
+      // Setup dropdown item click handlers
+      const dropdownItems = document.querySelectorAll(".dropdown-item");
+      dropdownItems.forEach((item) => {
+        item.addEventListener("click", () => {
+          const value = item.getAttribute("data-value");
+          const dropdownMenu = document.getElementById("dropdown-menu");
+          const dropdownButton = document.getElementById("dropdown-button");
+          const dropdownArrow = dropdownButton?.querySelector("svg");
+          const dropdownSelectedText = document.getElementById(
+            "dropdown-selected-text"
+          );
+
+          if (dropdownSelectedText && value) {
+            dropdownSelectedText.textContent = item.textContent?.trim() || "";
+            dropdownMenu?.classList.add("hidden");
+            dropdownArrow?.classList.remove("rotate-180");
+
+            // Switch to the selected tab
+            switchTab(value);
+          }
+        });
+      });
+    }
+
+    async function fetchUserData() {
+      try {
+        const user = await authService.getCurrentUser();
+
+        if (user) {
+          // Update user details
+          const nameElement = document.getElementById("user-name");
+          const emailElement = document.getElementById("user-email");
+          const currentTierElement = document.getElementById("current-tier");
+          const subscriptionExpirationElement = document.getElementById(
+            "subscription-expiration"
+          );
+          const upgradeButton = document.getElementById("upgrade-button");
+
+          // Restore original styling and populate data
+          if (nameElement) {
+            nameElement.textContent =
+              user.displayName || user.email || "Not available";
+            nameElement.classList.remove("text-gray-400", "animate-pulse");
+          }
+
+          if (emailElement) {
+            emailElement.textContent = user.email || "Not available";
+            emailElement.classList.remove("text-gray-400", "animate-pulse");
+          }
+
+          // Fetch subscription details
+          const db = getFirestore();
+          const docRef = doc(db, "userSubscriptions", user.uid);
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            const userSubscription = docSnap.data();
+            const currentTier = userSubscription.currentTier || "free";
+
+            // Format subscription expiration date
+            let formattedExpirationDate = "Not available";
+            let isExpired = false;
+
+            // Get tier configuration
+            const tierConfig = SUBSCRIPTION_TIERS[currentTier];
+
+            // Determine expiration based on tier and billing cycle
+            if (currentTier === "free") {
+              formattedExpirationDate = "Free Tier (No Expiration)";
+              // Hide expiration container for free tier
+              const expirationContainer = document.getElementById(
+                "expiration-container"
+              );
+              if (expirationContainer) {
+                expirationContainer.classList.add("hidden");
+              }
+            } else if (currentTier === "pro") {
+              // Show expiration container for pro tier
+              const expirationContainer = document.getElementById(
+                "expiration-container"
+              );
+              if (expirationContainer) {
+                expirationContainer.classList.remove("hidden");
+              }
+
+              // For pro tier, calculate expiration based on billing cycle
+              const startDate = userSubscription.subscriptionStartDate
+                ? userSubscription.subscriptionStartDate instanceof Date
+                  ? userSubscription.subscriptionStartDate
+                  : userSubscription.subscriptionStartDate.toDate()
+                : new Date();
+
+              const expirationDate = new Date(startDate);
+
+              // Add billing cycle duration based on actual configuration
+              if (tierConfig.billingCycle === "monthly") {
+                expirationDate.setMonth(expirationDate.getMonth() + 1);
+              } else if (tierConfig.billingCycle === "yearly") {
+                expirationDate.setFullYear(expirationDate.getFullYear() + 1);
+              } else {
+                // Default to monthly if no billing cycle specified
+                expirationDate.setMonth(expirationDate.getMonth() + 1);
+              }
+
+              // Format the expiration date
+              formattedExpirationDate = new Intl.DateTimeFormat("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              }).format(expirationDate);
+
+              // Check if expired
+              const currentDate = new Date();
+              isExpired = expirationDate < currentDate;
+
+              if (isExpired) {
+                formattedExpirationDate += " (Expired)";
+              }
             }
 
-            // Desktop tab buttons
-            tabButtons.forEach((button) => {
-                button.addEventListener("click", () => {
-                    const tabId = button.id.replace("tab-", "");
-                    switchTab(tabId);
-                });
-            });
+            if (currentTierElement) {
+              // Create badge based on tier
+              const tierBadgeClasses = {
+                free: "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300",
+                pro: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
+              };
 
-            // Setup dropdown item click handlers
-            const dropdownItems = document.querySelectorAll(".dropdown-item");
-            dropdownItems.forEach((item) => {
-                item.addEventListener("click", () => {
-                    const value = item.getAttribute("data-value");
-                    const dropdownMenu =
-                        document.getElementById("dropdown-menu");
-                    const dropdownButton =
-                        document.getElementById("dropdown-button");
-                    const dropdownArrow = dropdownButton?.querySelector("svg");
-                    const dropdownSelectedText = document.getElementById(
-                        "dropdown-selected-text",
-                    );
-
-                    if (dropdownSelectedText && value) {
-                        dropdownSelectedText.textContent =
-                            item.textContent?.trim() || "";
-                        dropdownMenu?.classList.add("hidden");
-                        dropdownArrow?.classList.remove("rotate-180");
-
-                        // Switch to the selected tab
-                        switchTab(value);
-                    }
-                });
-            });
-        }
-
-        async function fetchUserData() {
-            try {
-                const user = await authService.getCurrentUser();
-
-                if (user) {
-                    // Update user details
-                    const nameElement = document.getElementById("user-name");
-                    const emailElement = document.getElementById("user-email");
-                    const currentTierElement =
-                        document.getElementById("current-tier");
-                    const subscriptionExpirationElement =
-                        document.getElementById("subscription-expiration");
-                    const upgradeButton =
-                        document.getElementById("upgrade-button");
-
-                    // Restore original styling and populate data
-                    if (nameElement) {
-                        nameElement.textContent =
-                            user.displayName || user.email || "Not available";
-                        nameElement.classList.remove(
-                            "text-gray-400",
-                            "animate-pulse",
-                        );
-                    }
-
-                    if (emailElement) {
-                        emailElement.textContent =
-                            user.email || "Not available";
-                        emailElement.classList.remove(
-                            "text-gray-400",
-                            "animate-pulse",
-                        );
-                    }
-
-                    // Fetch subscription details
-                    const db = getFirestore();
-                    const docRef = doc(db, "userSubscriptions", user.uid);
-                    const docSnap = await getDoc(docRef);
-
-                    if (docSnap.exists()) {
-                        const userSubscription = docSnap.data();
-                        const currentTier =
-                            userSubscription.currentTier || "free";
-
-                        // Format subscription expiration date
-                        let formattedExpirationDate = "Not available";
-                        let isExpired = false;
-
-                        // Get tier configuration
-                        const tierConfig = SUBSCRIPTION_TIERS[currentTier];
-
-                        // Determine expiration based on tier and billing cycle
-                        if (currentTier === "free") {
-                            formattedExpirationDate =
-                                "Free Tier (No Expiration)";
-                            // Hide expiration container for free tier
-                            const expirationContainer = document.getElementById(
-                                "expiration-container",
-                            );
-                            if (expirationContainer) {
-                                expirationContainer.classList.add("hidden");
-                            }
-                        } else if (currentTier === "pro") {
-                            // Show expiration container for pro tier
-                            const expirationContainer = document.getElementById(
-                                "expiration-container",
-                            );
-                            if (expirationContainer) {
-                                expirationContainer.classList.remove("hidden");
-                            }
-
-                            // For pro tier, calculate expiration based on billing cycle
-                            const startDate =
-                                userSubscription.subscriptionStartDate
-                                    ? userSubscription.subscriptionStartDate instanceof
-                                      Date
-                                        ? userSubscription.subscriptionStartDate
-                                        : userSubscription.subscriptionStartDate.toDate()
-                                    : new Date();
-
-                            const expirationDate = new Date(startDate);
-
-                            // Add billing cycle duration based on actual configuration
-                            if (tierConfig.billingCycle === "monthly") {
-                                expirationDate.setMonth(
-                                    expirationDate.getMonth() + 1,
-                                );
-                            } else if (tierConfig.billingCycle === "yearly") {
-                                expirationDate.setFullYear(
-                                    expirationDate.getFullYear() + 1,
-                                );
-                            } else {
-                                // Default to monthly if no billing cycle specified
-                                expirationDate.setMonth(
-                                    expirationDate.getMonth() + 1,
-                                );
-                            }
-
-                            // Format the expiration date
-                            formattedExpirationDate = new Intl.DateTimeFormat(
-                                "en-US",
-                                {
-                                    year: "numeric",
-                                    month: "long",
-                                    day: "numeric",
-                                },
-                            ).format(expirationDate);
-
-                            // Check if expired
-                            const currentDate = new Date();
-                            isExpired = expirationDate < currentDate;
-
-                            if (isExpired) {
-                                formattedExpirationDate += " (Expired)";
-                            }
-                        }
-
-                        if (currentTierElement) {
-                            // Create badge based on tier
-                            const tierBadgeClasses = {
-                                free: "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300",
-                                pro: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
-                            };
-
-                            // Create badge HTML
-                            const displayTier =
-                                currentTier === "free"
-                                    ? "starter"
-                                    : currentTier;
-                            const badgeHtml = `
+              // Create badge HTML
+              const displayTier =
+                currentTier === "free" ? "starter" : currentTier;
+              const badgeHtml = `
                                 <span class="px-2 py-2 rounded-full text-md font-semibold ${tierBadgeClasses[currentTier] || ""}">
                                     ${displayTier.charAt(0).toUpperCase() + displayTier.slice(1)}
                                 </span>
                             `;
 
-                            // Set content with badge
-                            currentTierElement.innerHTML = `${badgeHtml}`;
-                            currentTierElement.classList.remove(
-                                "text-gray-400",
-                                "animate-pulse",
-                            );
-                        }
+              // Set content with badge
+              currentTierElement.innerHTML = `${badgeHtml}`;
+              currentTierElement.classList.remove(
+                "text-gray-400",
+                "animate-pulse"
+              );
+            }
 
-                        if (subscriptionExpirationElement) {
-                            subscriptionExpirationElement.textContent =
-                                formattedExpirationDate;
-                            subscriptionExpirationElement.classList.remove(
-                                "text-gray-400",
-                                "animate-pulse",
-                            );
+            if (subscriptionExpirationElement) {
+              subscriptionExpirationElement.textContent =
+                formattedExpirationDate;
+              subscriptionExpirationElement.classList.remove(
+                "text-gray-400",
+                "animate-pulse"
+              );
 
-                            // Add visual indication for expired subscriptions
-                            if (isExpired) {
-                                subscriptionExpirationElement.classList.add(
-                                    "text-red-500",
-                                );
-                            }
-                        }
+              // Add visual indication for expired subscriptions
+              if (isExpired) {
+                subscriptionExpirationElement.classList.add("text-red-500");
+              }
+            }
 
-                        if (upgradeButton) {
-                            // Hide upgrade button for Pro tier users
-                            if (currentTier === "pro") {
-                                upgradeButton.style.display = "none";
-                            } else {
-                                upgradeButton.style.display = "block";
-                                upgradeButton.textContent = "Upgrade to Pro";
-                            }
-                        }
+            if (upgradeButton) {
+              // Hide upgrade button for Pro tier users
+              if (currentTier === "pro") {
+                upgradeButton.style.display = "none";
+              } else {
+                upgradeButton.style.display = "block";
+                upgradeButton.textContent = "Upgrade to Pro";
+              }
+            }
 
-                        // Feature limit display logic
-                        const featureLimitsElement =
-                            document.getElementById("feature-limits");
+            // Feature limit display logic
+            const featureLimitsElement =
+              document.getElementById("feature-limits");
 
-                        if (docSnap.exists() && featureLimitsElement) {
-                            const userSubscription = docSnap.data();
-                            const currentTier =
-                                userSubscription.currentTier || "free";
-                            const tierConfig = SUBSCRIPTION_TIERS[currentTier];
+            if (docSnap.exists() && featureLimitsElement) {
+              const userSubscription = docSnap.data();
+              const currentTier = userSubscription.currentTier || "free";
+              const tierConfig = SUBSCRIPTION_TIERS[currentTier];
 
-                            // Define features to track
-                            const features = [
-                                "resumeGeneration",
-                                "coverLetterGeneration",
-                                "jobAnalysis",
-                                "interviewPrep",
-                                "jobTrackers",
-                            ];
+              // Define features to track
+              const features = [
+                "resumeGeneration",
+                "coverLetterGeneration",
+                "jobAnalysis",
+                "interviewPrep",
+                "jobApplications",
+                "linkedinOptimization",
+              ];
 
-                            // Clear previous content
-                            featureLimitsElement.innerHTML = "";
+              // Clear previous content
+              featureLimitsElement.innerHTML = "";
 
-                            // Create feature limit display
-                            features.forEach((feature) => {
-                                // Get current usage and limit
-                                const usageCount =
-                                    userSubscription.featureUsage[feature]
-                                        ?.usageCount || 0;
-                                const limit =
-                                    tierConfig.featureUsageLimits[feature];
+              // Create feature limit display
+              features.forEach((feature) => {
+                // Get current usage and limit
+                const usageCount =
+                  userSubscription.featureUsage[feature]?.usageCount || 0;
+                const limit = tierConfig.featureUsageLimits[feature];
 
-                                // Determine display details
-                                const isUnlimited =
-                                    limit === Infinity || limit > 10000;
-                                const progressPercentage = isUnlimited
-                                    ? 100
-                                    : Math.min((usageCount / limit) * 100, 100);
+                // Determine display details
+                const isUnlimited = limit === Infinity || limit > 10000;
+                const progressPercentage = isUnlimited
+                  ? 100
+                  : Math.min((usageCount / limit) * 100, 100);
 
-                                // Feature name mapping
-                                const featureNames = {
-                                    resumeGeneration: "Resume Generation",
-                                    coverLetterGeneration:
-                                        "Cover Letter Generation",
-                                    jobAnalysis: "Job Analysis",
-                                    interviewPrep: "Interview Preparation",
-                                    jobTrackers: "Job Tracker",
-                                };
+                // Feature name mapping
+                const featureNames = {
+                  resumeGeneration: "Resumes",
+                  coverLetterGeneration: "Cover Letters",
+                  jobAnalysis: "Job Analysis",
+                  interviewPrep: "Interview Preparation",
+                  jobApplications: "Job Applications Tracked",
+                  linkedinOptimization: "LinkedIn Optimizations",
+                };
 
-                                // Create feature limit element
-                                const featureElement =
-                                    document.createElement("div");
-                                featureElement.classList.add(
-                                    "bg-gray-100",
-                                    "dark:bg-gray-800",
-                                    "p-3",
-                                    "rounded-lg",
-                                );
+                // Create feature limit element
+                const featureElement = document.createElement("div");
+                featureElement.classList.add(
+                  "bg-gray-100",
+                  "dark:bg-gray-800",
+                  "p-3",
+                  "rounded-lg"
+                );
 
-                                // Pro tier: Unlimited features
-                                if (currentTier === "pro") {
-                                    featureElement.innerHTML = `
+                // Pro tier: Unlimited features
+                if (currentTier === "pro") {
+                  featureElement.innerHTML = `
                                         <div class="flex justify-between items-center">
                                             <span class="text-sm font-medium text-gray-900 dark:text-white">
                                                 ${featureNames[feature]}
@@ -675,10 +617,10 @@ import Container from "../components/Container.astro";
                                             </span>
                                         </div>
                                     `;
-                                }
-                                // Free tier: Show limits and upgrade message
-                                else {
-                                    featureElement.innerHTML = `
+                }
+                // Free tier: Show limits and upgrade message
+                else {
+                  featureElement.innerHTML = `
                                         <div class="flex justify-between items-center mb-2">
                                             <span class="text-sm font-medium text-gray-900 dark:text-white">
                                                 ${featureNames[feature]}
@@ -691,38 +633,35 @@ import Container from "../components/Container.astro";
                                             <div class="bg-blue-600 h-2.5 rounded-full" style="width: ${progressPercentage}%"></div>
                                         </div>
                                         ${
-                                            progressPercentage >= 100
-                                                ? `
+                                          progressPercentage >= 100
+                                            ? `
                                             <div class="mt-2 text-xs text-red-600 dark:text-red-400">
                                                 Limit reached. Upgrade to Pro to continue.
                                             </div>
                                         `
-                                                : ""
+                                            : ""
                                         }
                                     `;
-                                }
+                }
 
-                                featureLimitsElement.appendChild(
-                                    featureElement,
-                                );
-                            });
+                featureLimitsElement.appendChild(featureElement);
+              });
 
-                            // Add upgrade message for free tier
-                            if (currentTier === "free") {
-                                const upgradeMessageElement =
-                                    document.createElement("div");
-                                upgradeMessageElement.classList.add(
-                                    "mt-4",
-                                    "p-3",
-                                    "bg-blue-50",
-                                    "dark:bg-blue-900",
-                                    "border",
-                                    "border-blue-200",
-                                    "dark:border-blue-700",
-                                    "rounded-lg",
-                                    "text-center",
-                                );
-                                upgradeMessageElement.innerHTML = `
+              // Add upgrade message for free tier
+              if (currentTier === "free") {
+                const upgradeMessageElement = document.createElement("div");
+                upgradeMessageElement.classList.add(
+                  "mt-4",
+                  "p-3",
+                  "bg-blue-50",
+                  "dark:bg-blue-900",
+                  "border",
+                  "border-blue-200",
+                  "dark:border-blue-700",
+                  "rounded-lg",
+                  "text-center"
+                );
+                upgradeMessageElement.innerHTML = `
                                     <p class="text-sm text-blue-800 dark:text-blue-200">
                                         Upgrade to Pro to unlock unlimited access to all features!
                                     </p>
@@ -731,115 +670,109 @@ import Container from "../components/Container.astro";
                                     </button>
                                 `;
 
-                                // Add click event to upgrade button
-                                upgradeMessageElement
-                                    .querySelector("#upgrade-now-btn")
-                                    ?.addEventListener("click", () => {
-                                        // Redirect to upgrade page or open upgrade modal
-                                        window.location.href = "/pricing"; // Adjust this path as needed
-                                    });
+                // Add click event to upgrade button
+                upgradeMessageElement
+                  .querySelector("#upgrade-now-btn")
+                  ?.addEventListener("click", () => {
+                    // Redirect to upgrade page or open upgrade modal
+                    window.location.href = "/pricing"; // Adjust this path as needed
+                  });
 
-                                featureLimitsElement.appendChild(
-                                    upgradeMessageElement,
-                                );
-                            }
-                        }
-                    }
-                } else {
-                    // Redirect to login if no user
-                    window.location.href = "/login";
-                }
-            } catch (error) {
-                console.error("Error fetching user data:", error);
-                // Optionally show error to user
-                const nameElement = document.getElementById("user-name");
-                const emailElement = document.getElementById("user-email");
-                const currentTierElement =
-                    document.getElementById("current-tier");
-                const subscriptionExpirationElement = document.getElementById(
-                    "subscription-expiration",
-                );
-
-                if (nameElement) {
-                    nameElement.textContent = "Error loading data";
-                    nameElement.classList.add("text-red-500");
-                }
-                if (emailElement) {
-                    emailElement.textContent = "Error loading data";
-                    emailElement.classList.add("text-red-500");
-                }
-                if (currentTierElement) {
-                    currentTierElement.textContent = "Error loading data";
-                    currentTierElement.classList.add("text-red-500");
-                }
-                if (subscriptionExpirationElement) {
-                    subscriptionExpirationElement.textContent =
-                        "Error loading data";
-                    subscriptionExpirationElement.classList.add("text-red-500");
-                }
+                featureLimitsElement.appendChild(upgradeMessageElement);
+              }
             }
+          }
+        } else {
+          // Redirect to login if no user
+          window.location.href = "/login";
         }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        // Optionally show error to user
+        const nameElement = document.getElementById("user-name");
+        const emailElement = document.getElementById("user-email");
+        const currentTierElement = document.getElementById("current-tier");
+        const subscriptionExpirationElement = document.getElementById(
+          "subscription-expiration"
+        );
 
-        // Initial styling for loading state
-        const loadingElements = [
-            "user-name",
-            "user-email",
-            "current-tier",
-            "subscription-expiration",
-        ];
-
-        loadingElements.forEach((id) => {
-            const element = document.getElementById(id);
-            if (element) {
-                element.classList.add("text-gray-400", "animate-pulse");
-            }
-        });
-
-        // Run on client-side
-        document.addEventListener("DOMContentLoaded", () => {
-            setupCustomDropdown();
-            setupTabs();
-            fetchUserData();
-        });
-
-        // Add event listeners
-        document
-            .getElementById("changePasswordButton")
-            ?.addEventListener("click", () => {
-                window.location.href = "/forgot-password";
-            });
-
-        document
-            .getElementById("upgrade-button")
-            ?.addEventListener("click", () => {
-                window.location.href = "/pricing";
-            });
-
-        // Delete account event listener
-        const deleteAccountBtn = document.getElementById("delete-account-btn");
-
-        if (deleteAccountBtn) {
-            deleteAccountBtn.addEventListener("click", async () => {
-                // Confirm deletion with a modal or confirmation
-                const confirmDelete = confirm(
-                    "Are you sure you want to permanently delete your account? This action cannot be undone.",
-                );
-
-                if (confirmDelete) {
-                    try {
-                        // Call delete account function from auth service
-                        await authService.deleteAccount();
-
-                        // Redirect to home or login page
-                        window.location.href = "/";
-                    } catch (error) {
-                        console.error("Account deletion failed:", error);
-                        alert(
-                            "Failed to delete account. Please try again or contact support.",
-                        );
-                    }
-                }
-            });
+        if (nameElement) {
+          nameElement.textContent = "Error loading data";
+          nameElement.classList.add("text-red-500");
         }
-    </script>
+        if (emailElement) {
+          emailElement.textContent = "Error loading data";
+          emailElement.classList.add("text-red-500");
+        }
+        if (currentTierElement) {
+          currentTierElement.textContent = "Error loading data";
+          currentTierElement.classList.add("text-red-500");
+        }
+        if (subscriptionExpirationElement) {
+          subscriptionExpirationElement.textContent = "Error loading data";
+          subscriptionExpirationElement.classList.add("text-red-500");
+        }
+      }
+    }
+
+    // Initial styling for loading state
+    const loadingElements = [
+      "user-name",
+      "user-email",
+      "current-tier",
+      "subscription-expiration",
+    ];
+
+    loadingElements.forEach((id) => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.classList.add("text-gray-400", "animate-pulse");
+      }
+    });
+
+    // Run on client-side
+    document.addEventListener("DOMContentLoaded", () => {
+      setupCustomDropdown();
+      setupTabs();
+      fetchUserData();
+    });
+
+    // Add event listeners
+    document
+      .getElementById("changePasswordButton")
+      ?.addEventListener("click", () => {
+        window.location.href = "/forgot-password";
+      });
+
+    document.getElementById("upgrade-button")?.addEventListener("click", () => {
+      window.location.href = "/pricing";
+    });
+
+    // Delete account event listener
+    const deleteAccountBtn = document.getElementById("delete-account-btn");
+
+    if (deleteAccountBtn) {
+      deleteAccountBtn.addEventListener("click", async () => {
+        // Confirm deletion with a modal or confirmation
+        const confirmDelete = confirm(
+          "Are you sure you want to permanently delete your account? This action cannot be undone."
+        );
+
+        if (confirmDelete) {
+          try {
+            // Call delete account function from auth service
+            await authService.deleteAccount();
+
+            // Redirect to home or login page
+            window.location.href = "/";
+          } catch (error) {
+            console.error("Account deletion failed:", error);
+            alert(
+              "Failed to delete account. Please try again or contact support."
+            );
+          }
+        }
+      });
+    }
+  </script>
 </Layout>
