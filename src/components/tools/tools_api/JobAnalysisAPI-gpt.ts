@@ -164,7 +164,7 @@ export const performJobAnalysis = async ({ request }: { request: Request }) => {
                         - Ensure each array field contains multiple relevant, distinct entries.`
           }
         ],
-        temperature: 0.3,
+        temperature: 0.1,
         max_tokens: 2000
       }
 

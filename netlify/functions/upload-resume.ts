@@ -70,7 +70,7 @@ async function cleanResumeText (rawText: string): Promise<string> {
     let response
     try {
       response = await groq.chat.completions.create({
-        model: 'llama-3.1-8b-instant', // Updated to smallest Llama model
+        model: 'llama-3.2-1b-preview', // Updated to smallest Llama model
         messages: [
           {
             role: 'system',

@@ -90,7 +90,7 @@ export const fetchInterviewQuestions = async ({
       ],
       temperature: 0.5,
       max_tokens: 4000,
-      model: 'llama-3.1-8b-instant'
+      model: 'llama-3.3-70b-specdec'
     }
 
     const response = await groq.chat.completions.create(requestPayload)
@@ -169,10 +169,9 @@ export const reviewAnswer = async ({
             1. Output ONLY a valid JSON object
             2. NO explanatory text or reasoning
             3. NO markdown
-            4. Keep analysis concise.
-            5. Use sentence case. Start each sentence with a capital letter.
-            6. Focus on providing specific, actionable feedback
-            7. Match this structure exactly:` +
+            4. Use sentence case. Start each sentence with a capital letter for each sentence.
+            5. Focus on providing specific, actionable feedback
+            6. Match this structure exactly:` +
             JSON.stringify({
               strengths: [],
               weaknesses: [],
@@ -197,7 +196,7 @@ export const reviewAnswer = async ({
       ],
       temperature: 0.5,
       max_tokens: 4000,
-      model: 'llama-3.3-70b-versatile'
+      model: 'llama-3.3-70b-specdec'
     }
 
     const response = await groq.chat.completions.create(requestPayload)
