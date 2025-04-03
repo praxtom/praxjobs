@@ -306,93 +306,103 @@
 </section>
 
 <!-- Modal Container -->
-<div id="answerModal" class="fixed inset-0 z-50 hidden">
+<div id="answerModal" class="fixed inset-0 z-50 hidden flex items-center justify-center">
+  <!-- Overlay -->
   <div
-    class="fixed inset-0 bg-black/50 backdrop-blur-sm"
+    class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ease-in-out"
+    aria-hidden="true"
     onclick="closeModal()"
-  >
-  </div>
-  <div class="fixed inset-0 flex items-center justify-center p-2 sm:p-4 md:p-6">
-    <div
-      class="bg-white dark:bg-gray-800/30 rounded-xl border border-gray-200 dark:border-gray-700/50 max-w-[90vw] max-h-[90vh] sm:max-h-[85vh] overflow-y-auto p-3 sm:p-4 md:p-6 flex flex-col md:flex-row gap-4 md:gap-6 relative"
-    >
-      <!-- Close Button -->
+  ></div>
+
+  <!-- Modal Content -->
+  <div class="relative bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700/50 w-[95vw] sm:w-[90vw] md:w-[80vw] lg:w-[70vw] max-w-4xl max-h-[90vh] flex flex-col transition-all duration-300 ease-in-out">
+    <!-- Header -->
+    <div class="flex justify-between items-center p-4 sm:p-5 border-b border-gray-200 dark:border-gray-700">
+      <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">
+        Practice Your Answer
+      </h2>
       <button
-        id="closeModal"
-        class="absolute top-4 right-4 p-2 text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
-        onclick="document.getElementById('answerModal').classList.add('hidden')"
+        id="closeModalBtnTop"
+        class="p-1.5 text-gray-500 hover:text-gray-900 dark:hover:text-white rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+        onclick="closeModal()"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M6 18L18 6M6 6l12 12"></path>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
+        <span class="sr-only">Close modal</span>
       </button>
-      <!-- Left Column -->
-      <div class="flex-1 mb-4 md:mb-0">
-        <h2
-          class="text-2xl font-bold text-gray-900 dark:text-white mb-4 text-left"
-        >
-          Practice Your Answer
-        </h2>
-        <div class="mb-6 p-4 bg-gray-50 dark:bg-gray-800/30 rounded-xl">
-          <h3
-            id="modalQuestion"
-            class="font-medium text-lg text-gray-900 dark:text-white text-left"
-          >
-          </h3>
-          <p
-            id="modalContext"
-            class="mt-2 text-sm text-gray-600 dark:text-gray-300 text-left"
-          >
-          </p>
-        </div>
+    </div>
 
-        <!-- Answer Input Section -->
-        <div id="answerInputSection" class="space-y-4">
-          <label
-            for="modalAnswerText"
-            class="block text-sm sm:text-base font-medium text-gray-900 dark:text-white text-left"
-          >
-            Your Answer
-          </label>
-          <textarea
-            id="modalAnswerText"
-            placeholder="Type your answer here..."
-            class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-left focus:ring-2 focus:ring-primary dark:focus:ring-primary-dark focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-gray-500"
-          ></textarea>
+    <!-- Body -->
+    <div class="flex-grow overflow-y-auto p-4 sm:p-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Left Column: Question & Answer Input -->
+        <div class="space-y-5">
+          <div class="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700/50">
+            <h3 id="modalQuestion" class="font-semibold text-lg text-gray-900 dark:text-white mb-1.5 text-left">
+              {/* Question will be populated by JS */}
+            </h3>
+            <p id="modalContext" class="text-sm text-gray-600 dark:text-gray-400 text-left">
+              {/* Context will be populated by JS */}
+            </p>
+          </div>
 
-          <div class="flex justify-end space-x-3 pt-2">
-            <button
-              onclick="closeModal()"
-              class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
-            >
-              Cancel
-            </button>
-            <button
-              id="modalSubmitBtn"
-              class="px-4 py-2 bg-black text-white dark:bg-white dark:text-black rounded-xl hover:bg-primary-dark transition-colors duration-200 flex items-center"
-            >
-              Submit for Review
-            </button>
+          <div class="space-y-3">
+            <label for="modalAnswerText" class="block text-base font-medium text-gray-900 dark:text-white">
+              Your Answer
+            </label>
+            <div class="relative">
+              <textarea
+                id="modalAnswerText"
+                rows="8"
+                placeholder="Type or use the microphone to record your answer..."
+                class="w-full px-4 py-3 pr-12 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary dark:focus:ring-primary-dark focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-gray-500 transition-colors duration-200"
+              ></textarea>
+              <button id="voiceInputBtn" class="absolute top-3 right-3 p-2 text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary-light rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200" title="Record Answer">
+                <svg id="micIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clip-rule="evenodd" />
+                </svg>
+                 <svg id="stopIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden text-red-500 animate-pulse" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+                </svg>
+              </button>
+            </div>
+             <p id="recordingStatus" class="text-xs text-gray-500 dark:text-gray-400 h-4"></p>
+             <p id="speechError" class="text-xs text-red-600 dark:text-red-400 h-4"></p>
           </div>
         </div>
-      </div>
 
-      <!-- Right Column -->
-      <div id="modalFeedbackContainer" class="flex-1 hidden mt-6 text-left">
+        <!-- Right Column: Feedback -->
+        <div id="modalFeedbackContainer" class="space-y-5">
+           <div class="p-6 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700/50 h-full flex items-center justify-center">
+             <p class="text-gray-500 dark:text-gray-400 text-center">Submit your answer to get feedback.</p>
+           </div>
+        </div>
       </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex justify-end items-center p-4 sm:p-5 border-t border-gray-200 dark:border-gray-700 space-x-3">
+      <button
+        onclick="closeModal()"
+        class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 text-sm sm:text-base"
+      >
+        Cancel
+      </button>
+      <button
+        id="modalSubmitBtn"
+        class="px-5 py-2 bg-black text-white dark:bg-white dark:text-black rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors duration-200 flex items-center text-sm sm:text-base font-medium"
+      >
+        <span id="submitBtnText">Submit for Review</span>
+         <svg id="submitBtnSpinner" class="animate-spin ml-2 h-4 w-4 text-white dark:text-black hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+      </button>
     </div>
   </div>
 </div>
+
 
 <style>
   textarea.border-red-500,
@@ -481,10 +491,70 @@
 </style>
 
 <script>
+  // Moved imports here to be available for the first script logic
   import { TierManagementService } from "../../lib/tierManagement";
   import { authService } from "../../lib/auth";
+  import { PersistentDocumentService } from "../../lib/persistentDocumentService";
+
+  // Define interfaces for Speech Recognition API if not available globally
+  // Use 'any' for broader compatibility if specific types cause issues
+  declare global {
+      interface Window {
+          SpeechRecognition: any;
+          webkitSpeechRecognition: any;
+          closeModal: () => void; // Declare closeModal globally
+      }
+  }
+
+  interface SpeechRecognitionEvent extends Event {
+    readonly resultIndex: number;
+    readonly results: SpeechRecognitionResultList;
+  }
+
+  interface SpeechRecognitionErrorEvent extends Event {
+      readonly error: string;
+      readonly message: string;
+  }
+
+  interface SpeechRecognition extends EventTarget {
+    grammars: any; // Use 'any' for SpeechGrammarList if type is unavailable
+    lang: string;
+    continuous: boolean;
+    interimResults: boolean;
+    maxAlternatives: number;
+    serviceURI: string;
+
+    start(): void;
+    stop(): void;
+    abort(): void;
+
+    onaudiostart: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onaudioend: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onend: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onerror: ((this: SpeechRecognition, ev: SpeechRecognitionErrorEvent) => any) | null;
+    onnomatch: ((this: SpeechRecognition, ev: SpeechRecognitionEvent) => any) | null;
+    onresult: ((this: SpeechRecognition, ev: SpeechRecognitionEvent) => any) | null;
+    onsoundstart: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onsoundend: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onspeechstart: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onspeechend: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onstart: ((this: SpeechRecognition, ev: Event) => any) | null;
+  }
+
+   interface SpeechRecognitionStatic {
+        new(): SpeechRecognition;
+    }
 
   let questionsData: any = null;
+  let recognition: SpeechRecognition | null = null; // Use the defined interface
+  let isRecording = false;
+  // Store the text present before recording starts
+  let initialTextBeforeRecording = '';
+
+  // Check for browser support for Web Speech API
+  const SpeechRecognitionAPI: SpeechRecognitionStatic | undefined = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognitionSupported = SpeechRecognitionAPI !== undefined;
+
 
   document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById(
@@ -817,7 +887,7 @@
         const categoryTitle = categoryTitles[category] || category;
         html += `
           <div class="category mb-6">
-            <div 
+            <div
               class="category-header flex justify-between items-center cursor-pointer p-4 bg-gray-50 dark:bg-gray-800/30 rounded-xl"
               data-category="${categoryIndex}"
             >
@@ -829,12 +899,12 @@
             <div class="category-content ${categoryIndex === 0 ? "" : "hidden"} p-4" data-category="${categoryIndex}">
         `;
 
-        data[category].forEach((item, index) => {
+        data[category].forEach((item: { question: string; context?: string }, index: number) => {
           html += `
             <div class="question-card p-4 border border-gray-100 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors mb-3">
               <div class="flex justify-between items-start">
                 <h4 class="font-medium text-lg text-gray-900 dark:text-white text-left">${index + 1}. ${item.question}</h4>
-                <button 
+                <button
                   class="practice-button ml-4 px-3 py-1 bg-black text-white dark:bg-white dark:text-black rounded-full text-sm hover:bg-primary-dark transition-colors flex-shrink-0"
                   data-category="${category}"
                   data-index="${index}"
@@ -890,11 +960,169 @@
           const target = e.currentTarget as HTMLButtonElement;
           const category = target.getAttribute("data-category") || "";
           const index = parseInt(target.getAttribute("data-index") || "0", 10);
-
           showAnswerSection(category, index);
         });
       });
     }
+
+    // --- Voice Input Functions ---
+    function setupSpeechRecognition() {
+        if (!recognitionSupported || !SpeechRecognitionAPI) {
+            console.warn("Speech Recognition not supported by this browser.");
+            const voiceBtn = document.getElementById("voiceInputBtn");
+            if(voiceBtn) voiceBtn.style.display = 'none'; // Hide button if not supported
+            return;
+        }
+
+        recognition = new SpeechRecognitionAPI(); // Instantiate using the API reference
+        recognition.continuous = true; // Keep listening even after pauses
+        recognition.interimResults = true; // Get results while speaking
+        recognition.lang = 'en-US'; // Set language
+
+        recognition.onresult = (event: SpeechRecognitionEvent) => {
+            let interim_transcript = '';
+            let final_transcript_this_session = ''; // Build final transcript *for this session*
+
+            // Iterate from the beginning of results for this recognition instance
+            // to reconstruct the full transcript based on final/interim status.
+            for (let i = 0; i < event.results.length; ++i) {
+                const transcript = event.results[i][0].transcript;
+                if (event.results[i].isFinal) {
+                    final_transcript_this_session += transcript + ' ';
+                } else {
+                    // Append all interim parts together
+                    interim_transcript += transcript;
+                }
+            }
+
+            // Update the textarea with the initial text + session's final + current interim
+            const answerTextArea = document.getElementById("modalAnswerText") as HTMLTextAreaElement;
+            if (answerTextArea) {
+                // Trim the final part to avoid double spaces if interim is empty
+                // Combine initial text, finalized text from this session, and current interim text
+                answerTextArea.value = initialTextBeforeRecording + final_transcript_this_session.trim() + (interim_transcript ? ' ' + interim_transcript : '');
+            }
+            updateRecordingStatus(`Recording...`);
+        };
+
+        recognition.onerror = (event: any) => { // Changed to any
+            const error = event.error || 'unknown';
+            console.error('Speech recognition error:', error);
+            let errorMsg = `Speech recognition error: ${error}`;
+             if (error === 'not-allowed' || error === 'service-not-allowed') {
+                errorMsg = "Microphone access denied. Please allow microphone access in your browser settings.";
+            } else if (error === 'no-speech') {
+                errorMsg = "No speech detected. Please try again.";
+            } else if (error === 'audio-capture') {
+                 errorMsg = "Microphone not found or not working.";
+            }
+            updateSpeechError(errorMsg);
+            stopRecording(); // Ensure recording stops on error
+        };
+
+        recognition.onend = () => {
+            // Only log if it ends while we expected it to be recording
+            if (isRecording) {
+                console.log("Recognition ended.");
+                 // If it ended unexpectedly, ensure UI is reset
+                 stopRecording(); // Clean up UI if it ended prematurely
+            }
+        };
+    }
+
+    function startRecording() {
+        if (!recognitionSupported || !recognition) {
+             updateSpeechError("Speech recognition not available.");
+             return;
+        }
+        if (isRecording) return;
+
+        // Store the text currently in the textarea before starting
+        initialTextBeforeRecording = (document.getElementById("modalAnswerText") as HTMLTextAreaElement)?.value || '';
+        // Add a space if there's text and it doesn't end with one, for separation
+        if (initialTextBeforeRecording && !/\s$/.test(initialTextBeforeRecording)) {
+            initialTextBeforeRecording += ' ';
+        }
+
+        try {
+            recognition.start();
+            isRecording = true;
+            updateVoiceButtonState(true);
+            updateRecordingStatus("Recording started...");
+            updateSpeechError(""); // Clear previous errors
+            console.log('Speech recognition started');
+        } catch (e: any) {
+            console.error("Error starting recognition:", e);
+             let errorMsg = "Could not start recording.";
+            if (e.name === 'NotAllowedError') {
+                errorMsg = "Microphone access denied. Please allow access.";
+            } else if (e.name === 'InvalidStateError') {
+                 errorMsg = "Recording already started.";
+                 // Force UI update in case state is inconsistent
+                 isRecording = true;
+                 updateVoiceButtonState(true);
+            } else {
+                 errorMsg = `Could not start recording: ${e.message || e.name}`;
+            }
+            updateSpeechError(errorMsg);
+            isRecording = false; // Ensure state is correct
+            updateVoiceButtonState(false);
+        }
+    }
+
+    function stopRecording() {
+        if (!recognitionSupported || !recognition) return;
+        if (!isRecording) return; // Prevent stopping if not recording
+
+        recognition.stop(); // This will trigger onend eventually
+        isRecording = false; // Set state immediately
+        updateVoiceButtonState(false);
+        updateRecordingStatus("Processing final result..."); // Indicate processing
+        console.log('Speech recognition stopping...');
+
+        // The final result processing happens in onresult and onend.
+        // Add a slight delay to update status after processing might complete.
+        setTimeout(() => {
+             const currentStatus = document.getElementById('recordingStatus')?.textContent || '';
+             // Only update if it's still showing "Processing"
+             if (currentStatus.includes("Processing")) {
+                updateRecordingStatus("Recording stopped.");
+             }
+        }, 500); // Adjust delay if needed
+    }
+
+    function toggleRecording() {
+        if (isRecording) {
+            stopRecording();
+        } else {
+            startRecording();
+        }
+    }
+
+     function updateVoiceButtonState(recording: boolean) {
+        const micIcon = document.getElementById('micIcon');
+        const stopIcon = document.getElementById('stopIcon');
+        const voiceBtn = document.getElementById('voiceInputBtn');
+
+        if (micIcon && stopIcon && voiceBtn) {
+            micIcon.classList.toggle('hidden', recording);
+            stopIcon.classList.toggle('hidden', !recording);
+            voiceBtn.title = recording ? "Stop Recording" : "Record Answer";
+        }
+    }
+
+    function updateRecordingStatus(message: string) {
+        const statusEl = document.getElementById('recordingStatus');
+        if (statusEl) statusEl.textContent = message;
+    }
+
+     function updateSpeechError(message: string) {
+        const errorEl = document.getElementById('speechError');
+        if (errorEl) errorEl.textContent = message;
+    }
+
+    // --- End Voice Input Functions ---
+
 
     // Function to show answer section
     function showAnswerSection(category: string, index: number) {
@@ -903,71 +1131,110 @@
       const modal = document.getElementById("answerModal");
       const questionText = document.getElementById("modalQuestion");
       const contextText = document.getElementById("modalContext");
-      const answerInput = document.getElementById(
-        "modalAnswerText"
-      ) as HTMLTextAreaElement | null;
-      const feedbackSection = document.getElementById("modalFeedbackContainer");
+      const answerInput = document.getElementById("modalAnswerText") as HTMLTextAreaElement | null;
+      const feedbackContainer = document.getElementById("modalFeedbackContainer");
+      const voiceInputBtn = document.getElementById("voiceInputBtn") as HTMLButtonElement | null; // Cast for style access
+      const modalSubmitBtn = document.getElementById("modalSubmitBtn") as HTMLButtonElement | null; // Cast for disabled access
+      const submitBtnText = document.getElementById("submitBtnText");
+      const submitBtnSpinner = document.getElementById("submitBtnSpinner");
 
-      if (
-        !modal ||
-        !questionText ||
-        !contextText ||
-        !answerInput ||
-        !feedbackSection
-      ) {
+
+      if (!modal || !questionText || !contextText || !answerInput || !feedbackContainer || !voiceInputBtn || !modalSubmitBtn || !submitBtnText || !submitBtnSpinner) {
         console.error("Could not find required modal elements");
         return;
       }
 
-      // Clear previous content
+      // Clear previous content & state
       questionText.textContent = "";
       contextText.textContent = "";
       answerInput.value = "";
-      feedbackSection.innerHTML = "";
+      answerInput.classList.remove("border-red-500"); // Clear validation error
+      feedbackContainer.innerHTML = `
+         <div class="p-6 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700/50 h-full flex items-center justify-center">
+           <p class="text-gray-500 dark:text-gray-400 text-center">Submit your answer to get feedback.</p>
+         </div>`; // Reset feedback
+      updateSpeechError(""); // Clear speech errors
+      updateRecordingStatus(""); // Clear recording status
+      if (isRecording) stopRecording(); // Stop recording if active
 
-      // Show modal
-      modal.classList.remove("hidden");
+      // Reset submit button state
+      submitBtnText.textContent = "Submit for Review";
+      submitBtnSpinner.classList.add('hidden');
+      modalSubmitBtn.disabled = false;
 
-      // Rest of the function implementation
+
+      // Populate question details
       const question = questionsData[category][index];
       questionText.textContent = question.question;
-      contextText.textContent = question.context || "";
+      contextText.textContent = question.context || "No additional context provided.";
 
-      // Set up submit handler
-      document
-        .getElementById("modalSubmitBtn")
-        ?.addEventListener("click", async (event: MouseEvent) => {
+      // Setup voice input
+      if (recognitionSupported && SpeechRecognitionAPI) { // Check API exists too
+          voiceInputBtn.style.display = 'block';
+          voiceInputBtn.onclick = toggleRecording; // Use existing toggle function
+          setupSpeechRecognition(); // Re-initialize recognition instance for this modal session
+      } else {
+          voiceInputBtn.style.display = 'none';
+          updateSpeechError("Voice input not supported in this browser.");
+      }
+
+
+      // --- Detach previous listener before adding a new one ---
+      // Clone the button and replace it to remove all old listeners
+      const newSubmitBtn = modalSubmitBtn.cloneNode(true) as HTMLButtonElement;
+      modalSubmitBtn.parentNode?.replaceChild(newSubmitBtn, modalSubmitBtn);
+      // Re-assign references after cloning
+      const currentSubmitBtn = document.getElementById("modalSubmitBtn") as HTMLButtonElement; // Re-get reference
+      const currentSubmitBtnText = document.getElementById("submitBtnText") as HTMLSpanElement; // Re-get reference
+      const currentSubmitBtnSpinner = document.getElementById("submitBtnSpinner") as SVGElement | null; // Re-get reference, allow null
+      // --- End Detach ---
+
+
+      // Set up submit handler for the new button
+      currentSubmitBtn.addEventListener("click", async (event: MouseEvent) => {
           event.preventDefault();
+          if (isRecording) stopRecording(); // Stop recording before submitting
 
-          const answerInput = document.getElementById(
-            "modalAnswerText"
-          ) as HTMLTextAreaElement | null;
-          if (!answerInput) return;
+          const currentAnswerInput = document.getElementById("modalAnswerText") as HTMLTextAreaElement | null; // Get fresh reference
+          if (!currentAnswerInput) return;
 
-          const answerText = answerInput.value.trim();
+          const answerText = currentAnswerInput.value.trim();
           if (!answerText) {
-            answerInput.classList.add("border-red-500");
+            currentAnswerInput.classList.add("border-red-500");
+            updateSpeechError("Please provide an answer before submitting."); // Use speech error field for consistency
             return;
+          } else {
+             currentAnswerInput.classList.remove("border-red-500");
+             updateSpeechError(""); // Clear error
           }
 
-          // Show loading state
-          const feedbackContainer = document.getElementById(
-            "modalFeedbackContainer"
-          );
-          if (feedbackContainer) {
-            feedbackContainer.classList.remove("hidden");
-            feedbackContainer.innerHTML = `
-              <div class="animate-pulse space-y-4 p-6 bg-white dark:bg-gray-800/30 rounded-xl border border-gray-200 dark:border-gray-700/50">
-                <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+          // Show loading state on button
+          currentSubmitBtnText.textContent = "Reviewing...";
+          currentSubmitBtnSpinner?.classList.remove('hidden'); // Use optional chaining
+          currentSubmitBtn.disabled = true;
+
+
+          // Show loading state in feedback area
+          const currentFeedbackContainer = document.getElementById("modalFeedbackContainer"); // Get fresh reference
+          if (currentFeedbackContainer) {
+            currentFeedbackContainer.innerHTML = `
+              <div class="animate-pulse space-y-4 p-6 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700/50 h-full">
+                <div class="h-5 bg-gray-200 dark:bg-gray-700 rounded w-1/3"></div>
                 <div class="space-y-2">
-                  <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
-                  <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-2/3"></div>
+                  <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
+                  <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
+                </div>
+                 <div class="h-5 bg-gray-200 dark:bg-gray-700 rounded w-1/4 mt-4"></div>
+                 <div class="space-y-2">
+                  <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
+                  <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
+                  <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-4/6"></div>
                 </div>
               </div>
             `;
           }
 
-          // Call @review-answer.ts API
+          // Call review-answer API
           try {
             const response = await fetch("/.netlify/functions/review-answer", {
               method: "POST",
@@ -979,121 +1246,131 @@
             });
 
             if (!response.ok) {
-              throw new Error(
-                `API request failed with status ${response.status}`
-              );
+              const errorData = await response.json().catch(() => ({})); // Try to parse error
+              throw new Error(errorData.error || `API request failed with status ${response.status}`);
             }
 
             const result = await response.json();
 
-            if (feedbackContainer) {
+            if (currentFeedbackContainer) {
               // Format the feedback from the response
-              const feedback = `
-                <div class="space-y-4">
-                  ${
-                    result.weaknesses.length > 0
-                      ? `
-                  <div class="p-4 bg-red-50 dark:bg-red-900/10 rounded-lg border border-red-100 dark:border-red-800/20">
-                    <h4 class="text-lg font-medium text-red-700 dark:text-red-400 mb-3">Weaknesses</h4>
-                    <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
-                      ${result.weaknesses.map((w) => `<li>${w}</li>`).join("")}
+              const feedbackHTML = `
+                <div class="space-y-4 text-sm">
+                  ${result.weaknesses && result.weaknesses.length > 0 ? `
+                  <div class="p-3 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-100 dark:border-red-800/30">
+                    <h4 class="font-semibold text-red-700 dark:text-red-300 mb-1.5 flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg>
+                      Areas for Improvement
+                    </h4>
+                    <ul class="list-disc pl-6 space-y-1 text-gray-700 dark:text-gray-300 text-left">
+                      ${result.weaknesses.map((w: string) => `<li>${w}</li>`).join("")}
                     </ul>
-                  </div>
-                `
-                      : ""
-                  }
-                  
-                  ${
-                    result.improvements.length > 0
-                      ? `
-                  <div class="p-4 bg-blue-50 dark:bg-blue-900/10 rounded-lg border border-blue-100 dark:border-blue-800/20">
-                    <h4 class="text-lg font-medium text-blue-700 dark:text-blue-400 mb-3">Suggested Improvements</h4>
-                    <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
-                      ${result.improvements.map((i) => `<li>${i}</li>`).join("")}
-                    </ul>
-                  </div>
-                `
-                      : ""
-                  }
-                  
-                  ${
-                    result.alternativeApproach
-                      ? `
-                  <div class="p-4 bg-purple-50 dark:bg-purple-900/10 rounded-lg border border-purple-100 dark:border-purple-800/20">
-                    <h4 class="text-lg font-medium text-purple-700 dark:text-purple-400 mb-3">Recommended Approach</h4>
-                    <p class="text-gray-700 dark:text-gray-300">${result.alternativeApproach}</p>
-                  </div>
-                `
-                      : ""
-                  }
+                  </div>` : ""}
 
-                  ${
-                    result.suggestedAnswer
-                      ? `
-                  <div class="p-4 bg-purple-50 dark:bg-purple-900/10 rounded-lg border border-purple-100 dark:border-purple-800/20">
-                    <h4 class="text-lg font-medium text-purple-700 dark:text-purple-400 mb-3">Expected Answer</h4>
-                    <p class="text-gray-700 dark:text-gray-300">${result.suggestedAnswer}</p>
-                  </div>
-                `
-                      : ""
-                  }
-                  
-                  ${
-                    result.keyTakeaway
-                      ? `
-                  <div class="p-4 bg-green-50 dark:bg-green-900/10 rounded-lg border border-green-100 dark:border-green-800/20">
-                    <h4 class="text-lg font-medium text-green-700 dark:text-green-400 mb-3">Key Takeaway</h4>
-                    <p class="text-gray-700 dark:text-gray-300 font-medium">${result.keyTakeaway}</p>
-                  </div>
-                `
-                      : ""
-                  }
+                  ${result.improvements && result.improvements.length > 0 ? `
+                  <div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800/30">
+                    <h4 class="font-semibold text-blue-700 dark:text-blue-300 mb-1.5 flex items-center">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                      Suggestions
+                    </h4>
+                    <ul class="list-disc pl-6 space-y-1 text-gray-700 dark:text-gray-300 text-left">
+                      ${result.improvements.map((i: string) => `<li>${i}</li>`).join("")}
+                    </ul>
+                  </div>` : ""}
+
+                  ${result.alternativeApproach ? `
+                  <div class="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-100 dark:border-purple-800/30">
+                    <h4 class="font-semibold text-purple-700 dark:text-purple-300 mb-1.5 flex items-center">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" viewBox="0 0 20 20" fill="currentColor"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 011.087-.225l1.884.942a1 1 0 00.946 0l1.884-.942a.999.999 0 011.087.225l2.655 1.328a1 1 0 000-1.84l-7-3zM3 14a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" /></svg>
+                      Alternative Approach
+                    </h4>
+                    <p class="text-gray-700 dark:text-gray-300 text-left"">${result.alternativeApproach}</p>
+                  </div>` : ""}
+
+                   ${result.suggestedAnswer ? `
+                  <div class="p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg border border-indigo-100 dark:border-indigo-800/30">
+                    <h4 class="font-semibold text-indigo-700 dark:text-indigo-300 mb-1.5 flex items-center">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" /></svg>
+                      Example Answer
+                    </h4>
+                    <p class="text-gray-700 dark:text-gray-300 text-left"">${result.suggestedAnswer}</p>
+                  </div>` : ""}
+
+                  ${result.keyTakeaway ? `
+                  <div class="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-100 dark:border-green-800/30">
+                    <h4 class="font-semibold text-green-700 dark:text-green-300 mb-1.5 flex items-center">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                      Key Takeaway
+                    </h4>
+                    <p class="text-gray-700 dark:text-gray-300 font-medium text-left"">${result.keyTakeaway}</p>
+                  </div>` : ""}
                 </div>
               `;
 
-              feedbackContainer.innerHTML = `
-                <div class="p-6 bg-white dark:bg-gray-800/30 rounded-xl border border-gray-200 dark:border-gray-700/50">
-                  <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Feedback</h3>
-                  ${feedback}
+              currentFeedbackContainer.innerHTML = `
+                <div class="p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+                  <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Feedback</h3>
+                  ${feedbackHTML}
                 </div>
               `;
-              feedbackContainer.classList.remove("hidden");
+              // Hide the submit button after successfully displaying feedback
+              currentSubmitBtn.classList.add('hidden');
             }
           } catch (error) {
             console.error("API Error:", error);
-            if (feedbackContainer) {
-              feedbackContainer.innerHTML = `
-                <div class="p-6 bg-red-50 dark:bg-red-900/20 rounded-xl border border-red-200 dark:border-red-800/30">
-                  <h3 class="text-lg font-bold text-red-800 dark:text-red-200 mb-2">Error</h3>
-                  <p class="text-red-700 dark:text-red-300">${
-                    error instanceof Error
-                      ? error.message
-                      : "Failed to get feedback. Please try again."
-                  }</p>
+            if (currentFeedbackContainer) {
+              currentFeedbackContainer.innerHTML = `
+                <div class="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-100 dark:border-red-800/30">
+                  <h4 class="font-semibold text-red-700 dark:text-red-300 mb-1.5">Error</h4>
+                  <p class="text-sm text-red-600 dark:text-red-400">${error instanceof Error ? error.message : "Failed to get feedback. Please try again."}</p>
                 </div>
               `;
             }
+          } finally {
+             // Reset button state
+             currentSubmitBtnText.textContent = "Submit for Review";
+             currentSubmitBtnSpinner?.classList.add('hidden'); // Use optional chaining
+             currentSubmitBtn.disabled = false;
           }
         });
+
+        // Show modal
+        modal.classList.remove("hidden");
+        answerInput.focus(); // Focus textarea when modal opens
     }
 
-    function closeModal() {
+    // Global closeModal function needs to be attached to window
+    window.closeModal = () => {
       const modal = document.getElementById("answerModal");
       if (modal) {
         modal.classList.add("hidden");
-        // Clear fields
-        (
-          document.getElementById("modalAnswerText") as HTMLTextAreaElement
-        ).value = "";
-        document.getElementById("modalFeedbackContainer")!.innerHTML = "";
+        if (isRecording) {
+            stopRecording(); // Ensure recording stops if modal is closed
+        }
+        // Clear fields & state
+        const answerTextArea = document.getElementById("modalAnswerText") as HTMLTextAreaElement | null;
+        if (answerTextArea) answerTextArea.value = "";
+
+        const feedbackContainer = document.getElementById("modalFeedbackContainer");
+        if(feedbackContainer) feedbackContainer.innerHTML = `
+         <div class="p-6 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700/50 h-full flex items-center justify-center">
+           <p class="text-gray-500 dark:text-gray-400 text-left">Submit your answer to get feedback.</p>
+         </div>`;
+         updateSpeechError("");
+         updateRecordingStatus("");
       }
     }
   });
+
+
 </script>
 
 <script>
+  // Re-import necessary services for this script block's scope
   import { authService } from "../../lib/auth";
   import { PersistentDocumentService } from "../../lib/persistentDocumentService";
+
+  // This script block handles resume upload/import/manual entry
   document.addEventListener("DOMContentLoaded", () => {
     const resumeFileUploadButton = document.getElementById(
       "resumeFileUploadButton"
@@ -1105,7 +1382,7 @@
       "resumeContent"
     ) as HTMLTextAreaElement;
     const resumeFileAddedUI = document.getElementById("resumeFileAddedUI");
-    const removeResumeFileButton = document.getElementById("removeResumeFile");
+    const removeResumeFileButton = document.getElementById("removeResumeFile"); // Note: This ID doesn't seem to exist in the HTML
 
     // Add file upload button event listener
     resumeFileUploadButton?.addEventListener("click", async (e) => {
@@ -1187,7 +1464,7 @@
             resumeContentTextarea.dispatchEvent(new Event("input"));
 
             // Show the file added UI and hide other elements
-            const resumeFileAddedUI =
+            const currentResumeFileAddedUI = // Use different variable name to avoid conflict
               document.getElementById("resumeFileAddedUI");
             const resumeOptionsSelector = document.getElementById(
               "resumeOptionsSelector"
@@ -1196,8 +1473,8 @@
               "manualEntryContainer"
             );
 
-            if (resumeFileAddedUI && resumeOptionsSelector) {
-              resumeFileAddedUI.classList.remove("hidden");
+            if (currentResumeFileAddedUI && resumeOptionsSelector) {
+              currentResumeFileAddedUI.classList.remove("hidden");
               resumeOptionsSelector.classList.add("hidden");
               manualEntryContainer?.classList.add("hidden");
 
@@ -1231,7 +1508,8 @@
       resumeContentTextarea.value = "";
 
       // Hide the file added UI and show options
-      resumeFileAddedUI?.classList.add("hidden");
+      const currentResumeFileAddedUI = document.getElementById("resumeFileAddedUI"); // Use different variable name
+      currentResumeFileAddedUI?.classList.add("hidden");
       const resumeOptionsSelector = document.getElementById(
         "resumeOptionsSelector"
       );
@@ -1280,6 +1558,9 @@
     const importResumeButton = document.getElementById(
       "importResumeButton"
     ) as HTMLButtonElement;
+    const resumeContentTextarea = document.getElementById( // Get reference here
+      "resumeContent"
+    ) as HTMLTextAreaElement;
 
     // Handle resume import
     importResumeButton?.addEventListener("click", async () => {
@@ -1307,13 +1588,13 @@
                             </div>
 
                             <div class="mb-4">
-                                <button 
+                                <button
                                     id="addNewResumeButton"
-                                    class="w-full inline-flex items-center justify-center px-4 py-3 
-                                    bg-black text-white 
-                                    rounded-xl 
-                                    hover:bg-primary-600 
-                                    transition-all duration-300 
+                                    class="w-full inline-flex items-center justify-center px-4 py-3
+                                    bg-black text-white
+                                    rounded-xl
+                                    hover:bg-primary-600
+                                    transition-all duration-300
                                     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-2"
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1337,9 +1618,9 @@
         const closeModalButton = modal.querySelector("#closeImportModal");
         const addNewResumeButton = modal.querySelector("#addNewResumeButton");
         const resumeListContainer = modal.querySelector("#resumeList");
-        const resumeContentTextarea = document.getElementById(
-          "resumeContent"
-        ) as HTMLTextAreaElement;
+        // const resumeContentTextarea = document.getElementById( // Already defined above
+        //   "resumeContent"
+        // ) as HTMLTextAreaElement;
 
         closeModalButton?.addEventListener("click", () => {
           document.body.removeChild(modal);
@@ -1367,7 +1648,7 @@
         resumeListContainer!.innerHTML = resumes
           .map(
             (resume, index) => `
-                    <div class="bg-gray-100 dark:bg-gray-800 rounded-xl p-4 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer transition-colors resume-item" 
+                    <div class="bg-gray-100 dark:bg-gray-800 rounded-xl p-4 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer transition-colors resume-item"
                          data-resume-index="${index}">
                         <div class="flex justify-between items-center">
                             <div>
