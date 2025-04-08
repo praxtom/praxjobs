@@ -34,7 +34,7 @@ function initializeFirebaseAdmin(): App | null {
             projectId
         });
 
-        console.log('Firebase Admin initialized successfully');
+        // console.log('Firebase Admin initialized successfully'); // Removed for prod
         return app;
     } catch (error) {
         console.error('Firebase Admin initialization error:', error);

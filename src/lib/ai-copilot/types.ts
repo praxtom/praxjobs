@@ -11,7 +11,7 @@ export interface CopilotConversation {
 }
 
 export interface CopilotConfig {
-  model: 'mixtral-8x7b-32768' | 'llama2-70b-4096' | 'gemma-7b-it';  // Updated to include Groq models
+  model: 'llama3-8b-8192' | 'llama2-70b-4096' | 'gemma-7b-it';  // Updated to include Groq models
   temperature: number;
   maxTokens: number;
   topP: number;

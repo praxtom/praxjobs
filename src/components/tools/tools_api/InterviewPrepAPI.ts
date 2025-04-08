@@ -1,45 +1,45 @@
-import { Groq } from 'groq-sdk'
+import { Groq } from "groq-sdk";
 
 interface ChatMessage {
-  role: 'system' | 'user'
-  content: string
+  role: "system" | "user";
+  content: string;
 }
 
 export const fetchInterviewQuestions = async ({
-  request
+  request,
 }: {
-  request: Request
+  request: Request;
 }) => {
   try {
-    let requestData
+    let requestData;
     try {
-      requestData = await request.json()
+      requestData = await request.json();
     } catch (parseError) {
-      throw new Error('Invalid request format: Unable to parse request body')
+      throw new Error("Invalid request format: Unable to parse request body");
     }
 
     const {
-      companyName = 'Unknown Company',
-      jobRole = 'Unknown Role',
-      resume = ''
-    } = requestData
+      companyName = "Unknown Company",
+      jobRole = "Unknown Role",
+      resume = "",
+    } = requestData;
 
-    if (!companyName || typeof companyName !== 'string') {
-      throw new Error('Company name is required and must be a string')
+    if (!companyName || typeof companyName !== "string") {
+      throw new Error("Company name is required and must be a string");
     }
 
-    if (!jobRole || typeof jobRole !== 'string') {
-      throw new Error('Job role is required and must be a string')
+    if (!jobRole || typeof jobRole !== "string") {
+      throw new Error("Job role is required and must be a string");
     }
 
     const groq = new Groq({
-      apiKey: process.env.PUBLIC_GROQ_API_KEY
-    })
+      apiKey: process.env.PUBLIC_GROQ_API_KEY,
+    });
 
     const requestPayload = {
       messages: [
         {
-          role: 'system' as const,
+          role: "system" as const,
           content:
             `You are an expert interview coach with deep knowledge of industry-specific interview questions.
             CRITICAL INSTRUCTIONS:
@@ -54,114 +54,114 @@ export const fetchInterviewQuestions = async ({
             JSON.stringify({
               companySpecific: [
                 {
-                  question: '',
-                  context: ''
-                }
+                  question: "",
+                  context: "",
+                },
               ],
               roleSpecific: [
                 {
-                  question: '',
-                  context: ''
-                }
+                  question: "",
+                  context: "",
+                },
               ],
               behavioral: [
                 {
-                  question: '',
-                  context: ''
-                }
+                  question: "",
+                  context: "",
+                },
               ],
               technical: [
                 {
-                  question: '',
-                  context: ''
-                }
-              ]
-            })
+                  question: "",
+                  context: "",
+                },
+              ],
+            }),
         },
         {
-          role: 'user' as const,
+          role: "user" as const,
           content: `I have an upcoming interview at ${companyName} for the role of ${jobRole}. 
             Please research and provide me with likely interview questions in the four categories: 
             company-specific, role-specific, behavioral, and technical.
             
             Here is my resume for context:
-            ${resume}`
-        }
+            ${resume}`,
+        },
       ],
       temperature: 0.5,
       max_tokens: 4000,
-      model: 'llama-3.3-70b-specdec'
-    }
+      model: "qwen-2.5-32b",
+    };
 
-    const response = await groq.chat.completions.create(requestPayload)
+    const response = await groq.chat.completions.create(requestPayload);
 
     if (!response) {
-      throw new Error('API request failed')
+      throw new Error("API request failed");
     }
 
-    const content = response.choices[0].message.content
+    const content = response.choices[0].message.content;
     if (!content) {
-      throw new Error('API response content is empty')
+      throw new Error("API response content is empty");
     }
 
     // Parse the JSON response
-    let parsedContent
+    let parsedContent;
     try {
-      parsedContent = JSON.parse(content)
+      parsedContent = JSON.parse(content);
     } catch (parseError) {
-      console.error('Error parsing API response:', parseError)
-      console.debug('API response content:', content)
-      throw new Error('Failed to parse API response')
+      // console.error('Error parsing API response:', parseError) // Keep minimal for prod
+      // console.debug('API response content:', content) // Removed for prod
+      throw new Error("Failed to parse API response");
     }
 
     return {
       statusCode: 200,
-      body: JSON.stringify(parsedContent)
-    }
+      body: JSON.stringify(parsedContent),
+    };
   } catch (error: any) {
-    console.error('Error in fetchInterviewQuestions:', error)
+    console.error("Error in fetchInterviewQuestions:", error);
     return {
       statusCode: 500,
       body: JSON.stringify({
-        error: error.message || 'An unknown error occurred'
-      })
-    }
+        error: error.message || "An unknown error occurred",
+      }),
+    };
   }
-}
+};
 
 export const reviewAnswer = async ({
   request,
-  apiKey
+  apiKey,
 }: {
-  request: Request
-  apiKey?: string
+  request: Request;
+  apiKey?: string;
 }) => {
   try {
-    let requestData
+    let requestData;
     try {
-      requestData = await request.json()
+      requestData = await request.json();
     } catch (parseError) {
-      throw new Error('Invalid request format: Unable to parse request body')
+      throw new Error("Invalid request format: Unable to parse request body");
     }
 
-    const { question = '', answer = '', resume = '' } = requestData
+    const { question = "", answer = "", resume = "" } = requestData;
 
-    if (!question || typeof question !== 'string') {
-      throw new Error('Question is required and must be a string')
+    if (!question || typeof question !== "string") {
+      throw new Error("Question is required and must be a string");
     }
 
-    if (!answer || typeof answer !== 'string') {
-      throw new Error('Answer is required and must be a string')
+    if (!answer || typeof answer !== "string") {
+      throw new Error("Answer is required and must be a string");
     }
 
     const groq = new Groq({
-      apiKey: process.env.PUBLIC_GROQ_API_KEY
-    })
+      apiKey: process.env.PUBLIC_GROQ_API_KEY,
+    });
 
     const requestPayload = {
       messages: [
         {
-          role: 'system' as const,
+          role: "system" as const,
           content:
             `You are an expert interview coach with deep knowledge of effective interview techniques.
             Your task is to review the candidate's answer to an interview question and provide constructive feedback and the approach to answer the question.
@@ -176,14 +176,14 @@ export const reviewAnswer = async ({
               strengths: [],
               weaknesses: [],
               improvements: [],
-              alternativeApproach: '',
+              alternativeApproach: "",
               overallRating: 0, // 1-10 scale
-              suggestedAnswer: '',
-              keyTakeaway: ''
-            })
+              suggestedAnswer: "",
+              keyTakeaway: "",
+            }),
         },
         {
-          role: 'user' as const,
+          role: "user" as const,
           content: `I was asked this interview question: "${question}"
         
         My answer was: "${answer}"
@@ -191,46 +191,46 @@ export const reviewAnswer = async ({
         Here is my resume for context:
         ${resume}
         
-        Please provide feedback on my answer.`
-        }
+        Please provide feedback on my answer.`,
+        },
       ],
       temperature: 0.5,
       max_tokens: 4000,
-      model: 'llama-3.3-70b-specdec'
-    }
+      model: "llama-3.3-70b-specdec",
+    };
 
-    const response = await groq.chat.completions.create(requestPayload)
+    const response = await groq.chat.completions.create(requestPayload);
 
     if (!response) {
-      throw new Error('API request failed')
+      throw new Error("API request failed");
     }
 
-    const content = response.choices[0].message.content
+    const content = response.choices[0].message.content;
     if (!content) {
-      throw new Error('API response content is empty')
+      throw new Error("API response content is empty");
     }
 
     // Parse the JSON response
-    let parsedContent
+    let parsedContent;
     try {
-      parsedContent = JSON.parse(content)
+      parsedContent = JSON.parse(content);
     } catch (parseError) {
-      console.error('Error parsing API response:', parseError)
-      console.debug('API response content:', content)
-      throw new Error('Failed to parse API response')
+      // console.error('Error parsing API response:', parseError) // Keep minimal for prod
+      // console.debug('API response content:', content) // Removed for prod
+      throw new Error("Failed to parse API response");
     }
 
     return {
       statusCode: 200,
-      body: JSON.stringify(parsedContent)
-    }
+      body: JSON.stringify(parsedContent),
+    };
   } catch (error: any) {
-    console.error('Error in reviewAnswer:', error)
+    console.error("Error in reviewAnswer:", error);
     return {
       statusCode: 500,
       body: JSON.stringify({
-        error: error.message || 'An unknown error occurred'
-      })
-    }
+        error: error.message || "An unknown error occurred",
+      }),
+    };
   }
-}
+};

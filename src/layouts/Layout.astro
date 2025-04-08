@@ -18,7 +18,7 @@ const firebaseConfig = {
   measurementId: import.meta.env.PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-const { 
+const {
   title = "PraxJobs",
   description,
   canonical,
@@ -39,7 +39,7 @@ const {
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    
+
     <SEO
       title={title}
       description={description}
@@ -67,6 +67,7 @@ const {
         },
       ]}
     />
+    {/* Preload Firebase scripts */}
     <link
       rel="preload"
       as="script"
@@ -77,6 +78,7 @@ const {
       as="script"
       href="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"
     />
+    {/* Theme initialization script - minimal logging */}
     <script is:inline>
       // @ts-nocheck
       (function () {
@@ -88,42 +90,39 @@ const {
 
         const applyTheme = (isDark) => {
           document.documentElement.classList.toggle("dark", isDark);
+          // Persist user choice or system preference if no choice yet
           localStorage.setItem("color-theme", isDark ? "dark" : "light");
         };
 
-        // Remove any existing transitions to prevent initial flicker
+        // Prevent initial flicker by temporarily disabling transitions
         document.documentElement.classList.add("no-transition");
 
-        // Apply initial theme - always explicitly set the theme value
+        // Apply initial theme explicitly based on stored value or system preference
         if (savedTheme === "dark" || (!savedTheme && systemPrefersDark)) {
           applyTheme(true);
         } else {
-          // If not dark, explicitly ensure we set light theme
-          applyTheme(false);
+          applyTheme(false); // Explicitly apply light if not dark
         }
 
-        // Make sure the theme is persisted
+        // Ensure the theme is persisted if it wasn't set before (e.g., first visit)
         if (!localStorage.getItem("color-theme")) {
-          localStorage.setItem(
-            "color-theme",
-            systemPrefersDark ? "dark" : "light"
-          );
+           localStorage.setItem("color-theme", systemPrefersDark ? "dark" : "light");
         }
 
-        // Trigger reflow to enable transitions after initial load
+        // Re-enable transitions after a brief delay allowing initial render
         setTimeout(() => {
           document.documentElement.classList.remove("no-transition");
-        }, 100);
+        }, 50); // Shortened delay
 
-        // Listen for system theme changes if no user preference is set
-        window
-          .matchMedia("(prefers-color-scheme: dark)")
-          .addEventListener("change", (e) => {
-            // Only update theme based on system preference if user hasn't set a preference
-            if (!localStorage.getItem("color-theme")) {
-              applyTheme(e.matches);
-            }
-          });
+        // System theme change listener (optional, only applies if user hasn't explicitly set a theme)
+        // const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+        // function handleThemeChange(e) {
+        //   if (!localStorage.getItem("color-theme-user-choice")) { // Check for explicit user choice flag if needed
+        //      applyTheme(e.matches);
+        //   }
+        // }
+        // mediaQuery.addEventListener("change", handleThemeChange);
+
       })();
     </script>
     <style is:global>
@@ -167,6 +166,7 @@ const {
       <AppFooter />
     </div>
     <AICopilot />
+    {/* Load Firebase scripts */}
     <script
       is:inline
       src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"
@@ -176,36 +176,40 @@ const {
       src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"
     ></script>
 
+    {/* Firebase Initialization Script - No console logs */}
     <script define:vars={{ firebaseConfig }}>
       function initializeFirebase() {
         if (typeof firebase !== "undefined") {
           if (!firebase.apps.length) {
             try {
               firebase.initializeApp(firebaseConfig);
-              console.log("🚀 Firebase initialized successfully");
+              // Initialization successful, no log needed for production
             } catch (error) {
-              console.error("Firebase initialization error:", error);
+              // Removed console.error("Firebase initialization error:", error);
+              // Consider sending this error to an error tracking service in production
             }
-          } else {
-            console.log("✅ Firebase app already initialized");
-          }
+          } // else {
+            // Removed console.log("✅ Firebase app already initialized");
+          // }
         } else {
-          console.warn("⚠️ Firebase SDK not loaded yet");
-          setTimeout(initializeFirebase, 100);
+          // Removed console.warn("⚠️ Firebase SDK not loaded yet");
+          // Retry initialization after a short delay
+          setTimeout(initializeFirebase, 150); // Slightly increased delay for retry
         }
       }
 
-      // Start initialization when the document is ready
+      // Start initialization attempt when the document is ready or immediately if already loaded
       if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", initializeFirebase);
       } else {
+        // DOMContentLoaded has already fired
         initializeFirebase();
       }
     </script>
 
     <style is:global>
       html {
-        /* Optimize transitions */
+        /* Other global styles */
         scroll-behavior: smooth;
         -webkit-font-smoothing: antialiased;
         text-rendering: optimizeLegibility;

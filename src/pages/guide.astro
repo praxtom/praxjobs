@@ -1,0 +1,472 @@
+---
+// src/pages/guide.astro
+import Layout from "../layouts/Layout.astro";
+import Container from "../components/Container.astro";
+
+const url = new URL(Astro.request.url);
+const initialQuery = url.searchParams.get("query") || "";
+
+const promptSuggestions = [
+  "Help me improve my resume summary.",
+  "Suggest questions I can ask in an interview.",
+  "How can I negotiate my salary?",
+  "What are some good answers to 'Tell me about yourself'?",
+  "Give me tips to prepare for a technical interview.",
+  "How do I write a compelling cover letter?",
+];
+---
+
+<script define:vars={{ initialQuery }}>
+  // Inject initialQuery safely using JSON.stringify to handle special characters
+  window.initialQuery = JSON.parse(JSON.stringify(initialQuery));
+</script>
+
+<Layout
+  title="AI Career Guide | Transform Your Career"
+  description="Use ScriptAI's guide mode to refine, enhance, and tailor your career content with AI-powered suggestions and transformations."
+  image="/images/og-image.jpg"
+  type="website"
+  canonical="/guide"
+  ogTitle="AI Career Guide | Transform Your Career with ScriptAI"
+  ogDescription="Refine your writing with AI. Get suggestions to make your text more descriptive, concise, creative, or clear using ScriptAI's guide mode."
+>
+  <main class="relative min-h-screen dark:bg-gray-950 pt-16">
+    {/* Background Gradient Effect */}
+    <div
+      aria-hidden="true"
+      class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20"
+    >
+      <div
+        class="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700"
+      >
+      </div>
+      <div
+        class="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600"
+      >
+      </div>
+    </div>
+
+    <Container>
+      {/* Page Header */}
+      <div class="relative pt-24 space-y-12">
+        <div class="w-full text-center mx-auto">
+          <h1
+            class="text-gray-900 dark:text-white font-bold text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
+          >
+            <span class="text-primary dark:text-white">AI Career Guide</span>
+          </h1>
+          <p
+            class="mt-6 text-gray-700 dark:text-gray-300 text-lg max-w-3xl mx-auto"
+          >
+            Get guidance to enhance your career with AI-powered suggestions,
+            clear and concise.
+          </p>
+
+          {/* Stats */}
+          <div
+            class="hidden py-6 mt-10 border-y border-gray-100 dark:border-gray-800 sm:flex justify-between"
+          >
+            <div class="text-left">
+              <h6 class="text-lg font-semibold text-gray-700 dark:text-white">
+                AI-Powered
+              </h6>
+              <p class="mt-2 text-gray-500">Tailored transformations</p>
+            </div>
+            <div class="text-left">
+              <h6 class="text-lg font-semibold text-gray-700 dark:text-white">
+                Multiple Styles
+              </h6>
+              <p class="mt-2 text-gray-500">
+                Descriptive, Concise, Creative...
+              </p>
+            </div>
+            <div class="text-left">
+              <h6 class="text-lg font-semibold text-gray-700 dark:text-white">
+                Instant Feedback
+              </h6>
+              <p class="mt-2 text-gray-500">Refine in seconds</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+
+    {/* Chat Interface Section */}
+    <section id="chat-interface" class="relative w-full py-8 sm:py-12">
+      {
+        /* Container for the chat elements, mimicking the previous structure but within the new layout */
+      }
+      <div
+        class="w-full max-w-6xl mx-auto bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-lg p-6 md:p-4 border border-gray-200 dark:border-gray-700/50 flex flex-col gap-y-6"
+        style="height: 80vh;"
+      >
+        {/* Prompt Suggestions Section */}
+        <div
+          id="prompt-suggestions"
+          class="bg-white dark:bg-gray-800/60 p-4 rounded-xl border border-gray-200 dark:border-gray-700/50 shadow-sm transition-opacity duration-500"
+        >
+          <h2
+            class="text-sm font-semibold mb-3 text-gray-700 dark:text-gray-300"
+          >
+            Prompt Suggestions For You
+          </h2>
+          <div class="flex flex-wrap justify-start gap-2">
+            {
+              promptSuggestions.map((suggestion) => (
+                <button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 text-xs md:text-sm text-gray-700 dark:text-gray-300 transition whitespace-nowrap">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-3.5 w-3.5 text-purple-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10h6c2 1 2.343 2.657 2.343 2.657m0 0l2.343 2.343m-2.343-2.343l2.343-2.343m0 2.343l-2.343 2.343m2.343-2.343l-2.343-2.343"
+                    />{" "}
+                    {/* Wand Icon */}
+                  </svg>
+                  {suggestion}
+                </button>
+              ))
+            }
+          </div>
+        </div>
+
+        {/* Chat Window */}
+        <div
+          id="chat-window"
+          class="flex-1 overflow-y-auto space-y-4 p-4 border border-gray-200 dark:border-gray-700/50 rounded-xl bg-gray-50 dark:bg-gray-900/30 shadow-inner"
+        >
+          {
+            initialQuery && (
+              <div class="flex justify-end">
+                <div class="max-w-[75%] p-3 rounded-xl bg-purple-300 text-gray-900 shadow-md">
+                  {initialQuery}
+                </div>
+              </div>
+            )
+          }
+          {/* AI responses will be appended here dynamically */}
+        </div>
+
+        {/* Input Form */}
+        <form
+          id="chat-form"
+          class="flex items-center gap-2 px-1 border border-gray-200 dark:border-gray-700/50 rounded-full bg-white dark:bg-gray-800/60 shadow-sm focus-within:ring-2 focus-within:ring-purple-400 dark:focus-within:ring-purple-500 transition"
+        >
+          <button
+            type="button"
+            id="voice-input-button"
+            class="p-2 rounded-full dark:border-gray-600 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition"
+            aria-label="Use voice input"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              class="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                stroke="none"
+                fill="currentColor"
+                d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"
+              ></path>
+              <path d="M19 11a7 7 0 0 1-14 0"></path>
+              <path d="M12 17v4m-4 0h8"></path>
+            </svg>
+          </button>
+
+          <input
+            type="text"
+            id="user-input"
+            placeholder="Ask me anything..."
+            class="flex-grow px-4 py-2 text-lg rounded-full focus:outline-none bg-transparent text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 md:text-base"
+          />
+          <button
+            type="submit"
+            class="p-2 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 text-white hover:opacity-90 transition-opacity shadow"
+            aria-label="Send message"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-4 ml-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    {
+      /* Optional: Add other sections like Benefits if needed, similar to resume.astro */
+    }
+  </main>
+</Layout>
+
+<script>
+  // Client-side authentication check (copied from resume.astro)
+  import { authService } from "../lib/auth";
+
+  function checkAuthentication() {
+    setTimeout(async () => {
+      try {
+        const user = await authService.getCurrentUser();
+        if (!user) {
+          console.warn("Authentication check failed", {
+            timestamp: new Date().toISOString(),
+          });
+          window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+        }
+      } catch (error) {
+        console.error("Authentication check error:", {
+          error: error instanceof Error ? error.message : "Unknown error",
+          timestamp: new Date().toISOString(),
+        });
+        window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+      }
+    }, 2000); // 2-second delay
+  }
+  document.addEventListener("DOMContentLoaded", checkAuthentication);
+
+  // Existing chat script
+  const form = document.getElementById("chat-form");
+  const input = document.getElementById(
+    "user-input"
+  ) as HTMLInputElement | null;
+  const chatWindow = document.getElementById("chat-window");
+  const suggestionButtons = document.querySelectorAll(
+    "#chat-interface .flex-wrap button"
+  ); // Scoped selector
+  const voiceInputButton = document.getElementById("voice-input-button");
+
+  function addMessageBubble(message, isUser) {
+    if (!chatWindow) return;
+    const messageWrapper = document.createElement("div");
+    messageWrapper.className = `flex ${isUser ? "justify-end" : "justify-start"}`;
+
+    const bubble = document.createElement("div");
+    bubble.className = `max-w-[75%] p-3 rounded-xl shadow ${isUser ? "bg-gradient-to-r from-purple-500 to-indigo-600 text-white" : "bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200"}`;
+    bubble.textContent = message;
+
+    messageWrapper.appendChild(bubble);
+    chatWindow.appendChild(messageWrapper);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+  }
+
+  // Modified sendMessage to handle initial query without adding duplicate user bubble
+  function sendMessage(message, isInitialQuery = false) {
+    console.log(
+      `sendMessage called. Initial: ${isInitialQuery}, Message: "${message}"`
+    ); // Log entry
+    if (!message) {
+      console.log("Message is empty, exiting sendMessage."); // Log exit
+      return;
+    }
+
+    // Only add user bubble if it's not the initial query from the URL
+    if (!isInitialQuery) {
+      addMessageBubble(message, true);
+    }
+    if (input instanceof HTMLInputElement) input.value = "";
+
+    const thinkingBubble = document.createElement("div");
+    thinkingBubble.className = "flex justify-start";
+    thinkingBubble.innerHTML = `
+          <div class="max-w-[75%] p-3 rounded-xl bg-white dark:bg-gray-700 text-gray-500 dark:text-gray-400 shadow animate-pulse">
+            Thinking...
+          </div>
+        `;
+    if (chatWindow) {
+      chatWindow.appendChild(thinkingBubble);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    fetch("/.netlify/functions/guide-mode", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ message: message }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return res
+            .json()
+            .then((errData) => {
+              throw new Error(
+                errData.error || `HTTP error! status: ${res.status}`
+              );
+            })
+            .catch(() => {
+              throw new Error(`HTTP error! status: ${res.status}`);
+            });
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (chatWindow && thinkingBubble) {
+          chatWindow.removeChild(thinkingBubble);
+        }
+        if (data.success && data.data) {
+          addMessageBubble(data.data, false);
+        } else {
+          addMessageBubble(data.error || "Sorry, something went wrong.", false);
+        }
+      })
+      .catch((error) => {
+        console.error("Error calling guide mode API:", error);
+        if (chatWindow && thinkingBubble) {
+          chatWindow.removeChild(thinkingBubble);
+        }
+        addMessageBubble(
+          `Error: ${error.message || "Could not connect to the AI service."}`,
+          false
+        );
+      });
+    console.log("Fetch call initiated to /.netlify/functions/guide-mode"); // Log fetch initiation
+  }
+
+  if (form && input) {
+    // Handle Enter key press in the input field
+    input.addEventListener("keydown", (e) => {
+      // Check if Enter key was pressed without the Shift key
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault(); // Prevent default Enter behavior (like adding a newline)
+        if (form instanceof HTMLFormElement) {
+          form.requestSubmit();
+        }
+      }
+    });
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const suggestionsEl = document.getElementById("prompt-suggestions");
+      if (suggestionsEl) {
+        suggestionsEl.classList.add("opacity-0");
+        setTimeout(() => {
+          suggestionsEl.style.display = "none";
+        }, 500);
+      }
+      const message =
+        input instanceof HTMLInputElement ? input.value.trim() : "";
+      if (!message) return;
+
+      sendMessage(message);
+    });
+
+    // Send the initial query from the URL, marking it as the initial query
+    const queryFromWindow = (window as any).initialQuery;
+    console.log("Checking for initialQuery on window:", queryFromWindow); // Log the check
+    if (queryFromWindow) {
+      sendMessage(queryFromWindow, true);
+    } else {
+      console.log("No initialQuery found on window, or it was empty."); // Log if not found or empty
+    }
+  }
+
+  suggestionButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const suggestionText =
+        button.textContent?.trim().replace(/^.*? /, "") ?? "";
+      if (input && suggestionText) {
+        if (input instanceof HTMLInputElement) {
+          input.value = suggestionText;
+        }
+        input.focus();
+      }
+    });
+  });
+
+  // --- Voice Input Logic ---
+  // Cast window to any to access potentially non-standard properties
+  const SpeechRecognition =
+    (window as any).SpeechRecognition ||
+    (window as any).webkitSpeechRecognition;
+  let recognition;
+  let isRecognizing = false;
+
+  if (SpeechRecognition && voiceInputButton && input) {
+    recognition = new SpeechRecognition();
+    recognition.continuous = false; // Process single utterances
+    recognition.lang = "en-US";
+    recognition.interimResults = false; // Get final results only
+    recognition.maxAlternatives = 1;
+
+    voiceInputButton.addEventListener("click", () => {
+      if (isRecognizing) {
+        recognition.stop();
+        return;
+      }
+      try {
+        recognition.start();
+      } catch (e) {
+        console.error("Speech recognition error starting:", e);
+        alert(
+          "Voice input error: Could not start recognition. Please ensure microphone permissions are granted."
+        );
+      }
+    });
+
+    recognition.onstart = () => {
+      isRecognizing = true;
+      voiceInputButton.classList.add("text-red-500", "animate-pulse"); // Visual feedback: Pulsing red
+      voiceInputButton.setAttribute("aria-label", "Stop voice input");
+      console.log("Voice recognition started.");
+    };
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      console.log("Voice result:", transcript);
+      input.value = transcript; // Populate input field
+      // Optionally, submit the form automatically after transcription
+      // if (form instanceof HTMLFormElement) {
+      //   form.requestSubmit();
+      // }
+    };
+
+    recognition.onerror = (event) => {
+      console.error("Speech recognition error:", event.error);
+      let errorMessage = `Speech recognition error: ${event.error}.`;
+      if (
+        event.error === "not-allowed" ||
+        event.error === "service-not-allowed"
+      ) {
+        errorMessage +=
+          " Please ensure microphone access is granted in your browser settings.";
+      } else if (event.error === "no-speech") {
+        errorMessage = "No speech detected. Please try again.";
+      }
+      alert(errorMessage); // Inform user
+    };
+
+    recognition.onend = () => {
+      isRecognizing = false;
+      voiceInputButton.classList.remove("text-red-500", "animate-pulse");
+      voiceInputButton.setAttribute("aria-label", "Use voice input");
+      console.log("Voice recognition ended.");
+    };
+  } else {
+    // Hide button if API not supported
+    if (voiceInputButton) {
+      console.warn("Web Speech API not supported in this browser.");
+      voiceInputButton.style.display = "none";
+    }
+  }
+</script>

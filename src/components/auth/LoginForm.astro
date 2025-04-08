@@ -5,8 +5,8 @@ import { authService } from '../../lib/auth';
 const redirectUrl = Astro.url.searchParams.get('redirect') || '/dashboard';
 ---
 
-<div 
-    id="login-container" 
+<div
+    id="login-container"
     class="relative w-full"
     data-redirect-url={redirectUrl}
 >
@@ -44,8 +44,8 @@ const redirectUrl = Astro.url.searchParams.get('redirect') || '/dashboard';
                 </div>
             </div>
             <div id="loginErrorContainer" class="text-red-500 text-sm hidden"></div>
-            <button 
-                type="submit" 
+            <button
+                type="submit"
                 class="w-full bg-gray-800 dark:bg-gray-100 dark:hover:bg-white text-white dark:text-gray-900 py-3 rounded-xl hover:bg-black"
             >
                 Sign In
@@ -65,10 +65,10 @@ const redirectUrl = Astro.url.searchParams.get('redirect') || '/dashboard';
         </div>
 
         <!-- Google Sign In Button -->
-        <button 
+        <button
             id="googleSignIn"
-            type="button" 
-            class="w-full flex items-center justify-center gap-3 py-3 px-4 
+            type="button"
+            class="w-full flex items-center justify-center gap-3 py-3 px-4
                    border-2 border-gray-200 dark:border-gray-700 rounded-xl
                    hover:bg-gray-50 dark:hover:bg-gray-800
                    transition-colors duration-200
@@ -99,14 +99,18 @@ const redirectUrl = Astro.url.searchParams.get('redirect') || '/dashboard';
 
     loginForm?.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         // Get form elements
         const emailInput = document.getElementById('email') as HTMLInputElement;
         const passwordInput = document.getElementById('password') as HTMLInputElement;
-        
+
         if (!emailInput || !passwordInput) {
-            console.error('Form inputs not found');
-            return;
+            // Optionally display an error in the UI if this unlikely case occurs
+            // if (errorContainer) {
+            //     errorContainer.textContent = 'Internal error: Form fields missing.';
+            //     errorContainer.classList.remove('hidden');
+            // }
+            return; // Exit if inputs aren't found
         }
 
         try {
@@ -132,18 +136,18 @@ const redirectUrl = Astro.url.searchParams.get('redirect') || '/dashboard';
                 window.location.href = decodeURIComponent(redirectUrl);
             }
         } catch (error) {
-            console.error('Login error:', error);
-            
-            // Show error message
+            // Removed console.error('Login error:', error);
+
+            // Show error message in the UI
             if (errorContainer) {
-                errorContainer.textContent = error instanceof Error ? error.message : 'Login failed. Please try again.';
+                errorContainer.textContent = error instanceof Error ? error.message : 'Login failed. Please check your credentials and try again.';
                 errorContainer.classList.remove('hidden');
             }
 
-            // Reset form fields
-            emailInput.value = '';
+            // Reset form fields (keep email for convenience?) - Decided to clear password only.
+            // emailInput.value = ''; // Keep email filled?
             passwordInput.value = '';
-            emailInput.focus(); // Set focus back to email input
+            passwordInput.focus(); // Set focus back to password input after error
 
             // Reset button state
             const submitButton = loginForm.querySelector('button[type="submit"]');
@@ -160,7 +164,7 @@ const redirectUrl = Astro.url.searchParams.get('redirect') || '/dashboard';
         try {
             // Show loading state
             if (googleSignInButton) {
-                googleSignInButton.innerHTML = '<span class="animate-spin">↻</span> Signing in...';
+                googleSignInButton.innerHTML = '<span class="animate-spin inline-block mr-2">↻</span> Signing in...'; // Added inline-block and margin for spinner
                 (googleSignInButton as HTMLButtonElement).disabled = true;
             }
 
@@ -171,14 +175,14 @@ const redirectUrl = Astro.url.searchParams.get('redirect') || '/dashboard';
             }
 
             const user = await authService.signInWithGoogle();
-            
+
             if (user) {
                 window.location.href = decodeURIComponent(redirectUrl);
             }
         } catch (error) {
-            console.error('Google Sign In error:', error);
-            
-            // Show error message
+            // Removed console.error('Google Sign In error:', error);
+
+            // Show error message in the UI
             if (errorContainer) {
                 errorContainer.textContent = error instanceof Error ? error.message : 'Google Sign In failed. Please try again.';
                 errorContainer.classList.remove('hidden');

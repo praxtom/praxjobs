@@ -34,7 +34,7 @@ export const handler: Handler = async event => {
       body: JSON.stringify(optimizedProfile)
     }
   } catch (error) {
-    console.error('Error processing request:', error)
+    // console.error('Error processing request:', error) // Removed for prod
     return {
       statusCode: 500,
       body: JSON.stringify({ error: 'Failed to optimize profile' })
@@ -208,7 +208,7 @@ Please format your response as JSON with the following structure:
       }
     }
   } catch (error) {
-    console.error('Error in AI processing:', error)
+    // console.error('Error in AI processing:', error) // Removed for prod
     throw new Error('Failed to process optimization with AI')
   }
 }

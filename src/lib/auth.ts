@@ -14,15 +14,14 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { PersistentDocumentService } from "./persistentDocumentService";
+import { TierManagementService } from "./tierManagement";
 import {
   getFirestore,
   doc,
   getDoc,
   setDoc,
   Timestamp,
-  increment,
 } from "firebase/firestore";
-import { TierManagementService } from "./tierManagement";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -68,12 +67,12 @@ async function apiRequest(
 ) {
   try {
     const url = `${getBaseUrl()}/auth/${endpoint}`;
-    console.log("API Request", {
-      url,
-      method,
-      body: body ? JSON.stringify(body) : "No body",
-      timestamp: new Date().toISOString(),
-    });
+    // console.log("API Request", { // Removed for prod
+    //   url,
+    //   method,
+    //   body: body ? JSON.stringify(body) : "No body",
+    //   timestamp: new Date().toISOString(),
+    // });
 
     const response = await fetch(url, {
       method,
@@ -85,23 +84,23 @@ async function apiRequest(
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("API Request Failed", {
-        status: response.status,
-        statusText: response.statusText,
-        errorText,
-        timestamp: new Date().toISOString(),
-      });
-      throw new Error(`API request failed: ${errorText}`);
+      // console.error("API Request Failed", { // Keep minimal for prod
+      //   status: response.status,
+      //   statusText: response.statusText,
+      //   errorText,
+      //   timestamp: new Date().toISOString(),
+      // });
+      throw new Error(`API request failed: ${errorText}`); // Keep error throwing
     }
 
     return await response.json();
   } catch (error) {
-    console.error("API Request Error", {
-      error: error instanceof Error ? error.message : "Unknown error",
-      stack: error instanceof Error ? error.stack : "No stack trace",
-      timestamp: new Date().toISOString(),
-    });
-    throw error;
+    // console.error("API Request Error", { // Keep minimal for prod
+    //   error: error instanceof Error ? error.message : "Unknown error",
+    //   stack: error instanceof Error ? error.stack : "No stack trace",
+    //   timestamp: new Date().toISOString(),
+    // });
+    throw error; // Keep error throwing
   }
 }
 
@@ -111,8 +110,6 @@ class AuthService {
   private initialized: boolean = false;
   private googleProvider: GoogleAuthProvider;
   private loginCallbacks: (() => void)[] = [];
-
-  static EMAIL_HISTORY_COLLECTION = "userEmailHistory";
 
   constructor() {
     this.app = app;
@@ -132,15 +129,15 @@ class AuthService {
             this.auth,
             (user) => {
               this.initialized = true;
-              console.log(
-                "[AuthService] Auth state changed:",
-                user ? user.uid : "No user"
-              );
+              // console.log( // Removed for prod
+              //   "[AuthService] Auth state changed:",
+              //   user ? user.uid : "No user"
+              // );
               this.loginCallbacks.forEach((callback) => callback());
               resolve();
             },
             (error) => {
-              console.error("[AuthService] Auth state change error:", error);
+              // console.error("[AuthService] Auth state change error:", error); // Keep minimal for prod
               this.initialized = false;
               resolve(); // Resolve anyway to prevent hanging
             }
@@ -162,9 +159,9 @@ class AuthService {
       // Get user from auth
       const user = this.auth.currentUser;
 
-      if (!user && !this.initialized) {
-        console.warn("[AuthService] Auth not fully initialized");
-      }
+      // if (!user && !this.initialized) { // Removed console.warn for prod
+      //   console.warn("[AuthService] Auth not fully initialized");
+      // }
 
       return user;
     } catch (error) {
@@ -175,11 +172,11 @@ class AuthService {
 
   public async signInWithGoogle(): Promise<User | null> {
     try {
-      console.log("Starting Google Sign-In process", {
-        timestamp: new Date().toISOString(),
-        windowDefined: typeof window !== "undefined",
-        baseUrl: getBaseUrl(),
-      });
+      // console.log("Starting Google Sign-In process", { // Removed for prod
+      //   timestamp: new Date().toISOString(),
+      //   windowDefined: typeof window !== "undefined",
+      //   baseUrl: getBaseUrl(),
+      // });
 
       // Ensure browser persistence is set
       await setPersistence(this.auth, browserLocalPersistence);
@@ -188,12 +185,10 @@ class AuthService {
 
       // Additional validation
       if (!result.user) {
-        console.error("No user returned from Google sign-in", {
-          result: JSON.stringify(result),
-          timestamp: new Date().toISOString(),
-        });
         throw new Error("No user returned from Google sign-in");
       }
+
+      // Email reuse eligibility check removed since account deletion is disabled
 
       // Get and set the auth token via API
       const token = await result.user.getIdToken();
@@ -205,11 +200,6 @@ class AuthService {
       const userDoc = await getDoc(userRef);
 
       if (!userDoc.exists()) {
-        console.log("Creating new user document in Firestore", {
-          uid: result.user.uid,
-          timestamp: new Date().toISOString(),
-        });
-
         const timestamp = Timestamp.now();
         // Create basic user document without subscription info
         await setDoc(userRef, {
@@ -224,22 +214,21 @@ class AuthService {
         await TierManagementService.initUserTierProfile(result.user.uid);
       }
 
-      // Log successful login
-      console.log("Google sign-in successful", {
-        uid: result.user.uid,
-        email: result.user.email,
-        displayName: result.user.displayName,
-        timestamp: new Date().toISOString(),
-      });
-
       return result.user;
     } catch (error) {
-      // User-friendly error messages
       let userFriendlyMessage =
         "An unexpected error occurred during Google Sign-In. Please try again.";
 
+      console.error("[Google Sign-In Error]", {
+        errorType: error instanceof Error ? error.name : "Unknown Error",
+        message: error instanceof Error ? error.message : "No error message",
+        stack: error instanceof Error ? error.stack : "No stack trace",
+        code: (error as any)?.code,
+        timestamp: new Date().toISOString(),
+      });
+
       if (isAuthError(error)) {
-        switch (error.code) {
+        switch ((error as any).code) {
           case "auth/popup-closed-by-user":
             userFriendlyMessage =
               "Google Sign-In was cancelled. Please try again.";
@@ -259,16 +248,6 @@ class AuthService {
         }
       }
 
-      // Comprehensive error logging
-      console.error("Google Sign-In Error", {
-        errorType: error instanceof Error ? error.name : "Unknown Error",
-        message: error instanceof Error ? error.message : "No error message",
-        stack: error instanceof Error ? error.stack : "No stack trace",
-        userFriendlyMessage,
-        timestamp: new Date().toISOString(),
-      });
-
-      // Throw with user-friendly message
       const authError = new Error(userFriendlyMessage);
       authError.name = "GoogleSignInError";
       throw authError;
@@ -280,12 +259,6 @@ class AuthService {
     password: string
   ): Promise<User | null> {
     try {
-      // Check email reuse eligibility before signup
-      const isEligible = await this.checkEmailReuseEligibility(email);
-      if (!isEligible) {
-        throw new Error("This email cannot be reused. Please contact support.");
-      }
-
       // Set persistence before sign up
       await setPersistence(this.auth, browserLocalPersistence);
 
@@ -312,21 +285,6 @@ class AuthService {
       });
 
       // Record email history
-      const emailHistoryRef = doc(
-        db,
-        AuthService.EMAIL_HISTORY_COLLECTION,
-        email
-      );
-      await setDoc(
-        emailHistoryRef,
-        {
-          email,
-          createdAt: timestamp,
-          deletedAt: null,
-          signupCount: increment(1),
-        },
-        { merge: true }
-      );
 
       // Get and set the auth token via API
       const token = await user.getIdToken();
@@ -335,16 +293,8 @@ class AuthService {
       // Initialize user subscription
       await TierManagementService.initUserTierProfile(user.uid);
 
-      // Log successful signup
-      console.log("Email sign-up successful", {
-        uid: user.uid,
-        email: user.email,
-        timestamp: new Date().toISOString(),
-      });
-
       return user;
     } catch (error) {
-      console.error("Signup error:", error);
       throw error;
     }
   }
@@ -369,11 +319,11 @@ class AuthService {
       await apiRequest("login", "POST", { token });
 
       // Log successful login
-      console.log("Email sign-in successful", {
-        uid: user.uid,
-        email: user.email,
-        timestamp: new Date().toISOString(),
-      });
+      // console.log("Email sign-in successful", { // Removed for prod
+      //   uid: user.uid,
+      //   email: user.email,
+      //   timestamp: new Date().toISOString(),
+      // });
 
       return user;
     } catch (error) {
@@ -406,13 +356,13 @@ class AuthService {
       }
 
       // Comprehensive error logging
-      console.error("Email Sign-In Error", {
-        errorType: error instanceof Error ? error.name : "Unknown Error",
-        message: error instanceof Error ? error.message : "No error message",
-        stack: error instanceof Error ? error.stack : "No stack trace",
-        userFriendlyMessage,
-        timestamp: new Date().toISOString(),
-      });
+      // console.error("Email Sign-In Error", { // Keep minimal for prod
+      //   errorType: error instanceof Error ? error.name : "Unknown Error",
+      //   message: error instanceof Error ? error.message : "No error message",
+      //   stack: error instanceof Error ? error.stack : "No stack trace",
+      //   userFriendlyMessage,
+      //   timestamp: new Date().toISOString(),
+      // });
 
       // Throw with user-friendly message
       const authError = new Error(userFriendlyMessage);
@@ -425,22 +375,7 @@ class AuthService {
     try {
       // Use Firebase's sendPasswordResetEmail method
       await sendPasswordResetEmail(this.auth, email);
-
-      // Log successful password reset request
-      console.log("Password reset email sent", {
-        email,
-        timestamp: new Date().toISOString(),
-      });
     } catch (error) {
-      // Comprehensive error logging
-      console.error("Password Reset Error", {
-        errorType: error instanceof Error ? error.name : "Unknown Error",
-        message: error instanceof Error ? error.message : "No error message",
-        stack: error instanceof Error ? error.stack : "No stack trace",
-        timestamp: new Date().toISOString(),
-      });
-
-      // Rethrow the error for the caller to handle
       throw error;
     }
   }
@@ -451,110 +386,8 @@ class AuthService {
 
       // Clear auth cookie via API
       await apiRequest("logout", "POST");
-
-      // Log successful sign out
-      console.log("User signed out successfully", {
-        timestamp: new Date().toISOString(),
-      });
     } catch (error) {
-      console.error("Sign out error:", {
-        error: error instanceof Error ? error.message : "Unknown error",
-        timestamp: new Date().toISOString(),
-      });
-      throw error;
-    }
-  }
-
-  public async deleteAccount(): Promise<void> {
-    try {
-      const user = await this.getCurrentUser();
-      if (!user) {
-        throw new Error("No user is currently signed in");
-      }
-
-      // Validate user authentication
-      const currentUser = this.auth.currentUser;
-      if (!currentUser) {
-        throw new Error("User authentication failed");
-      }
-
-      // Record email in history before deletion
-      const db = this.getFirestoreInstance();
-      const emailHistoryRef = doc(
-        db,
-        AuthService.EMAIL_HISTORY_COLLECTION,
-        user.email!
-      );
-
-      try {
-        await setDoc(
-          emailHistoryRef,
-          {
-            email: user.email,
-            deletedAt: Timestamp.now(),
-            userId: user.uid,
-          },
-          { merge: true }
-        );
-      } catch (historyError) {
-        console.error("Error recording email history:", historyError);
-        // Non-critical error, continue with account deletion
-      }
-
-      // Delete user data from Firestore
-      await PersistentDocumentService.deleteUserData(user.uid);
-
-      // Delete Firebase Authentication user
-      await user.delete();
-
-      // Sign out to clear any remaining session
-      await this.signOut();
-    } catch (error) {
-      console.error("Account deletion error:", error);
-
-      // Provide more detailed error information
-      if (error instanceof Error) {
-        const detailedError = {
-          name: error.name,
-          message: error.message,
-          stack: error.stack,
-        };
-        console.error("Detailed Account Deletion Error:", detailedError);
-      }
-
-      throw error;
-    }
-  }
-
-  private async checkEmailReuseEligibility(email: string): Promise<boolean> {
-    try {
-      const db = this.getFirestoreInstance();
-      const emailHistoryRef = doc(
-        db,
-        AuthService.EMAIL_HISTORY_COLLECTION,
-        email
-      );
-      const emailHistoryDoc = await getDoc(emailHistoryRef);
-
-      if (emailHistoryDoc.exists()) {
-        const emailHistory = emailHistoryDoc.data();
-
-        // Check if the email has been used in a deleted account within the last 30 days
-        if (emailHistory.deletedAt) {
-          const deletedAt = emailHistory.deletedAt.toDate();
-          const thirtyDaysAgo = new Date();
-          thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
-          if (deletedAt > thirtyDaysAgo) {
-            return false; // Email cannot be reused within 30 days
-          }
-        }
-      }
-
-      return true; // Email is eligible for use
-    } catch (error) {
-      console.error("Error checking email reuse eligibility:", error);
-      return false;
+      throw error; // Keep error throwing
     }
   }
 
@@ -572,8 +405,36 @@ const authService = new AuthService();
 async function onUserLogin() {
   try {
     await PersistentDocumentService.syncDocuments();
+
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (user) {
+      const userId = user.uid;
+      const subscriptionProfile =
+        await TierManagementService.getUserTierProfile(userId);
+
+      const startDate = subscriptionProfile.subscriptionStartDate;
+      const endDate = subscriptionProfile.subscriptionEndDate;
+      const paymentStatus = subscriptionProfile.paymentStatus;
+
+      if (
+        paymentStatus === "active" &&
+        endDate &&
+        endDate.toDate() < new Date()
+      ) {
+        console.log(
+          `[Subscription Check] Subscription expired. Downgrading user tier...`
+        );
+        await TierManagementService.downgradeUserTier(userId);
+      } else {
+      }
+    }
   } catch (error) {
-    console.error("Error syncing documents on login:", error);
+    console.error(
+      "Error syncing documents or checking subscription expiry on login:",
+      error
+    );
   }
 }
 

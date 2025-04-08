@@ -48,6 +48,11 @@
   to = "/.netlify/functions/upload-resume"
   status = 200
 
+[[redirects]]
+  from = "/api/guide-mode"
+  to = "/.netlify/functions/guide-mode"
+  status = 200
+
 # SPA fallback
 [[redirects]]
   from = "/*"

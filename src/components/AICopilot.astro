@@ -33,26 +33,16 @@ const copilot = initializeCopilot();
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
           <div
-            class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center"
+            class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-md"
           >
-            <svg
-              class="h-5 w-5 text-white"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
-              ></path>
-            </svg>
+            <span class="text-white font-semibold">AI</span>
           </div>
           <div>
-            <h3 class="font-medium text-gray-900 dark:text-white">
+            <h3 class="font-semibold text-gray-900 dark:text-white">
               Career Buddy
             </h3>
-            <p class="text-xs text-gray-500 dark:text-gray-400">
-              Powered by AI
+            <p class="text-xs text-green-600 dark:text-green-400 font-medium">
+              ● Online
             </p>
           </div>
         </div>
@@ -75,18 +65,79 @@ const copilot = initializeCopilot();
 
     <!-- Messages -->
     <div id="chat-messages" class="flex-1 overflow-y-auto px-6 py-4 space-y-4">
-      <!-- Messages will be added here -->
+      <!-- Static Welcome Message -->
+      <div
+        id="welcome-message"
+        class="p-4 rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 shadow-md border border-gray-200 dark:border-gray-700 animate-slide-up"
+      >
+        <div class="flex items-center gap-3 mb-3">
+          <div
+            class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow"
+          >
+            <span class="text-white font-semibold">AI</span>
+          </div>
+          <div>
+            <h4 class="font-semibold text-gray-900 dark:text-white">
+              Career Buddy
+            </h4>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              Your AI Career Assistant
+            </p>
+          </div>
+        </div>
+        <p class="text-gray-800 dark:text-gray-200 text-sm mb-3">
+          👋 Hi! I'm here to help you with your career journey. You can ask me
+          about:
+        </p>
+        <ul
+          class="mt-2 space-y-1 list-disc list-inside text-gray-700 dark:text-gray-300 text-sm mb-4"
+        >
+          <li>Resume writing tips</li>
+          <li>Interview preparation</li>
+          <li>Career guidance</li>
+          <li>Job search strategies</li>
+        </ul>
+        <div class="flex flex-wrap gap-2">
+          <button
+            class="quick-action px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-xs hover:bg-indigo-200 dark:hover:bg-indigo-800 transition"
+            data-message="Can you give me some resume tips?">Resume Tips</button
+          >
+          <button
+            class="quick-action px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-xs hover:bg-indigo-200 dark:hover:bg-indigo-800 transition"
+            data-message="Can you help me prepare for interviews?"
+            >Interview Help</button
+          >
+          <button
+            class="quick-action px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-xs hover:bg-indigo-200 dark:hover:bg-indigo-800 transition"
+            data-message="Can you provide some career advice?"
+            >Career Advice</button
+          >
+          <button
+            class="quick-action px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-xs hover:bg-indigo-200 dark:hover:bg-indigo-800 transition"
+            data-message="What are some effective job search strategies?"
+            >Job Search</button
+          >
+        </div>
+      </div>
+      <!-- User and AI messages will be added here -->
     </div>
 
     <!-- Input -->
     <div class="px-6 py-4 border-t border-gray-100 dark:border-gray-800/50">
       <div class="flex gap-3">
-        <input
-          type="text"
-          id="user-input"
-          placeholder="Type your message..."
-          class="flex-1 px-4 py-3 bg-gray-50 dark:bg-gray-800 border-0 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 placeholder:text-gray-400 dark:placeholder:text-gray-500"
-        />
+        <div class="relative flex-1">
+          <input
+            type="text"
+            id="user-input"
+            placeholder="Type your message..."
+            class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 border-0 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 placeholder:text-gray-400 dark:placeholder:text-gray-500 pr-10"
+          />
+          <button
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition"
+          >
+            😊
+          </button>
+        </div>
         <button
           id="send-message"
           class="p-3 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white rounded-xl transition-all duration-300 flex items-center justify-center group"
@@ -146,35 +197,6 @@ const copilot = initializeCopilot();
 
       // Add welcome message if chat is empty
       if (!chatMessages?.hasChildNodes()) {
-        const welcomeMessageEl = document.createElement("div");
-        welcomeMessageEl.className = "flex mb-3 animate-slide-up";
-        welcomeMessageEl.innerHTML = `
-          <div class="relative max-w-[85%] px-4 py-2.5">
-            <div class="absolute left-0 top-[50%] -translate-y-[50%] -translate-x-[6px] transform rotate-45 w-2 h-2 bg-gray-50 dark:bg-gray-800/50"></div>
-            <div class="relative bg-gray-50 dark:bg-gray-800/50 rounded-2xl rounded-tl-sm px-4 py-2.5">
-              <div class="flex items-center gap-3 mb-2">
-                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-                  <span class="text-white text-sm font-medium">AI</span>
-                </div>
-                <div>
-                  <h4 class="font-medium text-gray-900 dark:text-white">Career Buddy</h4>
-                  <p class="text-xs text-gray-500 dark:text-gray-400">Your AI Career Assistant</p>
-                </div>
-              </div>
-              <p class="text-gray-800 dark:text-gray-200 text-sm">
-                👋 Hi! I'm here to help you with your career journey. You can ask me about:
-                <ul class="mt-2 space-y-1 list-disc list-inside">
-                  <li>Resume writing tips</li>
-                  <li>Interview preparation</li>
-                  <li>Career guidance</li>
-                  <li>Job search strategies</li>
-                </ul>
-                How can I assist you today?
-              </p>
-            </div>
-          </div>
-        `;
-        chatMessages?.appendChild(welcomeMessageEl);
       }
     });
 
@@ -223,17 +245,21 @@ const copilot = initializeCopilot();
       }
     });
 
-    async function sendMessage() {
-      const message = userInput?.value.trim();
+    async function sendMessage(prompt) {
+      const message = prompt ?? userInput?.value.trim();
       if (!message) return;
+
+      // Remove welcome message if present
+      const welcomeEl = document.getElementById("welcome-message");
+      if (welcomeEl) welcomeEl.remove();
 
       // Add user message to chat
       const userMessageEl = document.createElement("div");
       userMessageEl.className = "flex justify-end mb-3 animate-slide-up";
       userMessageEl.innerHTML = `
-        <div class="relative max-w-[80%] px-4 py-2.5">
+        <div class="relative max-w-[80%] px-4 py-2.5 shadow-sm bg-indigo-50 dark:bg-indigo-900/30 rounded-2xl rounded-tr-sm">
           <div class="absolute right-0 top-[50%] -translate-y-[50%] translate-x-[6px] transform rotate-45 w-2 h-2 bg-indigo-50 dark:bg-indigo-900/30"></div>
-          <div class="relative bg-indigo-50 dark:bg-indigo-900/30 rounded-2xl rounded-tr-sm px-4 py-2.5">
+          <div class="relative px-4 py-2.5">
             <p class="text-indigo-900 dark:text-indigo-100 text-sm">${message}</p>
           </div>
         </div>
@@ -251,10 +277,11 @@ const copilot = initializeCopilot();
           <div class="absolute left-0 top-[50%] -translate-y-[50%] -translate-x-[6px] transform rotate-45 w-2 h-2 bg-gray-50 dark:bg-gray-800/50"></div>
           <div class="relative bg-gray-50 dark:bg-gray-800/50 rounded-2xl rounded-tl-sm px-4 py-2.5 flex items-center gap-2">
             <div class="flex gap-1.5">
-              <div class="w-1.5 h-1.5 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce"></div>
-              <div class="w-1.5 h-1.5 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce [animation-delay:0.2s]"></div>
-              <div class="w-1.5 h-1.5 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce [animation-delay:0.4s]"></div>
+              <div class="w-2 h-2 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce"></div>
+              <div class="w-2 h-2 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce [animation-delay:0.2s]"></div>
+              <div class="w-2 h-2 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce [animation-delay:0.4s]"></div>
             </div>
+            <span class="text-xs text-gray-500 dark:text-gray-400">Career Buddy is typing...</span>
           </div>
         </div>
       `;
@@ -284,9 +311,9 @@ const copilot = initializeCopilot();
         const aiMessageEl = document.createElement("div");
         aiMessageEl.className = "flex mb-3 animate-slide-up";
         aiMessageEl.innerHTML = `
-          <div class="relative max-w-[80%] px-4 py-2.5">
+          <div class="relative max-w-[80%] px-4 py-2.5 shadow-sm bg-gray-50 dark:bg-gray-800/50 rounded-2xl rounded-tl-sm">
             <div class="absolute left-0 top-[50%] -translate-y-[50%] -translate-x-[6px] transform rotate-45 w-2 h-2 bg-gray-50 dark:bg-gray-800/50"></div>
-            <div class="relative bg-gray-50 dark:bg-gray-800/50 rounded-2xl rounded-tl-sm px-4 py-2.5">
+            <div class="relative px-4 py-2.5">
               <p class="text-gray-800 dark:text-gray-200 text-sm whitespace-pre-line">${aiResponse.data.message.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>
             </div>
           </div>
@@ -304,7 +331,17 @@ const copilot = initializeCopilot();
 
     sendButton?.addEventListener("click", sendMessage);
     userInput?.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") sendMessage();
+      // Attach quick action button listeners once on load
+      const quickActionButtons = document.querySelectorAll(".quick-action");
+      quickActionButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const quickMessage = btn.getAttribute("data-message");
+          if (quickMessage) {
+            sendMessage(quickMessage);
+          }
+        });
+      });
+      if (e.key === "Enter") sendMessage(undefined);
     });
   });
 </script>

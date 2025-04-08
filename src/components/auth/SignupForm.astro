@@ -31,10 +31,11 @@ import { authService } from '../../lib/auth';
                 placeholder="Enter your password"
                 class="w-full px-4 py-3 border-2 rounded-xl dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 focus:border-primary dark:focus:border-primary outline-none transition-colors duration-200"
                 required
-                minlength="6"
+                minlength="8"
             />
             <div id="passwordError" class="text-red-500 text-xs hidden"></div>
-            <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Password must be at least 6 characters long</div>
+            <!-- Updated text to reflect 8 characters -->
+            <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Password must be at least 8 characters long</div>
         </div>
         <div class="space-y-2">
             <input
@@ -48,8 +49,8 @@ import { authService } from '../../lib/auth';
             <div id="confirmPasswordError" class="text-red-500 text-xs hidden"></div>
         </div>
         <div id="signupErrorContainer" class="text-red-500 text-sm hidden rounded-md p-2 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/30"></div>
-        <button 
-            type="submit" 
+        <button
+            type="submit"
             class="w-full bg-gray-800 dark:bg-gray-100 dark:hover:bg-white text-white dark:text-gray-900 py-3 rounded-xl hover:bg-black"
         >
             Create Account
@@ -69,10 +70,10 @@ import { authService } from '../../lib/auth';
     </div>
 
     <!-- Google Sign Up Button -->
-    <button 
+    <button
         id="googleSignIn"
-        type="button" 
-        class="w-full flex items-center justify-center gap-3 py-3 px-4 
+        type="button"
+        class="w-full flex items-center justify-center gap-3 py-3 px-4
                border-2 border-gray-200 dark:border-gray-700 rounded-xl
                hover:bg-gray-50 dark:hover:bg-gray-800
                transition-colors duration-200
@@ -101,6 +102,7 @@ import { authService } from '../../lib/auth';
         return emailRegex.test(email);
     }
 
+    // Updated to reflect 8 characters
     function validatePassword(password: string): boolean {
         return password.length >= 8;
     }
@@ -127,6 +129,7 @@ import { authService } from '../../lib/auth';
     passwordInput?.addEventListener('blur', () => {
         if (passwordInput.value && !validatePassword(passwordInput.value)) {
             if (passwordError) {
+                // Updated error message
                 passwordError.textContent = 'Password must be at least 8 characters long';
                 passwordError.classList.remove('hidden');
             }
@@ -148,17 +151,22 @@ import { authService } from '../../lib/auth';
 
     signupForm?.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         // Reset all error messages
         [emailError, passwordError, confirmPasswordError].forEach(el => el?.classList.add('hidden'));
         if (errorContainer) {
             errorContainer.textContent = '';
             errorContainer.classList.add('hidden');
         }
-        
+
         // Get form elements
         if (!emailInput || !passwordInput || !confirmPasswordInput) {
-            console.error('Form inputs not found');
+            // Removed console.error('Form inputs not found');
+            // Optionally display an error in the UI if this unlikely case occurs
+            if (errorContainer) {
+                errorContainer.textContent = 'Internal error: Form fields missing.';
+                errorContainer.classList.remove('hidden');
+            }
             return;
         }
 
@@ -174,6 +182,7 @@ import { authService } from '../../lib/auth';
         // Validate password
         if (!validatePassword(passwordInput.value)) {
             if (passwordError) {
+                // Updated error message
                 passwordError.textContent = 'Password must be at least 8 characters long';
                 passwordError.classList.remove('hidden');
             }
@@ -205,11 +214,11 @@ import { authService } from '../../lib/auth';
 
             // Disable all inputs during submission
             [emailInput, passwordInput, confirmPasswordInput].forEach(input => {
-                input.disabled = true;
+                if (input) input.disabled = true; // Check if input exists
             });
 
-            // Add a small delay to ensure Firebase is fully initialized
-            await new Promise(resolve => setTimeout(resolve, 500));
+            // Add a small delay to ensure Firebase is fully initialized (if needed, otherwise remove)
+            // await new Promise(resolve => setTimeout(resolve, 500)); // Consider removing if not strictly necessary
 
             const user = await authService.signUpWithEmailAndPassword(
                 emailInput.value,
@@ -221,26 +230,22 @@ import { authService } from '../../lib/auth';
                 if (errorContainer) {
                     errorContainer.textContent = 'Account created successfully! Redirecting...';
                     errorContainer.classList.remove('hidden');
-                    errorContainer.classList.remove('text-red-500');
-                    errorContainer.classList.add('text-green-500');
-                    errorContainer.classList.remove('bg-red-50');
-                    errorContainer.classList.add('bg-green-50');
-                    errorContainer.classList.remove('border-red-200');
-                    errorContainer.classList.add('border-green-200');
+                    errorContainer.classList.remove('text-red-500', 'bg-red-50', 'border-red-200', 'dark:bg-red-900/20', 'dark:border-red-800/30');
+                    errorContainer.classList.add('text-green-600', 'dark:text-green-400', 'bg-green-50', 'dark:bg-green-900/20', 'border', 'border-green-200', 'dark:border-green-700/30'); // Updated success styles
                 }
-                
+
                 // Short delay before redirect for better UX
                 setTimeout(() => {
                     window.location.href = '/dashboard';
                 }, 1000);
             }
         } catch (error) {
-            console.error('Signup error:', error);
-            
+            // Removed console.error('Signup error:', error);
+
             // Show error message with better formatting
             if (errorContainer) {
                 let errorMessage = 'Sign up failed. Please try again.';
-                
+
                 if (error instanceof Error) {
                     // Handle specific Firebase error messages
                     if (error.message.includes('email-already-in-use')) {
@@ -250,16 +255,23 @@ import { authService } from '../../lib/auth';
                     } else if (error.message.includes('invalid-email')) {
                         errorMessage = 'Invalid email format. Please enter a valid email address.';
                     } else if (error.message.includes('weak-password')) {
-                        errorMessage = 'Password is too weak. Please use a stronger password.';
+                        // Update weak password message to match 8 char requirement
+                        errorMessage = 'Password is too weak. Please use a stronger password (at least 8 characters).';
                     } else if (error.message.includes('cannot be reused')) {
                         errorMessage = 'This email was recently used for an account that was deleted. Please wait or use another email.';
                     } else {
-                        errorMessage = error.message;
+                        // Fallback to the generic message or the raw error (use with caution in prod)
+                         errorMessage = 'An unexpected error occurred. Please try again.';
+                        // errorMessage = error.message; // Avoid exposing raw error messages in production
                     }
                 }
-                
+
                 errorContainer.textContent = errorMessage;
                 errorContainer.classList.remove('hidden');
+                // Ensure error styles are applied (might have been success style before)
+                errorContainer.classList.remove('text-green-600', 'dark:text-green-400', 'bg-green-50', 'dark:bg-green-900/20', 'border-green-200', 'dark:border-green-700/30');
+                errorContainer.classList.add('text-red-500', 'bg-red-50', 'dark:bg-red-900/20', 'border-red-200', 'dark:border-red-800/30');
+
             }
 
             // Reset form state
@@ -268,10 +280,10 @@ import { authService } from '../../lib/auth';
                 submitButton.innerHTML = 'Create Account';
                 (submitButton as HTMLButtonElement).disabled = false;
             }
-            
+
             // Re-enable inputs
             [emailInput, passwordInput, confirmPasswordInput].forEach(input => {
-                input.disabled = false;
+                if (input) input.disabled = false; // Check if input exists
             });
         }
     });
@@ -282,7 +294,7 @@ import { authService } from '../../lib/auth';
         try {
             // Show loading state
             if (googleSignInButton) {
-                googleSignInButton.innerHTML = '<span class="animate-spin">↻</span> Signing up...';
+                googleSignInButton.innerHTML = '<span class="animate-spin inline-block mr-2">↻</span> Signing up...'; // Improved spinner display
                 (googleSignInButton as HTMLButtonElement).disabled = true;
             }
 
@@ -293,17 +305,32 @@ import { authService } from '../../lib/auth';
             }
 
             const user = await authService.signInWithGoogle();
-            
+
             if (user) {
                 window.location.href = '/dashboard';
             }
         } catch (error) {
-            console.error('Google Sign In error:', error);
-            
+            // Removed console.error('Google Sign In error:', error);
+
             // Show error message
             if (errorContainer) {
-                errorContainer.textContent = error instanceof Error ? error.message : 'Google Sign In failed. Please try again.';
+                let errorMessage = 'Google Sign In failed. Please try again.';
+                 if (error instanceof Error) {
+                    // Handle specific Google sign-in errors if needed
+                    if (error.message.includes('popup-closed-by-user')) {
+                        errorMessage = 'Google Sign In cancelled.';
+                    } else if (error.message.includes('account-exists-with-different-credential')) {
+                         errorMessage = 'An account already exists with this email using a different sign-in method (e.g., password). Please sign in using that method.';
+                    } else {
+                         errorMessage = 'An unexpected error occurred during Google Sign In. Please try again.';
+                        // errorMessage = error.message; // Avoid raw errors in prod
+                    }
+                }
+                errorContainer.textContent = errorMessage;
                 errorContainer.classList.remove('hidden');
+                // Ensure error styles
+                errorContainer.classList.remove('text-green-600', 'dark:text-green-400', 'bg-green-50', 'dark:bg-green-900/20', 'border-green-200', 'dark:border-green-700/30');
+                errorContainer.classList.add('text-red-500', 'bg-red-50', 'dark:bg-red-900/20', 'border-red-200', 'dark:border-red-800/30');
             }
 
             // Reset button state

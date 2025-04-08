@@ -26,21 +26,21 @@ export const POST: APIRoute = async ({ request }) => {
             .digest('hex');
 
         if (signature !== generatedSignature) {
-            console.warn('Invalid webhook signature');
+            // console.warn('Invalid webhook signature'); // Keep minimal for prod
             return new Response(JSON.stringify({ error: 'Invalid signature' }), {
                 status: 403,
                 headers: { 'Content-Type': 'application/json' }
             });
         }
 
-        console.log('📦 Webhook Payload:', {
-            event: payload.event,
-            subscriptionId: payload.payload.subscription?.id,
-            userId: payload.payload.subscription?.notes?.userId,
-            tier: payload.payload.subscription?.notes?.tier,
-            status: payload.payload.subscription?.status,
-            fullPayload: JSON.stringify(payload, null, 2)
-        });
+        // console.log('📦 Webhook Payload:', { // Removed verbose logging for prod
+        //     event: payload.event,
+        //     subscriptionId: payload.payload.subscription?.id,
+        //     userId: payload.payload.subscription?.notes?.userId,
+        //     tier: payload.payload.subscription?.notes?.tier,
+        //     status: payload.payload.subscription?.status,
+        //     // fullPayload: JSON.stringify(payload, null, 2) // Avoid logging full payload
+        // });
 
         // Validate critical information
         if (!payload.payload.subscription?.notes?.userId) {
@@ -57,7 +57,7 @@ export const POST: APIRoute = async ({ request }) => {
         const razorpayService = new RazorpayService();
         await razorpayService.handleSubscriptionWebhook(payload);
 
-        console.log('✅ Webhook processed successfully');
+        // console.log('✅ Webhook processed successfully'); // Removed for prod
 
         return new Response(JSON.stringify({ status: 'success' }), {
             status: 200,

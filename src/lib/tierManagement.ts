@@ -154,7 +154,7 @@ export class TierManagementService {
       // Check and reset feature usage before returning the profile
       return await this.checkAndResetFeatureUsageIfNeeded(userId)
     } catch (error) {
-      console.error('Error getting user tier profile:', error)
+      console.error('Error getting user tier profile:', error) // Keep error log
       throw error
     }
   }
@@ -184,19 +184,19 @@ export class TierManagementService {
       const featureLimit =
         SUBSCRIPTION_TIERS[currentTier].featureUsageLimits[feature]
 
-      console.log('Feature Usage Check:', {
-        userId,
-        feature,
-        currentTier: subscriptionData.currentTier,
-        currentUsage,
-        limit: featureLimit
-      })
+      // console.log('Feature Usage Check:', { // Removed for prod
+      //   userId,
+      //   feature,
+      //   currentTier: subscriptionData.currentTier,
+      //   currentUsage,
+      //   limit: featureLimit
+      // })
 
       // Explicit check for feature limit
       if (currentUsage >= featureLimit) {
-        console.warn(
-          `Feature limit exceeded for ${feature} in ${subscriptionData.currentTier} tier`
-        )
+        // console.warn( // Removed for prod
+        //   `Feature limit exceeded for ${feature} in ${subscriptionData.currentTier} tier`
+        // )
         throw new Error(
           `You have reached the maximum number of ${feature} generations for your ${subscriptionData.currentTier} tier. Upgrade to continue.`
         )
@@ -211,14 +211,14 @@ export class TierManagementService {
         updatedBy: 'webhook'
       })
 
-      console.log(
-        `Feature usage updated for ${feature}. New count: ${
-          currentUsage + 1
-        }/${featureLimit}`
-      )
+      // console.log( // Removed for prod
+      //   `Feature usage updated for ${feature}. New count: ${
+      //     currentUsage + 1
+      //   }/${featureLimit}`
+      // )
       return true
     } catch (error) {
-      console.error('Feature usage tracking error:', error)
+      console.error('Feature usage tracking error:', error) // Keep error log
       throw error // Re-throw to allow caller to handle
     }
   }
@@ -303,7 +303,7 @@ export class TierManagementService {
 
       return true
     } catch (error) {
-      console.error('Job tracker tracking error:', error)
+      console.error('Job tracker tracking error:', error) // Keep error log
       throw error
     }
   }
@@ -334,7 +334,7 @@ export class TierManagementService {
 
       return true
     } catch (error) {
-      console.error('Job application tracking error:', error)
+      console.error('Job application tracking error:', error) // Keep error log
       throw error
     }
   }
@@ -344,7 +344,7 @@ export class TierManagementService {
     newTier: SubscriptionTier,
     razorpaySubscriptionId?: string
   ): Promise<UserSubscription> {
-    console.log(`🚀 Upgrading User Tier`, { userId, newTier })
+    // console.log(`🚀 Upgrading User Tier`, { userId, newTier }) // Removed for prod
 
     try {
       const db = this.getFirestoreInstance()
@@ -402,11 +402,11 @@ export class TierManagementService {
       // Update subscription document
       await updateDoc(userSubscriptionRef, subscriptionData)
 
-      console.log(`✅ Successfully Upgraded to ${newTier} Tier`, { userId })
+      // console.log(`✅ Successfully Upgraded to ${newTier} Tier`, { userId }) // Removed for prod
 
       return subscriptionData as UserSubscription
     } catch (error) {
-      console.error(`❌ Tier Upgrade Failed`, {
+      console.error(`❌ Tier Upgrade Failed`, { // Keep error log
         userId,
         newTier,
         error: error instanceof Error ? error.message : 'Unknown error'
@@ -542,7 +542,7 @@ export class TierManagementService {
         localStorage.removeItem('userUsageTracking')
       }
     } catch (error) {
-      console.error('Error resetting deleted account usage:', error)
+      console.error('Error resetting deleted account usage:', error) // Keep error log
       throw error
     }
   }
@@ -554,7 +554,7 @@ export class TierManagementService {
       const userSubscriptionSnap = await getDoc(userSubscriptionRef)
 
       if (!userSubscriptionSnap.exists()) {
-        console.warn(`No subscription found for user ${userId}`)
+        // console.warn(`No subscription found for user ${userId}`) // Removed for prod
         return
       }
 
@@ -629,12 +629,12 @@ export class TierManagementService {
           updatedBy: 'webhook'
         })
 
-        console.log(
-          `Reset feature usage for user ${userId} on tier ${currentTier}`
-        )
+        // console.log( // Removed for prod
+        //   `Reset feature usage for user ${userId} on tier ${currentTier}`
+        // )
       }
     } catch (error) {
-      console.error('Error resetting feature usage:', error)
+      console.error('Error resetting feature usage:', error) // Keep error log
     }
   }
 
@@ -649,9 +649,9 @@ export class TierManagementService {
       })
 
       await Promise.all(resetPromises)
-      console.log('Completed feature usage reset for all users')
+      // console.log('Completed feature usage reset for all users') // Removed for prod
     } catch (error) {
-      console.error('Error resetting feature usage for all users:', error)
+      console.error('Error resetting feature usage for all users:', error) // Keep error log
     }
   }
 
@@ -723,9 +723,9 @@ export class TierManagementService {
         updatedBy: 'webhook'
       })
 
-      console.log(`Manually reset feature usage for user ${userId}`)
+      // console.log(`Manually reset feature usage for user ${userId}`) // Removed for prod
     } catch (error) {
-      console.error('Error manually resetting feature usage:', error)
+      console.error('Error manually resetting feature usage:', error) // Keep error log
       throw error
     }
   }
@@ -792,11 +792,11 @@ export class TierManagementService {
       } as UserSubscription
 
       await setDoc(userSubscriptionRef, newSubscription)
-      console.log(`Created new subscription for user ${userId}`)
+      // console.log(`Created new subscription for user ${userId}`) // Removed for prod
 
       return newSubscription
     } catch (error) {
-      console.error('Error initializing user subscription:', error)
+      console.error('Error initializing user subscription:', error) // Keep error log
       throw error
     }
   }
@@ -866,7 +866,7 @@ export class TierManagementService {
         const userSubscriptionRef = doc(db, 'userSubscriptions', userId)
         await setDoc(userSubscriptionRef, defaultSubscription, { merge: true })
 
-        console.warn(`Created default subscription for user ${userId}`)
+        // console.warn(`Created default subscription for user ${userId}`) // Removed for prod
         return defaultSubscription
       }
 
@@ -875,9 +875,9 @@ export class TierManagementService {
       const userSubscriptionSnap = await getDoc(userSubscriptionRef)
 
       if (!userSubscriptionSnap.exists()) {
-        console.warn(
-          `No subscription document found for user ${userId}. Using initialized subscription.`
-        )
+        // console.warn( // Removed for prod
+        //   `No subscription document found for user ${userId}. Using initialized subscription.`
+        // )
         return initializedSubscription
       }
 
@@ -952,9 +952,9 @@ export class TierManagementService {
           updatedBy: 'webhook'
         })
 
-        console.log(
-          `Reset feature usage for user ${userId} on tier ${currentTier}`
-        )
+        // console.log( // Removed for prod
+        //   `Reset feature usage for user ${userId} on tier ${currentTier}`
+        // )
 
         // Return the updated user subscription
         return {
@@ -967,7 +967,7 @@ export class TierManagementService {
       // Return the original user data if no reset is needed
       return userData
     } catch (error) {
-      console.error('Error checking and resetting feature usage:', error)
+      console.error('Error checking and resetting feature usage:', error) // Keep error log
 
       // Fallback to a minimal default subscription
       const defaultTier: SubscriptionTier = 'free'
@@ -1033,22 +1033,22 @@ export class TierManagementService {
 
       // Add additional null/undefined checks
       if (!tierProfile.featureUsage) {
-        console.warn(`Feature usage not initialized for user ${userId}`)
+        // console.warn(`Feature usage not initialized for user ${userId}`) // Removed for prod
         return 0
       }
 
       const featureUsage = tierProfile.featureUsage[feature]
 
       if (!featureUsage) {
-        console.warn(
-          `Feature ${feature} not found in usage profile for user ${userId}`
-        )
+        // console.warn( // Removed for prod
+        //   `Feature ${feature} not found in usage profile for user ${userId}`
+        // )
         return 0
       }
 
       return featureUsage.usageCount || 0
     } catch (error) {
-      console.error(`Error getting current ${feature} usage:`, error)
+      console.error(`Error getting current ${feature} usage:`, error) // Keep error log
       return 0
     }
   }
@@ -1079,7 +1079,7 @@ export class TierManagementService {
 
       // If no feature usage is initialized, return defaults
       if (!tierProfile.featureUsage) {
-        console.warn(`Feature usage not initialized for user ${userId}`)
+        // console.warn(`Feature usage not initialized for user ${userId}`) // Removed for prod
         return usageMap
       }
 
@@ -1092,7 +1092,7 @@ export class TierManagementService {
 
       return usageMap
     } catch (error) {
-      console.error('Error getting all feature usage:', error)
+      console.error('Error getting all feature usage:', error) // Keep error log
       // Return empty usage map on error
       return {
         resumeGeneration: 0,
@@ -1132,7 +1132,7 @@ export class TierManagementService {
 
       return true
     } catch (error) {
-      console.error('Resume generation tracking error:', error)
+      console.error('Resume generation tracking error:', error) // Keep error log
       throw error
     }
   }
@@ -1165,7 +1165,7 @@ export class TierManagementService {
 
       return true
     } catch (error) {
-      console.error('Cover letter generation tracking error:', error)
+      console.error('Cover letter generation tracking error:', error) // Keep error log
       throw error
     }
   }
@@ -1175,10 +1175,10 @@ export class TierManagementService {
       const tierProfile = await this.checkAndResetFeatureUsageIfNeeded(userId)
       const jobAnalysisUsage = tierProfile.featureUsage.jobAnalysis
 
-      console.log(
-        'Current Job Analysis Usage:',
-        JSON.stringify(jobAnalysisUsage, null, 2)
-      )
+      // console.log( // Removed for prod
+      //   'Current Job Analysis Usage:',
+      //   JSON.stringify(jobAnalysisUsage, null, 2)
+      // )
 
       // Check if user has reached the maximum number of job analysis requests
       if (jobAnalysisUsage.usageCount >= jobAnalysisUsage.maxAllowedUsage) {
@@ -1190,26 +1190,26 @@ export class TierManagementService {
       // Increment job analysis requests usage
       jobAnalysisUsage.usageCount += 1
 
-      console.log(
-        'Updated Job Analysis Usage:',
-        JSON.stringify(jobAnalysisUsage, null, 2)
-      )
+      // console.log( // Removed for prod
+      //   'Updated Job Analysis Usage:',
+      //   JSON.stringify(jobAnalysisUsage, null, 2)
+      // )
 
       // Update Firestore document
       const db = this.getFirestoreInstance()
       const userSubscriptionRef = doc(db, 'userSubscriptions', userId)
 
-      console.log('Updating document:', userSubscriptionRef.path)
-      console.log(
-        'Update payload:',
-        JSON.stringify(
-          {
-            'featureUsage.jobAnalysis': jobAnalysisUsage
-          },
-          null,
-          2
-        )
-      )
+      // console.log('Updating document:', userSubscriptionRef.path) // Removed for prod
+      // console.log( // Removed for prod
+      //   'Update payload:',
+      //   JSON.stringify(
+      //     {
+      //       'featureUsage.jobAnalysis': jobAnalysisUsage
+      //     },
+      //     null,
+      //     2
+      //   )
+      // )
 
       await updateDoc(userSubscriptionRef, {
         'featureUsage.jobAnalysis': jobAnalysisUsage,
@@ -1218,12 +1218,12 @@ export class TierManagementService {
 
       return true
     } catch (error) {
-      console.error('Job analysis requests tracking error:', error)
+      console.error('Job analysis requests tracking error:', error) // Keep error log
       // Log the full error details
-      console.error(
-        'Full error:',
-        JSON.stringify(error, Object.getOwnPropertyNames(error), 2)
-      )
+      // console.error( // Removed verbose error for prod
+      //   'Full error:',
+      //   JSON.stringify(error, Object.getOwnPropertyNames(error), 2)
+      // )
       throw error
     }
   }
@@ -1252,7 +1252,7 @@ export class TierManagementService {
 
       return true
     } catch (error) {
-      console.error('Job trackers tracking error:', error)
+      console.error('Job trackers tracking error:', error) // Keep error log
       throw error
     }
   }
@@ -1283,7 +1283,7 @@ export class TierManagementService {
 
       return true
     } catch (error) {
-      console.error('Job applications tracking error:', error)
+      console.error('Job applications tracking error:', error) // Keep error log
       throw error
     }
   }
@@ -1332,7 +1332,7 @@ export class TierManagementService {
 
       return true
     } catch (error) {
-      console.error('Interview prep tracking error:', error)
+      console.error('Interview prep tracking error:', error) // Keep error log
       throw error
     }
   }
@@ -1359,7 +1359,7 @@ export class TierManagementService {
       const userSubscriptionDoc = await getDoc(userSubscriptionRef)
 
       if (!userSubscriptionDoc.exists()) {
-        console.error(`No subscription document found for user ${userId}`)
+        console.error(`No subscription document found for user ${userId}`) // Keep error log
         return false
       }
 
@@ -1367,7 +1367,7 @@ export class TierManagementService {
 
       // Ensure featureUsage exists
       if (!userData.featureUsage) {
-        console.warn(`Initializing feature usage for user ${userId}`)
+        // console.warn(`Initializing feature usage for user ${userId}`) // Removed for prod
         return true
       }
 
@@ -1387,9 +1387,9 @@ export class TierManagementService {
       const featureUsage = userData.featureUsage[featureKey]
 
       if (!featureUsage) {
-        console.warn(
-          `Initializing ${normalizedFeature} usage for user ${userId}`
-        )
+        // console.warn( // Removed for prod
+        //   `Initializing ${normalizedFeature} usage for user ${userId}`
+        // )
         return true
       }
 
@@ -1400,15 +1400,15 @@ export class TierManagementService {
 
       // If already at limit, return false immediately
       if (currentUsage >= limit && limit !== Infinity) {
-        console.warn(
-          `Feature limit exceeded for ${normalizedFeature} in ${currentTier} tier`
-        )
+        // console.warn( // Removed for prod
+        //   `Feature limit exceeded for ${normalizedFeature} in ${currentTier} tier`
+        // )
         return false
       }
 
       return true
     } catch (error) {
-      console.error(`Error checking feature access for ${feature}:`, error)
+      console.error(`Error checking feature access for ${feature}:`, error) // Keep error log
       return false
     }
   }
@@ -1426,7 +1426,7 @@ export class TierManagementService {
         updatedBy: 'webhook'
       })
     } catch (error) {
-      console.error('Error upgrading to pro subscription:', error)
+      console.error('Error upgrading to pro subscription:', error) // Keep error log
     }
   }
 
@@ -1463,12 +1463,12 @@ export class TierManagementService {
         updatedBy: 'webhook'
       })
 
-      console.log(`User ${userId} upgraded to pro tier`, {
-        timestamp: new Date().toISOString(),
-        razorpaySubscriptionId
-      })
+      // console.log(`User ${userId} upgraded to pro tier`, { // Removed for prod
+      //   timestamp: new Date().toISOString(),
+      //   razorpaySubscriptionId
+      // })
     } catch (error) {
-      console.error('Error updating subscription tier:', error)
+      console.error('Error updating subscription tier:', error) // Keep error log
       throw error
     }
   }
@@ -1477,7 +1477,7 @@ export class TierManagementService {
     userId: string,
     feature: keyof UserSubscription['featureUsage']
   ): Promise<void> {
-    console.log(`Feature usage increment for ${feature} skipped`)
+    // console.log(`Feature usage increment for ${feature} skipped`) // Removed for prod
   }
 
   /**
@@ -1505,7 +1505,7 @@ export class TierManagementService {
 
       return true
     } catch (error) {
-      console.error('Error decrementing job tracker usage:', error)
+      console.error('Error decrementing job tracker usage:', error) // Keep error log
       // Don't throw the error to prevent blocking job deletion
       return false
     }

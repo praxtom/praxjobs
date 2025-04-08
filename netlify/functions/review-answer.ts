@@ -2,7 +2,7 @@ import { Handler } from '@netlify/functions';
 import { reviewAnswer } from '../../src/components/tools/tools_api/InterviewPrepAPI';
 
 const handler: Handler = async (event, context) => {
-    console.log('Incoming request to review-answer:', event);
+    // console.log('Incoming request to review-answer:', event); // Removed for prod
 
     // Handle OPTIONS request for CORS
     if (event.httpMethod === 'OPTIONS') {

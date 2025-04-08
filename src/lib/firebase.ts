@@ -34,7 +34,7 @@ export function initializeFirebase () {
 
     // Prevent multiple initializations
     if (getApps().length > 0) {
-      console.log('✅ Firebase app already initialized')
+      // console.log('✅ Firebase app already initialized') // Removed for prod
       return {
         app: getApps()[0] as FirebaseApp,
         auth: getAuth(),
@@ -52,7 +52,7 @@ export function initializeFirebase () {
     // Only set persistence in browser environment
     if (typeof window !== 'undefined') {
       setPersistence(auth, browserLocalPersistence).catch(error => {
-        console.error('Error setting persistence:', error)
+        // console.error('Error setting persistence:', error) // Keep minimal for prod, maybe log server-side if critical
       })
     }
 
@@ -86,7 +86,7 @@ export async function getCurrentUser (auth: Auth | null): Promise<User | null> {
         resolve(user)
       },
       error => {
-        console.error('Error getting current user:', error)
+        // console.error('Error getting current user:', error) // Keep minimal for prod
         resolve(null)
       }
     )

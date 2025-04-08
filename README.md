@@ -293,7 +293,7 @@ We welcome contributions! See CONTRIBUTING.md for guidelines.
 
 ## 📝 License
 
-MIT License - see LICENSE for details
+MIT License - see LICENSE for details d
 
 ```
 /
@@ -331,3 +331,8 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+#Coming Soon
+
+- Academic Counsellors aroudn you
+- Search bar Instead of chatbot

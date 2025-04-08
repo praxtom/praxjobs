@@ -840,6 +840,7 @@ import ThemeToggle from "./ThemeToggle.astro";
           user: null,
           loading: false,
           lastActivity: null,
+          subscriptionExpired: false,
         });
         localStorage.removeItem("astro_resume_user_data");
         window.location.href = "/login";

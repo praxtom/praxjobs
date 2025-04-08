@@ -41,7 +41,7 @@ export class AICopilot {
         ...this.conversationHistory
       ];
 
-      console.log('Sending request to Groq API with model:', this.config.model);
+      // console.log('Sending request to Groq API with model:', this.config.model); // Removed for prod
 
       const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
@@ -57,16 +57,16 @@ export class AICopilot {
         })
       });
 
-      console.log('Groq API Response Status:', response.status);
+      // console.log('Groq API Response Status:', response.status); // Removed for prod
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error('Groq API Error Response:', errorText);
-        throw new Error(`Groq API error: ${response.statusText} - ${errorText}`);
+        // console.error('Groq API Error Response:', errorText); // Keep this error minimal or log server-side
+        throw new Error(`Groq API error: ${response.statusText}`); // Simplified error
       }
 
       const data = await response.json();
-      console.log('Groq API Response Data:', JSON.stringify(data, null, 2));
+      // console.log('Groq API Response Data:', JSON.stringify(data, null, 2)); // Removed for prod
 
       const assistantMessage = data.choices[0]?.message?.content || '';
 
@@ -142,7 +142,7 @@ export function initializeCopilot() {
   }
 
   const apiKey = process.env.PUBLIC_GROQ_API_KEY;
-  console.log('Attempting to initialize Copilot with Groq API Key:', apiKey ? 'Key present' : 'No key found');
+  // console.log('Attempting to initialize Copilot with Groq API Key:', apiKey ? 'Key present' : 'No key found'); // Removed for prod
   
   if (!apiKey) {
     console.error('Groq API Key is missing. Please set PUBLIC_GROQ_API_KEY in your environment variables.');

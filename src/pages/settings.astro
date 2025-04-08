@@ -174,39 +174,6 @@ import Container from "../components/Container.astro";
                   </p>
                 </div>
               </div>
-
-              <!-- Delete Account Section (Moved from Account tab) -->
-              <div
-                class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700"
-              >
-                <div class="flex items-center justify-between">
-                  <div>
-                    <h2
-                      class="text-xl font-bold text-red-600 dark:text-red-400"
-                    >
-                      Delete Account
-                    </h2>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
-                      Permanently remove your account and all associated data
-                    </p>
-                  </div>
-                  <button
-                    id="delete-account-btn"
-                    class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
-                  >
-                    Delete Account
-                  </button>
-                </div>
-                <div
-                  class="bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700 rounded-lg p-4 mt-4"
-                >
-                  <p class="text-xs text-red-700 dark:text-red-200">
-                    Warning: Deleting your account is permanent and cannot be
-                    undone. All your data, including resumes, job applications,
-                    and settings, will be permanently erased.
-                  </p>
-                </div>
-              </div>
             </div>
 
             <!-- Subscription Tab Content (Now includes Usage Limits) -->
@@ -215,12 +182,6 @@ import Container from "../components/Container.astro";
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
                   Subscription & Usage
                 </h2>
-                <button
-                  id="upgrade-button"
-                  class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors"
-                >
-                  Upgrade Plan
-                </button>
               </div>
 
               <!-- Subscription Details Section -->
@@ -249,6 +210,18 @@ import Container from "../components/Container.astro";
                       class="text-lg text-gray-900 dark:text-white text-gray-400 animate-pulse"
                     >
                       Loading...
+                    </p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                      <strong>Status:</strong>
+                      <span id="subscription-status">Loading...</span>
+                    </p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                      <strong>Start Date:</strong>
+                      <span id="subscription-start-date">Loading...</span>
+                    </p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                      <strong>Subscription ID:</strong>
+                      <span id="subscription-id">Loading...</span>
                     </p>
                   </div>
                 </div>
@@ -439,7 +412,48 @@ import Container from "../components/Container.astro";
           const docSnap = await getDoc(docRef);
 
           if (docSnap.exists()) {
+            const expirationContainer = document.getElementById(
+              "expiration-container"
+            );
+            if (expirationContainer) {
+              expirationContainer.classList.remove("hidden");
+            }
+            const subscriptionStatusElement = document.getElementById(
+              "subscription-status"
+            );
+            const subscriptionStartDateElement = document.getElementById(
+              "subscription-start-date"
+            );
+            const subscriptionIdElement =
+              document.getElementById("subscription-id");
             const userSubscription = docSnap.data();
+
+            const paymentStatus = userSubscription.paymentStatus || "unknown";
+            const subscriptionId =
+              userSubscription.razorpaySubscriptionId || "N/A";
+
+            let formattedStartDate = "Not available";
+            if (userSubscription.subscriptionStartDate) {
+              const startDate =
+                userSubscription.subscriptionStartDate instanceof Date
+                  ? userSubscription.subscriptionStartDate
+                  : userSubscription.subscriptionStartDate.toDate();
+              formattedStartDate = new Intl.DateTimeFormat("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              }).format(startDate);
+            }
+
+            if (subscriptionStatusElement) {
+              subscriptionStatusElement.textContent = paymentStatus;
+            }
+            if (subscriptionStartDateElement) {
+              subscriptionStartDateElement.textContent = formattedStartDate;
+            }
+            if (subscriptionIdElement) {
+              subscriptionIdElement.textContent = subscriptionId;
+            }
             const currentTier = userSubscription.currentTier || "free";
 
             // Format subscription expiration date
@@ -747,32 +761,5 @@ import Container from "../components/Container.astro";
     document.getElementById("upgrade-button")?.addEventListener("click", () => {
       window.location.href = "/pricing";
     });
-
-    // Delete account event listener
-    const deleteAccountBtn = document.getElementById("delete-account-btn");
-
-    if (deleteAccountBtn) {
-      deleteAccountBtn.addEventListener("click", async () => {
-        // Confirm deletion with a modal or confirmation
-        const confirmDelete = confirm(
-          "Are you sure you want to permanently delete your account? This action cannot be undone."
-        );
-
-        if (confirmDelete) {
-          try {
-            // Call delete account function from auth service
-            await authService.deleteAccount();
-
-            // Redirect to home or login page
-            window.location.href = "/";
-          } catch (error) {
-            console.error("Account deletion failed:", error);
-            alert(
-              "Failed to delete account. Please try again or contact support."
-            );
-          }
-        }
-      });
-    }
   </script>
 </Layout>

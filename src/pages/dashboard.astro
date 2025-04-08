@@ -16,6 +16,8 @@ import DashboardTools from "../components/DashboardTools.astro";
 import QuoteDisplay from "../components/QuoteDisplay.astro";
 import ResumeManager from "../components/tools/ResumeManager.astro";
 import FeedbackForm from "../components/FeedbackForm.astro";
+import SubscriptionExpiredModal from "../components/SubscriptionExpiredModal.astro";
+import SearchBar from "../components/SearchBar.astro";
 
 // Server-side authentication and data fetching
 export async function getStaticProps() {
@@ -145,13 +147,14 @@ const totalSavedJobs = calculateFeatureUsage(tierProfile, (feature) =>
 );
 ---
 
-<Layout 
+<Layout
   title="Your PraxJobs Dashboard | Manage Your Career Tools"
   description="Access all your AI-powered career tools in one place. Track your resume progress, manage job applications, and prepare for interviews."
   image="/images/dashboard-og-image.jpg"
   type="website"
   canonical="/dashboard"
 >
+  <SubscriptionExpiredModal />
   <main class="relative min-h-screen dark:bg-gray-950 pt-16">
     <div class="relative">
       <section class="relative pt-20 pb-20">
@@ -205,6 +208,18 @@ const totalSavedJobs = calculateFeatureUsage(tierProfile, (feature) =>
         </Container>
       </section>
 
+      <!-- Search Bar -->
+      <section class="py-12 text-center space-y-4">
+        <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">
+          Career Guide
+        </h2>
+        <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          Get instant career advice, resume tips, and interview help from our AI
+          assistant.
+        </p>
+        <SearchBar />
+      </section>
+
       <!-- Tools Section -->
       <section class="py-12">
         <DashboardTools />
@@ -239,13 +254,6 @@ const totalSavedJobs = calculateFeatureUsage(tierProfile, (feature) =>
 >
   // Inline script to avoid module loading issues
   (function () {
-    // Minimal debug logging
-    function debugLogAvailableData() {
-      if (window.initialDisplayName !== "User") {
-        console.log("User display name set");
-      }
-    }
-
     function updateUserDisplayName() {
       const userNameElement = document.getElementById("userName");
       const storedUserData = localStorage.getItem("astro_resume_user_data");
@@ -265,9 +273,6 @@ const totalSavedJobs = calculateFeatureUsage(tierProfile, (feature) =>
         }
       }
     }
-
-    // Initialize debug and name update
-    debugLogAvailableData();
     updateUserDisplayName();
   })();
 </script>

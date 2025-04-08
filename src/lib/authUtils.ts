@@ -4,30 +4,30 @@ import { initializeFirebase } from './firebase';
 
 // Helper function to get environment variable with enhanced logging
 function getEnvVar(key: string): string | undefined {
-    console.log(`Attempting to retrieve environment variable: ${key}`);
+    // console.log(`Attempting to retrieve environment variable: ${key}`); // Removed for prod
     
     // Check Astro/Vite import.meta.env first
     if (import.meta.env) {
-        console.log('Checking import.meta.env');
+        // console.log('Checking import.meta.env'); // Removed for prod
         const value = import.meta.env[key];
-        console.log(`import.meta.env.${key}:`, value ? 'FOUND' : 'NOT FOUND');
+        // console.log(`import.meta.env.${key}:`, value ? 'FOUND' : 'NOT FOUND'); // Removed for prod
         if (value) return value as string;
     }
     
     // If running in Node.js environment, try process.env
     if (typeof process !== 'undefined' && process.env) {
-        console.log('Checking process.env');
+        // console.log('Checking process.env'); // Removed for prod
         const value = process.env[key];
-        console.log(`process.env.${key}:`, value ? 'FOUND' : 'NOT FOUND');
+        // console.log(`process.env.${key}:`, value ? 'FOUND' : 'NOT FOUND'); // Removed for prod
         if (value) return value;
     }
     
     // Log all available environment variables for debugging
-    console.warn(`Environment variable ${key} not found. Available variables:`);
-    console.log('import.meta.env:', JSON.stringify(import.meta.env, null, 2));
-    if (typeof process !== 'undefined') {
-        console.log('process.env:', JSON.stringify(process.env, null, 2));
-    }
+    // console.warn(`Environment variable ${key} not found. Available variables:`); // Removed for prod
+    // console.log('import.meta.env:', JSON.stringify(import.meta.env, null, 2)); // Removed for prod
+    // if (typeof process !== 'undefined') { // Removed for prod
+    //     console.log('process.env:', JSON.stringify(process.env, null, 2));
+    // }
     
     return undefined;
 }
@@ -35,19 +35,19 @@ function getEnvVar(key: string): string | undefined {
 // Custom token validation utility
 export async function validateAuthToken(token: string): Promise<boolean> {
     try {
-        console.log('Starting comprehensive token validation', {
-            tokenLength: token.length,
-            tokenFirstChars: token.substring(0, 10) + '...',
-            timestamp: new Date().toISOString()
-        });
+        // console.log('Starting comprehensive token validation', { // Removed for prod
+        //     tokenLength: token.length,
+        //     tokenFirstChars: token.substring(0, 10) + '...',
+        //     timestamp: new Date().toISOString()
+        // });
 
         // Validate token format before processing
         if (!token || token.trim() === '') {
-            console.warn('Empty or invalid token provided', {
-                tokenType: typeof token,
-                tokenValue: token,
-                timestamp: new Date().toISOString()
-            });
+            // console.warn('Empty or invalid token provided', { // Removed for prod
+            //     tokenType: typeof token,
+            //     tokenValue: token,
+            //     timestamp: new Date().toISOString()
+            // });
             return false;
         }
 
@@ -73,12 +73,12 @@ export async function validateAuthToken(token: string): Promise<boolean> {
             // Use Firebase's built-in token verification
             const decodedToken = await getIdTokenResult(auth.currentUser!, true);
             
-            console.log('Token Validation Debug:', {
-                tokenValid: !!decodedToken,
-                tokenIssuedAt: decodedToken?.issuedAtTime,
-                tokenExpirationTime: decodedToken?.expirationTime,
-                timestamp: new Date().toISOString()
-            });
+            // console.log('Token Validation Debug:', { // Removed for prod
+            //     tokenValid: !!decodedToken,
+            //     tokenIssuedAt: decodedToken?.issuedAtTime,
+            //     tokenExpirationTime: decodedToken?.expirationTime,
+            //     timestamp: new Date().toISOString()
+            // });
 
             return !!decodedToken;
         } catch (verificationError) {
@@ -101,10 +101,10 @@ export async function validateAuthToken(token: string): Promise<boolean> {
 export const getAuthTokenFromCookies = (cookies: { get: (name: string) => { value: string } | undefined }): string | null => {
     try {
         const authCookie = cookies.get('auth_token');
-        console.log('Cookie Token Debug:', {
-            cookiePresent: !!authCookie,
-            cookieValue: authCookie ? 'PRESENT' : 'MISSING'
-        });
+        // console.log('Cookie Token Debug:', { // Removed for prod
+        //     cookiePresent: !!authCookie,
+        //     cookieValue: authCookie ? 'PRESENT' : 'MISSING'
+        // });
         return authCookie ? authCookie.value : null;
     } catch (error) {
         console.error('Error retrieving auth token from cookies', {
@@ -119,8 +119,10 @@ export const getAuthTokenFromCookies = (cookies: { get: (name: string) => { valu
 export async function getCurrentUserWithTimeout(timeoutMs = 5000): Promise<User | null> {
     const firebaseInstance = initializeFirebase();
     
+    // if (!firebaseInstance) { // Removed console.warn for prod
+    //     console.warn('Firebase not initialized in getCurrentUserWithTimeout');
     if (!firebaseInstance) {
-        console.warn('Firebase not initialized in getCurrentUserWithTimeout');
+        // console.warn('Firebase not initialized in getCurrentUserWithTimeout'); // Removed for prod
         return null;
     }
 
@@ -129,18 +131,18 @@ export async function getCurrentUserWithTimeout(timeoutMs = 5000): Promise<User 
     return new Promise((resolve) => {
         // Set a timeout to prevent hanging
         const timeoutId = setTimeout(() => {
-            console.warn('getCurrentUserWithTimeout timed out');
+            // console.warn('getCurrentUserWithTimeout timed out'); // Removed for prod
             resolve(null);
         }, timeoutMs);
 
         // Use onAuthStateChanged to get the current user
-        const unsubscribe = auth.onAuthStateChanged((user) => {
+        const unsubscribe = auth.onAuthStateChanged((user: User | null) => { // Added type
             clearTimeout(timeoutId);
             unsubscribe();
             resolve(user);
-        }, (error) => {
+        }, (error: Error) => { // Added type
             clearTimeout(timeoutId);
-            console.error('Error getting current user:', error);
+            console.error('Error getting current user:', error); // Keep error log
             resolve(null);
         });
     });
@@ -150,7 +152,7 @@ export async function getCurrentUserWithTimeout(timeoutMs = 5000): Promise<User 
 export async function setAuthCookie(token: string): Promise<void> {
     try {
         if (typeof document === 'undefined') {
-            console.warn('Document is not defined, cannot set cookie');
+            // console.warn('Document is not defined, cannot set cookie'); // Removed for prod
             return;
         }
 
@@ -170,9 +172,9 @@ export async function setAuthCookie(token: string): Promise<void> {
         // Join all options and set the cookie
         document.cookie = cookieOptions.join('; ');
 
-        console.log('Auth cookie set successfully', {
-            timestamp: new Date().toISOString()
-        });
+        // console.log('Auth cookie set successfully', { // Removed for prod
+        //     timestamp: new Date().toISOString()
+        // });
     } catch (error) {
         console.error('Error setting auth cookie:', {
             error: error instanceof Error ? error.message : 'Unknown error',
@@ -187,16 +189,16 @@ export async function setAuthCookie(token: string): Promise<void> {
 export function clearAuthCookie(): void {
     try {
         if (typeof document === 'undefined') {
-            console.warn('Document is not defined, cannot clear cookie');
+            // console.warn('Document is not defined, cannot clear cookie'); // Removed for prod
             return;
         }
 
         // Expire the cookie immediately
         document.cookie = 'auth_token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT; Secure; SameSite=Strict';
         
-        console.log('Auth cookie cleared successfully', {
-            timestamp: new Date().toISOString()
-        });
+        // console.log('Auth cookie cleared successfully', { // Removed for prod
+        //     timestamp: new Date().toISOString()
+        // });
     } catch (error) {
         console.error('Error clearing auth cookie:', {
             error: error instanceof Error ? error.message : 'Unknown error',
