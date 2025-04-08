@@ -209,14 +209,7 @@ const totalSavedJobs = calculateFeatureUsage(tierProfile, (feature) =>
       </section>
 
       <!-- Search Bar -->
-      <section class="py-12 text-center space-y-4">
-        <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">
-          Career Guide
-        </h2>
-        <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-          Get instant career advice, resume tips, and interview help from our AI
-          assistant.
-        </p>
+      <section>
         <SearchBar />
       </section>
 
@@ -243,57 +236,57 @@ const totalSavedJobs = calculateFeatureUsage(tierProfile, (feature) =>
       </section>
     </div>
   </main>
-</Layout>
 
-<script
-  define:vars={{
-    initialDisplayName: displayName,
-    initialUserData: userData,
-  }}
-  is:inline
->
-  // Inline script to avoid module loading issues
-  (function () {
-    function updateUserDisplayName() {
-      const userNameElement = document.getElementById("userName");
-      const storedUserData = localStorage.getItem("astro_resume_user_data");
+  <script
+    define:vars={{
+      initialDisplayName: displayName,
+      initialUserData: userData,
+    }}
+    is:inline
+  >
+    // Inline script to avoid module loading issues
+    (function () {
+      function updateUserDisplayName() {
+        const userNameElement = document.getElementById("userName");
+        const storedUserData = localStorage.getItem("astro_resume_user_data");
 
-      if (storedUserData) {
-        try {
-          const userData = JSON.parse(storedUserData);
-          const displayName =
-            userData.displayName ||
-            (userData.email ? userData.email.split("@")[0] : "User");
+        if (storedUserData) {
+          try {
+            const userData = JSON.parse(storedUserData);
+            const displayName =
+              userData.displayName ||
+              (userData.email ? userData.email.split("@")[0] : "User");
 
-          if (userNameElement && displayName !== "User") {
-            userNameElement.textContent = displayName;
+            if (userNameElement && displayName !== "User") {
+              userNameElement.textContent = displayName;
+            }
+          } catch (error) {
+            console.error("Failed to parse user data");
           }
-        } catch (error) {
-          console.error("Failed to parse user data");
         }
       }
-    }
-    updateUserDisplayName();
-  })();
-</script>
+      updateUserDisplayName();
+    })();
+  </script>
 
-<style>
-  .animate-float {
-    animation: float 20s ease-in-out infinite;
-  }
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0) translateX(0);
+  <style>
+    .animate-float {
+      animation: float 20s ease-in-out infinite;
     }
-    25% {
-      transform: translateY(-10px) translateX(10px);
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0) translateX(0);
+      }
+      25% {
+        transform: translateY(-10px) translateX(10px);
+      }
+      50% {
+        transform: translateY(10px) translateX(-10px);
+      }
+      75% {
+        transform: translateY(10px) translateX(10px);
+      }
     }
-    50% {
-      transform: translateY(10px) translateX(-10px);
-    }
-    75% {
-      transform: translateY(10px) translateX(10px);
-    }
-  }
-</style>
+  </style>
+</Layout>

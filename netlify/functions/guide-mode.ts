@@ -32,7 +32,7 @@ export const handler: Handler = async (event) => {
 
   try {
     const body = JSON.parse(event.body || "{}");
-    const { message } = body;
+    const { message, history } = body;
 
     if (!message || typeof message !== "string") {
       return {
@@ -43,6 +43,8 @@ export const handler: Handler = async (event) => {
         }),
       };
     }
+
+    const conversationHistory = Array.isArray(history) ? history : [];
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
@@ -58,7 +60,7 @@ export const handler: Handler = async (event) => {
 
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({
-      model: "gemini-2.0-flash-lite", // Using the latest flash model
+      model: "gemini-2.0-flash-lite-exp", // Using the latest flash model
     });
 
     // Basic safety settings - adjust as needed
@@ -92,12 +94,9 @@ export const handler: Handler = async (event) => {
       contents: [
         {
           role: "user",
-          parts: [
-            {
-              text: SYSTEM_PROMPTS.careerDiscussion,
-            },
-          ],
+          parts: [{ text: SYSTEM_PROMPTS.careerDiscussion }],
         },
+        ...conversationHistory,
         {
           role: "user",
           parts: [{ text: message }],
