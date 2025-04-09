@@ -60,7 +60,7 @@ export const handler: Handler = async (event) => {
 
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({
-      model: "gemini-2.0-flash-lite-exp", // Using the latest flash model
+      model: "gemini-2.0-flash-lite", // Using the latest flash model
     });
 
     // Basic safety settings - adjust as needed
