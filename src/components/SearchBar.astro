@@ -1,56 +1,64 @@
 ---
-// src/components/SearchBar.astro
+import Container from "../components/Container.astro";
 ---
 
-<section
-  class="py-16 px-4 w-full max-w-5xl mx-auto text-center space-y-6 bg-white dark:bg-gray-900 rounded-3xl shadow-xl transition"
->
-  <h2 class="text-3xl font-bold text-gray-800 dark:text-white">Career Guide</h2>
-  <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto text-base">
-    Get instant AI-powered answers to your biggest career questions.
-  </p>
-
-  <form
-    action="/guide"
-    method="GET"
-    class="flex flex-col sm:flex-row items-center gap-3 max-w-2xl mx-auto px-2"
+<Container>
+  <section
+    class="py-8 px-4 w-full border border-gray-100 dark:border-gray-700/50 max-w-5xl mx-auto text-center bg-gray-50 dark:bg-gray-800/50 rounded-3xl transition"
   >
-    <div class="relative flex-grow w-full">
-      <div
-        class="absolute inset-y-0 left-3 flex items-center pointer-events-none"
-      >
-        <svg
-          class="h-5 w-5 text-gray-400 dark:text-gray-500"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-            clip-rule="evenodd"></path>
-        </svg>
-      </div>
-      <input
-        type="search"
-        name="query"
-        placeholder="Ask the AI guide..."
-        class="block w-full pl-10 pr-24 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-600 transition-all duration-200 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-      />
-      <button
-        type="submit"
-        class="absolute right-1 top-1 bottom-1 px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white text-sm font-medium rounded-full shadow-md transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500"
-      >
-        Ask
-      </button>
-    </div>
-  </form>
-
-  <div class="text-sm text-gray-500 dark:text-gray-400 mt-2">
-    Try asking: <span class="italic text-purple-600"
-      >“What career suits my strengths?”</span
-    > or <span class="italic text-indigo-600"
-      >“How do I switch from marketing to tech?”</span
+    <form
+      action="/guide"
+      method="GET"
+      class="flex flex-col sm:flex-row items-center gap-3 max-w-2xl mx-auto px-2"
     >
-  </div>
-</section>
+      <div class="relative flex-grow w-full">
+        <div
+          class="absolute inset-y-0 left-3 flex items-center pointer-events-none"
+        >
+          <svg
+            class="h-5 w-5 text-gray-400 dark:text-gray-500"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </div>
+        <input
+          type="search"
+          name="query"
+          placeholder="Ask me anything"
+          class="block w-full pl-10 pr-24 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-full focus:outline-none focus:ring-purple-500 dark:focus:ring-purple-600 transition-all duration-200 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+        />
+        <button
+          type="submit"
+          class="absolute right-1 top-1 bottom-1 px-3 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white text-sm font-medium rounded-full transition-transform transform hover:scale-105 focus:outline-none focus:ring-purple-500"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            class="h-5 w-5"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </button>
+      </div>
+    </form>
+
+    <div class="text-sm text-gray-500 dark:text-gray-400 mt-2">
+      Try asking: <span class="italic text-indigo-600 dark:text-indigo-400"
+        >“How do I switch from marketing to tech?”</span
+      ><span class="hidden md:inline"> or </span>
+      <span class="italic hidden md:inline text-indigo-600 dark:text-indigo-400"
+        >“What career suits my strengths?”</span
+      >
+    </div>
+  </section>
+</Container>
