@@ -114,7 +114,7 @@ export const handler: Handler = async (event, context) => {
     // --- Handle other methods to /login ---
     return {
       statusCode: 405, // Method Not Allowed
-      headers,
+      headers: { ...headers, "Content-Type": "application/json" },
       body: JSON.stringify({
         error: `Method ${event.httpMethod} not allowed for /login`,
       }),
