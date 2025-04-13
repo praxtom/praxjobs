@@ -32,8 +32,9 @@ export const fetchInterviewQuestions = async ({
       throw new Error("Job role is required and must be a string");
     }
 
+    // Use correct environment variable name
     const groq = new Groq({
-      apiKey: process.env.PUBLIC_GROQ_API_KEY,
+      apiKey: process.env.GROQ_API_KEY,
     });
 
     const requestPayload = {
@@ -154,8 +155,9 @@ export const reviewAnswer = async ({
       throw new Error("Answer is required and must be a string");
     }
 
+    // Use correct environment variable name
     const groq = new Groq({
-      apiKey: process.env.PUBLIC_GROQ_API_KEY,
+      apiKey: process.env.GROQ_API_KEY,
     });
 
     const requestPayload = {

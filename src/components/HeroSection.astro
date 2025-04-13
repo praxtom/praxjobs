@@ -2,52 +2,341 @@
 import Container from "./Container.astro";
 ---
 
-<div class="relative h-[75vh] flex items-center" id="home">
+<div class="relative min-h-screen flex items-center overflow-hidden" id="home">
   <div
     aria-hidden="true"
-    class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20"
+    class="absolute inset-0 -z-10 grid grid-cols-2 -space-x-52 opacity-50 dark:opacity-30 pointer-events-none"
   >
     <div
-      class="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700"
+      class="blur-[120px] h-64 bg-gradient-to-br from-purple-500 to-cyan-400 dark:from-blue-700/50 transform -rotate-12"
     >
     </div>
     <div
-      class="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600"
+      class="blur-[120px] h-48 bg-gradient-to-r from-pink-400 to-orange-300 dark:to-indigo-600/50 transform rotate-12"
     >
     </div>
   </div>
+
+  {/* Subtle SVG Dot Pattern */}
+  <div
+    aria-hidden="true"
+    class="absolute inset-0 -z-5 pointer-events-none overflow-hidden"
+  >
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern
+          id="dotPattern"
+          patternUnits="userSpaceOnUse"
+          width="30"
+          height="30"
+        >
+          <circle
+            cx="5"
+            cy="5"
+            r="1"
+            fill="currentColor"
+            class="text-purple-500/10 dark:text-purple-400/5"></circle>
+          <circle
+            cx="20"
+            cy="20"
+            r="1"
+            fill="currentColor"
+            class="text-cyan-500/10 dark:text-cyan-400/5"></circle>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#dotPattern)"></rect>
+    </svg>
+  </div>
+
   <Container>
-    <div class="relative pt-36 ml-auto">
-      <div class="lg:w-2/3 text-center mx-auto">
+    {/* Adjusted padding and gap for better spacing with min-h-screen */}
+    <div
+      class="relative py-20 lg:py-32 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center"
+    >
+      {/* Left Column: Refined Text & CTAs */}
+      <div class="text-center lg:text-left">
+        {/* Larger headline, gradient on "AI" */}
         <h1
-          class="text-gray-900 text-balance dark:text-white font-bold text-5xl md:text-5xl xl:text-7xl"
+          class="text-gray-900 text-balance dark:text-white font-bold text-5xl md:text-6xl xl:text-7xl leading-tight"
         >
-          Your <span class="text-purple-400 dark:text-purple-300">AI</span> Job Hunt
-          Companion
+          Your <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-400 dark:to-pink-400"
+            >AI</span
+          > Job Hunt Companion
         </h1>
+        {/* More benefit-focused subtitle, refined styling */}
         <p
-          class="mt-8 text-gray-700 dark:text-gray-300 text-xl sm:text-xl italic"
+          class="mt-6 text-lg text-gray-600 dark:text-gray-400 max-w-xl mx-auto lg:mx-0"
         >
-          Make your job hunt journey a cool breeze with us.
+          Navigate your job search smarter. Get AI-powered insights, resume
+          tips, and interview prep guidance instantly.
         </p>
-        <div class="mt-16 flex flex-wrap justify-center gap-y-4 gap-x-6">
+        {/* Modernized Button Styles */}
+        <div class="mt-10 flex flex-wrap justify-center lg:justify-start gap-4">
+          {/* Primary Button: Gradient, shadow, hover scale */}
           <a
-            href="/login"
-            class="relative flex h-12 rounded-full items-center justify-center px-6 bg-black text-white dark:bg-white dark:text-black before:absolute before:inset-0 before:rounded-full before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max"
+            href="/signup"
+            class="relative inline-flex h-12 items-center justify-center px-8 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-lg hover:shadow-xl hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 transition-all duration-300 ease-in-out"
           >
-            <span class="relative text-base font-semibold">Get Started</span>
+            <span class="relative text-base font-semibold"
+              >Get Started Free</span
+            >
           </a>
+          {/* Secondary Button: Subtle glassmorphism, border, hover scale */}
           <a
             href="#features"
-            class="relative flex h-12 items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:border before:border-transparent before:bg-black/10 dark:before:bg-primary/10 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800 sm:w-max"
+            class="relative inline-flex h-12 items-center justify-center px-8 rounded-full border border-gray-300 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700/70 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 dark:focus:ring-offset-gray-900 transition-all duration-300 ease-in-out hover:scale-[1.02]"
           >
-            <span
-              class="relative text-base font-semibold text-black dark:text-white"
+            <span class="relative text-base font-semibold"
               >Explore Features</span
             >
           </a>
         </div>
       </div>
+
+      {/* Right Column: Redesigned AI Guide Card */}
+      <div class="relative flex flex-col h-full justify-center lg:pl-8">
+        {/* Enhanced Card: Increased padding and shadow */}
+        <div
+          class="bg-white/70 dark:bg-gray-900/70 backdrop-blur-lg p-8 sm:p-10 rounded-2xl shadow-2xl dark:shadow-purple-900/30 border border-gray-200/30 dark:border-gray-700/30"
+        >
+          {/* Input Group: Integrated button look */}
+          <div class="relative flex items-center mb-4 shadow-md rounded-full">
+            <input
+              type="text"
+              id="guide-question"
+              placeholder="e.g., Improve my resume summary"
+              aria-label="Ask the AI guide a question"
+              class="flex-grow pl-6 pr-12 py-3 border border-purple-300 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-500 dark:bg-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition duration-200"
+            />
+            {
+              /* Button positioned absolutely inside input area, using SVG icon */
+            }
+            <button
+              id="ask-button"
+              title="Ask AI"
+              class="absolute right-1 top-1 bottom-1 flex items-center justify-center px-4 bg-purple-600 text-white rounded-full hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-1 dark:focus:ring-offset-gray-800 transition duration-200 disabled:opacity-60"
+            >
+              {/* Simple Send/Paper Airplane SVG Icon */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                class="w-5 h-5"
+              >
+                <path
+                  d="M3.105 2.289a.75.75 0 00-.826.95l1.414 4.925A1.5 1.5 0 005.135 9.25h6.115a.75.75 0 010 1.5H5.135a1.5 1.5 0 00-1.442 1.086l-1.414 4.926a.75.75 0 00.95.826l16.106-5.75a.75.75 0 000-1.392L3.105 2.29z"
+                ></path>
+              </svg>
+              <span class="sr-only">Ask AI</span>
+              {/* Accessibility */}
+            </button>
+          </div>
+          {/* Example prompts for better usability */}
+          <div
+            class="text-xs text-gray-500 dark:text-gray-400 text-center mb-5 px-2"
+          >
+            Try: "<a
+              href="#"
+              class="text-purple-600 dark:text-purple-400 hover:underline"
+              onclick="const guideQuestion = document.getElementById('guide-question');
+              if (guideQuestion) {
+                  guideQuestion.value = 'How to answer tell me about yourself?';
+                  guideQuestion.focus();
+                  return false;
+              }"
+              >Tell me about yourself</a
+            >" or "<a
+              href="#"
+              class="text-purple-600 dark:text-purple-400 hover:underline"
+              onclick="const guideQuestion2 = document.getElementById('guide-question');
+              if (guideQuestion2) {
+                  guideQuestion2.value = 'Suggest keywords for a software engineer role';
+                  guideQuestion2.focus();
+                  return false;
+              }"
+              >Keywords for SWE role</a
+            >"
+          </div>
+
+          {/* Result Area: Hidden initially */}
+          <div
+            id="guide-result"
+            class="hidden mt-5 p-4 bg-gray-100/50 dark:bg-gray-700/50 border border-gray-200/50 dark:border-gray-600/50 rounded-lg min-h-[100px] text-gray-700 dark:text-gray-300 text-sm whitespace-pre-wrap transition-opacity duration-300 ease-in-out"
+          >
+            {/* Content (answer/error) added dynamically */}
+            <span class="italic text-gray-500 dark:text-gray-400"
+              >Ask a question above to get insights from our AI guide.</span
+            >
+          </div>
+          {/* Loading Indicator: Improved text and styling */}
+          <div
+            id="loading-indicator"
+            class="mt-3 text-sm text-purple-600 dark:text-purple-400 flex items-center justify-center gap-2 hidden opacity-0 transition-opacity duration-300 ease-in-out"
+          >
+            {/* Spinner SVG (same as before) */}
+            <svg
+              class="animate-spin h-4 w-4 text-current"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+            <span>Generating insights...</span>
+          </div>
+
+          {
+            /* Button to continue chat on the main guide page - Added ID and hidden initially */
+          }
+          <div id="continue-chat-container" class="hidden mt-4 text-center">
+            <a
+              id="continue-chat-link"
+              href="/guide"
+              class="inline-block px-5 py-2 text-sm font-medium text-purple-600 dark:text-purple-400 border border-purple-300 dark:border-purple-700 rounded-full hover:bg-purple-50 dark:hover:bg-purple-900/30 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition duration-200"
+            >
+              Continue Chat in Guide Mode →
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </Container>
 </div>
+
+<script>
+  import { authService } from "../lib/auth"; // Import for client-side use
+
+  const askButton = document.getElementById("ask-button") as HTMLButtonElement;
+  const questionInput = document.getElementById(
+    "guide-question"
+  ) as HTMLInputElement;
+  const resultDiv = document.getElementById("guide-result") as HTMLDivElement;
+  const loadingIndicator = document.getElementById(
+    "loading-indicator"
+  ) as HTMLDivElement;
+  const continueChatLink = document.getElementById(
+    "continue-chat-link"
+  ) as HTMLAnchorElement;
+  const continueChatContainer = document.getElementById(
+    "continue-chat-container"
+  ) as HTMLDivElement; // Get the container
+
+  let lastQuestion = "";
+  let lastAnswer = "";
+
+  // --- Event Listener for Ask Button ---
+  askButton.addEventListener("click", async () => {
+    const question = questionInput.value.trim();
+    if (!question) {
+      // Show error message directly in the result area
+      resultDiv.innerHTML =
+        '<span class="italic text-red-500 dark:text-red-400">Please enter a question.</span>';
+      resultDiv.style.opacity = "1"; // Ensure it's visible
+      return;
+    }
+
+    resultDiv.style.opacity = "0"; // Start fade out for transition effect
+    loadingIndicator.classList.remove("hidden");
+    // Use requestAnimationFrame to ensure the class is removed before setting opacity
+    requestAnimationFrame(() => {
+      loadingIndicator.style.opacity = "1";
+    });
+    askButton.disabled = true;
+    questionInput.disabled = true;
+
+    try {
+      // Removed authService calls and Authorization header for heroConcise mode
+      const response = await fetch("/.netlify/functions/guide-mode", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // No Authorization header needed here
+        },
+        body: JSON.stringify({ message: question, mode: "heroConcise" }),
+      });
+
+      // Add a small delay for perceived responsiveness, if desired
+      // await new Promise(resolve => setTimeout(resolve, 300));
+
+      if (!response.ok) {
+        let errorMsg = `Error: ${response.status} ${response.statusText}`;
+        try {
+          // Try to get more specific error from API response body
+          const errorData = await response.json();
+          errorMsg = errorData.error || errorMsg;
+        } catch (e) {
+          // Ignore if response body isn't JSON or empty
+        }
+        throw new Error(errorMsg);
+      }
+
+      const data = await response.json();
+      const answer = data.data?.trim() || "";
+
+      // Always show the result div after trying
+      resultDiv.classList.remove("hidden");
+
+      // Display the answer
+      resultDiv.textContent = answer || "No answer received from the guide.";
+
+      // Store last interaction and update link/visibility if successful
+      if (answer) {
+        lastQuestion = question;
+        lastAnswer = answer;
+        const encodedQ = encodeURIComponent(lastQuestion);
+        const encodedA = encodeURIComponent(lastAnswer);
+        continueChatLink.href = `/guide?lastQ=${encodedQ}&lastA=${encodedA}`;
+        continueChatContainer.classList.remove("hidden"); // Show continue button
+      } else {
+        // Reset link and hide button if no answer received
+        continueChatLink.href = "/guide";
+        continueChatContainer.classList.add("hidden");
+      }
+    } catch (error: any) {
+      // Explicitly type error
+      console.error("Error fetching guide response:", error);
+      // Display error message in the result area
+      resultDiv.innerHTML = `<span class="italic text-red-500 dark:text-red-400">Error: ${error.message || "Failed to get answer."}</span>`;
+      resultDiv.classList.remove("hidden"); // Ensure result div is visible for error
+      continueChatContainer.classList.add("hidden"); // Hide continue button on error
+      continueChatLink.href = "/guide"; // Reset link on error
+    } finally {
+      // Fade out loading indicator
+      loadingIndicator.style.opacity = "0";
+      // Hide loading indicator completely after transition
+      setTimeout(() => {
+        loadingIndicator.classList.add("hidden");
+      }, 300); // Match transition duration
+
+      // Fade in result area
+      resultDiv.style.opacity = "1";
+
+      // Re-enable controls
+      askButton.disabled = false;
+      questionInput.disabled = false;
+      // Optionally clear input or keep it for context
+      // questionInput.value = '';
+    }
+  });
+
+  // --- Event Listener for Enter Key in Input ---
+  questionInput.addEventListener("keypress", (event) => {
+    if (event.key === "Enter" && !askButton.disabled) {
+      // Prevent triggering while loading
+      event.preventDefault(); // Prevent default form submission if applicable
+      askButton.click(); // Trigger button click
+    }
+  });
+</script>

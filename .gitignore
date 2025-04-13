@@ -14,6 +14,7 @@ pnpm-debug.log*
 
 # Google Cloud Credentials
 *.json.key
+google-credentials.json
 .vercel
 astro-ai-professional-firebase-adminsdk-fbsvc-fc715c8e4b.json
 

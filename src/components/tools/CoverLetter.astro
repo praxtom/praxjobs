@@ -383,10 +383,38 @@ const templateData = JSON.stringify(coverLetterTemplates);
                                 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900
                                 shadow-lg hover:shadow-xl"
             >
-              <svg id="generateIcon" class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-              <svg id="generateSpinner" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              <svg
+                id="generateIcon"
+                class="w-5 h-5 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                ><path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg
+              >
+              <svg
+                id="generateSpinner"
+                class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"></circle>
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
               </svg>
               <span id="generateButtonText">Generate Cover Letter</span>
             </button>
@@ -404,7 +432,19 @@ const templateData = JSON.stringify(coverLetterTemplates);
                                 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 dark:focus:ring-offset-gray-900
                                 shadow-md hover:shadow-lg"
             >
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+              <svg
+                class="w-5 h-5 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                ><path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                ></path></svg
+              >
               Clear
             </button>
           </div>
@@ -445,7 +485,7 @@ const templateData = JSON.stringify(coverLetterTemplates);
 
     <!-- Content "Page" Area -->
     <div
-      class="flex-1 overflow-y-auto p-8 bg-gray-100 dark:bg-gray-950 rounded-sm shadow-lg"
+      class="flex-1 overflow-y-auto p-8 bg-gray-100 dark:bg-gray-900 rounded-sm shadow-lg"
     >
       <div
         id="streamingContent"
@@ -710,9 +750,8 @@ const templateData = JSON.stringify(coverLetterTemplates);
           document.body.appendChild(loginModal);
 
           const loginButton = loginModal.querySelector("#loginButton");
-          const closeLoginModalButton = loginModal.querySelector(
-            "#closeLoginModal"
-          ); // Corrected ID
+          const closeLoginModalButton =
+            loginModal.querySelector("#closeLoginModal"); // Corrected ID
 
           loginButton?.addEventListener("click", () => {
             // Redirect to login page
@@ -736,9 +775,8 @@ const templateData = JSON.stringify(coverLetterTemplates);
           // Show upgrade modal
           const upgradeModal = document.getElementById("upgradeModal"); // Get existing upgrade modal
           const upgradeButton = document.getElementById("upgradeButton");
-          const closeUpgradeModalButton = document.getElementById(
-            "closeUpgradeModal"
-          );
+          const closeUpgradeModalButton =
+            document.getElementById("closeUpgradeModal");
 
           if (upgradeModal) {
             upgradeModal.classList.remove("hidden"); // Show it
@@ -961,7 +999,8 @@ const templateData = JSON.stringify(coverLetterTemplates);
       }
 
       // More robust element selection
-      const customInstructionsInput = document.querySelector( // Renamed variable
+      const customInstructionsInput = document.querySelector(
+        // Renamed variable
         "#customInstructions"
       ) as HTMLTextAreaElement | null;
       const selectedTemplate =
@@ -980,13 +1019,6 @@ const templateData = JSON.stringify(coverLetterTemplates);
       let streamingText = "";
 
       try {
-        // Get DeepSeek API key from environment
-        const DEEPSEEK_API_KEY = import.meta.env.PUBLIC_DEEPSEEK_API_KEY;
-        if (!DEEPSEEK_API_KEY) {
-          throw new Error("DeepSeek API key is not configured");
-        }
-
-        // Prepare messages for DeepSeek API (Using the existing prompt structure)
         const messages = [
           {
             role: "system",
@@ -1116,12 +1148,12 @@ Additional Context:
           for (const line of lines) {
             if (line.startsWith("data: ")) {
               try {
-              const jsonData = JSON.parse(line.slice(6));
-              if (jsonData.choices && jsonData.choices[0].delta.content) {
-                const content = jsonData.choices[0].delta.content;
-                streamingText += content;
-                // Update content progressively
-                streamingContent.innerHTML = streamingText; // Directly set the text
+                const jsonData = JSON.parse(line.slice(6));
+                if (jsonData.choices && jsonData.choices[0].delta.content) {
+                  const content = jsonData.choices[0].delta.content;
+                  streamingText += content;
+                  // Update content progressively
+                  streamingContent.innerHTML = streamingText; // Directly set the text
                 }
               } catch (parseError) {
                 // console.warn("Error parsing stream data:", parseError); // Removed for prod
@@ -1136,7 +1168,10 @@ Additional Context:
             "opacity-0",
             "translate-y-4"
           );
-          coverLetterActionButtons.classList.add("opacity-100", "translate-y-0");
+          coverLetterActionButtons.classList.add(
+            "opacity-100",
+            "translate-y-0"
+          );
         }
       } catch (error) {
         console.error("Cover Letter generation error:", error); // Keep critical error
@@ -1206,15 +1241,13 @@ Additional Context:
 
     // Close modal when clicking outside
     modal.addEventListener("click", (event) => {
-      const modalDialog = modal.querySelector('.relative.w-\\[95\\%]'); // Target the main dialog
+      const modalDialog = modal.querySelector(".relative.w-\\[95\\%]"); // Target the main dialog
       if (modalDialog && !modalDialog.contains(event.target as Node)) {
         modal.classList.add("hidden");
       }
     });
   });
-</script>
 
-<script>
   document.addEventListener("DOMContentLoaded", () => {
     const clearButton = document.getElementById("clearForm");
     const jobDescription = document.getElementById(
@@ -1285,20 +1318,20 @@ Additional Context:
         if (selectedTemplate) {
           selectedTemplate.checked = false;
           // Optionally check the default one again
-          const defaultTemplate = document.getElementById('template-professional') as HTMLInputElement | null;
+          const defaultTemplate = document.getElementById(
+            "template-professional"
+          ) as HTMLInputElement | null;
           if (defaultTemplate) defaultTemplate.checked = true;
         }
       });
     }
 
     // Clear resume content on initial load for cover letter page
-    if (resumeContent && window.location.pathname.includes('/cover-letter')) {
-        resumeContent.value = "";
+    if (resumeContent && window.location.pathname.includes("/cover-letter")) {
+      resumeContent.value = "";
     }
   });
-</script>
 
-<script>
   document.addEventListener("DOMContentLoaded", () => {
     const resumeFileUploadButton = document.getElementById(
       "resumeFileUploadButton"
@@ -1364,11 +1397,17 @@ Additional Context:
         const base64Data = base64File.split(",")[1]; // Remove data URL prefix
 
         try {
+          // Get current user and ID token for Authorization header
+          const user = await authService.getCurrentUser();
+          if (!user)
+            throw new Error("You must be logged in to upload a resume.");
+          const idToken = await user.getIdToken();
           // Send to server-side API
           const response = await fetch("/.netlify/functions/upload-resume", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${idToken}`,
             },
             body: JSON.stringify({
               fileBase64: base64Data,
@@ -1435,18 +1474,14 @@ Additional Context:
       };
 
       fileReader.onerror = () => {
-          // console.error("Error reading file"); // Removed for prod
-          alert("Error reading file.");
-          uploadLoader?.classList.add("hidden");
-          resumeFileInput.value = "";
+        // console.error("Error reading file"); // Removed for prod
+        alert("Error reading file.");
+        uploadLoader?.classList.add("hidden");
+        resumeFileInput.value = "";
       };
     });
   });
-</script>
 
-<script>
-  import { authService } from "../../lib/auth";
-  import { PersistentDocumentService } from "../../lib/persistentDocumentService";
   document.addEventListener("DOMContentLoaded", () => {
     const importResumeButton = document.getElementById("importResumeButton");
     const resumeContentTextarea = document.getElementById(
@@ -1570,22 +1605,26 @@ Additional Context:
             // Populate resume content textarea
             resumeContentTextarea.value = selectedResume.content || "";
 
-             // Show the file added UI and hide other elements
-            const resumeFileAddedUI = document.getElementById("resumeFileAddedUI");
-            const resumeOptionsSelector = document.getElementById("resumeOptionsSelector");
-            const manualEntryContainer = document.getElementById("manualEntryContainer");
+            // Show the file added UI and hide other elements
+            const resumeFileAddedUI =
+              document.getElementById("resumeFileAddedUI");
+            const resumeOptionsSelector = document.getElementById(
+              "resumeOptionsSelector"
+            );
+            const manualEntryContainer = document.getElementById(
+              "manualEntryContainer"
+            );
 
             if (resumeFileAddedUI && resumeOptionsSelector) {
-                resumeFileAddedUI.classList.remove("hidden");
-                resumeOptionsSelector.classList.add("hidden");
-                manualEntryContainer?.classList.add("hidden");
+              resumeFileAddedUI.classList.remove("hidden");
+              resumeOptionsSelector.classList.add("hidden");
+              manualEntryContainer?.classList.add("hidden");
 
-                const resumeFileName = document.getElementById("resumeFileName");
-                if (resumeFileName) {
-                    resumeFileName.textContent = `${selectedResume.name || 'Imported Resume'}`;
-                }
+              const resumeFileName = document.getElementById("resumeFileName");
+              if (resumeFileName) {
+                resumeFileName.textContent = `${selectedResume.name || "Imported Resume"}`;
+              }
             }
-
 
             // Close modal
             document.body.removeChild(modal);
@@ -1620,9 +1659,7 @@ Additional Context:
       }
     });
   });
-</script>
 
-<script>
   document.addEventListener("DOMContentLoaded", () => {
     const textareas = document.querySelectorAll(".typing-animation");
 
@@ -1654,16 +1691,36 @@ Additional Context:
       });
 
       textarea.addEventListener("blur", (e) => {
-        // Type guard to ensure e.target is an HTMLTextAreaElement
         const target = e.target as HTMLTextAreaElement | null;
         if (!target) return;
 
         if (!target.value) {
-          // Use nullish coalescing to provide an empty string fallback
           target.setAttribute("placeholder", "");
         }
       });
     });
+  });
+
+  const coverLetterFileUploadButton = document.getElementById(
+    "resumeFileUploadButton"
+  );
+  const uploadLoader = document.getElementById("uploadLoader");
+  const coverLetterFileAddedUI = document.getElementById(
+    "coverLetterFileAddedUI"
+  );
+
+  coverLetterFileUploadButton?.addEventListener("click", async () => {
+    if (uploadLoader?.classList.contains("hidden")) {
+      uploadLoader?.classList.remove("hidden"); // Show loader
+
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      uploadLoader?.classList.add("hidden");
+
+      const targetUI =
+        document.getElementById("coverLetterFileAddedUI") ??
+        document.getElementById("resumeFileAddedUI");
+      targetUI?.classList.remove("hidden");
+    }
   });
 </script>
 
@@ -1714,22 +1771,3 @@ Additional Context:
     opacity: 1;
   }
 </style>
-
-<script>
-  const coverLetterFileUploadButton = document.getElementById(
-    "resumeFileUploadButton"
-  );
-  const uploadLoader = document.getElementById("uploadLoader");
-  const coverLetterFileAddedUI = document.getElementById(
-    "coverLetterFileAddedUI"
-  );
-
-  coverLetterFileUploadButton?.addEventListener("click", async () => {
-    uploadLoader?.classList.remove("hidden"); // Show loader
-    // Simulate file upload process
-    await new Promise((resolve) => setTimeout(resolve, 3000)); // Replace with actual upload logic
-    uploadLoader?.classList.add("hidden"); // Hide loader
-    // Show success UI after loader is hidden
-    coverLetterFileAddedUI?.classList.remove("hidden");
-  });
-</script>

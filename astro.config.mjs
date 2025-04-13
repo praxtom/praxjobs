@@ -31,11 +31,7 @@ export default defineConfig({
         polyfill: false,
       },
     },
-    define: {
-      "process.env.PUBLIC_OPENAI_API_KEY": JSON.stringify(
-        process.env.PUBLIC_OPENAI_API_KEY
-      ),
-    },
+    // Removed define block exposing OpenAI key to client-side
     ssr: {
       noExternal: ["firebase", "firebase-admin"],
     },

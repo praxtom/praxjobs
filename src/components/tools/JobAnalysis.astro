@@ -750,9 +750,16 @@ const analysis: JobAnalysisData = {
           jobDescription: jobDescriptionInput!.value,
         };
 
+        // Get the current user and their ID token for authentication
+        const user = await authService.getCurrentUser();
+        let authHeaders = { "Content-Type": "application/json" };
+        if (user && user.getIdToken) {
+          const token = await user.getIdToken();
+          authHeaders["Authorization"] = `Bearer ${token}`;
+        }
         const response = await fetch("/.netlify/functions/jobAnalysis", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: authHeaders,
           body: JSON.stringify(requestBody),
         });
 

@@ -19,9 +19,12 @@ export const PerformJobAnalysis = async ({ request }: { request: Request }) => {
 
     const apiEndpoint =
       "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
-    const apiKey = "AIzaSyB_JQtxtws-Xaupjk-9yh5EfXLeO18gU9s";
+    // Load API Key ONLY from environment variable
+    const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
+      // Log server-side for easier debugging
+      console.error("GEMINI_API_KEY is not set in the environment variables.");
       throw new Error(
         "GEMINI_API_KEY is not set in the environment variables."
       );

@@ -1,55 +1,161 @@
-import type { Handler } from '@netlify/functions'
-import { Groq } from 'groq-sdk'
+import type { Handler, HandlerEvent } from "@netlify/functions"; // Added HandlerEvent
+import { Groq } from "groq-sdk";
+import {
+  initializeFirebaseAdmin,
+  verifyFirebaseToken,
+} from "../../src/lib/firebaseAdmin"; // Import Firebase Admin functions
 
-// Initialize Groq client
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY
-})
+// Helper to extract token from Authorization header
+const extractToken = (event: HandlerEvent): string | null => {
+  const authHeader = event.headers.authorization;
+  if (authHeader && authHeader.startsWith("Bearer ")) {
+    return authHeader.substring(7); // Remove "Bearer " prefix
+  }
+  return null;
+};
 
-export const handler: Handler = async event => {
+// Moved Groq client initialization inside processOptimization
+
+export const handler: Handler = async (event) => {
+  // Define allowed origin and standard headers
+  const allowedOrigin = "https://praxjobs.com";
+  const headers = {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": allowedOrigin,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization", // Added Authorization
+  };
+
+  // Handle OPTIONS request for CORS
+  if (event.httpMethod === "OPTIONS") {
+    return {
+      statusCode: 200,
+      headers,
+      body: "",
+    };
+  }
+
+  // Only allow POST requests
+  if (event.httpMethod !== "POST") {
+    return {
+      statusCode: 405,
+      headers,
+      body: JSON.stringify({ message: "Method not allowed" }),
+    };
+  }
+
+  // --- Authentication ---
+  let authenticatedUserId: string;
   try {
-    const body = JSON.parse(event.body || '{}')
+    await initializeFirebaseAdmin();
+    const token = extractToken(event);
+    if (!token) {
+      return {
+        statusCode: 401,
+        headers,
+        body: JSON.stringify({ error: "Missing authentication token" }),
+      };
+    }
+    const decodedToken = await verifyFirebaseToken(token);
+    authenticatedUserId = decodedToken.uid;
+    console.log(
+      "LinkedIn optimize request authenticated for UID:",
+      authenticatedUserId
+    ); // Optional log
+  } catch (error: any) {
+    console.error("Authentication error:", error);
+    const statusCode = error.message?.includes("Firebase Admin not initialized")
+      ? 500
+      : 401;
+    const errorMessage =
+      statusCode === 401
+        ? "Invalid or expired token"
+        : "Authentication service error";
+    return {
+      statusCode,
+      headers,
+      body: JSON.stringify({ error: errorMessage }),
+    };
+  }
+  // --- End Authentication ---
+
+  try {
+    // Validate body AFTER authentication
+    if (!event.body) {
+      return {
+        statusCode: 400,
+        headers,
+        body: JSON.stringify({ error: "Request body is required" }),
+      };
+    }
+    // Validate Content-Type
+    if (event.headers["content-type"] !== "application/json") {
+      return {
+        statusCode: 415, // Unsupported Media Type
+        headers,
+        body: JSON.stringify({
+          error: "Content-Type must be application/json",
+        }),
+      };
+    }
+
+    const body = JSON.parse(event.body);
 
     // Validate required fields
     if (!body.linkedinContent || !body.resumeContent) {
       return {
         statusCode: 400,
+        headers, // Add headers
         body: JSON.stringify({
-          error: 'LinkedIn content and resume content are required'
-        })
-      }
+          error: "LinkedIn content and resume content are required",
+        }),
+      };
     }
 
-    // Process optimization with AI
+    // Process optimization with AI (pass userId if needed)
     const optimizedProfile = await processOptimization({
       linkedinContent: body.linkedinContent,
       resumeContent: body.resumeContent,
-      jobTitle: body.jobTitle || '',
-      industry: body.industry || '',
-      careerGoals: body.careerGoals || ''
-    })
+      jobTitle: body.jobTitle || "",
+      industry: body.industry || "",
+      careerGoals: body.careerGoals || "",
+      // userId: authenticatedUserId // Pass userId if processOptimization needs it
+    });
 
     return {
       statusCode: 200,
-      body: JSON.stringify(optimizedProfile)
-    }
-  } catch (error) {
-    // console.error('Error processing request:', error) // Removed for prod
+      headers, // Add headers
+      body: JSON.stringify(optimizedProfile),
+    };
+  } catch (error: any) {
+    console.error(
+      `Error processing linkedin-optimize request for user ${authenticatedUserId}:`,
+      error
+    ); // Add user context
     return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'Failed to optimize profile' })
-    }
+      statusCode: error.statusCode || 500, // Use status code from error if available
+      headers, // Add headers
+      body: JSON.stringify({
+        error: error.message || "Failed to optimize profile",
+      }),
+    };
   }
-}
+};
 
-async function processOptimization (params: {
-  linkedinContent: string
-  resumeContent: string
-  jobTitle?: string
-  industry?: string
-  careerGoals?: string
+async function processOptimization(params: {
+  linkedinContent: string;
+  resumeContent: string;
+  jobTitle?: string;
+  industry?: string;
+  careerGoals?: string;
+  // userId?: string; // Add if needed
 }) {
   try {
+    // Initialize Groq client here, where it's needed
+    const groq = new Groq({
+      apiKey: process.env.GROQ_API_KEY,
+    });
+
     // Create a prompt for the AI model
     const prompt = `
 You are a professional LinkedIn profile optimizer with expertise in personal branding and career development, similar to Resume Worded.
@@ -60,9 +166,9 @@ ${params.linkedinContent}
 
 Resume Content:
 ${params.resumeContent}
-${params.jobTitle ? `\nDesired Job Title: ${params.jobTitle}` : ''}
-${params.industry ? `\nIndustry: ${params.industry}` : ''}
-${params.careerGoals ? `\nCareer Goals: ${params.careerGoals}` : ''}
+${params.jobTitle ? `\nDesired Job Title: ${params.jobTitle}` : ""}
+${params.industry ? `\nIndustry: ${params.industry}` : ""}
+${params.careerGoals ? `\nCareer Goals: ${params.careerGoals}` : ""}
 
 Please provide the following in your analysis:
 
@@ -158,25 +264,25 @@ Please format your response as JSON with the following structure:
     "differentiators": ["Emphasize your unique experience with [specific technology/methodology]", "Highlight your cross-functional expertise"]
   }
 }
-`
+`;
 
     // Call the Groq API with the llama-3.1-8b-instant model
     const completion = await groq.chat.completions.create({
-      model: 'llama-3.3-70b-specdec',
+      model: "llama-3.3-70b-specdec",
       messages: [
         {
-          role: 'user',
-          content: prompt
-        }
+          role: "user",
+          content: prompt,
+        },
       ],
       temperature: 0.7,
       max_tokens: 3000,
-      response_format: { type: 'json_object' }
-    })
+      response_format: { type: "json_object" },
+    });
 
     // Parse the response
-    const responseContent = completion.choices[0]?.message?.content || '{}'
-    const optimizationResult = JSON.parse(responseContent)
+    const responseContent = completion.choices[0]?.message?.content || "{}";
+    const optimizationResult = JSON.parse(responseContent);
 
     return {
       overallScore: optimizationResult.overallScore || 0,
@@ -184,18 +290,18 @@ Please format your response as JSON with the following structure:
       profileCompleteness: optimizationResult.profileCompleteness || {
         score: 0,
         missingSections: [],
-        incompleteSection: []
+        incompleteSection: [],
       },
       keywordOptimization: optimizationResult.keywordOptimization || {
         missingKeywords: [],
-        keywordSuggestions: []
+        keywordSuggestions: [],
       },
       atsOptimization: optimizationResult.atsOptimization || {
         score: 0,
-        recommendations: []
+        recommendations: [],
       },
       optimizedSummary:
-        optimizationResult.optimizedSummary || 'No optimized summary generated',
+        optimizationResult.optimizedSummary || "No optimized summary generated",
       headlineSuggestions: optimizationResult.headlineSuggestions || [],
       experienceEnhancements: optimizationResult.experienceEnhancements || [],
       skillEndorsements: optimizationResult.skillEndorsements || [],
@@ -203,12 +309,12 @@ Please format your response as JSON with the following structure:
       networkingRecommendations:
         optimizationResult.networkingRecommendations || [],
       competitiveAnalysis: optimizationResult.competitiveAnalysis || {
-        industryStandards: '',
-        differentiators: []
-      }
-    }
+        industryStandards: "",
+        differentiators: [],
+      },
+    };
   } catch (error) {
     // console.error('Error in AI processing:', error) // Removed for prod
-    throw new Error('Failed to process optimization with AI')
+    throw new Error("Failed to process optimization with AI");
   }
 }

@@ -1,3 +1,7 @@
+---
+import { authService } from "../../lib/auth";
+---
+
 <section class="relative py-16 sm:py-24 lg:py-32 bg-white dark:bg-gray-950">
   <div
     aria-hidden="true"
@@ -108,124 +112,34 @@
             </div>
           </div>
 
-          <div class="">
-            <div class="mb-2 flex justify-between items-center">
+          <!-- Resume -->
+          <div class="space-y-4 sm:space-y-5">
+            <div class="flex justify-between items-center">
               <label
                 class="block text-left text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 Resume <span class="text-red-600">*</span>
               </label>
             </div>
+          </div>
 
-            <input type="file" id="resumeFileInput" style="display: none;" />
+          <!-- Hidden file input -->
+          <input type="file" id="resumeFileInput" style="display: none;" />
 
-            <div
-              id="resumeOptionsSelector"
-              class="grid grid-cols-3 md:grid-cols-3 xs:gap-2 sm:gap-4 md:gap-4 lg:gap-4 gap-2"
+          <!-- Resume Options Selector -->
+          <div
+            id="resumeOptionsSelector"
+            class="grid grid-cols-3 md:grid-cols-3 xs:gap-2 sm:gap-4 md:gap-4 lg:gap-4 gap-2"
+          >
+            <button
+              type="button"
+              id="resumeFileUploadButton"
+              class="relative flex flex-col items-center justify-center p-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl bg-white/10 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-all duration-300 group"
             >
-              <button
-                type="button"
-                id="resumeFileUploadButton"
-                class="relative flex flex-col items-center justify-center p-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl bg-white/10 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-all duration-300 group"
-              >
-                <div
-                  class="flex flex-col items-center justify-center space-y-2"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-7 w-7 text-primary group-hover:text-primary-dark transition-colors duration-300"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                    ></path>
-                  </svg>
-                  <span class="font-medium text-gray-900 dark:text-white"
-                    >Upload File</span
-                  >
-                  <span class="text-xs text-gray-500 dark:text-gray-400 mt-1"
-                    >PDF, DOCX, TXT</span
-                  >
-                </div>
-              </button>
-
-              <button
-                type="button"
-                id="importResumeButton"
-                class="relative flex flex-col items-center justify-center p-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl bg-white/10 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-all duration-300 group"
-              >
-                <div
-                  class="flex flex-col items-center justify-center space-y-2"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-7 w-7 text-primary group-hover:text-primary-dark transition-colors duration-300"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
-                    ></path>
-                  </svg>
-                  <span class="font-medium text-gray-900 dark:text-white"
-                    >Resume Manager</span
-                  >
-                  <span class="text-xs text-gray-500 dark:text-gray-400 mt-1"
-                    >Select saved resume</span
-                  >
-                </div>
-              </button>
-
-              <button
-                type="button"
-                id="enterManuallyButton"
-                class="relative flex flex-col items-center justify-center p-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl bg-white/10 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-all duration-300 group"
-              >
-                <div
-                  class="flex flex-col items-center justify-center space-y-2"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-7 w-7 text-primary group-hover:text-primary-dark transition-colors duration-300"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-                    ></path>
-                  </svg>
-                  <span class="font-medium text-gray-900 dark:text-white"
-                    >Enter Manually</span
-                  >
-                  <span class="text-xs text-gray-500 dark:text-gray-400 mt-1"
-                    >Paste or type resume</span
-                  >
-                </div>
-              </button>
-            </div>
-
-            <!-- File Added UI -->
-            <div
-              id="resumeFileAddedUI"
-              class="hidden w-full p-6 border-2 border-gray-300 dark:border-gray-700/70 rounded-xl bg-white/10 dark:bg-gray-800/20 min-h-[100px] flex flex-col items-center justify-center"
-            >
-              <div class="flex items-center justify-center mb-3">
+              <div class="flex flex-col items-center justify-center space-y-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-10 w-10 text-green-500"
+                  class="h-7 w-7 text-primary group-hover:text-primary-dark transition-colors duration-300"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -234,44 +148,136 @@
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="2"
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  ></path>
                 </svg>
+                <span class="font-medium text-gray-900 dark:text-white"
+                  >Upload File</span
+                >
+                <span class="text-xs text-gray-500 dark:text-gray-400 mt-1"
+                  >PDF, DOCX, TXT</span
+                >
               </div>
-              <p
-                id="resumeFileName"
-                class="text-center text-lg text-gray-900 dark:text-white font-medium"
-              >
-                Resume added successfully
-              </p>
-              <button
-                id="changeResumeSource"
-                class="mt-4 px-4 py-2 bg-black text-white dark:bg-white dark:text-black rounded-full text-sm hover:bg-gray-800 dark:hover:bg-gray-200 transition-all duration-200"
-              >
-                Upload Another
-              </button>
-            </div>
+            </button>
 
-            <!-- Manual Entry UI -->
-            <div id="manualEntryContainer" class="hidden w-full">
-              <textarea
-                id="resumeContent"
-                name="resumeContent"
-                rows="10"
-                placeholder="Paste or type your resume here..."
-                class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700/70 bg-white dark:bg-gray-800/30 rounded-xl
+            <button
+              type="button"
+              id="importResumeButton"
+              class="relative flex flex-col items-center justify-center p-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl bg-white/10 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-all duration-300 group"
+            >
+              <div class="flex flex-col items-center justify-center space-y-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-7 w-7 text-primary group-hover:text-primary-dark transition-colors duration-300"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
+                  ></path>
+                </svg>
+                <span class="font-medium text-gray-900 dark:text-white"
+                  >Resume Manager</span
+                >
+                <span class="text-xs text-gray-500 dark:text-gray-400 mt-1"
+                  >Select saved resume</span
+                >
+              </div>
+            </button>
+
+            <button
+              type="button"
+              id="enterManuallyButton"
+              class="relative flex flex-col items-center justify-center p-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl bg-white/10 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-all duration-300 group"
+            >
+              <div class="flex flex-col items-center justify-center space-y-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-7 w-7 text-primary group-hover:text-primary-dark transition-colors duration-300"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                  ></path>
+                </svg>
+                <span class="font-medium text-gray-900 dark:text-white"
+                  >Enter Manually</span
+                >
+                <span class="text-xs text-gray-500 dark:text-gray-400 mt-1"
+                  >Paste or type resume</span
+                >
+              </div>
+            </button>
+          </div>
+
+          <!-- File Added UI -->
+          <div
+            id="resumeFileAddedUI"
+            class="hidden w-full p-6 border-2 border-gray-300 dark:border-gray-700/70 rounded-xl bg-white/10 dark:bg-gray-800/20 min-h-[100px] flex flex-col items-center justify-center"
+          >
+            <div class="flex items-center justify-center mb-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-10 w-10 text-green-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <p
+              id="resumeFileName"
+              class="text-center text-lg text-gray-900 dark:text-white font-medium"
+            >
+              Resume added successfully
+            </p>
+            <button
+              id="changeResumeSource"
+              class="mt-4 px-4 py-2 bg-black text-white dark:bg-white dark:text-black rounded-full text-sm hover:bg-gray-800 dark:hover:bg-gray-200 transition-all duration-200"
+            >
+              Upload Another
+            </button>
+          </div>
+
+          <!-- Manual Entry UI -->
+          <div id="manualEntryContainer" class="hidden w-full">
+            <textarea
+              id="resumeContent"
+              name="resumeContent"
+              rows="10"
+              placeholder="Paste or type your resume here..."
+              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700/70 bg-white dark:bg-gray-800/30 rounded-xl
                                 dark:text-gray-100 focus:border-primary dark:focus:border-primary focus:ring-1 focus:ring-primary
                                 outline-none text-md transition-colors duration-200 resize-y"
-              ></textarea>
-              <div class="flex justify-end mt-2">
-                <button
-                  id="cancelManualEntry"
-                  class="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
-                >
-                  Back to options
-                </button>
-              </div>
+            ></textarea>
+            <div class="flex justify-end mt-2">
+              <button
+                id="cancelManualEntry"
+                class="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+              >
+                Back to options
+              </button>
             </div>
           </div>
+
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+            This helps us generate more relevant interview questions specific to
+            your background.
+          </p>
 
           <div
             class="flex flex-col sm:flex-row justify-center items-center space-y-2.5 sm:space-y-0 sm:space-x-4 pt-4"
@@ -289,10 +295,38 @@
                                 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900
                                 shadow-lg hover:shadow-xl"
             >
-              <svg id="optimizeIcon" class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-              <svg id="optimizeSpinner" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              <svg
+                id="optimizeIcon"
+                class="w-5 h-5 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                ><path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg
+              >
+              <svg
+                id="optimizeSpinner"
+                class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"></circle>
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
               </svg>
               <span id="optimizeButtonText">Optimize Profile</span>
             </button>
@@ -310,7 +344,19 @@
                                 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 dark:focus:ring-offset-gray-900
                                 shadow-md hover:shadow-lg"
             >
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+              <svg
+                class="w-5 h-5 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                ><path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                ></path></svg
+              >
               Clear
             </button>
           </div>
@@ -325,12 +371,12 @@
   id="linkedinResults"
   class="hidden mt-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
 >
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+  <div class="grid grid-cols-1 lg:grid-cols-[320px,1fr] gap-8">
     <!-- Left Column (Scores & Completeness) -->
     <div class="lg:col-span-1 space-y-8">
       <!-- Overall Score Card -->
       <div
-        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 text-center"
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 text-center my-4"
       >
         <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
           Overall Profile Score
@@ -379,7 +425,7 @@
 
       <!-- Profile Completeness Card -->
       <div
-        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6"
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 my-4"
       >
         <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
           Profile Completeness
@@ -420,7 +466,7 @@
             </h4>
             <ul
               id="missingSections"
-              class="text-xs text-gray-600 dark:text-gray-400 list-disc list-inside pl-4 space-y-0.5"
+              class="text-xs text-gray-600 dark:text-gray-400 pl-4 space-y-0.5 text-left"
             >
               <li>No missing sections found.</li>
             </ul>
@@ -444,7 +490,7 @@
             </h4>
             <ul
               id="incompleteSections"
-              class="text-xs text-gray-600 dark:text-gray-400 list-disc list-inside pl-4 space-y-0.5"
+              class="text-xs text-gray-600 dark:text-gray-400 pl-4 space-y-0.5 text-left"
             >
               <li>No incomplete sections found.</li>
             </ul>
@@ -454,7 +500,7 @@
 
       <!-- ATS Optimization Card -->
       <div
-        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6"
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 my-4"
       >
         <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
           ATS Optimization
@@ -518,7 +564,7 @@
           </h4>
           <ul
             id="atsRecommendations"
-            class="text-xs text-gray-600 dark:text-gray-400 list-disc list-inside pl-4 space-y-1"
+            class="text-xs text-gray-600 dark:text-gray-400 pl-4 space-y-1 text-left"
           >
             <li>No specific ATS recommendations.</li>
           </ul>
@@ -527,27 +573,34 @@
     </div>
 
     <!-- Right Column (Detailed Analysis) -->
-    <div class="lg:col-span-2 space-y-8">
-      <!-- Section-by-Section Analysis Card -->
-      <div
-        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6"
-      >
-        <h3 class="text-xl font-semibold mb-5 text-gray-900 dark:text-white">
-          Section Analysis
-        </h3>
-        <div id="sectionScores" class="space-y-5">
-          <!-- Populated by JS -->
-          <p class="text-sm text-gray-500 dark:text-gray-400">
-            Loading section analysis...
-          </p>
+    <div class="w-full">
+      <div class="mx-auto w-full space-y-12 py-4">
+        <!-- Section-by-Section Analysis Card -->
+        <div
+          class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6"
+        >
+          <h3 class="text-xl font-semibold mb-5 text-gray-900 dark:text-white">
+            Section Analysis
+          </h3>
+          <div
+            id="sectionScores"
+            class="space-y-5 [&_ul]:list-none [&_ul]:pl-0 [&_ul]:text-left"
+          >
+            <!-- Populated by JS -->
+            <p class="text-sm text-gray-500 dark:text-gray-400 text-left pl-4">
+              Loading section analysis...
+            </p>
+          </div>
         </div>
       </div>
 
       <!-- Keyword Optimization Card -->
       <div
-        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6"
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 mb-4"
       >
-        <h3 class="text-xl font-semibold mb-5 text-gray-900 dark:text-white">
+        <h3
+          class="text-xl text-left font-semibold mb-5 text-gray-900 dark:text-white"
+        >
           Keyword Optimization
         </h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -612,7 +665,7 @@
 
       <!-- Optimized Summary Card -->
       <div
-        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6"
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 mb-4"
       >
         <h3
           class="text-xl font-semibold mb-4 text-gray-900 dark:text-white flex items-center"
@@ -644,7 +697,7 @@
 
       <!-- Headline Suggestions Card -->
       <div
-        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6"
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 my-4"
       >
         <h3
           class="text-xl font-semibold mb-4 text-gray-900 dark:text-white flex items-center"
@@ -674,7 +727,7 @@
 
       <!-- Experience Enhancements Card -->
       <div
-        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6"
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 my-4"
       >
         <h3
           class="text-xl font-semibold mb-4 text-gray-900 dark:text-white flex items-center"
@@ -696,7 +749,9 @@
           Experience Enhancements
         </h3>
         <div id="experienceEnhancements" class="space-y-5">
-          <p class="text-sm text-gray-500 dark:text-gray-400">
+          <p
+            class="text-sm text-gray-500 dark:text-gray-400 list-none text-left pl-4"
+          >
             No experience enhancement suggestions.
           </p>
         </div>
@@ -704,7 +759,7 @@
 
       <!-- Skills Prioritization Card -->
       <div
-        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6"
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 my-4"
       >
         <h3
           class="text-xl font-semibold mb-4 text-gray-900 dark:text-white flex items-center"
@@ -733,7 +788,7 @@
 
       <!-- Content & Engagement Strategy Card -->
       <div
-        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6"
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 my-4"
       >
         <h3
           class="text-xl font-semibold mb-4 text-gray-900 dark:text-white flex items-center"
@@ -754,7 +809,7 @@
           </svg>
           Content & Engagement Strategy
         </h3>
-        <div id="contentStrategy" class="space-y-4">
+        <div id="contentStrategy" class="space-y-4 text-left pl-4">
           <p class="text-sm text-gray-500 dark:text-gray-400">
             No content strategy suggestions.
           </p>
@@ -763,7 +818,7 @@
 
       <!-- Networking Recommendations Card -->
       <div
-        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6"
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 my-4"
       >
         <h3
           class="text-xl font-semibold mb-4 text-gray-900 dark:text-white flex items-center"
@@ -787,7 +842,7 @@
         <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
           <ul
             id="networkingRecommendations"
-            class="text-sm text-gray-700 dark:text-gray-300 list-disc list-inside space-y-2"
+            class="text-sm text-gray-700 dark:text-gray-300 list-none text-left pl-4 space-y-2"
           >
             <li>No specific networking recommendations.</li>
           </ul>
@@ -796,7 +851,7 @@
 
       <!-- Competitive Analysis Card -->
       <div
-        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6"
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 my-4"
       >
         <h3
           class="text-xl font-semibold mb-4 text-gray-900 dark:text-white flex items-center"
@@ -820,26 +875,26 @@
         <div class="space-y-5">
           <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
             <h4
-              class="text-md font-semibold text-gray-800 dark:text-gray-200 mb-2"
+              class="text-md font-semibold text-gray-800 dark:text-gray-200 mb-2 text-left pl-4"
             >
               Industry Standards
             </h4>
             <p
               id="industryStandards"
-              class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed"
+              class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed text-left pl-4"
             >
               Analysis unavailable.
             </p>
           </div>
           <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
             <h4
-              class="text-md font-semibold text-gray-800 dark:text-gray-200 mb-2"
+              class="text-md font-semibold text-gray-800 dark:text-gray-200 mb-2 text-left pl-4"
             >
               Your Differentiators
             </h4>
             <ul
               id="differentiators"
-              class="text-sm text-gray-700 dark:text-gray-300 list-disc list-inside space-y-1"
+              class="text-sm text-gray-700 dark:text-gray-300 list-none text-left pl-4 space-y-1"
             >
               <li>Analysis unavailable.</li>
             </ul>
@@ -849,690 +904,211 @@
     </div>
   </div>
 </div>
-
 <script>
   import { authService } from "../../lib/auth";
   import { TierManagementService } from "../../lib/tierManagement";
   import { PersistentDocumentService } from "../../lib/persistentDocumentService";
-  let linkedinContent; // Declare at a higher scope
 
-  document.addEventListener("DOMContentLoaded", async () => {
-    // Check usage limits immediately when page loads
-    try {
-      const currentUser = await authService.getCurrentUser();
-      if (currentUser?.uid) {
-        const hasAccess = await TierManagementService.checkFeatureAccess(
-          currentUser.uid,
-          "linkedinOptimization"
-        );
+  // --- Global State ---
+  let linkedinContent = ""; // Store extracted LinkedIn text
+  let currentUserId: string | null = null; // Store user ID after initial check
+  let currentIdToken: string | null = null; // Store ID token
 
-        if (!hasAccess) {
-          const upgradeModal = document.createElement("div");
-          upgradeModal.innerHTML = `
-            <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-              <div class="bg-white dark:bg-gray-900 rounded-2xl p-8 max-w-md w-full text-center">
-                <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Usage Limit Reached</h2>
-                <p class="text-gray-600 dark:text-gray-400 mb-6">
-                  You've reached the maximum number of LinkedIn optimizations for your current plan.
-                </p>
-                <div class="flex justify-center space-x-4">
-                  <button id="upgradeButton" class="bg-black dark:bg-white text-white dark:text-black px-6 py-2 rounded-full hover:bg-primary-600 transition">
-                    Upgrade to Pro
-                  </button>
-                  <button id="closeUpgradeModal" class="bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white px-6 py-2 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+  // --- Helper Functions ---
+
+  /**
+   * Displays a modal prompting the user to upgrade their plan.
+   */
+  function showUpgradeModal() {
+    // Avoid creating multiple modals if one is already present
+    if (document.getElementById("upgradeModalContainer")) return;
+
+    const modalHTML = `
+      <div id="upgradeModalContainer" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+        <div class="bg-white dark:bg-gray-900 rounded-2xl p-8 max-w-md w-full text-center">
+          <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Usage Limit Reached</h2>
+          <p class="text-gray-600 dark:text-gray-400 mb-6">
+            You've reached the maximum number of LinkedIn optimizations for your current plan.
+          </p>
+          <div class="flex justify-center space-x-4">
+            <button id="upgradeModalButton" class="bg-black dark:bg-white text-white dark:text-black px-6 py-2 rounded-full hover:bg-primary-600 transition">
+              Upgrade to Pro
+            </button>
+            <button id="closeUpgradeModalButton" class="bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white px-6 py-2 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+    const modalContainer = document.createElement("div");
+    modalContainer.innerHTML = modalHTML;
+    document.body.appendChild(modalContainer);
+
+    modalContainer
+      .querySelector("#upgradeModalButton")
+      ?.addEventListener("click", () => {
+        window.location.href = "/pricing";
+      });
+
+    modalContainer
+      .querySelector("#closeUpgradeModalButton")
+      ?.addEventListener("click", () => {
+        modalContainer.remove();
+      });
+  }
+
+  /**
+   * Displays a generic error modal.
+   */
+  function showErrorModal(title, message) {
+    const modalId = `errorModal-${Date.now()}`; // Unique ID for multiple errors
+    const modalHTML = `
+        <div id="${modalId}" class="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 backdrop-blur-sm">
+            <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 max-w-md w-full text-center">
+                <h2 class="text-2xl font-bold text-red-600 mb-4">${title}</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">${message}</p>
+                <button class="close-error-modal bg-primary text-white px-4 py-2 rounded-full">
                     Close
-                  </button>
-                </div>
-              </div>
+                </button>
             </div>
-          `;
-          document.body.appendChild(upgradeModal);
+        </div>
+    `;
+    const modalContainer = document.createElement("div");
+    modalContainer.innerHTML = modalHTML;
+    document.body.appendChild(modalContainer);
 
-          const upgradeButton = upgradeModal.querySelector("#upgradeButton");
-          const closeButton = upgradeModal.querySelector("#closeUpgradeModal");
+    modalContainer
+      .querySelector(".close-error-modal")
+      ?.addEventListener("click", () => {
+        modalContainer.remove();
+      });
+  }
 
-          upgradeButton?.addEventListener("click", () => {
-            window.location.href = "/pricing";
-          });
+  /**
+   * Checks feature access for LinkedIn Optimization.
+   * Shows upgrade modal if access denied.
+   * @returns {Promise<boolean>} True if user has access, false otherwise.
+   */
+  async function checkLinkedInAccess() {
+    if (!currentUserId) {
+      console.error("User not authenticated for checking access.");
+      showErrorModal(
+        "Authentication Error",
+        "Please log in to use this feature."
+      );
+      return false;
+    }
+    try {
+      const hasAccess = await TierManagementService.checkFeatureAccess(
+        currentUserId,
+        "linkedinOptimization"
+      );
 
-          closeButton?.addEventListener("click", () => {
-            document.body.removeChild(upgradeModal);
-          });
-        }
+      if (!hasAccess) {
+        showUpgradeModal();
+        return false;
       }
+      return true;
     } catch (error) {
       console.error("Error checking feature access:", error);
+      showErrorModal(
+        "Access Check Error",
+        "Could not verify your feature access. Please try again."
+      );
+      return false;
     }
+  }
 
-    // ** START: Form Clear and Manual Entry Handlers **
-    const clearButton = document.getElementById("clearForm");
-    const resumeOptionsSelector = document.getElementById(
-      "resumeOptionsSelector"
-    );
-    const manualEntryContainer = document.getElementById(
-      "manualEntryContainer"
-    );
-    const enterManuallyButton = document.getElementById("enterManuallyButton");
-    const cancelManualEntry = document.getElementById("cancelManualEntry");
-    const changeResumeSource = document.getElementById("changeResumeSource");
-    const resumeFileAddedUI = document.getElementById("resumeFileAddedUI");
-    const resumeContent = document.getElementById(
-      "resumeContent"
-    ) as HTMLTextAreaElement | null;
+  /**
+   * Tracks feature usage for LinkedIn Optimization.
+   * Should be called *after* a successful operation (e.g., upload, submit).
+   */
+  async function trackLinkedInUsage() {
+    if (!currentUserId) {
+      console.warn("Cannot track usage: User not authenticated.");
+      return; // Don't block execution, just log a warning
+    }
+    try {
+      await TierManagementService.trackFeatureUsage(
+        currentUserId,
+        "linkedinOptimization"
+      );
+    } catch (error) {
+      console.error("Error tracking LinkedIn usage:", error);
+    }
+  }
 
-    // Clear button handler
-    clearButton?.addEventListener("click", (e) => {
-      e.preventDefault(); // Prevent form submission
-      window.location.reload();
+  /**
+   * Reads a file and returns its base64 representation (without data prefix).
+   * @param {File} file - The file to read.
+   * @returns {Promise<string>} Base64 encoded string.
+   */
+  function readFileAsBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64File = reader.result as string;
+        resolve(base64File.split(",")[1]); // Remove data:mime/type;base64, prefix
+      };
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
     });
+  }
 
-    // Enter manually button handler
-    enterManuallyButton?.addEventListener("click", () => {
-      if (resumeOptionsSelector && manualEntryContainer) {
-        resumeOptionsSelector.classList.add("hidden");
-        manualEntryContainer.classList.remove("hidden");
-        resumeFileAddedUI?.classList.add("hidden");
-      }
-    });
-
-    // Cancel manual entry button handler
-    cancelManualEntry?.addEventListener("click", () => {
-      if (resumeOptionsSelector && manualEntryContainer) {
-        resumeOptionsSelector.classList.remove("hidden");
-        manualEntryContainer.classList.add("hidden");
-      }
-    });
-
-    // Change resume source button handler
-    changeResumeSource?.addEventListener("click", () => {
-      if (resumeOptionsSelector && resumeFileAddedUI) {
-        resumeOptionsSelector.classList.remove("hidden");
-        resumeFileAddedUI.classList.add("hidden");
-        manualEntryContainer?.classList.add("hidden");
-      }
-    });
-
-    if (clearButton && resumeContent) {
-      clearButton.addEventListener("click", (e) => {
-        e.preventDefault(); // Prevent form submission
-
-        // Clear all text areas
-        resumeContent.value = "";
-
-        // Reset any template selections if needed
-        const selectedTemplate = document.querySelector(
-          'input[name="template"]:checked'
-        ) as HTMLInputElement | null;
-        if (selectedTemplate) {
-          selectedTemplate.checked = false;
-        }
+  /**
+   * Uploads a file (Resume or LinkedIn) to the server endpoint.
+   * @param {File} file - The file object.
+   * @returns {Promise<object>} The JSON result from the server { success: boolean, data?: { text: string }, error?: string }.
+   */
+  async function uploadFileToServer(file) {
+    if (!currentIdToken) {
+      throw new Error("Authentication token not available.");
+    }
+    try {
+      const base64Data = await readFileAsBase64(file);
+      const response = await fetch("/.netlify/functions/upload-resume", {
+        // Using the same endpoint
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${currentIdToken}`,
+        },
+        body: JSON.stringify({
+          fileBase64: base64Data,
+          fileName: file.name,
+          fileType: file.type,
+        }),
       });
+
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.error || `Server error: ${response.status}`);
+      }
+      return result;
+    } catch (error) {
+      console.error("File upload error:", error);
+      // Rethrow a more user-friendly error message
+      throw new Error(
+        `Failed to upload ${file.name}. ${error instanceof Error ? error.message : "Unknown upload error"}`
+      );
     }
+  }
 
-    // Clear resumeContent on page load (within the same DOMContentLoaded)
-    if (resumeContent) {
-      resumeContent.value = ""; // Clear the field on page load
-    }
-    // ** END: Form Clear and Manual Entry Handlers **
-
-    // ** START: Resume File Upload Handlers **
-    const resumeFileUploadButton = document.getElementById(
-      "resumeFileUploadButton"
-    );
-    const resumeFileInput = document.getElementById(
-      "resumeFileInput"
-    ) as HTMLInputElement;
-    const resumeContentTextarea = document.getElementById(
-      "resumeContent"
-    ) as HTMLTextAreaElement;
-
-    // Add file upload button event listener
-    resumeFileUploadButton?.addEventListener("click", async (e) => {
-      // Prevent any form submission
-      e.preventDefault();
-      e.stopPropagation();
-
-      // Trigger file input click
-      resumeFileInput?.click();
-
-      return false;
-    });
-
-    // Handle file selection
-    resumeFileInput?.addEventListener("change", async (event) => {
-      // Prevent default form submission
-      event.preventDefault();
-
-      const file = (event.target as HTMLInputElement).files?.[0];
-
-      if (!file) {
-        // console.error("No file selected"); // Removed for prod
-        return;
-      }
-
-      // Supported file types
-      const supportedTypes = [
-        "application/pdf",
-        "application/msword",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "text/plain",
-        "text/rtf",
-        "application/rtf",
-      ];
-
-      if (!supportedTypes.includes(file.type)) {
-        alert(
-          "Unsupported file type. Please upload a PDF, DOC, DOCX, TXT, or RTF file."
-        );
-        return;
-      }
-
-      // Convert file to base64
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = async () => {
-        const base64File = fileReader.result as string;
-        const base64Data = base64File.split(",")[1]; // Remove data URL prefix
-
-        try {
-          // Send to server-side API
-          const response = await fetch("/.netlify/functions/upload-resume", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              fileBase64: base64Data,
-              fileName: file.name,
-              fileType: file.type,
-            }),
-          });
-
-          // Parse response
-          const result = await response.json();
-
-          // Check for error in response
-          if (!response.ok) {
-            throw new Error(result.error || "Unknown server error");
-          }
-
-          if (result.success) {
-            // Populate resume content textarea
-            const resumeContent = result.data.text;
-            resumeContentTextarea.value = resumeContent;
-
-            // Optional: Trigger any validation or UI updates
-            resumeContentTextarea.dispatchEvent(new Event("input"));
-
-            // Show the file added UI and hide other elements
-            const resumeFileAddedUI =
-              document.getElementById("resumeFileAddedUI");
-            const resumeOptionsSelector = document.getElementById(
-              "resumeOptionsSelector"
-            );
-            const manualEntryContainer = document.getElementById(
-              "manualEntryContainer"
-            );
-
-            if (resumeFileAddedUI && resumeOptionsSelector) {
-              resumeFileAddedUI.classList.remove("hidden");
-              resumeOptionsSelector.classList.add("hidden");
-              manualEntryContainer?.classList.add("hidden");
-
-              const resumeFileName = document.getElementById("resumeFileName");
-              if (resumeFileName) {
-                resumeFileName.textContent = `${file.name}`;
-              }
-            }
-          } else {
-            // Handle error response
-            // console.error("Resume upload failed:", result); // Removed for prod
-            alert(
-              `Failed to upload resume: ${result.error || "Unknown error"}`
-            );
-          }
-        } catch (error) {
-          // Network or parsing errors
-          // console.error("Resume upload error:", error); // Removed for prod
-          alert(
-            `Error uploading resume: ${error instanceof Error ? error.message : "Unknown error"}`
-          );
-        }
-      };
-    });
-    // ** END: Resume File Upload Handlers **
-
-    // ** START: Resume Import Modal Handlers **
-    const importResumeButton = document.getElementById("importResumeButton");
-
-    if (!importResumeButton || !resumeContentTextarea) {
-      // console.error("Required elements for resume import not found"); // Removed for prod
-      return;
-    }
-
-    importResumeButton.addEventListener("click", async () => {
-      try {
-        const user = await authService.getCurrentUser();
-        if (!user) {
-          // Redirect to login or show login modal
-          return;
-        }
-
-        // Create a modal dynamically
-        const modal = document.createElement("div");
-        modal.innerHTML = `
-                    <div class="p-4 fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-                        <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 max-w-md w-full max-h-[80vh] overflow-y-auto">
-                            <div class="flex justify-between items-center mb-4">
-                                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
-                                    Resume Manager
-                                </h2>
-                                <button id="closeImportModal" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
-                            </div>
-
-                            <div class="mb-4">
-                                <button
-                                    id="addNewResumeButton"
-                                    class="w-full inline-flex items-center justify-center px-4 py-3
-                                    bg-black text-white
-                                    rounded-xl
-                                    hover:bg-primary-600
-                                    transition-all duration-300
-                                    focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                                    </svg>
-                                    Create New Resume
-                                </button>
-                            </div>
-
-                            <div class="border-t border-gray-200 dark:border-gray-700 my-4"></div>
-
-                            <div id="resumeList" class="space-y-3">
-                                </div>
-                        </div>
-                    </div>
-                `;
-
-        document.body.appendChild(modal);
-
-        const closeModalButton = modal.querySelector("#closeImportModal");
-        const addNewResumeButton = modal.querySelector("#addNewResumeButton");
-        const resumeListContainer = modal.querySelector("#resumeList");
-
-        closeModalButton?.addEventListener("click", () => {
-          document.body.removeChild(modal);
-        });
-
-        // Add new resume functionality
-        addNewResumeButton?.addEventListener("click", () => {
-          // Navigate to Dashboard's Resume Manager section
-          window.location.href = "/dashboard#addResumeBtn";
-        });
-
-        // Fetch and display resumes
-        const resumes = await PersistentDocumentService.loadAllResumes();
-
-        if (resumes.length === 0) {
-          resumeListContainer!.innerHTML = `
-                        <div class="text-center text-gray-500 dark:text-gray-400 py-6">
-                            <p>No resumes found. Create a new resume to get started.</p>
-                        </div>
-                    `;
-          return;
-        }
-
-        // Populate resume list
-        resumeListContainer!.innerHTML = resumes
-          .map(
-            (resume, index) => `
-                    <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer transition-colors resume-item"
-                         data-resume-index="${index}">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                    ${resume.name || `Resume ${index + 1}`}
-                                </h3>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">
-                                    Last updated: ${new Date(resume.lastUpdated).toLocaleDateString()}
-                                </p>
-                            </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
-                    </div>
-                `
-          )
-          .join("");
-
-        // Add click event to resume items
-        const resumeItems = modal.querySelectorAll(".resume-item");
-        resumeItems.forEach((item) => {
-          item.addEventListener("click", () => {
-            const index = item.getAttribute("data-resume-index");
-            const selectedResume = resumes[Number(index)];
-
-            // Populate resume content textarea
-            resumeContentTextarea.value = selectedResume.content || ""; // Using the original variable name here
-
-            // Close modal
-            document.body.removeChild(modal);
-          });
-        });
-      } catch (error) {
-        console.error("Error importing resume:", error); // Keep error log
-        // Show user-friendly error message
-        const errorModal = document.createElement("div");
-        errorModal.innerHTML = `
-                    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-                        <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 max-w-md w-full text-center">
-                            <h2 class="text-2xl font-bold text-red-600 mb-4">
-                                Import Error
-                            </h2>
-                            <p class="text-gray-600 dark:text-gray-400 mb-6">
-                                Unable to import resumes. Please try again later.
-                            </p>
-                            <button id="closeErrorModal" class="bg-primary text-white px-4 py-2 rounded-full">
-                                Close
-                            </button>
-                        </div>
-                    </div>
-                `;
-        document.body.appendChild(errorModal);
-
-        const closeErrorModalButton =
-          errorModal.querySelector("#closeErrorModal");
-        closeErrorModalButton?.addEventListener("click", () => {
-          document.body.removeChild(errorModal);
-        });
-      }
-    });
-    // ** END: Resume Import Modal Handlers **
-
-    // ** START: LinkedIn File Upload Handlers **
-    const linkedinFileUploadButton = document.getElementById(
-      "linkedinFileUploadButton"
-    );
-    const linkedinFileInput = document.getElementById(
-      "linkedin-upload"
-    ) as HTMLInputElement;
-
-    // Add file upload button event listener
-    linkedinFileUploadButton?.addEventListener("click", async (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      linkedinFileInput?.click();
-      return false;
-    });
-
-    // Track LinkedIn optimization usage and check access
-    async function trackLinkedInOptimization() {
-      try {
-        const currentUser = await authService.getCurrentUser();
-        if (!currentUser?.uid) throw new Error("User not authenticated");
-        
-        const hasAccess = await TierManagementService.checkFeatureAccess(
-          currentUser.uid,
-          "linkedinOptimization"
-        );
-
-        if (!hasAccess) {
-          const upgradeModal = document.createElement("div");
-          upgradeModal.innerHTML = `
-            <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-              <div class="bg-white dark:bg-gray-900 rounded-2xl p-8 max-w-md w-full text-center">
-                <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Usage Limit Reached</h2>
-                <p class="text-gray-600 dark:text-gray-400 mb-6">
-                  You've reached the maximum number of LinkedIn optimizations for your current plan.
-                </p>
-                <div class="flex justify-center space-x-4">
-                  <button id="upgradeButton" class="bg-black dark:bg-white text-white dark:text-black px-6 py-2 rounded-full hover:bg-primary-600 transition">
-                    Upgrade to Pro
-                  </button>
-                  <button id="closeUpgradeModal" class="bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white px-6 py-2 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition">
-                    Close
-                  </button>
-                </div>
-              </div>
-            </div>
-          `;
-          document.body.appendChild(upgradeModal);
-
-          const upgradeButton = upgradeModal.querySelector("#upgradeButton");
-          const closeButton = upgradeModal.querySelector("#closeUpgradeModal");
-
-          upgradeButton?.addEventListener("click", () => {
-            window.location.href = "/pricing";
-          });
-
-          closeButton?.addEventListener("click", () => {
-            document.body.removeChild(upgradeModal);
-          });
-
-          return false;
-        }
-
-        await TierManagementService.trackFeatureUsage(
-          currentUser.uid,
-          "linkedinOptimization"
-        );
-        return true;
-      } catch (error) {
-        console.error("Error tracking LinkedIn optimization:", error); // Keep error log
-        throw error;
-      }
-    }
-
-    // Handle file selection
-    linkedinFileInput?.addEventListener("change", async (event) => {
-      event.preventDefault();
-      const file = (event.target as HTMLInputElement).files?.[0];
-
-      if (!file) return;
-
-      try {
-        // Check usage limit first
-        const hasAccess = await trackLinkedInOptimization();
-        if (!hasAccess) {
-          // Clear the file input
-          linkedinFileInput.value = '';
-          return;
-        }
-        // Update UI for LinkedIn success state
-        const linkedinFileAddedUI = document.getElementById(
-          "linkedinFileAddedUI"
-        );
-        const linkedinOptionsSelector = document.getElementById(
-          "linkedinOptionsSelector"
-        );
-
-        if (linkedinFileAddedUI && linkedinOptionsSelector) {
-          linkedinFileAddedUI.classList.remove("hidden");
-          linkedinOptionsSelector.classList.add("hidden");
-
-          const linkedinFileName = document.getElementById("linkedinFileName");
-          if (linkedinFileName) {
-            linkedinFileName.textContent = `${file.name}`;
-          }
-        }
-      } catch (error) {
-        // console.error("LinkedIn PDF upload error:", error); // Removed for prod
-        return;
-      }
-
-      if (!file) {
-        // console.error("No file selected"); // Removed for prod
-        return;
-      }
-
-      // Supported file types
-      const supportedTypes = ["application/pdf"];
-      if (!supportedTypes.includes(file.type)) {
-        alert("Unsupported file type. Please upload a PDF file.");
-        return;
-      }
-
-      // Convert file to base64
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = async () => {
-        const base64File = fileReader.result as string;
-        const base64Data = base64File.split(",")[1]; // Remove data URL prefix
-
-        try {
-          // Send to server-side API (same as resume upload)
-          const response = await fetch("/.netlify/functions/upload-resume", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              fileBase64: base64Data,
-              fileName: file.name,
-              fileType: file.type,
-            }),
-          });
-
-          // Parse response
-          const result = await response.json();
-
-          if (!response.ok) {
-            throw new Error(result.error || "Unknown server error");
-          }
-
-          if (result.success) {
-            // Store the text content in a local variable
-            linkedinContent = result.data.text;
-
-            // Update UI for success state
-            const linkedinFileAddedUI = document.getElementById(
-              "linkedinFileAddedUI"
-            );
-            const linkedinOptionsSelector = document.getElementById(
-              "linkedinOptionsSelector"
-            );
-
-            if (linkedinFileAddedUI && linkedinOptionsSelector) {
-              linkedinFileAddedUI.classList.remove("hidden");
-              linkedinOptionsSelector.classList.add("hidden");
-
-              const linkedinFileName =
-                document.getElementById("linkedinFileName");
-              if (linkedinFileName) {
-                linkedinFileName.textContent = `${file.name}`;
-              }
-            }
-          } else {
-            // console.error("LinkedIn PDF upload failed:", result); // Removed for prod
-            alert(
-              `Failed to upload LinkedIn PDF: ${result.error || "Unknown error"}`
-            );
-          }
-        } catch (error) {
-          // console.error("LinkedIn PDF upload error:", error); // Removed for prod
-          alert(
-            `Error uploading LinkedIn PDF: ${error instanceof Error ? error.message : "Unknown error"}`
-          );
-        }
-      };
-    });
-    // ** END: LinkedIn File Upload Handlers **
-
-    // ** START: LinkedIn Optimizer Form Submission Handlers **
-    const linkedinOptimiserForm = document.getElementById(
-      "optimizeProfileBtn"
-    ) as HTMLButtonElement;
-
-    linkedinOptimiserForm?.addEventListener("click", async (event) => {
-      event.preventDefault();
-
-      const loader = document.getElementById("linkedinSubmitLoader");
-      const submitButton = document.querySelector(
-        "#optimizeProfileBtn"
-      ) as HTMLButtonElement;
-
-      try {
-        loader?.classList.remove("hidden");
-        (submitButton as HTMLButtonElement) &&
-          ((submitButton as HTMLButtonElement).disabled = true);
-
-        const response = await fetch("/.netlify/functions/linkedin-optimize", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            linkedinContent: linkedinContent,
-            resumeContent: resumeContent?.value,
-          }),
-        });
-
-        const result = await response.json();
-
-        if (!response.ok)
-          throw new Error(result.error || "Failed to optimize profile");
-
-        // Update UI with results
-        updateResults(result);
-
-        // Track LinkedIn optimization usage
-        await trackLinkedInOptimization();
-
-        // Show success UI
-        const successUI = document.getElementById("optimizationSuccess");
-        const formContainer = document.getElementById("linkedinFormContainer");
-        successUI?.classList.remove("hidden");
-        formContainer?.classList.add("hidden");
-      } catch (error) {
-        console.error("Optimization error:", error); // Keep error log
-        alert(
-          `Optimization failed: ${error instanceof Error ? error.message : "Unknown error"}`
-        );
-      } finally {
-        loader?.classList.add("hidden");
-        submitButton && ((submitButton as HTMLButtonElement).disabled = false);
-      }
-
-      // Optionally, you can proceed with the form submission logic here
-      // For example, you can call the API to optimize the profile
-    });
-    // ** END: LinkedIn Optimizer Form Submission Handlers **
-  });
-
-  const changeLinkedinSource = document.getElementById("changeLinkedinSource");
-  const linkedinOptionsSelector = document.getElementById(
-    "linkedinOptionsSelector"
-  );
-  const linkedinFileAddedUI = document.getElementById("linkedinFileAddedUI");
-  const linkedinFileInput = document.getElementById(
-    "linkedin-upload"
-  ) as HTMLInputElement;
-
-  changeLinkedinSource?.addEventListener("click", () => {
-    if (linkedinOptionsSelector && linkedinFileAddedUI) {
-      linkedinOptionsSelector.classList.remove("hidden");
-      linkedinFileAddedUI.classList.add("hidden");
-      linkedinFileInput.value = "";
-    }
-  });
+  // --- UI Update Functions (Results Display) ---
 
   // Helper function to get color class based on score
   const getScoreColorClass = (score) => {
-    if (score >= 90) return "text-green-500"; // Use text color for SVG stroke
+    score = score ?? 0; // Default to 0 if null/undefined
+    if (score >= 90) return "text-green-500";
     if (score >= 70) return "text-blue-500";
     if (score >= 50) return "text-amber-500";
     return "text-red-500";
   };
 
+  // Helper function for progress bar background color
   const getProgressBarColorClass = (score) => {
+    score = score ?? 0;
     if (score >= 90) return "bg-green-500";
     if (score >= 70) return "bg-blue-500";
     if (score >= 50) return "bg-amber-500";
@@ -1542,10 +1118,16 @@
   // Function to update radial progress circle
   const setProgress = (circleElement, textElement, score) => {
     if (!circleElement || !textElement) return;
+    score = Math.max(0, Math.min(100, score ?? 0)); // Clamp score 0-100, default 0
     const radius = circleElement.r.baseVal.value;
     const circumference = 2 * Math.PI * radius;
     const offset = circumference - (score / 100) * circumference;
 
+    // Ensure initial styles for transition are set if not already via CSS
+    circleElement.style.strokeDasharray = `${circumference} ${circumference}`;
+    circleElement.style.strokeDashoffset = circumference; // Start empty
+
+    // Apply the target offset and color
     circleElement.style.strokeDashoffset = offset;
     circleElement.classList.remove(
       "text-green-500",
@@ -1557,337 +1139,893 @@
     textElement.textContent = score;
   };
 
+  // Helper to update list elements safely
+  const updateList = (listElement, items, placeholder) => {
+    if (listElement) {
+      listElement.innerHTML = ""; // Clear previous items
+      if (items && Array.isArray(items) && items.length > 0) {
+        items.forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          listElement.appendChild(li);
+        });
+      } else {
+        const li = document.createElement("li");
+        li.textContent = placeholder;
+        li.classList.add("italic", "text-gray-500", "dark:text-gray-400"); // Style placeholder
+        listElement.appendChild(li);
+      }
+    }
+  };
+
   // Function to update results with API data
   const updateResults = (data) => {
-    // Overall Score
-    const overallScoreCircle = document.getElementById("overallScoreCircle");
-    const overallScoreText = document.getElementById("overallScoreText");
-    setProgress(overallScoreCircle, overallScoreText, data.overallScore || 0);
-
-    // Section Scores
-    const sectionScoresContainer = document.getElementById("sectionScores");
-    if (
-      sectionScoresContainer &&
-      data.sectionScores &&
-      Array.isArray(data.sectionScores)
-    ) {
-      if (data.sectionScores.length > 0) {
-        sectionScoresContainer.innerHTML = data.sectionScores
-          .map((section) => {
-            const score = section.score || 0;
-            const colorClass = getProgressBarColorClass(score);
-            const recommendationsHTML =
-              Array.isArray(section.recommendations) &&
-              section.recommendations.length > 0
-                ? `<ul class="mt-2 text-xs text-gray-600 dark:text-gray-400 list-disc list-inside pl-4 space-y-0.5">
-                 ${section.recommendations.map((rec) => `<li>${rec}</li>`).join("")}
-               </ul>`
-                : '<p class="mt-1 text-xs text-gray-500 dark:text-gray-400 italic">No specific recommendations for this section.</p>';
-
-            return `
-            <div class="border-b border-gray-200 dark:border-gray-700 pb-4 last:border-0 last:pb-0">
-              <div class="flex justify-between items-center mb-1">
-                <h4 class="text-md font-semibold text-gray-900 dark:text-white">${section.section}</h4>
-                <span class="text-sm font-medium ${getScoreColorClass(score).replace("text-", "text-")}">${score}/100</span>
-              </div>
-              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
-                <div class="${colorClass} h-1.5 rounded-full" style="width: ${score}%"></div>
-              </div>
-              ${recommendationsHTML}
-            </div>`;
-          })
-          .join("");
-      } else {
-        sectionScoresContainer.innerHTML =
-          '<p class="text-sm text-gray-500 dark:text-gray-400">Section analysis data is not available.</p>';
-      }
-    } else if (sectionScoresContainer) {
-      sectionScoresContainer.innerHTML =
-        '<p class="text-sm text-gray-500 dark:text-gray-400">Section analysis data is not available.</p>';
+    if (!data) {
+      console.warn("No data provided to updateResults");
+      showErrorModal(
+        "Update Error",
+        "Received invalid data format for results."
+      );
+      return;
     }
 
-    // Profile Completeness
+    // --- Define Defaults ---
+    const defaults = {
+      overallScore: 0,
+      sectionScores: [],
+      profileCompleteness: {
+        score: 0,
+        missingSections: [],
+        incompleteSection: [],
+      },
+      atsOptimization: { score: 0, recommendations: [] },
+      keywordOptimization: { missingKeywords: [], keywordSuggestions: [] },
+      optimizedSummary: "",
+      headlineSuggestions: [],
+      experienceEnhancements: [],
+      skillEndorsements: [],
+      contentStrategy: [],
+      networkingRecommendations: [],
+      competitiveAnalysis: { industryStandards: "", differentiators: [] },
+    };
+
+    // Merge data with defaults to ensure properties exist
+    const results = { ...defaults, ...data };
+    // Deep merge for nested objects if necessary (simple example below)
+    results.profileCompleteness = {
+      ...defaults.profileCompleteness,
+      ...(data.profileCompleteness || {}),
+    };
+    results.atsOptimization = {
+      ...defaults.atsOptimization,
+      ...(data.atsOptimization || {}),
+    };
+    results.keywordOptimization = {
+      ...defaults.keywordOptimization,
+      ...(data.keywordOptimization || {}),
+    };
+    results.competitiveAnalysis = {
+      ...defaults.competitiveAnalysis,
+      ...(data.competitiveAnalysis || {}),
+    };
+
+    // --- Query Result Elements ---
+    const overallScoreCircle = document.getElementById(
+      "overallScoreCircle"
+    ) as SVGCircleElement | null;
+    const overallScoreText = document.getElementById("overallScoreText");
+    const sectionScoresContainer = document.getElementById("sectionScores");
     const completenessBar = document.getElementById("completenessBar");
     const completenessText = document.getElementById("completenessText");
     const missingSectionsList = document.getElementById("missingSections");
     const incompleteSectionsList =
       document.getElementById("incompleteSections");
+    const atsScoreCircle = document.getElementById(
+      "atsScoreCircle"
+    ) as SVGCircleElement | null;
+    const atsScoreText = document.getElementById("atsScoreText");
+    const atsRecommendationsList =
+      document.getElementById("atsRecommendations");
+    const missingKeywordsContainer = document.getElementById("missingKeywords");
+    const keywordSuggestionsContainer =
+      document.getElementById("keywordSuggestions");
+    const optimizedSummary = document.getElementById("optimizedSummary");
+    const headlineContainer = document.getElementById("headlineSuggestions");
+    const experienceContainer = document.getElementById(
+      "experienceEnhancements"
+    );
+    const skillsContainer = document.getElementById("skillEndorsements");
+    const strategyContainer = document.getElementById("contentStrategy");
+    const networkingContainer = document.getElementById(
+      "networkingRecommendations"
+    );
+    const industryStandards = document.getElementById("industryStandards");
+    const differentiatorsList = document.getElementById("differentiators");
+    const resultsContainer = document.getElementById("linkedinResults");
 
-    if (completenessBar && completenessText && data.profileCompleteness) {
-      const score = data.profileCompleteness.score || 0;
-      completenessBar.style.width = `${score}%`;
-      completenessBar.classList.remove(
-        "bg-green-500",
-        "bg-blue-500",
-        "bg-amber-500",
-        "bg-red-500"
-      );
-      completenessBar.classList.add(getProgressBarColorClass(score));
-      completenessText.textContent = `${score}% Complete`;
+    // --- Update UI Elements ---
+
+    // Overall Score
+    setProgress(overallScoreCircle, overallScoreText, results.overallScore);
+
+    // Section Scores
+    if (sectionScoresContainer) {
+      sectionScoresContainer.innerHTML = ""; // Clear previous
+      if (results.sectionScores.length > 0) {
+        results.sectionScores.forEach((section) => {
+          const score = section.score ?? 0;
+          const colorClass = getProgressBarColorClass(score);
+          const scoreColorClass = getScoreColorClass(score);
+          const recommendationsHTML =
+            Array.isArray(section.recommendations) &&
+            section.recommendations.length > 0
+              ? `<ul class="mt-2 text-xs text-gray-600 dark:text-gray-400 list-disc list-inside pl-4 space-y-0.5">
+                       ${section.recommendations.map((rec) => `<li>${rec || "N/A"}</li>`).join("")}
+                     </ul>`
+              : '<p class="mt-1 text-xs text-gray-500 dark:text-gray-400 italic">No specific recommendations.</p>';
+
+          const sectionDiv = document.createElement("div");
+          sectionDiv.className =
+            "border-b border-gray-200 dark:border-gray-700 pb-4 last:border-0 last:pb-0";
+          sectionDiv.innerHTML = `
+                      <div class="flex justify-between items-center mb-1">
+                          <h4 class="text-md font-semibold text-gray-900 dark:text-white">${section.section || "Unnamed Section"}</h4>
+                          <span class="text-sm font-medium ${scoreColorClass}">${score}/100</span>
+                      </div>
+                      <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+                          <div class="${colorClass} h-1.5 rounded-full transition-all duration-500 ease-out" style="width: ${score}%"></div>
+                      </div>
+                      ${recommendationsHTML}
+                  `;
+          sectionScoresContainer.appendChild(sectionDiv);
+        });
+      } else {
+        sectionScoresContainer.innerHTML =
+          '<p class="text-sm text-gray-500 dark:text-gray-400">Section analysis data not available.</p>';
+      }
     }
 
-    const updateList = (listElement, items, placeholder) => {
-      if (listElement) {
-        if (items && Array.isArray(items) && items.length > 0) {
-          listElement.innerHTML = items
-            .map((item) => `<li>${item}</li>`)
-            .join("");
-        } else {
-          listElement.innerHTML = `<li>${placeholder}</li>`;
-        }
-      }
-    };
-
+    // Profile Completeness
+    if (completenessBar && completenessText) {
+      const score = results.profileCompleteness.score ?? 0;
+      completenessBar.style.width = `${score}%`;
+      // Reset classes then add the correct one
+      completenessBar.className = `h-full rounded-full transition-all duration-500 ease-out ${getProgressBarColorClass(score)}`;
+      completenessText.textContent = `${score}% Complete`;
+    }
     updateList(
       missingSectionsList,
-      data.profileCompleteness?.missingSections,
+      results.profileCompleteness.missingSections,
       "No missing sections found."
     );
     updateList(
       incompleteSectionsList,
-      data.profileCompleteness?.incompleteSection,
+      results.profileCompleteness.incompleteSection,
       "No incomplete sections found."
     );
 
     // ATS Optimization
-    const atsScoreCircle = document.getElementById("atsScoreCircle");
-    const atsScoreText = document.getElementById("atsScoreText");
-    const atsRecommendationsList =
-      document.getElementById("atsRecommendations");
-
-    setProgress(atsScoreCircle, atsScoreText, data.atsOptimization?.score || 0);
+    setProgress(atsScoreCircle, atsScoreText, results.atsOptimization.score);
     updateList(
       atsRecommendationsList,
-      data.atsOptimization?.recommendations,
+      results.atsOptimization.recommendations,
       "No specific ATS recommendations."
     );
 
     // Keyword Optimization
-    const missingKeywordsContainer = document.getElementById("missingKeywords");
-    const keywordSuggestionsContainer =
-      document.getElementById("keywordSuggestions");
-
     if (missingKeywordsContainer) {
-      const keywords = data.keywordOptimization?.missingKeywords;
+      missingKeywordsContainer.innerHTML = ""; // Clear previous
+      const keywords = results.keywordOptimization.missingKeywords;
       if (keywords && Array.isArray(keywords) && keywords.length > 0) {
-        missingKeywordsContainer.innerHTML = keywords
-          .map(
-            (keyword) =>
-              `<span class="px-2.5 py-1 rounded-full bg-red-100 dark:bg-red-900/50 text-xs text-red-700 dark:text-red-300 font-medium">${keyword}</span>`
-          )
-          .join("");
+        keywords.forEach((keyword) => {
+          const span = document.createElement("span");
+          span.className =
+            "inline-block px-2.5 py-1 rounded-full bg-red-100 dark:bg-red-900/50 text-xs text-red-700 dark:text-red-300 font-medium mr-1 mb-1";
+          span.textContent = keyword;
+          missingKeywordsContainer.appendChild(span);
+        });
       } else {
         missingKeywordsContainer.innerHTML = `<span class="px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-xs text-gray-600 dark:text-gray-300">No missing keywords identified.</span>`;
       }
     }
 
     if (keywordSuggestionsContainer) {
-      const suggestions = data.keywordOptimization?.keywordSuggestions;
+      keywordSuggestionsContainer.innerHTML = ""; // Clear previous
+      const suggestions = results.keywordOptimization.keywordSuggestions;
       if (suggestions && Array.isArray(suggestions) && suggestions.length > 0) {
-        keywordSuggestionsContainer.innerHTML = suggestions
-          .map(
-            (suggestion) => `
-          <div class="p-2.5 rounded-lg bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800">
-            <p class="text-xs font-semibold text-blue-800 dark:text-blue-200">${suggestion.keyword}</p>
-            <p class="text-xs text-blue-600 dark:text-blue-300">${suggestion.placement}</p>
-          </div>
-        `
-          )
-          .join("");
+        suggestions.forEach((suggestion) => {
+          const div = document.createElement("div");
+          div.className =
+            "p-2.5 rounded-lg bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 mb-2";
+          div.innerHTML = `
+                      <p class="text-xs font-semibold text-blue-800 dark:text-blue-200">${suggestion.keyword || "N/A"}</p>
+                      <p class="text-xs text-blue-600 dark:text-blue-300">${suggestion.placement || "N/A"}</p>
+                  `;
+          keywordSuggestionsContainer.appendChild(div);
+        });
       } else {
-        keywordSuggestionsContainer.innerHTML = `<p class="text-xs text-gray-500 dark:text-gray-400">No specific placement suggestions.</p>`;
+        keywordSuggestionsContainer.innerHTML = `<p class="text-xs text-gray-500 dark:text-gray-400 italic">No placement suggestions.</p>`;
       }
     }
 
     // Optimized Summary
-    const optimizedSummary = document.getElementById("optimizedSummary");
     if (optimizedSummary) {
       optimizedSummary.textContent =
-        data.optimizedSummary || "No optimized summary generated.";
+        results.optimizedSummary || "No optimized summary generated.";
       optimizedSummary.parentElement?.classList.toggle(
         "opacity-50",
-        !data.optimizedSummary
-      ); // Dim if no summary
+        !results.optimizedSummary
+      );
     }
 
     // Headline Suggestions
-    const headlineContainer = document.getElementById("headlineSuggestions");
     if (headlineContainer) {
-      const suggestions = data.headlineSuggestions;
+      headlineContainer.innerHTML = ""; // Clear previous
+      const suggestions = results.headlineSuggestions;
       if (suggestions && Array.isArray(suggestions) && suggestions.length > 0) {
-        headlineContainer.innerHTML = suggestions
-          .map(
-            (headline) => `
-              <div class="p-3 rounded-lg bg-purple-50 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-800">
-                <p class="text-sm font-medium text-purple-800 dark:text-purple-200 mb-1">${headline.headline}</p>
-                <p class="text-xs text-purple-600 dark:text-purple-300">${headline.explanation}</p>
-              </div>`
-          )
-          .join("");
+        suggestions.forEach((headline) => {
+          const div = document.createElement("div");
+          div.className =
+            "p-3 rounded-lg bg-purple-50 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-800 mb-2";
+          div.innerHTML = `
+                    <p class="text-sm font-medium text-purple-800 dark:text-purple-200 mb-1 text-left pl-4">${headline.headline || "N/A"}</p>
+                    <p class="text-xs text-purple-600 dark:text-purple-300 text-left pl-4">${headline.explanation || "N/A"}</p>
+                  `;
+          headlineContainer.appendChild(div);
+        });
       } else {
-        headlineContainer.innerHTML = `<p class="text-sm text-gray-500 dark:text-gray-400">No headline suggestions available.</p>`;
+        headlineContainer.innerHTML = `<p class="text-sm text-gray-500 dark:text-gray-400 italic">No headline suggestions available.</p>`;
       }
     }
 
     // Experience Enhancements
-    const experienceContainer = document.getElementById(
-      "experienceEnhancements"
-    );
     if (experienceContainer) {
-      const enhancements = data.experienceEnhancements;
+      experienceContainer.innerHTML = ""; // Clear previous
+      const enhancements = results.experienceEnhancements;
       if (
         enhancements &&
         Array.isArray(enhancements) &&
         enhancements.length > 0
       ) {
-        experienceContainer.innerHTML = enhancements
-          .map(
-            (exp) => `
-              <div class="border-b border-gray-200 dark:border-gray-700 pb-3 last:border-0 last:pb-0">
-                <h4 class="text-md font-semibold text-gray-900 dark:text-white mb-1.5">${exp.company}</h4>
-                ${
-                  Array.isArray(exp.recommendations) &&
-                  exp.recommendations.length > 0
-                    ? `<ul class="text-xs text-gray-600 dark:text-gray-400 list-disc list-inside pl-4 space-y-1">
-                       ${exp.recommendations.map((rec) => `<li>${rec}</li>`).join("")}
-                     </ul>`
-                    : '<p class="text-xs text-gray-500 dark:text-gray-400 italic">No specific recommendations for this experience.</p>'
-                }
-              </div>`
-          )
-          .join("");
+        enhancements.forEach((exp) => {
+          const recommendationsHTML =
+            Array.isArray(exp.recommendations) && exp.recommendations.length > 0
+              ? `<ul class="text-xs text-gray-600 dark:text-gray-400 list-none pl-4 space-y-1 text-left">
+                         ${exp.recommendations.map((rec) => `<li>${rec || "N/A"}</li>`).join("")}
+                       </ul>`
+              : '<p class="text-xs text-gray-500 dark:text-gray-400 italic">No specific recommendations.</p>';
+
+          const div = document.createElement("div");
+          div.className =
+            "border-b border-gray-200 dark:border-gray-700 pb-3 last:border-0 last:pb-0 mb-3";
+          div.innerHTML = `
+                      <h4 class="text-md font-semibold text-gray-900 dark:text-white mb-1.5">${exp.company || "N/A"}</h4>
+                      ${recommendationsHTML}
+                  `;
+          experienceContainer.appendChild(div);
+        });
       } else {
-        experienceContainer.innerHTML = `<p class="text-sm text-gray-500 dark:text-gray-400">No experience enhancement suggestions.</p>`;
+        experienceContainer.innerHTML = `<p class="text-sm text-gray-500 dark:text-gray-400 italic">No experience enhancement suggestions.</p>`;
       }
     }
 
-    // Skills Prioritization
-    const skillsContainer = document.getElementById("skillEndorsements");
+    // Skills Prioritization (Endorsements)
     if (skillsContainer) {
-      const endorsements = data.skillEndorsements;
+      skillsContainer.innerHTML = ""; // Clear previous
+      const endorsements = results.skillEndorsements;
       if (
         endorsements &&
         Array.isArray(endorsements) &&
         endorsements.length > 0
       ) {
-        skillsContainer.innerHTML = endorsements
-          .map(
-            (category) => `
-              <div>
-                <h4 class="text-md font-semibold text-gray-900 dark:text-white mb-2">${category.category}</h4>
-                <div class="flex flex-wrap gap-2">
-                  ${
-                    Array.isArray(category.skills) && category.skills.length > 0
-                      ? category.skills
-                          .map(
-                            (skill) =>
-                              `<span class="px-2.5 py-1 rounded-full bg-pink-100 dark:bg-pink-900/50 text-xs text-pink-700 dark:text-pink-300 font-medium">${skill}</span>`
-                          )
-                          .join("")
-                      : '<span class="text-xs text-gray-500 dark:text-gray-400 italic">No skills listed for this category.</span>'
-                  }
-                </div>
-              </div>`
-          )
-          .join("");
+        endorsements.forEach((category) => {
+          const skillsHTML =
+            Array.isArray(category.skills) && category.skills.length > 0
+              ? category.skills
+                  .map(
+                    (skill) =>
+                      `<span class="inline-block px-2.5 py-1 rounded-full bg-pink-100 dark:bg-pink-900/50 text-xs text-pink-700 dark:text-pink-300 font-medium mr-1 mb-1">${skill}</span>`
+                  )
+                  .join("")
+              : '<span class="text-xs text-gray-500 dark:text-gray-400 italic">No skills listed.</span>';
+
+          const div = document.createElement("div");
+          div.className = "mb-3";
+          div.innerHTML = `
+                      <h4 class="text-md font-semibold text-gray-900 dark:text-white mb-2">${category.category || "N/A"}</h4>
+                      <div class="flex flex-wrap gap-1">
+                          ${skillsHTML}
+                      </div>
+                  `;
+          skillsContainer.appendChild(div);
+        });
       } else {
-        skillsContainer.innerHTML = `<p class="text-sm text-gray-500 dark:text-gray-400">No skill suggestions available.</p>`;
+        skillsContainer.innerHTML = `<p class="text-sm text-gray-500 dark:text-gray-400 italic">No skill suggestions available.</p>`;
       }
     }
 
     // Content Strategy
-    const strategyContainer = document.getElementById("contentStrategy");
     if (strategyContainer) {
-      const strategies = data.contentStrategy;
+      strategyContainer.innerHTML = ""; // Clear previous
+      const strategies = results.contentStrategy;
       if (strategies && Array.isArray(strategies) && strategies.length > 0) {
-        strategyContainer.innerHTML = strategies
-          .map(
-            (strategy) => `
-              <div class="p-3 rounded-lg bg-teal-50 dark:bg-teal-900/30 border border-teal-200 dark:border-teal-800">
-                <h4 class="text-sm font-semibold text-teal-800 dark:text-teal-200 mb-1">${strategy.contentType}</h4>
-                <p class="text-xs text-teal-600 dark:text-teal-300 mb-2">${strategy.description}</p>
-                ${strategy.example ? `<div class="text-xs italic text-teal-500 dark:text-teal-400 bg-teal-100 dark:bg-teal-800/50 p-2 rounded"> Example: ${strategy.example}</div>` : ""}
-              </div>`
-          )
-          .join("");
+        strategies.forEach((strategy) => {
+          const exampleHTML = strategy.example
+            ? `<div class="mt-1 text-xs italic text-teal-500 dark:text-teal-400 bg-teal-100 dark:bg-teal-800/50 p-2 rounded"> Example: ${strategy.example}</div>`
+            : "";
+          const div = document.createElement("div");
+          div.className =
+            "p-3 rounded-lg bg-teal-50 dark:bg-teal-900/30 border border-teal-200 dark:border-teal-800 mb-2";
+          div.innerHTML = `
+                      <h4 class="text-sm font-semibold text-teal-800 dark:text-teal-200 mb-1">${strategy.contentType || "N/A"}</h4>
+                      <p class="text-xs text-teal-600 dark:text-teal-300 mb-1">${strategy.description || "N/A"}</p>
+                      ${exampleHTML}
+                  `;
+          strategyContainer.appendChild(div);
+        });
       } else {
-        strategyContainer.innerHTML = `<p class="text-sm text-gray-500 dark:text-gray-400">No content strategy suggestions.</p>`;
+        strategyContainer.innerHTML = `<p class="text-sm text-gray-500 dark:text-gray-400 italic">No content strategy suggestions.</p>`;
       }
     }
 
     // Networking Recommendations
-    const networkingContainer = document.getElementById(
-      "networkingRecommendations"
-    );
     updateList(
       networkingContainer,
-      data.networkingRecommendations,
+      results.networkingRecommendations,
       "No specific networking recommendations."
     );
 
     // Competitive Analysis
-    const industryStandards = document.getElementById("industryStandards");
-    const differentiatorsList = document.getElementById("differentiators");
-
     if (industryStandards) {
       industryStandards.textContent =
-        data.competitiveAnalysis?.industryStandards || "Analysis unavailable.";
+        results.competitiveAnalysis.industryStandards ||
+        "Analysis unavailable.";
       industryStandards.parentElement?.classList.toggle(
         "opacity-50",
-        !data.competitiveAnalysis?.industryStandards
+        !results.competitiveAnalysis.industryStandards
       );
     }
     updateList(
       differentiatorsList,
-      data.competitiveAnalysis?.differentiators,
+      results.competitiveAnalysis.differentiators,
       "Analysis unavailable."
     );
 
-    // Show results container
-    const resultsContainer = document.getElementById("linkedinResults");
+    // --- Show Results & Scroll ---
     if (resultsContainer) {
       resultsContainer.classList.remove("hidden");
-      // Scroll to results smoothly
       resultsContainer.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
-  // ** START: LinkedIn Optimizer Form Submission Handlers **
-  // Update form submit handler
-  const linkedinOptimiserForm = document.getElementById(
-    "linkedinOptimiserForm"
-  ) as HTMLFormElement;
-  linkedinOptimiserForm?.addEventListener("submit", async (event) => {
-    event.preventDefault();
+  // --- Initialization and Event Listener Setup ---
 
-    const loader = document.getElementById("linkedinSubmitLoader");
-    const submitButton = document.querySelector(
-      '#linkedinOptimiserForm button[type="submit"]'
+  document.addEventListener("DOMContentLoaded", async () => {
+    // --- Cache DOM Elements ---
+    // General / Form Controls
+    const clearButton = document.getElementById("clearForm");
+    const resumeOptionsSelector = document.getElementById(
+      "resumeOptionsSelector"
+    );
+    const manualEntryContainer = document.getElementById(
+      "manualEntryContainer"
+    );
+    const enterManuallyButton = document.getElementById("enterManuallyButton");
+    const cancelManualEntry = document.getElementById("cancelManualEntry");
+    const resumeContentTextarea = document.getElementById(
+      "resumeContent"
+    ) as HTMLTextAreaElement | null;
+
+    // Resume Upload/Import
+    const resumeFileUploadButton = document.getElementById(
+      "resumeFileUploadButton"
+    );
+    const resumeFileInput = document.getElementById(
+      "resumeFileInput"
+    ) as HTMLInputElement | null;
+    const resumeFileAddedUI = document.getElementById("resumeFileAddedUI");
+    const resumeFileNameElement = document.getElementById("resumeFileName");
+    const changeResumeSourceButton =
+      document.getElementById("changeResumeSource");
+    const importResumeButton = document.getElementById("importResumeButton");
+
+    // LinkedIn Upload
+    const linkedinFileUploadButton = document.getElementById(
+      "linkedinFileUploadButton"
+    );
+    const linkedinFileInput = document.getElementById(
+      "linkedin-upload"
+    ) as HTMLInputElement | null;
+    const linkedinOptionsSelector = document.getElementById(
+      "linkedinOptionsSelector"
+    );
+    const linkedinFileAddedUI = document.getElementById("linkedinFileAddedUI");
+    const linkedinFileNameElement = document.getElementById("linkedinFileName");
+    const changeLinkedinSourceButton = document.getElementById(
+      "changeLinkedinSource"
     );
 
-    try {
-      // Show loader and disable button
-      loader?.classList.remove("hidden");
-      submitButton?.setAttribute("disabled", "true");
+    // Optimization Form & Results
+    const linkedinOptimiserForm = document.getElementById(
+      "linkedinOptimiserForm"
+    ) as HTMLFormElement | null; // Use the form itself
+    const optimizeProfileButton = document.getElementById(
+      "optimizeProfileBtn"
+    ) as HTMLButtonElement | null; // Specific button if needed, e.g., for click listener if not submitting form
+    const linkedinSubmitLoader = document.getElementById(
+      "linkedinSubmitLoader"
+    );
+    const optimizationSuccessUI = document.getElementById(
+      "optimizationSuccess"
+    );
+    const formContainer = document.getElementById("linkedinFormContainer");
 
-      // Get form data and make API call
-      const formData = new FormData(linkedinOptimiserForm);
-      const response = await fetch("/.netlify/functions/linkedin-optimize", {
-        method: "POST",
-        body: formData,
+    // --- Initial Authentication and Access Check ---
+    async function setupAuthAndInitialChecks() {
+      try {
+        const currentUser = await authService.getCurrentUser();
+        if (currentUser?.uid) {
+          currentUserId = currentUser.uid;
+          currentIdToken = await currentUser.getIdToken();
+          await checkLinkedInAccess();
+        } else {
+          console.log("User not authenticated on page load.");
+        }
+      } catch (error) {
+        console.error("Error during initial authentication check:", error);
+        showErrorModal(
+          "Authentication Error",
+          "Could not verify your login status. Please try refreshing the page."
+        );
+      }
+    }
+
+    // --- Setup Form Control Event Listeners ---
+    function setupFormControls() {
+      // Clear form button
+      clearButton?.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.location.reload(); // Simple reload to reset everything
       });
 
-      if (!response.ok) throw new Error("API request failed");
+      // Change LinkedIn source button (from file added UI)
+      changeLinkedinSourceButton?.addEventListener("click", () => {
+        linkedinOptionsSelector?.classList.remove("hidden");
+        linkedinFileAddedUI?.classList.add("hidden");
+        if (linkedinFileInput) linkedinFileInput.value = ""; // Clear file input
+        linkedinContent = ""; // Clear stored LinkedIn content
+      });
 
-      const data = await response.json();
-      updateResults(data);
-    } catch (error) {
-      console.error("Error:", error); // Keep error log
-      // Show error message to user
-    } finally {
-      // Hide loader and enable button
-      loader?.classList.add("hidden");
-      submitButton?.removeAttribute("disabled");
+      // Clear resume content textarea on page load
+      if (resumeContentTextarea) {
+        resumeContentTextarea.value = "";
+      }
     }
-  });
+
+    // --- Setup LinkedIn File Upload ---
+    function setupLinkedInUpload() {
+      const supportedTypes = ["application/pdf"];
+
+      linkedinFileUploadButton?.addEventListener("click", (e) => {
+        e.preventDefault();
+        linkedinFileInput?.click();
+      });
+
+      linkedinFileInput?.addEventListener("change", async (event) => {
+        const file = (event.target as HTMLInputElement).files?.[0];
+        if (!file) return;
+
+        if (!supportedTypes.includes(file.type)) {
+          showErrorModal(
+            "Unsupported File Type",
+            "Please upload your LinkedIn profile as a PDF file."
+          );
+          linkedinFileInput.value = "";
+          return;
+        }
+
+        if (!currentUserId || !currentIdToken) {
+          showErrorModal(
+            "Authentication Error",
+            "Please log in to upload your LinkedIn profile."
+          );
+          linkedinFileInput.value = "";
+          return;
+        }
+
+        // Check access *before* uploading and processing
+        const hasAccess = await checkLinkedInAccess();
+        if (!hasAccess) {
+          linkedinFileInput.value = ""; // Clear input if access denied
+          return; // Stop processing
+        }
+
+        try {
+          // Add loading indicator specific to LinkedIn upload if desired
+          const result = await uploadFileToServer(file);
+
+          if (result.success && result.data?.text) {
+            linkedinContent = result.data.text; // Store the content globally
+
+            // Update UI
+            if (linkedinFileNameElement)
+              linkedinFileNameElement.textContent = file.name;
+            linkedinFileAddedUI?.classList.remove("hidden");
+            linkedinOptionsSelector?.classList.add("hidden");
+          } else {
+            throw new Error(result.error || "Failed to process LinkedIn PDF.");
+          }
+        } catch (error) {
+          showErrorModal(
+            "LinkedIn Upload Error",
+            error instanceof Error
+              ? error.message
+              : "An unknown error occurred during LinkedIn PDF upload."
+          );
+          linkedinContent = ""; // Clear content on error
+          linkedinFileInput.value = ""; // Reset input
+        } finally {
+          // Hide loading indicator
+        }
+      });
+    }
+
+    // --- Setup Optimization Form Submission ---
+    function setupOptimizationSubmit() {
+      linkedinOptimiserForm?.addEventListener("submit", async (event) => {
+        event.preventDefault(); // Prevent default HTML form submission
+
+        if (!currentUserId || !currentIdToken) {
+          showErrorModal(
+            "Authentication Error",
+            "Please log in to optimize your profile."
+          );
+          return;
+        }
+
+        if (!linkedinContent) {
+          showErrorModal(
+            "Missing Input",
+            "Please upload your LinkedIn profile PDF first."
+          );
+          return;
+        }
+        if (!resumeContentTextarea?.value) {
+          showErrorModal(
+            "Missing Input",
+            "Please provide your resume content (upload, import, or enter manually)."
+          );
+          return;
+        }
+
+        // Final access check before hitting the expensive API call
+        const hasAccess = await checkLinkedInAccess();
+        if (!hasAccess) {
+          return; // Modal already shown by checkLinkedInAccess
+        }
+
+        // Show loader and disable button
+        // Find the loader and button elements within this scope if not globally cached
+        const currentOptimizeProfileButton = document.getElementById(
+          "optimizeProfileBtn"
+        ) as HTMLButtonElement | null;
+        const optimizeSpinner = document.getElementById("optimizeSpinner");
+        const optimizeButtonText =
+          document.getElementById("optimizeButtonText");
+
+        if (optimizeSpinner) optimizeSpinner.classList.remove("hidden");
+        if (optimizeButtonText)
+          optimizeButtonText.textContent = "Optimizing..."; // Update button text
+        currentOptimizeProfileButton?.setAttribute("disabled", "true");
+        currentOptimizeProfileButton?.classList.add(
+          "opacity-50",
+          "cursor-not-allowed"
+        ); // Visual feedback
+
+        try {
+          const response = await fetch(
+            "/.netlify/functions/linkedin-optimize",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${currentIdToken}`,
+              },
+              body: JSON.stringify({
+                linkedinContent: linkedinContent,
+                resumeContent: resumeContentTextarea.value,
+              }),
+            }
+          );
+
+          const result = await response.json();
+
+          if (!response.ok) {
+            throw new Error(
+              result.error ||
+                `Optimization API request failed with status ${response.status}`
+            );
+          }
+
+          // Assuming the API returns the data structure expected by updateResults
+          updateResults(result);
+
+          // Track usage *after* successful optimization call
+          await trackLinkedInUsage();
+
+          // Hide the form and show results (adjust based on actual UI elements)
+          // const formContainer = document.getElementById("linkedinFormContainer"); // Example ID
+          // formContainer?.classList.add("hidden"); // Hide the form
+          const resultsContainer = document.getElementById("linkedinResults");
+          resultsContainer?.classList.remove("hidden");
+          resultsContainer?.scrollIntoView({ behavior: "smooth" });
+        } catch (error) {
+          console.error("Optimization error:", error);
+          showErrorModal(
+            "Optimization Failed",
+            error instanceof Error
+              ? error.message
+              : "An unknown error occurred during optimization."
+          );
+          // Optionally show form again if hidden
+          // const formContainer = document.getElementById("linkedinFormContainer");
+          // formContainer?.classList.remove("hidden");
+        } finally {
+          // Hide loader and re-enable button regardless of success/failure
+          if (optimizeSpinner) optimizeSpinner.classList.add("hidden");
+          if (optimizeButtonText)
+            optimizeButtonText.textContent = "Optimize Profile"; // Reset button text
+          currentOptimizeProfileButton?.removeAttribute("disabled");
+          currentOptimizeProfileButton?.classList.remove(
+            "opacity-50",
+            "cursor-not-allowed"
+          );
+        }
+      });
+    }
+
+    // --- Setup Resume File Upload ---
+    function setupResumeUpload() {
+      const supportedTypes = [
+        "application/pdf",
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "text/plain",
+        "text/rtf",
+        "application/rtf",
+      ];
+
+      resumeFileUploadButton?.addEventListener("click", (e) => {
+        e.preventDefault();
+        resumeFileInput?.click();
+      });
+
+      resumeFileInput?.addEventListener("change", async (event) => {
+        const file = (event.target as HTMLInputElement).files?.[0];
+        if (!file) return;
+
+        if (!supportedTypes.includes(file.type)) {
+          showErrorModal(
+            "Unsupported File Type",
+            "Please upload a PDF, DOC, DOCX, TXT, or RTF file for the resume."
+          );
+          if (resumeFileInput) resumeFileInput.value = ""; // Reset input
+          return;
+        }
+
+        if (!currentUserId || !currentIdToken) {
+          showErrorModal(
+            "Authentication Error",
+            "Please log in to upload a resume."
+          );
+          if (resumeFileInput) resumeFileInput.value = "";
+          return;
+        }
+
+        try {
+          // Consider adding a loading indicator for the upload itself
+          const result = await uploadFileToServer(file);
+
+          if (result.success && result.data?.text) {
+            if (resumeContentTextarea) {
+              resumeContentTextarea.value = result.data.text;
+              // Trigger input event if needed for frameworks/validation
+              resumeContentTextarea.dispatchEvent(new Event("input"));
+            }
+
+            // Update UI
+            if (resumeFileNameElement)
+              resumeFileNameElement.textContent = file.name;
+            resumeFileAddedUI?.classList.remove("hidden");
+            resumeOptionsSelector?.classList.add("hidden");
+            manualEntryContainer?.classList.add("hidden");
+          } else {
+            throw new Error(result.error || "Failed to process resume file.");
+          }
+        } catch (error) {
+          showErrorModal(
+            "Resume Upload Error",
+            error instanceof Error
+              ? error.message
+              : "An unknown error occurred during upload."
+          );
+          if (resumeFileInput) resumeFileInput.value = ""; // Reset input on error
+        } finally {
+          // Hide loading indicator if added
+        }
+      });
+    }
+
+    // --- Setup Resume Import Modal ---
+    function setupResumeImport() {
+      importResumeButton?.addEventListener("click", async () => {
+        if (!currentUserId) {
+          showErrorModal(
+            "Authentication Required",
+            "Please log in to import resumes."
+          );
+          return;
+        }
+        if (!resumeContentTextarea) {
+          console.error("Resume content textarea not found for import.");
+          return;
+        }
+
+        // Create modal dynamically
+        const modalId = `importResumeModal-${Date.now()}`;
+        const modal = document.createElement("div");
+        modal.id = modalId;
+        // Using z-[55] to be above upgrade modal (z-50) but potentially below error modals (z-60)
+        modal.innerHTML = `
+                <div class="fixed inset-0 z-[55] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+                    <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 max-w-md w-full max-h-[80vh] flex flex-col">
+                        <div class="flex justify-between items-center mb-4 flex-shrink-0">
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white">Import Saved Resume</h2>
+                            <button data-close-modal="${modalId}" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="mb-4 flex-shrink-0">
+                             <button id="addNewResumeRedirectBtn" class="w-full inline-flex items-center justify-center px-4 py-2.5 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-primary hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                                </svg>
+                                Manage Resumes in Dashboard
+                            </button>
+                        </div>
+
+                        <div class="border-t border-gray-200 dark:border-gray-700 my-4 flex-shrink-0"></div>
+
+                        <div id="resumeListContainer" class="space-y-3 overflow-y-auto flex-grow">
+                            <div class="text-center py-4"><span class="loading loading-dots loading-md"></span> Loading...</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        document.body.appendChild(modal);
+
+        const closeModalButton = modal.querySelector(
+          `[data-close-modal="${modalId}"]`
+        );
+        const addNewResumeButton = modal.querySelector(
+          "#addNewResumeRedirectBtn"
+        );
+        const resumeListContainer = modal.querySelector("#resumeListContainer");
+
+        const closeModal = () => modal.remove();
+        closeModalButton?.addEventListener("click", closeModal);
+
+        addNewResumeButton?.addEventListener("click", () => {
+          window.location.href = "/dashboard#resume-manager"; // Example link
+          closeModal();
+        });
+
+        // Fetch and display resumes
+        try {
+          const resumes = await PersistentDocumentService.loadAllResumes(); // Assuming this returns { id, name, content, lastUpdated }[]
+
+          if (!resumeListContainer) return; // Should not happen, but type guard
+
+          if (resumes.length === 0) {
+            resumeListContainer.innerHTML = `
+                        <div class="text-center text-gray-500 dark:text-gray-400 py-6">
+                            <p>No saved resumes found.</p>
+                            <p class="mt-2 text-sm">You can create and manage resumes in your dashboard.</p>
+                        </div>`;
+          } else {
+            resumeListContainer.innerHTML = ""; // Clear loading
+            resumes.forEach((resume, index) => {
+              const item = document.createElement("div");
+              item.className =
+                "bg-gray-100 dark:bg-gray-800 rounded-lg p-3 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer transition-colors resume-item";
+              item.setAttribute("data-resume-index", String(index)); // Store index for easy retrieval
+              item.innerHTML = `
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="text-md font-semibold text-gray-900 dark:text-white truncate pr-2">
+                                        ${resume.name || `Untitled Resume ${index + 1}`}
+                                    </h3>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                                        Updated: ${new Date(resume.lastUpdated).toLocaleDateString()}
+                                    </p>
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>`;
+
+              item.addEventListener("click", () => {
+                const selectedResume =
+                  resumes[Number(item.getAttribute("data-resume-index"))];
+                if (selectedResume && resumeContentTextarea) {
+                  resumeContentTextarea.value = selectedResume.content || "";
+                  // Show the file added UI and hide other elements
+                  if (resumeFileAddedUI && resumeOptionsSelector) {
+                    resumeFileAddedUI.classList.remove("hidden");
+                    resumeOptionsSelector.classList.add("hidden");
+                    manualEntryContainer?.classList.add("hidden");
+
+                    if (resumeFileNameElement) {
+                      resumeFileNameElement.textContent = `Resume: ${selectedResume.name || "Selected Resume"}`;
+                    }
+                  }
+                }
+                closeModal();
+              });
+              resumeListContainer.appendChild(item);
+            });
+          }
+        } catch (error) {
+          console.error("Error loading resumes for import:", error);
+          if (resumeListContainer) {
+            resumeListContainer.innerHTML = `<p class="text-center text-red-500 py-6">Could not load resumes. Please try again later.</p>`;
+          }
+          // Show a more prominent error if needed
+          showErrorModal(
+            "Import Error",
+            "Unable to load your saved resumes. Please check your connection or try again."
+          );
+        }
+      });
+    }
+
+    // --- Add Resume-Specific Form Control Listeners ---
+    function setupResumeFormControls() {
+      // Enter resume manually button
+      enterManuallyButton?.addEventListener("click", () => {
+        resumeOptionsSelector?.classList.add("hidden");
+        manualEntryContainer?.classList.remove("hidden");
+        resumeFileAddedUI?.classList.add("hidden");
+        resumeContentTextarea?.focus();
+      });
+
+      // Cancel manual entry button
+      cancelManualEntry?.addEventListener("click", () => {
+        resumeOptionsSelector?.classList.remove("hidden");
+        manualEntryContainer?.classList.add("hidden");
+        // Optionally clear the manual textarea: resumeContentTextarea.value = "";
+      });
+
+      // Change resume source button (from file added UI)
+      changeResumeSourceButton?.addEventListener("click", () => {
+        resumeOptionsSelector?.classList.remove("hidden");
+        resumeFileAddedUI?.classList.add("hidden");
+        manualEntryContainer?.classList.add("hidden");
+        if (resumeFileInput) resumeFileInput.value = ""; // Clear file input
+        if (resumeContentTextarea) resumeContentTextarea.value = ""; // Clear text area if needed
+      });
+    }
+
+    // --- Run Setup Functions ---
+    await setupAuthAndInitialChecks(); // Wait for auth check before setting up handlers that might need user ID/token
+    setupFormControls(); // General controls (Clear, LinkedIn Source)
+    setupLinkedInUpload();
+    setupResumeUpload(); // Add call
+    setupResumeImport(); // Add call
+    setupResumeFormControls(); // Add call for resume-specific buttons
+    setupOptimizationSubmit(); // Ensure this is called last or after dependencies are set up
+  }); // End DOMContentLoaded
 </script>

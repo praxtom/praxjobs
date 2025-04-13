@@ -1,5 +1,5 @@
 export interface CopilotMessage {
-  role: 'system' | 'user' | 'assistant';
+  role: "system" | "user" | "assistant";
   content: string;
 }
 
@@ -11,7 +11,7 @@ export interface CopilotConversation {
 }
 
 export interface CopilotConfig {
-  model: 'llama3-8b-8192' | 'llama2-70b-4096' | 'gemma-7b-it';  // Updated to include Groq models
+  model: "llama3-8b-8192" | "llama2-70b-4096" | "gemma-7b-it"; // Updated to include Groq models
   temperature: number;
   maxTokens: number;
   topP: number;
@@ -26,4 +26,9 @@ export interface CopilotResponse {
   confidence: number;
 }
 
-export type CopilotMode = 'careerGuidance' | 'resumeWriting' | 'interviewPrep';
+export type CopilotMode =
+  | "careerGuidance"
+  | "resumeWriting"
+  | "interviewPrep"
+  | "careerDiscussion"
+  | "heroConcise"; // Added the new mode

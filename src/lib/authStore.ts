@@ -32,10 +32,7 @@ export const updateLastActivity = () => {
       lastActivity: Date.now(),
     });
 
-    if (typeof window !== "undefined") {
-      // @ts-ignore
-      window.authStore = authStore;
-    }
+    // Removed global exposure: window.authStore = authStore;
   }
 };
 
@@ -63,7 +60,7 @@ export function storeUserData(user: User | null) {
         localStorage.removeItem(USER_STORAGE_KEY);
       }
     } catch (error) {
-      // console.error('Error storing user data:', error); // Keep minimal for prod
+      // console.error('Error storing user data:', error);
     }
   }
 }
@@ -83,7 +80,7 @@ export function getStoredUserData(): {
         return parsedData;
       }
     } catch (error) {
-      // console.error('Error retrieving user data:', error); // Keep minimal for prod
+      // console.error('Error retrieving user data:', error);
     }
   }
   return null;
@@ -118,7 +115,7 @@ export async function getCurrentUser(): Promise<User | null> {
         return user;
       }
     } catch (error) {
-      // console.error('User retrieval error:', error); // Keep minimal for prod
+      // console.error('User retrieval error:', error);
     }
   }
   return null;
@@ -141,11 +138,7 @@ if (typeof window !== "undefined") {
         });
       })
       .catch((error) => {
-        // console.error('Initial user retrieval error:', { // Keep minimal for prod
-        //     error: error instanceof Error ? error.message : 'Unknown error',
-        //     timestamp: new Date().toISOString()
-        // });
-
+        // console.error('Initial user retrieval error:', error);
         authStore.set({
           user: null,
           loading: false,
@@ -169,7 +162,7 @@ if (typeof window !== "undefined") {
         storeUserData(user);
       },
       (error) => {
-        // console.error('Auth state change error:', error); // Keep minimal for prod
+        // console.error('Auth state change error:', error);
         authStore.set({
           user: null,
           loading: false,
@@ -195,10 +188,8 @@ export async function isAuthenticated(): Promise<boolean> {
       const firebaseInstance = initializeFirebase();
       const auth = firebaseInstance?.auth ?? null;
 
-      // if (!auth) { // Removed console.error for prod
-      //     // console.error('Firebase auth not initialized');
       if (!auth) {
-        // console.error('Firebase auth not initialized'); // Keep minimal for prod
+        // console.error('Firebase auth not initialized');
         return false;
       }
 
@@ -216,7 +207,7 @@ export async function isAuthenticated(): Promise<boolean> {
             }
           },
           (error) => {
-            // console.error('Authentication state check error:', error); // Keep minimal for prod
+            // console.error('Authentication state check error:', error);
             resolve(false);
           }
         );
@@ -225,7 +216,7 @@ export async function isAuthenticated(): Promise<boolean> {
 
     return false;
   } catch (error) {
-    // console.error('Authentication check error:', error); // Keep minimal for prod
+    // console.error('Authentication check error:', error);
     return false;
   }
 }
@@ -233,11 +224,6 @@ export async function isAuthenticated(): Promise<boolean> {
 // Function to get current authenticated user
 export async function getAuthenticatedUser(): Promise<User | null> {
   const currentState = authStore.get();
-
-  // console.log('Get Authenticated User Debug:', { // Removed for prod
-  //     userPresent: !!currentState.user,
-  //     timestamp: new Date().toISOString()
-  // });
 
   // If user is already loaded and session is valid
   if (currentState.user) {

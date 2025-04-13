@@ -1,9 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Container from "../components/Container.astro";
-
 const url = new URL(Astro.request.url);
 const initialQuery = url.searchParams.get("query") || "";
+// Read the new parameters
+const lastQ = url.searchParams.get("lastQ") || "";
+const lastA = url.searchParams.get("lastA") || "";
 
 const promptSuggestions = [
   "What are some good career paths for someone with my skills?",
@@ -14,9 +16,12 @@ const promptSuggestions = [
 ];
 ---
 
-<script define:vars={{ initialQuery }}>
+<script define:vars={{ initialQuery, lastQ, lastA }}>
   // Inject initialQuery safely using JSON.stringify to handle special characters
   window.initialQuery = JSON.parse(JSON.stringify(initialQuery));
+  // Inject the new parameters
+  window.lastQ = JSON.parse(JSON.stringify(lastQ));
+  window.lastA = JSON.parse(JSON.stringify(lastA));
 </script>
 
 <Layout
@@ -227,6 +232,7 @@ const promptSuggestions = [
 </Layout>
 
 <script>
+  import { firebaseInstance, getCurrentUser } from "../lib/firebase";
   let conversationHistory = [] as {
     role: string;
     parts: { text: string }[];
@@ -282,6 +288,7 @@ const promptSuggestions = [
   const promptSuggestionsContainer =
     document.getElementById("prompt-suggestions");
 
+  // --- Function to add message bubbles ---
   function addMessageBubble(message, isUser) {
     if (!chatWindow) return;
     const messageWrapper = document.createElement("div");
@@ -336,6 +343,9 @@ const promptSuggestions = [
   }
 
   // Modified sendMessage to handle initial query without adding duplicate user bubble
+  // Import at the top of the file (ensure this is present):
+  // import { firebaseInstance, getCurrentUser } from "../lib/firebase";
+
   async function sendMessage(message, isInitialQuery = false) {
     console.log(
       `sendMessage called. Initial: ${isInitialQuery}, Message: "${message}"`
@@ -373,10 +383,26 @@ const promptSuggestions = [
     const thinkingBubbleElement = addThinkingBubble(); // Show thinking indicator
 
     try {
+      // Get auth token if user is logged in
+      let authToken: string | null = null;
+      try {
+        if (firebaseInstance && firebaseInstance.auth) {
+          const user = await getCurrentUser(firebaseInstance.auth);
+          if (user) {
+            authToken = await user.getIdToken();
+          }
+        } else {
+          console.warn("Firebase instance or auth is not available.");
+        }
+      } catch (e) {
+        console.warn("Could not get auth token:", e);
+      }
+
       const response = await fetch("/.netlify/functions/guide-mode", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
         },
         body: JSON.stringify({
           message: message,
@@ -429,7 +455,50 @@ const promptSuggestions = [
     console.log("sendMessage finished for:", message);
   }
 
+  // --- Initialization Logic ---
   if (form && input) {
+    // Check for context passed from Hero section
+    const passedQuestion = (window as any).lastQ;
+    const passedAnswer = (window as any).lastA;
+    let contextHandled = false;
+
+    if (passedQuestion && passedAnswer) {
+      console.log(
+        "Context found (lastQ, lastA):",
+        passedQuestion,
+        passedAnswer
+      );
+      // Add the passed context to the chat window
+      addMessageBubble(passedQuestion, true);
+      addMessageBubble(passedAnswer, false);
+      // Add to conversation history
+      conversationHistory.push({
+        role: "user",
+        parts: [{ text: passedQuestion }],
+      });
+      conversationHistory.push({
+        role: "model",
+        parts: [{ text: passedAnswer }],
+      });
+      contextHandled = true; // Mark context as handled
+    } else {
+      console.log("No lastQ/lastA context found.");
+    }
+
+    // Handle initialQuery ONLY if context from lastQ/lastA wasn't handled
+    if (!contextHandled) {
+      const queryFromWindow = (window as any).initialQuery;
+      console.log("Checking for initialQuery on window:", queryFromWindow);
+      if (queryFromWindow) {
+        // Add initial query as user message bubble
+        addMessageBubble(queryFromWindow, true);
+        // Wait a short moment then send it to the backend
+        setTimeout(() => sendMessage(queryFromWindow, true), 100); // Pass true to avoid adding another user bubble
+      } else {
+        console.log("No initialQuery found on window, or it was empty.");
+      }
+    }
+
     // Handle Enter key press in the input field
     input.addEventListener("keydown", (e) => {
       // Check if Enter key was pressed without the Shift key
@@ -450,17 +519,10 @@ const promptSuggestions = [
       }
     });
 
-    // Send the initial query from the URL, marking it as the initial query
-    const queryFromWindow = (window as any).initialQuery;
-    console.log("Checking for initialQuery on window:", queryFromWindow);
-    if (queryFromWindow) {
-      // Wait a short moment for the page to potentially render before sending
-      setTimeout(() => sendMessage(queryFromWindow, true), 100);
-    } else {
-      console.log("No initialQuery found on window, or it was empty.");
-    }
+    // Initial query sending logic moved above
   }
 
+  // --- Event Listeners for Suggestions ---
   suggestionButtons.forEach((button) => {
     button.addEventListener("click", () => {
       // Extract text, removing the icon part if necessary (adjust selector/logic if icon changes)
