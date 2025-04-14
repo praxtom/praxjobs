@@ -44,7 +44,16 @@ export const handler: Handler = async (event, context) => {
     if (event.httpMethod === "POST") {
       try {
         const body = JSON.parse(event.body || "{}");
-        const { token } = body;
+        // Try to extract token from Authorization header first (like upload-resume)
+        let token: string | undefined = undefined;
+        const authHeader = event.headers.authorization;
+        if (authHeader && authHeader.startsWith("Bearer ")) {
+          token = authHeader.substring(7);
+        } else {
+          // Fallback: try to get token from body for backward compatibility
+          const { token: bodyToken } = body;
+          token = bodyToken;
+        }
 
         if (!token) {
           return {
