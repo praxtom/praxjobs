@@ -58,14 +58,8 @@
   from = "/*"
   to = "/index.html"
   status = 200
-# Security headers
-[[headers]]
-  for = "/.netlify/functions/*"
-  [headers.values]
-    Access-Control-Allow-Origin = "https://praxjobs.com"
-    Access-Control-Allow-Headers = "Content-Type, Authorization"
-    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
 
+# Security headers
 [[headers]]
   for = "/*"
   [headers.values]
