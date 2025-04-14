@@ -210,8 +210,8 @@ class AuthService {
         token ? token.substring(0, 20) + "..." : "null"
       ); // Log token (truncated)
       // Send token in Authorization header (and body for backward compatibility)
-      console.log("[AuthService Debug] Calling API /login with token...");
-      await apiRequest("login", "POST", { token }, token);
+      // console.log("[AuthService Debug] Calling API /login with token..."); // Commenting out the explicit backend login call
+      // await apiRequest("login", "POST", { token }, token); // Let onAuthStateChanged handle the state
 
       // Initialize user data in Firestore
       const db = getFirestore();
