@@ -25,80 +25,112 @@ export async function initializeFirebaseAdmin(): Promise<admin.app.App> {
   }
 
   try {
-    let credentials: admin.ServiceAccount;
+    // --- Attempt 1: Standard GOOGLE_APPLICATION_CREDENTIALS ---
+    if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+      console.log(
+        "🔧 Initializing Firebase Admin using GOOGLE_APPLICATION_CREDENTIALS env var (path)..."
+      );
+      // Let the SDK handle loading from the path specified in the env var
+      adminApp = admin.initializeApp();
+      console.log(
+        "✅ Firebase Admin initialized via GOOGLE_APPLICATION_CREDENTIALS."
+      );
+      return adminApp;
+    }
 
-    // --- Attempt 1: Build from individual environment variables ---
+    // --- Fallback Methods (if GOOGLE_APPLICATION_CREDENTIALS is not set) ---
+    console.log(
+      "⚠️ GOOGLE_APPLICATION_CREDENTIALS not set, attempting fallback methods..."
+    );
+    let credentials: admin.ServiceAccount | null = null;
+
+    // --- Fallback Attempt 2: Build from individual environment variables ---
     const projectId = process.env.FIREBASE_ADMIN_PROJECT_ID;
     const clientEmail = process.env.FIREBASE_ADMIN_CLIENT_EMAIL;
     const privateKeyRaw = process.env.FIREBASE_ADMIN_PRIVATE_KEY;
 
     if (projectId && clientEmail && privateKeyRaw) {
       console.log(
-        "🔧 Building Firebase Admin credentials from individual env vars..."
+        "🔧 Building Firebase Admin credentials from individual env vars (fallback)..."
       );
-      // Construct object with only the core required fields for ServiceAccount type
       credentials = {
         projectId: projectId,
         clientEmail: clientEmail,
-        privateKey: privateKeyRaw.replace(/\\n/g, "\n"), // Replace escaped newlines
+        privateKey: privateKeyRaw.replace(/\\n/g, "\n"),
       };
     } else {
-      // --- Attempt 2: Use single FIREBASE_ADMIN_CREDENTIALS variable ---
-      console.log("🔧 Attempting to use FIREBASE_ADMIN_CREDENTIALS env var...");
+      // --- Fallback Attempt 3: Use single FIREBASE_ADMIN_CREDENTIALS variable (JSON string) ---
+      console.log(
+        "🔧 Attempting to use FIREBASE_ADMIN_CREDENTIALS env var (JSON string fallback)..."
+      );
       const credentialsJson = process.env.FIREBASE_ADMIN_CREDENTIALS;
-      if (!credentialsJson) {
-        console.error(
-          "❌ Firebase Admin credentials not found in environment (checked individual vars and FIREBASE_ADMIN_CREDENTIALS)"
-        );
-        throw new Error("Missing Firebase Admin credentials");
-      }
-      try {
-        credentials = JSON.parse(credentialsJson);
-        // Ensure private key format is correct if using the single variable method too
-        if (
-          credentials.privateKey &&
-          typeof credentials.privateKey === "string"
-        ) {
-          credentials.privateKey = credentials.privateKey.replace(/\\n/g, "\n");
+      if (credentialsJson) {
+        try {
+          const parsedCreds = JSON.parse(credentialsJson);
+          // Ensure private key format is correct
+          if (
+            parsedCreds.privateKey &&
+            typeof parsedCreds.privateKey === "string"
+          ) {
+            parsedCreds.privateKey = parsedCreds.privateKey.replace(
+              /\\n/g,
+              "\n"
+            );
+          }
+          credentials = parsedCreds;
+        } catch (e) {
+          console.error(
+            "❌ Failed to parse FIREBASE_ADMIN_CREDENTIALS JSON (fallback):",
+            e
+          );
+          // Don't throw yet, maybe individual vars were partially set
         }
-      } catch (e) {
-        console.error("❌ Failed to parse FIREBASE_ADMIN_CREDENTIALS JSON:", e);
-        throw new Error("Invalid format for FIREBASE_ADMIN_CREDENTIALS");
       }
     }
 
-    // --- Validate the obtained credentials object ---
-    const requiredFields = [
-      "projectId",
-      "clientEmail",
-      "privateKey", // Core fields needed
-    ];
+    // --- Validate and Initialize using Fallback Credentials ---
+    if (!credentials) {
+      console.error(
+        "❌ Firebase Admin credentials not found using any method (GOOGLE_APPLICATION_CREDENTIALS, individual vars, or FIREBASE_ADMIN_CREDENTIALS JSON)"
+      );
+      throw new Error(
+        "Missing Firebase Admin credentials in environment variables"
+      );
+    }
+
+    const requiredFields = ["projectId", "clientEmail", "privateKey"];
     const missingFields = requiredFields.filter(
-      (field) => !credentials[field as keyof admin.ServiceAccount]
+      (field) => !credentials![field as keyof admin.ServiceAccount]
     );
 
     if (missingFields.length > 0 || !credentials.privateKey) {
       console.error(
-        "❌ Missing critical Firebase Admin credentials after checking env vars:",
+        "❌ Missing critical Firebase Admin credentials from fallback methods:",
         missingFields
       );
       throw new Error(
-        `Missing critical Firebase Admin credentials: ${missingFields.join(
+        `Missing critical Firebase Admin credentials from fallback: ${missingFields.join(
           ", "
         )}`
       );
     }
 
-    // Initialize Firebase Admin with the credentials object
+    // Initialize Firebase Admin with the explicitly built credentials object
+    console.log(
+      "🔧 Initializing Firebase Admin using fallback credentials object..."
+    );
     adminApp = admin.initializeApp({
       credential: admin.credential.cert(credentials),
-      projectId: credentials.projectId, // Explicitly pass projectId
+      projectId: credentials.projectId,
     });
 
-    console.log("✅ Firebase Admin initialized successfully", {
-      projectId: credentials.projectId,
-      clientEmailDomain: credentials.clientEmail?.split("@")[1],
-    });
+    console.log(
+      "✅ Firebase Admin initialized successfully using fallback method",
+      {
+        projectId: credentials.projectId,
+        clientEmailDomain: credentials.clientEmail?.split("@")[1],
+      }
+    );
 
     return adminApp;
   } catch (error) {
