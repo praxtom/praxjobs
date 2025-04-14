@@ -12,9 +12,10 @@
 [functions]
   directory = "netlify/functions"
   included_files = [
-    "node_modules/textract/**",  # Include all textract files
-    "node_modules/textract/lib/**",  # Include lib directory
-    "node_modules/textract/lib/extractors/**"  # Include extractors
+    "node_modules/textract/**",
+    "node_modules/textract/lib/**",
+    "node_modules/textract/lib/extractors/**",
+    "secrets/firebase-admin-key.json" # Include the admin credentials file
   ]
 
 # API routes
