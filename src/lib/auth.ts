@@ -63,7 +63,8 @@ function getBaseUrl(): string {
 async function apiRequest(
   endpoint: string,
   method: "POST" | "GET",
-  body?: any
+  body?: any,
+  token?: string // Optional: pass token for Authorization header
 ) {
   try {
     const url = `${getBaseUrl()}/auth/${endpoint}`;
@@ -74,11 +75,16 @@ async function apiRequest(
     //   timestamp: new Date().toISOString(),
     // });
 
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+    };
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+
     const response = await fetch(url, {
       method,
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers,
       body: body ? JSON.stringify(body) : undefined,
     });
 
@@ -192,7 +198,8 @@ class AuthService {
 
       // Get and set the auth token via API
       const token = await result.user.getIdToken();
-      await apiRequest("login", "POST", { token });
+      // Send token in Authorization header (and body for backward compatibility)
+      await apiRequest("login", "POST", { token }, token);
 
       // Initialize user data in Firestore
       const db = getFirestore();
