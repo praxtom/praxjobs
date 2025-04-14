@@ -16,28 +16,57 @@ let adminApp: admin.app.App | null = null;
  * @returns {admin.app.App} Initialized Firebase Admin app
  * @throws {Error} If initialization fails
  */
+import fs from "fs";
+import path from "path";
+
 export async function initializeFirebaseAdmin(): Promise<admin.app.App> {
-  console.log("[FirebaseAdmin Debug] initializeFirebaseAdmin called."); // Log call
+  console.log("[FirebaseAdmin Debug] initializeFirebaseAdmin called.");
   if (adminApp) {
-    console.log("[FirebaseAdmin Debug] Admin app already initialized."); // Log existing instance
-    console.log("[FirebaseAdmin Debug] Admin app already initialized."); // Log existing instance
+    console.log("[FirebaseAdmin Debug] Admin app already initialized.");
     return adminApp;
   }
   try {
-    // Revert to default initialization relying on GOOGLE_APPLICATION_CREDENTIALS env var
+    // 1. Try FIREBASE_SERVICE_ACCOUNT_JSON env var (Netlify-friendly)
+    const serviceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
+    if (serviceAccountJson) {
+      console.log(
+        "[FirebaseAdmin Debug] Using FIREBASE_SERVICE_ACCOUNT_JSON env var for credentials."
+      );
+      const serviceAccount = JSON.parse(serviceAccountJson);
+      adminApp = admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+      });
+      return adminApp;
+    }
+
+    // 2. Try secrets/firebase-admin-key.json (included in Netlify bundle)
+    const keyPath = path.resolve(
+      __dirname,
+      "../../secrets/firebase-admin-key.json"
+    );
+    if (fs.existsSync(keyPath)) {
+      console.log(
+        "[FirebaseAdmin Debug] Using secrets/firebase-admin-key.json for credentials."
+      );
+      const serviceAccount = JSON.parse(fs.readFileSync(keyPath, "utf8"));
+      adminApp = admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+      });
+      return adminApp;
+    }
+
+    // 3. Fallback: default initialization (GOOGLE_APPLICATION_CREDENTIALS or GCP env)
     console.log(
-      "[FirebaseAdmin Debug] GOOGLE_APPLICATION_CREDENTIALS:",
+      "[FirebaseAdmin Debug] Falling back to default admin.initializeApp(). GOOGLE_APPLICATION_CREDENTIALS:",
       process.env.GOOGLE_APPLICATION_CREDENTIALS || "Not Set"
     );
-    console.log("[FirebaseAdmin Debug] Calling admin.initializeApp()..."); // Log SDK call
     adminApp = admin.initializeApp();
-    console.log("[FirebaseAdmin Debug] admin.initializeApp() successful."); // Log success
     return adminApp;
   } catch (e) {
     console.error(
       "[FirebaseAdmin Debug] ❌ Failed to initialize Firebase Admin:",
       e
-    ); // Log failure
+    );
     throw e;
   }
 }
