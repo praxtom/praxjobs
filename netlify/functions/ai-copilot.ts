@@ -33,42 +33,7 @@ export const handler: Handler = async (event) => {
   }
 
   if (event.httpMethod === "POST") {
-    // --- Authentication ---
-    let authenticatedUserId: string;
-    try {
-      await initializeFirebaseAdmin();
-      const token = extractToken(event);
-      if (!token) {
-        return {
-          statusCode: 401,
-          headers,
-          body: JSON.stringify({ error: "Missing authentication token" }),
-        };
-      }
-      const decodedToken = await verifyFirebaseToken(token);
-      authenticatedUserId = decodedToken.uid;
-      console.log(
-        "AI Copilot request authenticated for UID:",
-        authenticatedUserId
-      ); // Optional log
-    } catch (error: any) {
-      console.error("Authentication error:", error);
-      const statusCode = error.message?.includes(
-        "Firebase Admin not initialized"
-      )
-        ? 500
-        : 401;
-      const errorMessage =
-        statusCode === 401
-          ? "Invalid or expired token"
-          : "Authentication service error";
-      return {
-        statusCode,
-        headers,
-        body: JSON.stringify({ error: errorMessage }),
-      };
-    }
-    // --- End Authentication ---
+    // --- Authentication removed: All requests allowed without token ---
 
     try {
       // Validate body AFTER authentication

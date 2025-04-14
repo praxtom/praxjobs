@@ -44,40 +44,8 @@ export const handler: Handler = async (event) => {
     };
   }
 
-  // --- Authentication ---
-  let authenticatedUserId: string;
-  try {
-    await initializeFirebaseAdmin();
-    const token = extractToken(event);
-    if (!token) {
-      return {
-        statusCode: 401,
-        headers,
-        body: JSON.stringify({ error: "Missing authentication token" }),
-      };
-    }
-    const decodedToken = await verifyFirebaseToken(token);
-    authenticatedUserId = decodedToken.uid;
-    console.log(
-      "LinkedIn optimize request authenticated for UID:",
-      authenticatedUserId
-    ); // Optional log
-  } catch (error: any) {
-    console.error("Authentication error:", error);
-    const statusCode = error.message?.includes("Firebase Admin not initialized")
-      ? 500
-      : 401;
-    const errorMessage =
-      statusCode === 401
-        ? "Invalid or expired token"
-        : "Authentication service error";
-    return {
-      statusCode,
-      headers,
-      body: JSON.stringify({ error: errorMessage }),
-    };
-  }
-  // --- End Authentication ---
+  // --- Authentication removed: All requests allowed without token ---
+  // --- Authentication fully removed ---
 
   try {
     // Validate body AFTER authentication
@@ -128,10 +96,7 @@ export const handler: Handler = async (event) => {
       body: JSON.stringify(optimizedProfile),
     };
   } catch (error: any) {
-    console.error(
-      `Error processing linkedin-optimize request for user ${authenticatedUserId}:`,
-      error
-    ); // Add user context
+    console.error(`Error processing linkedin-optimize request:`, error); // Add user context
     return {
       statusCode: error.statusCode || 500, // Use status code from error if available
       headers, // Add headers

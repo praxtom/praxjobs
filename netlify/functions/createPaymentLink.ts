@@ -64,45 +64,7 @@ const handler: Handler = async (event) => {
     };
   }
 
-  // --- Authentication ---
-  let authenticatedUserId: string;
-  try {
-    // Initialize Firebase Admin
-    await initializeFirebaseAdmin();
-
-    // Extract token from header
-    const token = extractToken(event);
-    if (!token) {
-      return {
-        statusCode: 401, // Unauthorized
-        headers,
-        body: JSON.stringify({ error: "Missing authentication token" }),
-      };
-    }
-
-    // Verify the token
-    const decodedToken = await verifyFirebaseToken(token);
-    authenticatedUserId = decodedToken.uid; // Use the verified UID
-    console.log(
-      "Payment link request authenticated for UID:",
-      authenticatedUserId
-    ); // Optional logging
-  } catch (error: any) {
-    console.error("Authentication error:", error);
-    // Determine if it's an init error or token validation error
-    const statusCode = error.message?.includes("Firebase Admin not initialized")
-      ? 500
-      : 401;
-    const errorMessage =
-      statusCode === 401
-        ? "Invalid or expired token"
-        : "Authentication service error";
-    return {
-      statusCode,
-      headers,
-      body: JSON.stringify({ error: errorMessage }),
-    };
-  }
+  // --- Authentication removed: All requests allowed without token ---
   // --- End Authentication ---
 
   try {
@@ -161,7 +123,7 @@ const handler: Handler = async (event) => {
         },
         reminder_enable: false, // Configure as needed
         notes: {
-          userId: authenticatedUserId, // Use authenticated user ID
+          // userId removed: authentication not required
           tier: "pro" as const,
           product: "PraxJobs Pro",
           timestamp: new Date().toISOString(), // Use ISO string for timestamp
@@ -172,7 +134,7 @@ const handler: Handler = async (event) => {
           },
         },
         // Ensure BASE_URL is correctly set in environment for production
-        callback_url: `${BASE_URL}/pricing?userId=${authenticatedUserId}&referenceId=${referenceId}&proUpgradeSuccess=true&tier=pro&timestamp=${Date.now()}`, // Use authenticatedUserId
+        callback_url: `${BASE_URL}/pricing?referenceId=${referenceId}&proUpgradeSuccess=true&tier=pro&timestamp=${Date.now()}`, // userId removed: authentication not required
         callback_method: "get",
         reference_id: referenceId, // Pass the generated unique reference ID
       }),

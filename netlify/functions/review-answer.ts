@@ -1,9 +1,5 @@
 import { Handler, HandlerEvent } from "@netlify/functions"; // Added HandlerEvent
 import { reviewAnswer } from "../../src/components/tools/tools_api/InterviewPrepAPI";
-import {
-  initializeFirebaseAdmin,
-  verifyFirebaseToken,
-} from "../../src/lib/firebaseAdmin"; // Import Firebase Admin functions
 
 // Helper to extract token from Authorization header
 const extractToken = (event: HandlerEvent): string | null => {
@@ -42,40 +38,9 @@ const handler: Handler = async (event, context) => {
     };
   }
 
-  // --- Authentication ---
-  let authenticatedUserId: string;
-  try {
-    await initializeFirebaseAdmin();
-    const token = extractToken(event);
-    if (!token) {
-      return {
-        statusCode: 401,
-        headers,
-        body: JSON.stringify({ error: "Missing authentication token" }),
-      };
-    }
-    const decodedToken = await verifyFirebaseToken(token);
-    authenticatedUserId = decodedToken.uid;
-    console.log(
-      "Review answer request authenticated for UID:",
-      authenticatedUserId
-    ); // Optional log
-  } catch (error: any) {
-    console.error("Authentication error:", error);
-    const statusCode = error.message?.includes("Firebase Admin not initialized")
-      ? 500
-      : 401;
-    const errorMessage =
-      statusCode === 401
-        ? "Invalid or expired token"
-        : "Authentication service error";
-    return {
-      statusCode,
-      headers,
-      body: JSON.stringify({ error: errorMessage }),
-    };
-  }
-  // --- End Authentication ---
+  // --- Authentication removed: All requests allowed without token ---
+  // Authentication log removed
+  // --- Authentication fully removed ---
 
   // Validate body and content type AFTER authentication
   if (!event.body) {
@@ -113,10 +78,7 @@ const handler: Handler = async (event, context) => {
       body: result.body || JSON.stringify({ message: "Success" }),
     };
   } catch (error: any) {
-    console.error(
-      `Error in review-answer handler for user ${authenticatedUserId}:`,
-      error
-    ); // Add user context
+    console.error(`Error in review-answer handler:`, error); // Add user context
     return {
       statusCode: error.statusCode || 500,
       headers, // Use defined headers

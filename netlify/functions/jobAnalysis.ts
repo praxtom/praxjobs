@@ -45,40 +45,9 @@ const handler: Handler = async (event, context) => {
     };
   }
 
-  // --- Authentication ---
-  let authenticatedUserId: string;
-  try {
-    await initializeFirebaseAdmin();
-    const token = extractToken(event);
-    if (!token) {
-      return {
-        statusCode: 401,
-        headers,
-        body: JSON.stringify({ error: "Missing authentication token" }),
-      };
-    }
-    const decodedToken = await verifyFirebaseToken(token);
-    authenticatedUserId = decodedToken.uid;
-    console.log(
-      "Job analysis request authenticated for UID:",
-      authenticatedUserId
-    ); // Keep optional log
-  } catch (error: any) {
-    console.error("Authentication error:", error);
-    const statusCode = error.message?.includes("Firebase Admin not initialized")
-      ? 500
-      : 401;
-    const errorMessage =
-      statusCode === 401
-        ? "Invalid or expired token"
-        : "Authentication service error";
-    return {
-      statusCode,
-      headers,
-      body: JSON.stringify({ error: errorMessage }),
-    };
-  }
-  // --- End Authentication ---
+  // --- Authentication removed: All requests allowed without token ---
+  // Authentication log removed
+  // --- Authentication fully removed ---
 
   // Validate body and content type AFTER authentication
   if (!event.body) {
@@ -122,7 +91,7 @@ const handler: Handler = async (event, context) => {
     }); // Pass userId if needed
 
     // Minimal logging for production
-    console.log(`Job analysis successful for user ${authenticatedUserId}`);
+    console.log(`Job analysis successful`);
 
     if (!analysis || typeof analysis !== "object") {
       console.error(
@@ -137,10 +106,7 @@ const handler: Handler = async (event, context) => {
       body: JSON.stringify(analysis),
     };
   } catch (error) {
-    console.error(
-      `API Error during job analysis for user ${authenticatedUserId}:`,
-      error
-    ); // Log error with user context
+    console.error(`API Error during job analysis:`, error); // Log error with user context
     return {
       statusCode: 500,
       headers, // Use defined headers

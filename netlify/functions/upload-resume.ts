@@ -150,54 +150,7 @@ const handler: Handler = async (event) => {
     };
   }
 
-  // --- Authentication ---
-  let authenticatedUserId: string;
-  try {
-    // Initialize Firebase Admin
-    await initializeFirebaseAdmin();
-
-    // Extract token from header
-    const token = extractToken(event);
-    if (!token) {
-      return {
-        statusCode: 401, // Unauthorized
-        headers,
-        body: JSON.stringify({ error: "Missing authentication token" }),
-      };
-    }
-
-    // Allow mock token in Netlify dev environment
-    if (process.env.NETLIFY_DEV === "true" && token === "mockIdToken") {
-      authenticatedUserId = "mockUserId123";
-      console.log(
-        "Dev mode: accepted mockIdToken for UID:",
-        authenticatedUserId
-      );
-    } else {
-      // Verify the token (production or real tokens)
-      const decodedToken = await verifyFirebaseToken(token);
-      authenticatedUserId = decodedToken.uid; // Use the verified UID
-      console.log(
-        "File upload request authenticated for UID:",
-        authenticatedUserId
-      ); // Optional logging
-    }
-  } catch (error: any) {
-    console.error("Authentication error:", error);
-    // Determine if it's an init error or token validation error
-    const statusCode = error.message?.includes("Firebase Admin not initialized")
-      ? 500
-      : 401;
-    const errorMessage =
-      statusCode === 401
-        ? "Invalid or expired token"
-        : "Authentication service error";
-    return {
-      statusCode,
-      headers,
-      body: JSON.stringify({ error: errorMessage }),
-    };
-  }
+  // --- Authentication removed: All requests allowed without token ---
   // --- End Authentication ---
 
   try {
