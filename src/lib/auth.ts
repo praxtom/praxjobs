@@ -68,6 +68,13 @@ async function apiRequest(
 ) {
   try {
     const url = `${getBaseUrl()}/auth/${endpoint}`;
+    console.log("[apiRequest Debug] Sending request:", {
+      // Added debug log
+      url,
+      method,
+      tokenProvided: !!token,
+      bodyKeys: body ? Object.keys(body) : null,
+    });
     // console.log("API Request", { // Removed for prod
     //   url,
     //   method,
@@ -198,7 +205,12 @@ class AuthService {
 
       // Get and set the auth token via API
       const token = await result.user.getIdToken();
+      console.log(
+        "[AuthService Debug] Got Firebase ID Token:",
+        token ? token.substring(0, 20) + "..." : "null"
+      ); // Log token (truncated)
       // Send token in Authorization header (and body for backward compatibility)
+      console.log("[AuthService Debug] Calling API /login with token...");
       await apiRequest("login", "POST", { token }, token);
 
       // Initialize user data in Firestore

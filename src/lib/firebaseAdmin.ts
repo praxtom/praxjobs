@@ -17,15 +17,27 @@ let adminApp: admin.app.App | null = null;
  * @throws {Error} If initialization fails
  */
 export async function initializeFirebaseAdmin(): Promise<admin.app.App> {
+  console.log("[FirebaseAdmin Debug] initializeFirebaseAdmin called."); // Log call
   if (adminApp) {
+    console.log("[FirebaseAdmin Debug] Admin app already initialized."); // Log existing instance
     return adminApp;
   }
   try {
+    console.log(
+      // Log env var check
+      "[FirebaseAdmin Debug] GOOGLE_APPLICATION_CREDENTIALS:",
+      process.env.GOOGLE_APPLICATION_CREDENTIALS || "Not Set"
+    );
     // Let the SDK handle loading from the path specified in GOOGLE_APPLICATION_CREDENTIALS
+    console.log("[FirebaseAdmin Debug] Calling admin.initializeApp()..."); // Log SDK call
     adminApp = admin.initializeApp();
+    console.log("[FirebaseAdmin Debug] admin.initializeApp() successful."); // Log success
     return adminApp;
   } catch (e) {
-    console.error("❌ Failed to initialize Firebase Admin:", e);
+    console.error(
+      "[FirebaseAdmin Debug] ❌ Failed to initialize Firebase Admin:",
+      e
+    ); // Log failure
     throw e;
   }
 }
@@ -38,10 +50,31 @@ export async function initializeFirebaseAdmin(): Promise<admin.app.App> {
 export async function verifyFirebaseToken(
   token: string
 ): Promise<admin.auth.DecodedIdToken> {
+  console.log(
+    // Log token being verified (truncated)
+    "[FirebaseAdmin Debug] verifyFirebaseToken called with token:",
+    token ? token.substring(0, 20) + "..." : "null"
+  );
   if (!adminApp) {
+    console.log(
+      "[FirebaseAdmin Debug] Admin app not initialized, calling initializeFirebaseAdmin..."
+    ); // Log init call from verify
     await initializeFirebaseAdmin();
   }
-  return admin.auth(adminApp!).verifyIdToken(token);
+  try {
+    console.log(
+      "[FirebaseAdmin Debug] Calling admin.auth().verifyIdToken()..."
+    ); // Log SDK call
+    const decodedToken = await admin.auth(adminApp!).verifyIdToken(token);
+    console.log(
+      "[FirebaseAdmin Debug] verifyIdToken successful for UID:",
+      decodedToken.uid
+    ); // Log success
+    return decodedToken;
+  } catch (error) {
+    console.error("[FirebaseAdmin Debug] ❌ verifyIdToken failed:", error); // Log failure
+    throw error; // Re-throw the error
+  }
 }
 
 /**

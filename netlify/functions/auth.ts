@@ -1,4 +1,4 @@
-import { Handler } from "@netlify/functions";
+import { Handler, HandlerEvent } from "@netlify/functions"; // Added HandlerEvent for typing
 import {
   initializeFirebaseAdmin,
   verifyFirebaseToken,
@@ -15,11 +15,20 @@ export const handler: Handler = async (event, context) => {
     "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
   };
 
+  console.log("[Auth Function Debug] Handler invoked for path:", event.path); // Log invocation
+
   // Initialize Firebase Admin SDK (ensure it's ready)
   try {
+    console.log("[Auth Function Debug] Initializing Firebase Admin..."); // Log init attempt
     await initializeFirebaseAdmin();
+    console.log(
+      "[Auth Function Debug] Firebase Admin initialized successfully."
+    ); // Log init success
   } catch (initError) {
-    console.error("Firebase Admin Init Error in Auth Function:", initError);
+    console.error(
+      "[Auth Function Debug] Firebase Admin Init Error:",
+      initError
+    ); // Log init error
     // Return a generic error to avoid leaking details
     // CRITICAL: Return CORS headers even on initialization failure!
     return {
@@ -44,18 +53,34 @@ export const handler: Handler = async (event, context) => {
     if (event.httpMethod === "POST") {
       try {
         const body = JSON.parse(event.body || "{}");
+        console.log("[Auth Function Debug] Handling /login POST request."); // Log POST handling
         // Try to extract token from Authorization header first (like upload-resume)
         let token: string | undefined = undefined;
         const authHeader = event.headers.authorization;
+        console.log(
+          "[Auth Function Debug] Authorization Header:",
+          authHeader ? authHeader.substring(0, 15) + "..." : "Not present"
+        ); // Log header (truncated)
         if (authHeader && authHeader.startsWith("Bearer ")) {
           token = authHeader.substring(7);
+          console.log(
+            "[Auth Function Debug] Token extracted from Header:",
+            token ? token.substring(0, 20) + "..." : "null"
+          ); // Log token from header
         } else {
           // Fallback: try to get token from body for backward compatibility
           const { token: bodyToken } = body;
           token = bodyToken;
+          console.log(
+            "[Auth Function Debug] Token extracted from Body:",
+            token ? token.substring(0, 20) + "..." : "null"
+          ); // Log token from body
         }
 
         if (!token) {
+          console.log(
+            "[Auth Function Debug] No token found in header or body."
+          ); // Log missing token
           return {
             statusCode: 400, // Bad Request
             headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -65,12 +90,19 @@ export const handler: Handler = async (event, context) => {
 
         // --- Actual Token Validation ---
         try {
+          console.log("[Auth Function Debug] Attempting token verification..."); // Log verification attempt
           // Verify the token using Firebase Admin SDK
           const decodedToken = await verifyFirebaseToken(token);
           // Optional: You could add checks based on decodedToken claims if needed
-          console.log("Token verified for UID:", decodedToken.uid); // Log success for debugging (consider removing in prod)
+          console.log(
+            "[Auth Function Debug] Token verified successfully for UID:",
+            decodedToken.uid
+          ); // Log success
         } catch (validationError) {
-          console.error("Token validation error:", validationError); // Log the actual error server-side
+          console.error(
+            "[Auth Function Debug] Token validation error:",
+            validationError
+          ); // Log the actual error
           // Return 401 Unauthorized for invalid or expired tokens
           return {
             statusCode: 401, // Unauthorized
