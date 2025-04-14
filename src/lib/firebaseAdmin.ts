@@ -26,7 +26,55 @@ export async function initializeFirebaseAdmin(): Promise<admin.app.App> {
     return adminApp;
   }
   try {
-    // 1. Try FIREBASE_SERVICE_ACCOUNT_JSON env var (Netlify-friendly)
+    // 1. Try individual FIREBASE_ADMIN_* env vars (.env workaround)
+    const {
+      FIREBASE_ADMIN_PROJECT_ID,
+      FIREBASE_ADMIN_PRIVATE_KEY_ID,
+      FIREBASE_ADMIN_PRIVATE_KEY,
+      FIREBASE_ADMIN_CLIENT_EMAIL,
+      FIREBASE_ADMIN_CLIENT_ID,
+      FIREBASE_ADMIN_AUTH_URI,
+      FIREBASE_ADMIN_TOKEN_URI,
+      FIREBASE_ADMIN_AUTH_PROVIDER_CERT_URL,
+      FIREBASE_ADMIN_CLIENT_CERT_URL,
+    } = process.env;
+
+    if (
+      FIREBASE_ADMIN_PROJECT_ID &&
+      FIREBASE_ADMIN_PRIVATE_KEY_ID &&
+      FIREBASE_ADMIN_PRIVATE_KEY &&
+      FIREBASE_ADMIN_CLIENT_EMAIL &&
+      FIREBASE_ADMIN_CLIENT_ID &&
+      FIREBASE_ADMIN_AUTH_URI &&
+      FIREBASE_ADMIN_TOKEN_URI &&
+      FIREBASE_ADMIN_AUTH_PROVIDER_CERT_URL &&
+      FIREBASE_ADMIN_CLIENT_CERT_URL
+    ) {
+      console.log(
+        "[FirebaseAdmin Debug] Using individual FIREBASE_ADMIN_* env vars for credentials."
+      );
+      const serviceAccount = {
+        type: "service_account",
+        project_id: FIREBASE_ADMIN_PROJECT_ID,
+        private_key_id: FIREBASE_ADMIN_PRIVATE_KEY_ID,
+        private_key: FIREBASE_ADMIN_PRIVATE_KEY.replace(/\\n/g, "\n").replace(
+          /^"|"$/g,
+          ""
+        ), // Remove quotes if present
+        client_email: FIREBASE_ADMIN_CLIENT_EMAIL,
+        client_id: FIREBASE_ADMIN_CLIENT_ID,
+        auth_uri: FIREBASE_ADMIN_AUTH_URI,
+        token_uri: FIREBASE_ADMIN_TOKEN_URI,
+        auth_provider_x509_cert_url: FIREBASE_ADMIN_AUTH_PROVIDER_CERT_URL,
+        client_x509_cert_url: FIREBASE_ADMIN_CLIENT_CERT_URL,
+      } as admin.ServiceAccount;
+      adminApp = admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+      });
+      return adminApp;
+    }
+
+    // 2. Try FIREBASE_SERVICE_ACCOUNT_JSON env var (Netlify-friendly)
     const serviceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
     if (serviceAccountJson) {
       console.log(
@@ -39,7 +87,7 @@ export async function initializeFirebaseAdmin(): Promise<admin.app.App> {
       return adminApp;
     }
 
-    // 2. Try secrets/firebase-admin-key.json (included in Netlify bundle)
+    // 3. Try secrets/firebase-admin-key.json (included in Netlify bundle)
     const keyPath = path.resolve(
       __dirname,
       "../../secrets/firebase-admin-key.json"
@@ -55,7 +103,7 @@ export async function initializeFirebaseAdmin(): Promise<admin.app.App> {
       return adminApp;
     }
 
-    // 3. Fallback: default initialization (GOOGLE_APPLICATION_CREDENTIALS or GCP env)
+    // 4. Fallback: default initialization (GOOGLE_APPLICATION_CREDENTIALS or GCP env)
     console.log(
       "[FirebaseAdmin Debug] Falling back to default admin.initializeApp(). GOOGLE_APPLICATION_CREDENTIALS:",
       process.env.GOOGLE_APPLICATION_CREDENTIALS || "Not Set"
