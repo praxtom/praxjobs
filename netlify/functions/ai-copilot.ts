@@ -1,9 +1,5 @@
 import { Handler, HandlerEvent } from "@netlify/functions"; // Combined imports
 import { AICopilot } from "../../src/lib/ai-copilot/copilot";
-import {
-  initializeFirebaseAdmin,
-  verifyFirebaseToken,
-} from "../../src/lib/firebaseAdmin"; // Import Firebase Admin functions
 
 // Helper to extract token from Authorization header
 const extractToken = (event: HandlerEvent): string | null => {

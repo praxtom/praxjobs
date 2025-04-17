@@ -1,9 +1,5 @@
 import { Handler, HandlerEvent } from "@netlify/functions"; // Added HandlerEvent
 import { SUBSCRIPTION_TIERS } from "../../src/lib/subscriptionConfig"; // Adjust path if needed
-import {
-  initializeFirebaseAdmin,
-  verifyFirebaseToken,
-} from "../../src/lib/firebaseAdmin"; // Import Firebase Admin functions
 
 // Function to generate a unique reference ID
 function generateUniqueReferenceId(prefix: string = "pro_sub"): string {

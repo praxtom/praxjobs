@@ -4,426 +4,388 @@ import Container from "../components/Container.astro";
 import CoverLetterGenerator from "../components/tools/CoverLetter.astro";
 ---
 
-<Layout 
-    title="AI Cover Letter Generator | Create Personalized Cover Letters"
-    description="Generate compelling, personalized cover letters with our AI tool. Craft letters that highlight your relevant experience and skills for specific job applications."
-    image="/images/cover-letter-og-image.jpg"
-    type="website"
-    canonical="/cover-letter"
-    ogTitle="AI Cover Letter Generator | Stand Out to Employers | PraxJobs"
-    ogDescription="Create personalized cover letters that complement your resume and make a strong impression. Our AI tool helps you craft compelling narratives tailored to each job application."
+<Layout
+  title="AI Cover Letter Generator | Create Personalized Cover Letters"
+  description="Generate compelling, personalized cover letters with our AI tool. Craft letters that highlight your relevant experience and skills for specific job applications."
+  image="/images/cover-letter-og-image.jpg"
+  type="website"
+  canonical="/cover-letter"
+  ogTitle="AI Cover Letter Generator | Stand Out to Employers | PraxJobs"
+  ogDescription="Create personalized cover letters that complement your resume and make a strong impression. Our AI tool helps you craft compelling narratives tailored to each job application."
 >
-    <main class="relative min-h-screen dark:bg-gray-950 pt-16">
-        <div
-            aria-hidden="true"
-            class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20"
-        >
-            <div
-                class="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700"
+  <main class="relative min-h-screen dark:bg-gray-950 pt-16">
+    <div
+      aria-hidden="true"
+      class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20"
+    >
+      <div
+        class="blur-[106px] h-56 bg-gradient-to-br from-cyan-500 to-purple-300 dark:from-cyan-500 dark:to-purple-500"
+      >
+      </div>
+      <div
+        class="blur-[106px] h-56 bg-gradient-to-r from-cyan-500 to-purple-300 dark:from-cyan-500 dark:to-purple-500"
+      >
+      </div>
+    </div>
+    <Container>
+      <div class="relative pt-36 space-y-20">
+        <div class="w-full text-center mx-auto">
+          <h1
+            class="text-gray-900 dark:text-white font-bold text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
+          >
+            <span class="text-primary dark:text-white"
+              >Create Perfect Cover Letters</span
             >
+          </h1>
+          <p
+            class="mt-8 text-gray-700 dark:text-gray-300 text-lg max-w-3xl mx-auto"
+          >
+            Generate tailored cover letters that perfectly match job
+            descriptions and highlight your unique qualifications. Stand out
+            from the competition with professionally crafted content.
+          </p>
+
+          <!-- Stats -->
+          <div
+            class="hidden py-8 mt-16 border-y border-gray-100 dark:border-gray-800 sm:flex justify-between"
+          >
+            <div class="text-left">
+              <h6 class="text-lg font-semibold text-gray-700 dark:text-white">
+                AI-Powered
+              </h6>
+              <p class="mt-2 text-gray-500">Advanced language models</p>
             </div>
-            <div
-                class="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600"
-            >
+            <div class="text-left">
+              <h6 class="text-lg font-semibold text-gray-700 dark:text-white">
+                ATS-Friendly
+              </h6>
+              <p class="mt-2 text-gray-500">Optimized for success</p>
             </div>
+            <div class="text-left">
+              <h6 class="text-lg font-semibold text-gray-700 dark:text-white">
+                Instant Results
+              </h6>
+              <p class="mt-2 text-gray-500">Generate in seconds</p>
+            </div>
+          </div>
         </div>
-        <Container>
-            <div class="relative pt-36 space-y-20">
-                <div class="w-full text-center mx-auto">
-                    <h1
-                        class="text-gray-900 dark:text-white font-bold text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
-                    >
-                        <span class="text-primary dark:text-white"
-                            >Create Perfect Cover Letters</span
-                        >
-                    </h1>
-                    <p
-                        class="mt-8 text-gray-700 dark:text-gray-300 text-lg max-w-3xl mx-auto"
-                    >
-                        Generate tailored cover letters that perfectly match job
-                        descriptions and highlight your unique qualifications.
-                        Stand out from the competition with professionally
-                        crafted content.
-                    </p>
+      </div>
+    </Container>
 
-                    <!-- Stats -->
-                    <div
-                        class="hidden py-8 mt-16 border-y border-gray-100 dark:border-gray-800 sm:flex justify-between"
-                    >
-                        <div class="text-left">
-                            <h6
-                                class="text-lg font-semibold text-gray-700 dark:text-white"
-                            >
-                                AI-Powered
-                            </h6>
-                            <p class="mt-2 text-gray-500">
-                                Advanced language models
-                            </p>
-                        </div>
-                        <div class="text-left">
-                            <h6
-                                class="text-lg font-semibold text-gray-700 dark:text-white"
-                            >
-                                ATS-Friendly
-                            </h6>
-                            <p class="mt-2 text-gray-500">
-                                Optimized for success
-                            </p>
-                        </div>
-                        <div class="text-left">
-                            <h6
-                                class="text-lg font-semibold text-gray-700 dark:text-white"
-                            >
-                                Instant Results
-                            </h6>
-                            <p class="mt-2 text-gray-500">
-                                Generate in seconds
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </Container>
+    <!-- Generator Section -->
+    <section id="generator" class="relative w-full py-16 sm:py-20">
+      <CoverLetterGenerator />
+    </section>
 
-        <!-- Generator Section -->
-        <section id="generator" class="relative w-full py-16 sm:py-20">
-            <CoverLetterGenerator />
-        </section>
-
-        <!-- Benefits Section -->
-        <Container>
-            <section
-                id="benefits"
-                class="relative py-16 w-full overflow-hidden rounded-2xl"
+    <!-- Benefits Section -->
+    <Container>
+      <section
+        id="benefits"
+        class="relative py-16 w-full overflow-hidden rounded-2xl"
+      >
+        <div class="container relative mx-auto p-4 sm:p-6 lg:p-8">
+          <!-- Main Heading -->
+          <div class="text-center mb-16">
+            <h2
+              class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
             >
-                <div class="container relative mx-auto p-4 sm:p-6 lg:p-8">
-                    <!-- Main Heading -->
-                    <div class="text-center mb-16">
-                        <h2
-                            class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
-                        >
-                            Your AI-Powered Cover Letter Advantage
-                        </h2>
-                        <p class="text-lg text-gray-600 dark:text-gray-400">
-                            Transform your job application with compelling,
-                            personalized cover letters that tell your unique
-                            professional story.
-                        </p>
-                    </div>
+              Your AI-Powered Cover Letter Advantage
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-400">
+              Transform your job application with compelling, personalized cover
+              letters that tell your unique professional story.
+            </p>
+          </div>
 
-                    <!-- Feature Grid -->
+          <!-- Feature Grid -->
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
+            role="list"
+            aria-label="Key features of the Cover Letter Generator"
+          >
+            <!-- Comprehensive Analysis Card -->
+            <div
+              class="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              role="listitem"
+            >
+              <div
+                class="h-12 w-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-blue-600 dark:text-blue-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+              </div>
+              <h3
+                class="text-xl font-semibold text-gray-900 dark:text-white mb-2"
+              >
+                Personalized Storytelling
+              </h3>
+              <p class="text-gray-600 dark:text-gray-400">
+                Craft a unique narrative that connects your experiences directly
+                to the job requirements.
+              </p>
+            </div>
+
+            <!-- Strategic Advantage Card -->
+            <div
+              class="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              role="listitem"
+            >
+              <div
+                class="h-12 w-12 bg-green-100 dark:bg-green-900 rounded-xl flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-green-600 dark:text-green-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 011.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+                  ></path>
+                </svg>
+              </div>
+              <h3
+                class="text-xl font-semibold text-gray-900 dark:text-white mb-2"
+              >
+                ATS Compatibility
+              </h3>
+              <p class="text-gray-600 dark:text-gray-400">
+                Optimize your cover letter to pass through Applicant Tracking
+                Systems with strategic keyword integration.
+              </p>
+            </div>
+
+            <!-- Interview Prep Card -->
+            <div
+              class="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              role="listitem"
+            >
+              <div
+                class="h-12 w-12 bg-purple-100 dark:bg-purple-900 rounded-xl flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-purple-600 dark:text-purple-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.44 7.152A50.489 50.489 0 0012 4.5c1.933 0 3.811.166 5.656.47A50.67 50.67 0 0117.556 7.15M6.44 7.152A50.487 50.487 0 004.5 12c0 1.933.166 3.811.47 5.656.26 1.646.78 3.25 1.566 4.666m0-15.482a50.487 50.487 0 00-1.566 4.666"
+                  ></path>
+                </svg>
+              </div>
+              <h3
+                class="text-xl font-semibold text-gray-900 dark:text-white mb-2"
+              >
+                Professional Positioning
+              </h3>
+              <p class="text-gray-600 dark:text-gray-400">
+                Strategically highlight your unique value proposition and
+                professional brand.
+              </p>
+            </div>
+          </div>
+
+          <!-- Detailed Benefits Section -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Left Column: Career Strategy -->
+            <div class="space-y-8">
+              <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
+                Strategic Career Communication
+              </h3>
+              <div class="space-y-6">
+                <!-- Market Position -->
+                <div class="flex items-start space-x-4">
+                  <div class="flex-shrink-0 mt-1">
                     <div
-                        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
-                        role="list"
-                        aria-label="Key features of the Cover Letter Generator"
+                      class="h-6 w-6 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center"
                     >
-                        <!-- Comprehensive Analysis Card -->
-                        <div
-                            class="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-                            role="listitem"
-                        >
-                            <div
-                                class="h-12 w-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center mb-4"
-                            >
-                                <svg
-                                    class="w-6 h-6 text-blue-600 dark:text-blue-400"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                    ></path>
-                                </svg>
-                            </div>
-                            <h3
-                                class="text-xl font-semibold text-gray-900 dark:text-white mb-2"
-                            >
-                                Personalized Storytelling
-                            </h3>
-                            <p class="text-gray-600 dark:text-gray-400">
-                                Craft a unique narrative that connects your
-                                experiences directly to the job requirements.
-                            </p>
-                        </div>
-
-                        <!-- Strategic Advantage Card -->
-                        <div
-                            class="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-                            role="listitem"
-                        >
-                            <div
-                                class="h-12 w-12 bg-green-100 dark:bg-green-900 rounded-xl flex items-center justify-center mb-4"
-                            >
-                                <svg
-                                    class="w-6 h-6 text-green-600 dark:text-green-400"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 011.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
-                                    ></path>
-                                </svg>
-                            </div>
-                            <h3
-                                class="text-xl font-semibold text-gray-900 dark:text-white mb-2"
-                            >
-                                ATS Compatibility
-                            </h3>
-                            <p class="text-gray-600 dark:text-gray-400">
-                                Optimize your cover letter to pass through
-                                Applicant Tracking Systems with strategic
-                                keyword integration.
-                            </p>
-                        </div>
-
-                        <!-- Interview Prep Card -->
-                        <div
-                            class="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-                            role="listitem"
-                        >
-                            <div
-                                class="h-12 w-12 bg-purple-100 dark:bg-purple-900 rounded-xl flex items-center justify-center mb-4"
-                            >
-                                <svg
-                                    class="w-6 h-6 text-purple-600 dark:text-purple-400"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.44 7.152A50.489 50.489 0 0012 4.5c1.933 0 3.811.166 5.656.47A50.67 50.67 0 0117.556 7.15M6.44 7.152A50.487 50.487 0 004.5 12c0 1.933.166 3.811.47 5.656.26 1.646.78 3.25 1.566 4.666m0-15.482a50.487 50.487 0 00-1.566 4.666"
-                                    ></path>
-                                </svg>
-                            </div>
-                            <h3
-                                class="text-xl font-semibold text-gray-900 dark:text-white mb-2"
-                            >
-                                Professional Positioning
-                            </h3>
-                            <p class="text-gray-600 dark:text-gray-400">
-                                Strategically highlight your unique value
-                                proposition and professional brand.
-                            </p>
-                        </div>
+                      <svg
+                        class="w-4 h-4 text-indigo-600 dark:text-indigo-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                      </svg>
                     </div>
-
-                    <!-- Detailed Benefits Section -->
-                    <div
-                        class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+                  </div>
+                  <div>
+                    <h4
+                      class="text-lg font-semibold text-gray-900 dark:text-white"
                     >
-                        <!-- Left Column: Career Strategy -->
-                        <div class="space-y-8">
-                            <h3
-                                class="text-2xl font-bold text-gray-900 dark:text-white"
-                            >
-                                Strategic Career Communication
-                            </h3>
-                            <div class="space-y-6">
-                                <!-- Market Position -->
-                                <div class="flex items-start space-x-4">
-                                    <div class="flex-shrink-0 mt-1">
-                                        <div
-                                            class="h-6 w-6 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center"
-                                        >
-                                            <svg
-                                                class="w-4 h-4 text-indigo-600 dark:text-indigo-400"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    stroke-width="2"
-                                                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-                                                ></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h4
-                                            class="text-lg font-semibold text-gray-900 dark:text-white"
-                                        >
-                                            Contextual Alignment
-                                        </h4>
-                                        <p
-                                            class="text-gray-600 dark:text-gray-400"
-                                        >
-                                            Tailor your professional narrative
-                                            to match the specific company and
-                                            role.
-                                        </p>
-                                    </div>
-                                </div>
-                                <!-- Growth Opportunities -->
-                                <div class="flex items-start space-x-4">
-                                    <div class="flex-shrink-0 mt-1">
-                                        <div
-                                            class="h-6 w-6 bg-rose-100 dark:bg-rose-900 rounded-full flex items-center justify-center"
-                                        >
-                                            <svg
-                                                class="w-4 h-4 text-rose-600 dark:text-rose-400"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    stroke-width="2"
-                                                    d="M13 10V3L4 14h7v7l9-11h-7z"
-                                                ></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h4
-                                            class="text-lg font-semibold text-gray-900 dark:text-white"
-                                        >
-                                            Career Narrative
-                                        </h4>
-                                        <p
-                                            class="text-gray-600 dark:text-gray-400"
-                                        >
-                                            Develop a compelling story that
-                                            showcases your professional journey
-                                            and potential.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Right Column: Application Success -->
-                        <div class="space-y-8">
-                            <h3
-                                class="text-2xl font-bold text-gray-900 dark:text-white"
-                            >
-                                Application Optimization
-                            </h3>
-                            <div class="space-y-6">
-                                <!-- Resume Optimization -->
-                                <div class="flex items-start space-x-4">
-                                    <div class="flex-shrink-0 mt-1">
-                                        <div
-                                            class="h-6 w-6 bg-amber-100 dark:bg-amber-900 rounded-full flex items-center justify-center"
-                                        >
-                                            <svg
-                                                class="w-4 h-4 text-amber-600 dark:text-amber-400"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    stroke-width="2"
-                                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                                                ></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h4
-                                            class="text-lg font-semibold text-gray-900 dark:text-white"
-                                        >
-                                            Impact Highlighting
-                                        </h4>
-                                        <p
-                                            class="text-gray-600 dark:text-gray-400"
-                                        >
-                                            Strategically emphasize your
-                                            achievements and their relevance to
-                                            the target role.
-                                        </p>
-                                    </div>
-                                </div>
-                                <!-- Interview Strategy -->
-                                <div class="flex items-start space-x-4">
-                                    <div class="flex-shrink-0 mt-1">
-                                        <div
-                                            class="h-6 w-6 bg-emerald-100 dark:bg-emerald-900 rounded-full flex items-center justify-center"
-                                        >
-                                            <svg
-                                                class="w-4 h-4 text-emerald-600 dark:text-emerald-400"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    stroke-width="2"
-                                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                                                ></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h4
-                                            class="text-lg font-semibold text-gray-900 dark:text-white"
-                                        >
-                                            Persuasive Communication
-                                        </h4>
-                                        <p
-                                            class="text-gray-600 dark:text-gray-400"
-                                        >
-                                            Craft a compelling narrative that
-                                            demonstrates your fit and
-                                            enthusiasm.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                      Contextual Alignment
+                    </h4>
+                    <p class="text-gray-600 dark:text-gray-400">
+                      Tailor your professional narrative to match the specific
+                      company and role.
+                    </p>
+                  </div>
                 </div>
-            </section>
-        </Container>
+                <!-- Growth Opportunities -->
+                <div class="flex items-start space-x-4">
+                  <div class="flex-shrink-0 mt-1">
+                    <div
+                      class="h-6 w-6 bg-rose-100 dark:bg-rose-900 rounded-full flex items-center justify-center"
+                    >
+                      <svg
+                        class="w-4 h-4 text-rose-600 dark:text-rose-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div>
+                    <h4
+                      class="text-lg font-semibold text-gray-900 dark:text-white"
+                    >
+                      Career Narrative
+                    </h4>
+                    <p class="text-gray-600 dark:text-gray-400">
+                      Develop a compelling story that showcases your
+                      professional journey and potential.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        <script>
-            import { authService } from "../lib/auth";
+            <!-- Right Column: Application Success -->
+            <div class="space-y-8">
+              <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
+                Application Optimization
+              </h3>
+              <div class="space-y-6">
+                <!-- Resume Optimization -->
+                <div class="flex items-start space-x-4">
+                  <div class="flex-shrink-0 mt-1">
+                    <div
+                      class="h-6 w-6 bg-amber-100 dark:bg-amber-900 rounded-full flex items-center justify-center"
+                    >
+                      <svg
+                        class="w-4 h-4 text-amber-600 dark:text-amber-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div>
+                    <h4
+                      class="text-lg font-semibold text-gray-900 dark:text-white"
+                    >
+                      Impact Highlighting
+                    </h4>
+                    <p class="text-gray-600 dark:text-gray-400">
+                      Strategically emphasize your achievements and their
+                      relevance to the target role.
+                    </p>
+                  </div>
+                </div>
+                <!-- Interview Strategy -->
+                <div class="flex items-start space-x-4">
+                  <div class="flex-shrink-0 mt-1">
+                    <div
+                      class="h-6 w-6 bg-emerald-100 dark:bg-emerald-900 rounded-full flex items-center justify-center"
+                    >
+                      <svg
+                        class="w-4 h-4 text-emerald-600 dark:text-emerald-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div>
+                    <h4
+                      class="text-lg font-semibold text-gray-900 dark:text-white"
+                    >
+                      Persuasive Communication
+                    </h4>
+                    <p class="text-gray-600 dark:text-gray-400">
+                      Craft a compelling narrative that demonstrates your fit
+                      and enthusiasm.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </Container>
 
-            // Client-side authentication check with 2-second delay
-            function checkAuthentication() {
-                // Delay the authentication check by 2 seconds
-                setTimeout(async () => {
-                    try {
-                        const user = await authService.getCurrentUser();
+    <script>
+      import { authService } from "../lib/auth";
 
-                        // If no user is found after 2 seconds, redirect to login
-                        if (!user) {
-                            console.warn("Authentication check failed", {
-                                timestamp: new Date().toISOString(),
-                            });
-                            window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
-                        }
-                    } catch (error) {
-                        console.error("Authentication check error:", {
-                            error:
-                                error instanceof Error
-                                    ? error.message
-                                    : "Unknown error",
-                            timestamp: new Date().toISOString(),
-                        });
-                        window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
-                    }
-                }, 2000); // 2-second delay
+      // Client-side authentication check with 2-second delay
+      function checkAuthentication() {
+        // Delay the authentication check by 2 seconds
+        setTimeout(async () => {
+          try {
+            const user = await authService.getCurrentUser();
+
+            // If no user is found after 2 seconds, redirect to login
+            if (!user) {
+              console.warn("Authentication check failed", {
+                timestamp: new Date().toISOString(),
+              });
+              window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
             }
+          } catch (error) {
+            console.error("Authentication check error:", {
+              error: error instanceof Error ? error.message : "Unknown error",
+              timestamp: new Date().toISOString(),
+            });
+            window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+          }
+        }, 2000); // 2-second delay
+      }
 
-            // Run authentication check when the page loads
-            document.addEventListener("DOMContentLoaded", checkAuthentication);
-        </script>
-    </main>
+      // Run authentication check when the page loads
+      document.addEventListener("DOMContentLoaded", checkAuthentication);
+    </script>
+  </main>
 </Layout>

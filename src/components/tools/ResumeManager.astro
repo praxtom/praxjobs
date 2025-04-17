@@ -9,7 +9,7 @@ import Container from "../Container.astro";
       <div class="lg:col-span-1 space-y-6">
         <!-- Resume Hub Information -->
         <div
-          class="bg-white border dark:bg-gray-900 rounded-2xl shadow-lg p-6 border-gray-200 dark:border-gray-900"
+          class="bg-white border dark:bg-gray-900 rounded-2xl shadow-lg p-4 border-gray-200 dark:border-gray-900"
         >
           <div class="flex items-center space-x-4 mb-4">
             <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-xl">
@@ -28,42 +28,26 @@ import Container from "../Container.astro";
                 ></path>
               </svg>
             </div>
-            <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
+            <h2
+              class="text-xl md:text-2xl font-bold text-gray-800 dark:text-white"
+            >
               Resume Hub
             </h2>
           </div>
 
-          <p class="text-gray-600 dark:text-gray-300 mb-4">
+          <p class="text-gray-600 text-sm md:text-base dark:text-gray-300 mb-4">
             Centralize and manage all your professional documents in one secure
             place.
           </p>
 
-          <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
-            <button
-              id="addResumeBtn"
-              class="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-gray-800 text-white dark:bg-white dark:text-black rounded-xl
-                                   hover:bg-gray-700 dark:hover:bg-gray-200
-                                   transition-all duration-300
-                                   focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                  clip-rule="evenodd"></path>
-              </svg>
-              <span>Manually Add Resume</span>
-            </button>
+          <div
+            class="border- border-gray-200 dark:border-gray-700 flex space-x-4 mt-4"
+          >
             <button
               id="resumeUploadButton"
-              class="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-gray-800 text-white dark:bg-white dark:text-black rounded-xl
-                                   hover:bg-gray-700 dark:hover:bg-gray-200 transition-all duration-300
-                                   focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 mt-4"
+              class="flex-1 flex items-center justify-center space-x-2 px-4 py-3 bg-gray-800 text-white dark:bg-white dark:text-black rounded-xl
+                                   hover:bg-gray-700 dark:hover:bg-gray-200
+                                   focus:outline-none"
             >
               <!-- File upload icon -->
               <svg
@@ -77,11 +61,33 @@ import Container from "../Container.astro";
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
-                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M16 12l-4-4m0 0l-4 4m4-4v12"
                 ></path>
               </svg>
-              <span>Import</span>
+              <span class="text-sm">Upload File</span>
             </button>
+            <button
+              id="addResumeBtn"
+              class="flex-1 flex items-center justify-center space-x-2 px-4 py-3 bg-gray-800 text-white dark:bg-white dark:text-black rounded-xl
+                                    hover:bg-gray-700 dark:hover:bg-gray-200"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"
+                ></path>
+              </svg>
+              <span class="text-sm">Paste Text</span>
+            </button>
+
             <input id="resumeFileInput" type="file" class="hidden" />
             <div
               id="resumeUploadLoading"
@@ -94,10 +100,10 @@ import Container from "../Container.astro";
 
         <!-- Quick Tips Section -->
         <div
-          class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-6 border border-gray-200 dark:border-gray-900 hidden sm:block"
+          class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 border border-gray-200 dark:border-gray-900 hidden sm:block"
         >
-          <h4 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">
-            Resume Tips
+          <h4 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+            Quick Tips
           </h4>
           <div class="space-y-3">
             <div class="flex items-start space-x-3">
@@ -150,8 +156,15 @@ import Container from "../Container.astro";
   </Container>
 
   <!-- Loader UI -->
-  <div id="uploadLoader" class="hidden fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-    <div class="loader animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-gray-300 shadow-lg" style="border-top-color: #007aff;"></div>
+  <div
+    id="uploadLoader"
+    class="hidden flex fixed inset-0 items-center justify-center bg-gray-800 bg-opacity-50 z-50"
+  >
+    <div
+      class="loader animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-gray-300 shadow-lg"
+      style="border-top-color: #007aff;"
+    >
+    </div>
   </div>
 
   <!-- Resume Modal -->
@@ -161,8 +174,8 @@ import Container from "../Container.astro";
   >
     <div
       class="bg-white dark:bg-gray-800/90 rounded-3xl w-full max-w-4xl mx-auto shadow-2xl border border-gray-100
-               dark:border-gray-700/50 transform transition-all duration-300 ease-in-out scale-95 opacity-0
-               max-h-[90vh] flex flex-col transition-transform duration-300 scale-100 opacity-100"
+               dark:border-gray-700/50 transform ease-in-out
+               max-h-[90vh] flex flex-col transition-transform duration-300"
       id="resumeModalContent"
     >
       <div
@@ -248,7 +261,7 @@ import Container from "../Container.astro";
           form="resumeForm"
           class="px-6 py-3 text-sm bg-black text-white dark:bg-white dark:text-black
                        rounded-xl hover:bg-gray-800 dark:hover:bg-gray-200
-                       transition-all duration-300 transform hover:scale-105
+                       transition-all duration-300
                        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         >
           Save Resume
@@ -476,11 +489,13 @@ import Container from "../Container.astro";
             backdrop-blur-xl 
             border border-gray-200/50 dark:border-gray-700/30 
             rounded-2xl 
-            p-6 
+            p-4 
             flex flex-col 
             transition-all duration-300 
             shadow-md dark:shadow-gray-800/20 
             h-full 
+            text-gray-900 dark:text-gray-100
+
 
         `;
       card.setAttribute("data-resume-id", resume.id);
@@ -491,7 +506,7 @@ import Container from "../Container.astro";
 
       const initialCircle = document.createElement("div");
       initialCircle.className = `
-            w-12 h-12 rounded-full 
+            w-10 h-10 rounded-full 
             flex items-center justify-center 
             text-white
             ${stringToColor(resume.name)}
@@ -503,7 +518,7 @@ import Container from "../Container.astro";
         "svg"
       );
       documentIcon.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-      documentIcon.setAttribute("class", "h-6 w-6");
+      documentIcon.setAttribute("class", "h-5 w-5");
       documentIcon.setAttribute("fill", "none");
       documentIcon.setAttribute("viewBox", "0 0 24 24");
       documentIcon.setAttribute("stroke", "currentColor");
@@ -525,7 +540,7 @@ import Container from "../Container.astro";
 
       const nameElement = document.createElement("h3");
       nameElement.className =
-        "text-lg font-semibold text-gray-900 dark:text-white";
+        "text-md font-semibold text-gray-900 dark:text-white";
       nameElement.textContent = resume.name;
 
       initialContainer.appendChild(initialCircle);
@@ -534,17 +549,7 @@ import Container from "../Container.astro";
       // Added on date
       const dateContainer = document.createElement("div");
       dateContainer.className =
-        "text-sm text-gray-500 dark:text-gray-400 flex items-center space-x-2";
-
-      const calendarIcon = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "svg"
-      );
-      calendarIcon.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-      calendarIcon.setAttribute("class", "h-4 w-4");
-      calendarIcon.setAttribute("fill", "none");
-      calendarIcon.setAttribute("viewBox", "0 0 24 24");
-      calendarIcon.setAttribute("stroke", "currentColor");
+        "text-sm text-gray-500 dark:text-gray-400 flex items-center pl-14 pb-4";
 
       const calendarPath = document.createElementNS(
         "http://www.w3.org/2000/svg",
@@ -558,15 +563,12 @@ import Container from "../Container.astro";
         "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
       );
 
-      calendarIcon.appendChild(calendarPath);
-
       const dateElement = document.createElement("span");
       const addedDate = resume.createdAt
         ? new Date(resume.createdAt).toLocaleDateString()
         : "Unknown";
       dateElement.textContent = `Added on ${addedDate}`;
 
-      dateContainer.appendChild(calendarIcon);
       dateContainer.appendChild(dateElement);
 
       // Action buttons container

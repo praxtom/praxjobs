@@ -1,4 +1,4 @@
-import { Handler, HandlerEvent } from "@netlify/functions"; // Added HandlerEvent for typing
+import { Handler } from "@netlify/functions"; // Added HandlerEvent for typing
 import {
   initializeFirebaseAdmin,
   verifyFirebaseToken,

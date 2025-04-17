@@ -1,9 +1,5 @@
 import type { Handler, HandlerEvent } from "@netlify/functions"; // Added HandlerEvent
 import { Groq } from "groq-sdk";
-import {
-  initializeFirebaseAdmin,
-  verifyFirebaseToken,
-} from "../../src/lib/firebaseAdmin"; // Import Firebase Admin functions
 
 // Helper to extract token from Authorization header
 const extractToken = (event: HandlerEvent): string | null => {

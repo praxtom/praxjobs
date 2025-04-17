@@ -2,10 +2,6 @@ import { Handler, HandlerEvent } from "@netlify/functions"; // Added HandlerEven
 import { PdfReader } from "pdfreader";
 import Groq from "groq-sdk";
 import mammoth from "mammoth";
-import {
-  initializeFirebaseAdmin,
-  verifyFirebaseToken,
-} from "../../src/lib/firebaseAdmin"; // Import Firebase Admin functions
 
 // Initialize Groq client
 console.log("GROQ_API_KEY at runtime:", process.env.GROQ_API_KEY);

@@ -1,8 +1,4 @@
 import { Handler, HandlerEvent } from "@netlify/functions"; // Added HandlerEvent
-import {
-  initializeFirebaseAdmin,
-  verifyFirebaseToken,
-} from "../../src/lib/firebaseAdmin"; // Import Firebase Admin functions
 import { PerformJobAnalysis } from "../../src/components/tools/tools_api/JobAnalysisAPI";
 
 // Helper to extract token from Authorization header

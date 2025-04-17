@@ -18,21 +18,8 @@
        Filter & Add Section (Enhanced)
        ========================== -->
   <div
-    class="mb-8 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 bg-white/80 dark:bg-gray-900/70 backdrop-blur-md border border-gray-200 dark:border-gray-700/60 rounded-2xl px-6 py-4 shadow-md"
+    class="mb-8 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 bg-white/80 dark:bg-gray-900/70 backdrop-blur-md border border-gray-200 dark:border-gray-700/60 rounded-2xl px-2 py-4"
   >
-    <div class="flex items-center space-x-2">
-      <label for="statusFilterSelect" class="sr-only">Filter by Status</label>
-      <select
-        id="statusFilterSelect"
-        class="w-44 px-3 py-2 border border-gray-300 dark:border-gray-700/70 bg-white dark:bg-gray-800/30 rounded-lg dark:text-gray-100 focus:border-primary dark:focus:border-primary focus:ring-1 focus:ring-primary outline-none text-sm transition-colors duration-200"
-      >
-        <option value="all">All Statuses</option>
-        <option value="Applied">Applied</option>
-        <option value="Interview">Interview</option>
-        <option value="Offer">Offer</option>
-        <option value="Rejected">Rejected</option>
-      </select>
-    </div>
     <button
       id="addJobBtn"
       class="w-full sm:w-auto inline-flex h-11 sm:h-12 items-center justify-center px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 dark:text-white dark:bg-gradient-to-r dark:from-blue-500 dark:to-indigo-500 dark:hover:from-blue-600 dark:hover:to-indigo-600 rounded-full transition-all duration-300 ease-in-out transform hover:scale-[1.03] active:scale-95 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 shadow-lg hover:shadow-xl"
@@ -50,8 +37,21 @@
           stroke-width="2"
           d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
       </svg>
-      Add New Job
+      Add New Application
     </button>
+  </div>
+  <div class="flex items-center justify-end space-x-2 pb-2">
+    <label for="statusFilterSelect" class="sr-only">Filter by Status</label>
+    <select
+      id="statusFilterSelect"
+      class="w-30 px-3 py-2 border border-gray-300 dark:border-gray-700/70 bg-white dark:bg-gray-800/30 rounded-full dark:text-gray-100 focus:border-primary dark:focus:border-primary focus:ring-1 focus:ring-primary outline-none text-sm transition-colors duration-200"
+    >
+      <option value="all">All</option>
+      <option value="Applied">Applied</option>
+      <option value="Interview">Interview</option>
+      <option value="Offer">Offer</option>
+      <option value="Rejected">Rejected</option>
+    </select>
   </div>
 
   <!-- ==========================
@@ -748,13 +748,13 @@
           <span class="px-4 py-1.5 text-xs font-bold rounded-full ${getStatusStyle(job.status)} shadow-md flex items-center gap-1 border border-white/40 dark:border-gray-800/60 ring-2 ring-white/30 dark:ring-gray-900/40 backdrop-blur-sm transition-all duration-200">
             ${
               job.status === "Applied"
-                ? `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /></svg>`
+                ? `<svg class="w-4 h-4 hidden sm:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /></svg>`
                 : job.status === "Interview"
-                  ? `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 12h8M12 8v8" /></svg>`
+                  ? `<svg class="w-4 h-4 hidden sm:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 12h8M12 8v8" /></svg>`
                   : job.status === "Offer"
-                    ? `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" /></svg>`
+                    ? `<svg class="w-4 h-4 hidden sm:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" /></svg>`
                     : job.status === "Rejected"
-                      ? `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" /></svg>`
+                      ? `<svg class="w-4 h-4 hidden sm:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" /></svg>`
                       : ""
             }
             <span class="ml-1">${job.status}</span>
@@ -767,7 +767,7 @@
             <svg class="w-4 h-4 text-gray-400 dark:text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10m-12 8a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v12z"/></svg>
             ${timeAgo}
           </div>
-          <div class="flex items-center gap-2 bg-gray-100/70 dark:bg-gray-800/60 rounded-full px-2 py-1 shadow-sm border border-gray-200 dark:border-gray-700/60">
+          <div class="flex items-center gap-2 bg-white dark:bg-gray-800/60 rounded-full px-2 py-1 shadow-sm border border-gray-200 dark:border-gray-700/60">
             <button class="px-3 py-1 text-xs text-blue-700 hover:bg-blue-100 dark:text-blue-300 dark:hover:bg-blue-900/40 font-semibold rounded-full transition-colors edit-job-btn">Edit</button>
             <button class="px-3 py-1 text-xs text-red-600 hover:bg-red-100 dark:text-red-400 dark:hover:bg-red-900/40 font-semibold rounded-full transition-colors delete-job-btn">Delete</button>
           </div>
