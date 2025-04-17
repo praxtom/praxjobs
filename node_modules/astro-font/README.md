@@ -1,12 +1,10 @@
 ![imgonline-com-ua-compressed-gtwH4Klu9j](https://github.com/rishi-raj-jain/astro-font/assets/46300090/6a9588d0-50b9-4ade-91ee-76c7a201e1a6)
 
-
 # Astro Font Optimization
 
 `astro-font` will automatically optimize your Custom Fonts, Local Fonts, Fonts over any CDN and Google fonts for performance.
 
 The project is inspired by the [Next.js Font Optimization](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts).
-
 
 ## Installation
 
@@ -23,8 +21,6 @@ pnpm add astro-font
 Automatically optimize any Google Font. To use the font in all your pages, add it to `<head>` file in an Astro layout:
 
 ### Use Google Fonts URL directly
-
-
 
 ```astro
 ---
@@ -390,6 +386,58 @@ const fontPrefix = import.meta.env.PROD
     ]}
 />
 ```
+
+## Dynamically use fonts on CDN but serve them locally
+
+Let us say you want to self host the fonts but do not want to spend time fetching the fonts, setting up the right path, and do the hassle of bundling it in the application. That is where you would want to do the following steps:
+
+- Use the `fetch: true` in (per) font configuration. For example:
+
+  ```astro
+  <AstroFont
+    config={[
+      {
+        src: [],
+        preload: true,
+        display: 'swap',
+        name: 'vazirmatn',
+        fallback: 'monospace',
+        fetch: true,
+        verbose: true,
+        cacheDir: '.cache',
+        googleFontsURL: 'https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap',
+      },
+      {
+        src: [],
+        preload: true,
+        display: 'block',
+        name: 'material-icon-outlined',
+        fallback: 'monospace',
+        fetch: true,
+        verbose: true,
+        cacheDir: '.cache',
+        googleFontsURL: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0',
+      },
+    ]}
+  />
+  ```
+
+  The `fetch: true` makes `astro-font` fetch the fonts specified.
+
+- Update your `astro.config.*` file to include the `astroFont` integration:
+
+  ```diff
+  // File: astro.config.mjs
+  + import { astroFont } from 'astro-font/integration'
+
+  // ...
+  integrations: [
+  + astroFont()
+  ]
+  // ...
+  ```
+
+  The integration makes sure that all the directories containing the fetched fonts are bundled into the Astro build.
 
 ## Contributing
 
