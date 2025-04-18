@@ -4,7 +4,7 @@ import ThemeToggle from "./ThemeToggle.astro";
 ---
 
 <header
-  class="fixed top-0 left-0 right-0 z-20 bg-white/25 dark:bg-[#0B1120]/25 backdrop-blur-lg"
+  class="fixed top-0 left-0 right-0 z-20 bg-transparent dark:bg-transparent backdrop-blur-lg transition-colors duration-300"
   id="mainHeader"
 >
   <Container>
@@ -902,6 +902,38 @@ import ThemeToggle from "./ThemeToggle.astro";
   } else {
     initializeHeader();
     setupToolLinks();
+  }
+
+  // Listen for auth store changes
+  authStore.subscribe(manageAuthUI);
+  // Header background scroll effect
+  function setupHeaderScrollBg() {
+    const header = document.getElementById("mainHeader");
+    if (!header) return;
+    function onScroll() {
+      if (window.scrollY === 0) {
+        header?.classList.remove("bg-white/20", "dark:bg-[#0B1120]/20");
+        header?.classList.add("bg-transparent", "dark:bg-transparent");
+      } else {
+        header?.classList.remove("bg-transparent", "dark:bg-transparent");
+        header?.classList.add("bg-white/20", "dark:bg-[#0B1120]/20");
+      }
+    }
+    window.addEventListener("scroll", onScroll);
+    onScroll();
+  }
+
+  // Run initialization
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      initializeHeader();
+      setupToolLinks();
+      setupHeaderScrollBg();
+    });
+  } else {
+    initializeHeader();
+    setupToolLinks();
+    setupHeaderScrollBg();
   }
 
   // Listen for auth store changes

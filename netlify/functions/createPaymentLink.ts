@@ -65,8 +65,8 @@ const handler: Handler = async (event) => {
 
   try {
     // Razorpay credentials from environment variables (RENAMED: Remove PUBLIC_ prefix)
-    const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID;
-    const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET;
+    const RAZORPAY_KEY_ID = process.env.PUBLIC_RAZORPAY_KEY_ID;
+    const RAZORPAY_KEY_SECRET = process.env.PUBLIC_RAZORPAY_KEY_SECRET;
     // BASE_URL also likely shouldn't be prefixed PUBLIC_ if it's configured server-side
     const BASE_URL = process.env.BASE_URL || "http://localhost:4321"; // Ensure this is correct for prod
 
