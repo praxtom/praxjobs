@@ -20,7 +20,7 @@ const extractToken = (event: HandlerEvent): string | null => {
 
 const handler: Handler = async (event) => {
   // Define allowed origin
-  const allowedOrigin = "https://praxjobs.com"; // Your production frontend domain
+  const allowedOrigin = "https://praxjobs.com";
 
   // Set default CORS headers
   const headers = {
@@ -33,7 +33,7 @@ const handler: Handler = async (event) => {
   // Handle CORS preflight requests
   if (event.httpMethod === "OPTIONS") {
     return {
-      statusCode: 204, // No Content
+      statusCode: 204,
       headers,
     };
   }
@@ -41,7 +41,7 @@ const handler: Handler = async (event) => {
   // Validate request method
   if (event.httpMethod !== "POST") {
     return {
-      statusCode: 405, // Method Not Allowed
+      statusCode: 405,
       headers,
       body: JSON.stringify({ error: "Method not allowed. Use POST." }),
     };
@@ -60,25 +60,18 @@ const handler: Handler = async (event) => {
     };
   }
 
-  // --- Authentication removed: All requests allowed without token ---
-  // --- End Authentication ---
-
   try {
-    // Razorpay credentials from environment variables (RENAMED: Remove PUBLIC_ prefix)
     const RAZORPAY_KEY_ID = process.env.PUBLIC_RAZORPAY_KEY_ID;
     const RAZORPAY_KEY_SECRET = process.env.PUBLIC_RAZORPAY_KEY_SECRET;
-    // BASE_URL also likely shouldn't be prefixed PUBLIC_ if it's configured server-side
-    const BASE_URL = process.env.BASE_URL || "http://localhost:4321"; // Ensure this is correct for prod
+    const BASE_URL = process.env.BASE_URL || "http://localhost:8888";
 
     // Validate credentials presence
     if (!RAZORPAY_KEY_ID || !RAZORPAY_KEY_SECRET) {
-      // Log this server-side configuration error to a monitoring service
-      // Removed console.error(...)
       return {
-        statusCode: 500, // Internal Server Error
+        statusCode: 500,
         headers,
         body: JSON.stringify({
-          error: "Payment service configuration error.", // Generic message to client
+          error: "Payment service configuration error.",
         }),
       };
     }
@@ -86,9 +79,9 @@ const handler: Handler = async (event) => {
     // Generate a unique reference ID for this payment attempt
     const referenceId = generateUniqueReferenceId();
 
-    // Get pro tier price dynamically
+    // Get pro tier price
     const proTierPrice = SUBSCRIPTION_TIERS.pro.price;
-    const proTierAmountInPaise = proTierPrice * 100; // Convert price to paise for Razorpay
+    const proTierAmountInPaise = proTierPrice;
 
     // Prepare Razorpay API request options
     const paymentLinkOptions = {
@@ -104,22 +97,14 @@ const handler: Handler = async (event) => {
         amount: proTierAmountInPaise, // Use amount in paise
         currency: "INR",
         accept_partial: false,
-        // first_min_partial_amount: 0, // Not needed if accept_partial is false
         expire_by: Math.floor(Date.now() / 1000) + 24 * 60 * 60, // Link expires in 24 hours
         description: "PraxJobs Pro Subscription",
-        customer: {
-          // Fetch actual customer details if available and required by Razorpay/compliance
-          // name: 'PraxJobs User',
-          // contact: '',
-          // email: ''
-        },
         notify: {
           sms: false, // Configure as needed
           email: false, // Configure as needed
         },
         reminder_enable: false, // Configure as needed
         notes: {
-          // userId removed: authentication not required
           tier: "pro" as const,
           product: "PraxJobs Pro",
           timestamp: new Date().toISOString(), // Use ISO string for timestamp
@@ -129,10 +114,9 @@ const handler: Handler = async (event) => {
             name: "PraxJobs", // Business name displayed on checkout
           },
         },
-        // Ensure BASE_URL is correctly set in environment for production
-        callback_url: `${BASE_URL}/pricing?referenceId=${referenceId}&proUpgradeSuccess=true&tier=pro&timestamp=${Date.now()}`, // userId removed: authentication not required
+        callback_url: `${BASE_URL}/pricing?referenceId=${referenceId}&proUpgradeSuccess=true&tier=pro&timestamp=${Date.now()}`,
         callback_method: "get",
-        reference_id: referenceId, // Pass the generated unique reference ID
+        reference_id: referenceId,
       }),
     };
 
@@ -155,16 +139,12 @@ const handler: Handler = async (event) => {
         errorDetails = await response.text();
       }
 
-      // Log the detailed error to your monitoring service
-      // Removed console.error('Razorpay API Error:', errorDetails)
-
       return {
         statusCode: 502, // Bad Gateway (error from upstream service)
         headers,
         body: JSON.stringify({
           error:
             "Failed to create payment link due to an issue with the payment provider.",
-          // Avoid sending detailed provider errors ('details') to the client in production
         }),
       };
     }
@@ -174,8 +154,6 @@ const handler: Handler = async (event) => {
 
     // Check if short_url exists in the response
     if (!data || !data.short_url) {
-      // Log this unexpected response to monitoring service
-      // Removed console.error(...)
       return {
         statusCode: 500,
         headers,
@@ -194,18 +172,12 @@ const handler: Handler = async (event) => {
       }),
     };
   } catch (error) {
-    // Removed console.error('Payment link generation server error:', error);
-
-    // Log the error to your monitoring service
-    // LogToMonitoringService(error);
-
     return {
       statusCode: 500, // Internal Server Error
       headers,
       body: JSON.stringify({
         error:
           "An internal server error occurred while generating the payment link.",
-        // Avoid sending detailed error info ('details') in production
       }),
     };
   }
